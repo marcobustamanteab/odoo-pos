@@ -15,6 +15,6 @@ services:
         - ./ssl/private.key:/etc/nginx/ssl/key/ccu.cl.key
         - ./ssl/public.cer:/etc/nginx/ssl/crt/ccu.cl.cer
 
-    networks:
-      frontend:
-          name: frontend
+networks:
+  frontend:
+      name: frontend
