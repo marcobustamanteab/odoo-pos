@@ -1,14 +1,14 @@
-    nginx:      
-        container_name: nginx
-        restart: unless-stopped
-        image: nginx
-        networks:
-        - frontend
+nginx:      
+  container_name: nginx
+  restart: unless-stopped
+  image: nginx
+  networks:
+    - frontend
 
-        ports:
-            - 80:80
-            - 443:443
-        volumes:
-            - ./nginx-config/nginx_template.conf:/etc/nginx/conf.d/default.conf
-            - ./ssl/private.key:/etc/nginx/ssl/key/ccu.cl.key
-            - ./ssl/public.cer:/etc/nginx/ssl/crt/ccu.cl.cer
+  ports:
+    - 80:80
+    - 443:443
+  volumes:
+    - ./nginx-config/nginx_template.conf:/etc/nginx/conf.d/default.conf
+    - ./ssl/private.key:/etc/nginx/ssl/key/ccu.cl.key
+    - ./ssl/public.cer:/etc/nginx/ssl/crt/ccu.cl.cer
