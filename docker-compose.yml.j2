@@ -1,0 +1,39 @@
+version: '2'
+services:
+  {{ service_name }}:
+    image: odoo-pos
+    #DANGEROUS
+    user: root
+    depends_on:
+      - db
+    ports:
+      - 8069:8069
+      {%- if debug %}
+      - 8888:3001
+      {%- endif %}      
+    build:
+      context: .
+      dockerfile: Dockerfile
+      {%- if mode == 'update' %}      
+      command: -u ${MODULE} -d MASTER --test-enable --stop-after-init
+      {%- elif mode == 'install' %}
+      command: -i ${MODULE} -d MASTER --test-enable --stop-after-init
+      {%- endif %} 
+    {% if debug -%}
+    entrypoint: ['/entrypoint.sh', 'odoo', 'dev']
+    {%- else -%}
+    entrypoint: ['/entrypoint.sh', 'odoo']
+    {%- endif %}      
+    volumes:
+      - ./config:/etc/odoo
+      - ./src/custom-addons:/mnt/extra-addons/custom-addons
+      - ./src/l10n-chile:/mnt/extra-addons/l10n-chile
+  db:
+    image: postgres:11
+    environment:
+      - POSTGRES_DB={{ database.POSTGRES_DB }}
+      - POSTGRES_PASSWORD={{ database.POSTGRES_PASSWORD }}
+      - POSTGRES_USER={{ database.POSTGRES_USER }}
+      - PGDATA={{ database.PGDATA }}
+    volumes:
+

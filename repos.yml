@@ -1,0 +1,44 @@
+./src/contract:
+    remotes:
+        oca: https://github.com/OCA/contract.git
+        ursais: git+ssh://git@github.com/ursais/contract.git
+    merges:
+        - oca 12.0
+        - oca refs/pull/437/head
+        - oca refs/pull/438/head
+        - oca refs/pull/517/head
+    target: ursais ccu/12.0-RC20
+
+./src/field-service:
+    remotes:
+        oca: https://github.com/OCA/field-service.git
+        ursais: git+ssh://git@github.com/ursais/field-service.git
+    merges:
+        - oca 12.0
+        - oca refs/pull/525/head
+        - oca refs/pull/552/head
+        - oca refs/pull/553/head
+        - oca refs/pull/559/head
+        - oca refs/pull/564/head
+        - oca refs/pull/569/head
+    target: ursais ccu/12.0-RC20
+
+./src/l10n-chile:
+    remotes:
+        oca: https://github.com/OCA/l10n-chile.git
+        ursais: git+ssh://git@github.com/ursais/l10n-chile.git
+    merges:
+        - oca 12.0
+        - oca refs/pull/96/head
+        - oca refs/pull/99/head
+    target: ursais ccu/12.0-RC20
+
+./src/oca-sale-workflow:
+    remotes:
+        oca: https://github.com/OCA/sale-workflow.git
+        ursais: git+ssh://git@github.com/ursais/sale-workflow.git
+    merges:
+        - oca 12.0
+        - oca refs/pull/1132/head
+        - oca refs/pull/1139/head
+    target: ursais ccu/12.0-RC20
