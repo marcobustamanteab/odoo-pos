@@ -10,8 +10,7 @@ RUN apt-get update \
 
 # Install python libraries for base rest
 RUN python3 -m pip install --force-reinstall pip setuptools
-COPY requirements.txt requirements.txt
-RUN python3 -m pip install -r requirements.txt --ignore-installed
+RUN python3 -m pip install --force-reinstall pip python3-openssl
 
 RUN ["chmod", "+x", "/entrypoint.sh"]
 RUN ["chmod", "+x", "/usr/local/bin/wait-for-psql.py"]

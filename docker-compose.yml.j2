@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 services:
   {{ service_name }}:
     image: odoo-pos
@@ -26,14 +26,8 @@ services:
     {%- endif %}      
     volumes:
       - ./config:/etc/odoo
+      - ./enterprise:/mnt/enterprise
       - ./src/custom-addons:/mnt/extra-addons/custom-addons
       - ./src/l10n-chile:/mnt/extra-addons/l10n-chile
-  db:
-    image: postgres:11
-    environment:
-      - POSTGRES_DB={{ database.POSTGRES_DB }}
-      - POSTGRES_PASSWORD={{ database.POSTGRES_PASSWORD }}
-      - POSTGRES_USER={{ database.POSTGRES_USER }}
-      - PGDATA={{ database.PGDATA }}
-    volumes:
+
 
