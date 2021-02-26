@@ -19,6 +19,10 @@ services:
       {%- elif mode == 'install' %}
       command: -i ${MODULE} -d MASTER --test-enable --stop-after-init
       {%- endif %} 
+    networks:
+      - frontend
+      - backend
+
     {% if debug -%}
     entrypoint: ['/entrypoint.sh', 'odoo', 'dev']
     {%- else -%}
@@ -30,4 +34,7 @@ services:
       - ./src/custom-addons:/mnt/extra-addons/custom-addons
       - ./src/l10n-chile:/mnt/extra-addons/l10n-chile
 
-
+networks:
+  backend:
+    external:
+      name: backend
