@@ -4,8 +4,6 @@ services:
     image: odoo-pos
     #DANGEROUS
     user: root
-    depends_on:
-      - db
     ports:
       - 8069:8069
       {%- if debug %}
