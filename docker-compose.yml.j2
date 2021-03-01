@@ -2,17 +2,18 @@ version: '3'
 services:
   {{ service_name }}:
     image: odoo-pos
-    #DANGEROUS
+    container_name: {{ container_name }}
+
     user: root
     ports:
       - 8069:8069
       {%- if debug %}
       - 8888:3001
-      {%- endif %}      
+      {%- endif %}
     build:
       context: .
       dockerfile: Dockerfile
-      {%- if mode == 'update' %}      
+      {%- if mode == 'update' %}
       command: -u ${MODULE} -d MASTER --test-enable --stop-after-init
       {%- elif mode == 'install' %}
       command: -i ${MODULE} -d MASTER --test-enable --stop-after-init
@@ -32,6 +33,19 @@ services:
       - ./src/custom-addons:/mnt/extra-addons/custom-addons
       - ./src/l10n-chile:/mnt/extra-addons/l10n-chile
 
+  nginx:      
+    container_name: nginx
+    restart: unless-stopped
+    image: nginx
+    networks:
+      - frontend
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./nginx/nginx-config/nginx_template.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx/ssl/private.key:/etc/nginx/ssl/key/ccu.cl.key
+      - ./nginx/ssl/public.cer:/etc/nginx/ssl/crt/ccu.cl.cer
 
 networks:
   frontend:

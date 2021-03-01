@@ -1,9 +1,9 @@
 #odoo server
 upstream odoo {
-server odoo:8069;
+server {{ container_name }}:8069;
 }
 upstream odoochat {
-server odoo:8072;
+server {{ container_name }}:8072;
 }
 
 # http -> https
