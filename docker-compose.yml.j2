@@ -32,7 +32,11 @@ services:
       - ./src/custom-addons:/mnt/extra-addons/custom-addons
       - ./src/l10n-chile:/mnt/extra-addons/l10n-chile
 
+
 networks:
+  frontend:
+      name: frontend
+
   backend:
     external:
       name: backend
