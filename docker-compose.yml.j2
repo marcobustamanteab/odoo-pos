@@ -1,28 +1,28 @@
 version: '3'
 services:
-  {{ service_name }}:
+  {{ odoo.service_name }}:
     image: odoo-pos
-    container_name: {{ container_name }}
+    container_name: {{ odoo.container_name }}
 
     user: root
     ports:
       - 8069:8069
-      {%- if debug %}
+      {%- if odoo.debug %}
       - 8888:3001
       {%- endif %}
     build:
       context: .
       dockerfile: Dockerfile
-      {%- if mode == 'update' %}
+      {%- if odoo.mode == 'update' %}
       command: -u ${MODULE} -d MASTER --test-enable --stop-after-init
-      {%- elif mode == 'install' %}
+      {%- elif odoo.mode == 'install' %}
       command: -i ${MODULE} -d MASTER --test-enable --stop-after-init
       {%- endif %} 
     networks:
       - frontend
       - backend
 
-    {% if debug -%}
+    {% if odoo.debug -%}
     entrypoint: ['/entrypoint.sh', 'odoo', 'dev']
     {%- else -%}
     entrypoint: ['/entrypoint.sh', 'odoo']
@@ -31,21 +31,20 @@ services:
       - ./config:/etc/odoo
       - ./enterprise:/mnt/enterprise
       - ./src/custom-addons:/mnt/extra-addons/custom-addons
-      - ./src/l10n-chile:/mnt/extra-addons/l10n-chile
 
-  nginx:      
-    container_name: nginx
+  {{ nginx.service_name }}:     
+    container_name: {{ nginx.container_name }}
     restart: unless-stopped
-    image: nginx
+    image: nginx:latest
     networks:
       - frontend
     ports:
       - 80:80
       - 443:443
     volumes:
-      - ./nginx/nginx-config/nginx_template.conf:/etc/nginx/conf.d/default.conf
-      - ./nginx/ssl/private.key:/etc/nginx/ssl/key/ccu.cl.key
-      - ./nginx/ssl/public.cer:/etc/nginx/ssl/crt/ccu.cl.cer
+      - ./nginx/nginx-config/nginx_template.conf:{{ nginx.path_config }}
+      - ./nginx/ssl/private.key:{{ nginx.path_ssl_certificate_key }}
+      - ./nginx/ssl/public.cer:{{ nginx.path_ssl_certificate }}
 
 networks:
   frontend:

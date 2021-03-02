@@ -1,20 +1,20 @@
 version: "3"
 services:
-  db:
+  {{ database.service_name }}::
     image: postgres:11
-    container_name: pgsql11
+    container_name: {{ database.container_name }}
     networks:
       - backend
     volumes:
-      - db-data:/var/lib/postgresql/data/pgdata
+      - db-data:{{ databse.PGDATA }}
     ports:
-      - 5432:5432/tcp
+      - {{ database.POSTGRES_DB_PORT }}:{{ database.POSTGRES_DB_PORT }}/tcp
     environment:
       - POSTGRES_DB={{ database.POSTGRES_DB }}
       - POSTGRES_PASSWORD={{ database.POSTGRES_PASSWORD }}
       - POSTGRES_USER={{ database.POSTGRES_USER }}
       - PGDATA={{ database.PGDATA }}
-      - POSTGRES_EXTRA_OPTS= '--schema=public --blobs'
+      - POSTGRES_EXTRA_OPTS= {{ database.POSTGRES_EXTRA_OPTS }}
 
 volumes:
   db-data:
