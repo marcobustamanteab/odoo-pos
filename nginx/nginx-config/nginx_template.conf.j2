@@ -1,9 +1,9 @@
 #odoo server
 upstream odoo {
-server {{ nginx.server_name }}:8069;
+server {{ nginx.container_name }}:8069;
 }
 upstream odoochat {
-server {{ nginx.server_name }}:8072;
+server {{ nginx.container_name }}:8072;
 }
 
 # http -> https
