@@ -4,9 +4,9 @@
 - Jinja 2
 
 # ODOO
-
+'''
 sudo su
-
+''''
 
 # crear directorio de trabajo
 mkdir /opt/odoo
