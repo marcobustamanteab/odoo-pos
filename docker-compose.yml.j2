@@ -7,22 +7,22 @@ services:
     user: root
     ports:
       - 8069:8069
-      {%- if odoo.debug %}
+      {%- if debug %}
       - 8888:3001
       {%- endif %}
     build:
       context: .
       dockerfile: Dockerfile
-      {%- if odoo.mode == 'update' %}
+      {%- if mode == 'update' %}
       command: -u ${MODULE} -d MASTER --test-enable --stop-after-init
-      {%- elif odoo.mode == 'install' %}
+      {%- elif mode == 'install' %}
       command: -i ${MODULE} -d MASTER --test-enable --stop-after-init
       {%- endif %} 
     networks:
       - frontend
       - backend
 
-    {% if odoo.debug -%}
+    {% if debug -%}
     entrypoint: ['/entrypoint.sh', 'odoo', 'dev']
     {%- else -%}
     entrypoint: ['/entrypoint.sh', 'odoo']
