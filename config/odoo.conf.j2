@@ -1,7 +1,7 @@
 [options]
 admin_passwd = {{ odoo.admin_password }}.
 addons_path = {{ odoo.addons_path }}
-db_host = {{ database.service_name }}
+db_host = {{ database.container_name }}
 db_maxconn = 6
 db_name = {{ database.POSTGRES_DB }}
 db_port = 5432
