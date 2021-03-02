@@ -50,7 +50,7 @@ sudo chmod +x /usr/local/bin/docker-compose
 docker-compose --version
 ```
 
-# ODOO
+# ODOO  + POSGRESQL + NGINX
 
 * Como sudo
 
