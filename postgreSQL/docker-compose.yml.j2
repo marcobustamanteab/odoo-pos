@@ -6,7 +6,7 @@ services:
     networks:
       - backend
     volumes:
-      - db-data:{{ databse.PGDATA }}
+      - db-data:{{ database.PGDATA }}
     ports:
       - {{ database.POSTGRES_DB_PORT }}:{{ database.POSTGRES_DB_PORT }}/tcp
     environment:
