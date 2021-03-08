@@ -1,0 +1,517 @@
+{
+  'HEADER': {
+    'ID_MENSAJE': '0 ',
+    'MENSAJE': 'OK',
+    'FECHA': '20210218',
+    'SOCIEDAD': 'OK',
+    'LEGADO': 'BUS',
+    'CODIGO_INTERFAZ': 'ITD_009'
+  },
+  'CosulMat': {
+    'Centro': '9001',
+    'Almacen': 'PT01',
+    'TabMate': {
+      'Material': 'ET17612',
+      'Stock': '10101.000 ',
+      'Codigo': '0 ',
+      'Mensaje': 'OK'
+    }
+  }
+}
+
+{
+  'HEADER': {
+    'ID_MENSAJE': '0 ',
+    'MENSAJE': 'OK',
+    'FECHA': '20210218',
+    'SOCIEDAD': 'OK',
+    'LEGADO': 'BUS',
+    'CODIGO_INTERFAZ': 'ITD_009'
+  },
+  'CosulMat': [
+    {
+      'Centro': '9001',
+      'Almacen': 'PT01',
+      'TabMate': [
+        {
+          'Material': 'ET17612',
+          'Stock': '10101.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET8702357',
+          'Stock': '0 ',
+          'Codigo': '4 ',
+          'Mensaje': 'Material no se encuentra para centro o almacen'
+        },
+        {
+          'Material': 'ET9199',
+          'Stock': '729.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET47694',
+          'Stock': '10118.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET47708',
+          'Stock': '8.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET9156',
+          'Stock': '148.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET17434',
+          'Stock': '10491.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET47147',
+          'Stock': '0 ',
+          'Codigo': '4 ',
+          'Mensaje': 'Material no se encuentra para centro o almacen'
+        },
+        {
+          'Material': 'ET49182',
+          'Stock': '0 ',
+          'Codigo': '4 ',
+          'Mensaje': 'Material no se encuentra para centro o almacen'
+        },
+        {
+          'Material': 'ET4976K',
+          'Stock': '0 ',
+          'Codigo': '4 ',
+          'Mensaje': 'Material no se encuentra para centro o almacen'
+        },
+        {
+          'Material': 'ET47155',
+          'Stock': '0 ',
+          'Codigo': '4 ',
+          'Mensaje': 'Material no se encuentra para centro o almacen'
+        },
+        {
+          'Material': 'ET49190',
+          'Stock': '0 ',
+          'Codigo': '4 ',
+          'Mensaje': 'Material no se encuentra para centro o almacen'
+        },
+        {
+          'Material': 'ET9393',
+          'Stock': '191.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET16632',
+          'Stock': '0 ',
+          'Codigo': '4 ',
+          'Mensaje': 'Material no se encuentra para centro o almacen'
+        },
+        {
+          'Material': 'ET9350',
+          'Stock': '134.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET17760',
+          'Stock': '10355.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET8702039',
+          'Stock': '1290.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET11525',
+          'Stock': '387.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET8702063',
+          'Stock': '10458.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET12378',
+          'Stock': '279.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET9059',
+          'Stock': '10119.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET18228',
+          'Stock': '10747.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET10685',
+          'Stock': '15.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        }
+      ]
+    },
+    {
+      'Centro': '2301',
+      'Almacen': 'PT01',
+      'TabMate': [
+        {
+          'Material': '450229',
+          'Stock': '11784.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': '450230',
+          'Stock': '314.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        }
+      ]
+    },
+    {
+      'Centro': '9001',
+      'Almacen': 'PT01',
+      'TabMate': [
+        {
+          'Material': 'ET11754',
+          'Stock': '91.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET17108',
+          'Stock': '139.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET9539',
+          'Stock': '356.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET16543',
+          'Stock': '250.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET16640',
+          'Stock': '2.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET9571',
+          'Stock': '291.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET17450',
+          'Stock': '1006.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET10073',
+          'Stock': '640.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET13218',
+          'Stock': '12.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET10057',
+          'Stock': '174.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET14486',
+          'Stock': '708.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET8706530',
+          'Stock': '0 ',
+          'Codigo': '4 ',
+          'Mensaje': 'Material no se encuentra para centro o almacen'
+        },
+        {
+          'Material': 'ET8706565',
+          'Stock': '0 ',
+          'Codigo': '4 ',
+          'Mensaje': 'Material no se encuentra para centro o almacen'
+        },
+        {
+          'Material': 'ET8706557',
+          'Stock': '0 ',
+          'Codigo': '4 ',
+          'Mensaje': 'Material no se encuentra para centro o almacen'
+        },
+        {
+          'Material': 'ET8702470',
+          'Stock': '0 ',
+          'Codigo': '4 ',
+          'Mensaje': 'Material no se encuentra para centro o almacen'
+        },
+        {
+          'Material': 'ET870662K',
+          'Stock': '0 ',
+          'Codigo': '4 ',
+          'Mensaje': 'Material no se encuentra para centro o almacen'
+        },
+        {
+          'Material': 'ET8706611',
+          'Stock': '0 ',
+          'Codigo': '4 ',
+          'Mensaje': 'Material no se encuentra para centro o almacen'
+        },
+        {
+          'Material': 'ET17140',
+          'Stock': '73.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET9296',
+          'Stock': '354.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET47848',
+          'Stock': '10000.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET47856',
+          'Stock': '9.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET9253',
+          'Stock': '265.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET17442',
+          'Stock': '11207.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET17124',
+          'Stock': '250.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET47929',
+          'Stock': '39.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET11061',
+          'Stock': '391.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET16578',
+          'Stock': '349.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET16675',
+          'Stock': '21.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET13250',
+          'Stock': '424.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET17566',
+          'Stock': '10703.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET47384',
+          'Stock': '10681.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET1365K',
+          'Stock': '3.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET8706891',
+          'Stock': '136.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET8706905',
+          'Stock': '10585.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET870693K',
+          'Stock': '10199.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET1530K',
+          'Stock': '0 ',
+          'Codigo': '4 ',
+          'Mensaje': 'Material no se encuentra para centro o almacen'
+        },
+        {
+          'Material': 'ET15318',
+          'Stock': '0 ',
+          'Codigo': '4 ',
+          'Mensaje': 'Material no se encuentra para centro o almacen'
+        },
+        {
+          'Material': 'ET8753679',
+          'Stock': '6.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET16012',
+          'Stock': '395.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET8700028',
+          'Stock': '213.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET12580',
+          'Stock': '393.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET16004',
+          'Stock': '7220.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET18236',
+          'Stock': '10778.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET16047',
+          'Stock': '523.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET16020',
+          'Stock': '1810.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET8700729',
+          'Stock': '359.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET16039',
+          'Stock': '1997.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET8703396',
+          'Stock': '172.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET14737',
+          'Stock': '10830.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET1124K',
+          'Stock': '10178.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET15881',
+          'Stock': '10143.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        },
+        {
+          'Material': 'ET1267K',
+          'Stock': '11710.000 ',
+          'Codigo': '0 ',
+          'Mensaje': 'OK'
+        }
+      ]
+    }
+  ]
+}
+
+
+
+

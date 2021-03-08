@@ -1,0 +1,75 @@
+<odoo>
+    <record model="ir.ui.view" id="integration_task_definition_tree">
+        <field name="name">Integraion Task Definition</field>
+        <field name="model">integration.task.definition</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Integration Task Definition">
+                <field name="name"/>
+                <field name="business_logic"/>
+                <field name="company_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="integration_task_definition_form">
+        <field eval="True" name="active"/>
+        <field eval="[(6, 0, [])]" name="groups_id"/>
+        <field name="mode">primary</field>
+        <field name="name">Integration Task Definition Form</field>
+        <field name="model">integration.task.definition</field>
+        <field name="priority">16</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_perform_task" type="object" string="Perform Task" class="btn btn-primary"/>
+                </header>
+                <sheet string="Task Definition">
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="company_id"/>
+                            <field name="business_logic"/>
+                            <!--                            <field name="type"/>-->
+                            <field name="description"/>
+                            <!--                            <field name="interval_number"/>-->
+                            <!--                            <field name="interval_type"/>-->
+                            <field name="request_id"/>
+                            <field name="id" invisible="True"/>
+                        </group>
+                        <group>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Parameters">
+                            <group>
+                                <field name="param_line_ids" context="{'parent_id':'id'}">
+                                    <tree editable="bottom">
+                                        <field name="scope"/>
+                                        <field name="key"/>
+                                        <field name="value_type"/>
+                                        <field name="value"/>
+                                    </tree>
+                                </field>
+                            </group>
+<!--                            <group>-->
+<!--                                <field name="center_codes"/>-->
+<!--                                <field name="warehouse_codes"/>-->
+<!--                            </group>-->
+                        </page>
+                        <page string="Code">
+                            <field name="code" widget="ace" options="{'mode': 'python'}"
+                                   placeholder="Enter Python code here. Help about Python expression is available in the help tab of this document."/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

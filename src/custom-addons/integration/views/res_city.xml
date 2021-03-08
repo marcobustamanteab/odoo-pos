@@ -1,0 +1,46 @@
+<odoo>
+    <record model="ir.ui.view" id="res_city_tree">
+        <field name="name">Cities</field>
+        <field name="model">res.city</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Task Definition">
+                <field name="name"/>
+                <field name="state_id"/>
+                <field name="country_id"/>
+                <field name="zipcode"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="res_city_form">
+        <field eval="True" name="active"/>
+        <field eval="[(6, 0, [])]" name="groups_id"/>
+        <field name="mode">primary</field>
+        <field name="name">Cities</field>
+        <field name="model">res.city</field>
+        <field name="priority">16</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                </header>
+                <sheet string="Task Definition">
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="state_id"/>
+                            <field name="country_id"/>
+                            <field name="zipcode"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>

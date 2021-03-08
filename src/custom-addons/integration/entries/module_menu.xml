@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+
+    <menuitem id="res_city_menu" name="City"
+        parent="contacts.menu_localisation"
+        sequence="30"
+        action="action_res_city_integration_tree"/>
+
+    <menuitem id="integration_module"
+        name="Integration Layer"
+        web_icon="integration,static/description/icon.png"/>
+
+        <menuitem id="integration_main_data_module"
+            name="Main Data"
+            parent="integration_module"/>
+
+            <menuitem id="integration_endpoint" name="Endpoint"
+                parent="integration_main_data_module"
+                sequence="10"
+                action="integration_endpoint_action"/>
+
+            <menuitem id="integration_request" name="Request"
+                parent="integration_main_data_module"
+                sequence="20"
+                action="integration_request_action"/>
+
+            <menuitem id="integration_task_definition" name="Task Definition"
+                parent="integration_main_data_module"
+                sequence="30"
+                action="integration_task_definition_action"/>
+
+            <menuitem id="integration_request_log" name="Log"
+                parent="integration_main_data_module"
+                sequence="40"
+                action="integration_request_log_action"/>
+
+        <menuitem id="integration_setting_menu_module"
+            name="Configuration"
+            parent="integration_module"/>
+
+            <menuitem id="integration_settings" name="Settings"
+                parent="integration_setting_menu_module"
+                sequence="30"
+                action="integration_settings_action"/>
+
+
+</odoo>

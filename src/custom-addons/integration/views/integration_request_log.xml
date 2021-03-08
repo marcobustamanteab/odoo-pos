@@ -1,0 +1,68 @@
+<odoo>
+    <record model="ir.ui.view" id="integration_request_log_tree">
+        <field name="name">Integration Request Log</field>
+        <field name="model">integration.request.log</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Integration Request Log">
+                <field name="create_date"/>
+                <field name="request_id"/>
+                <field name="http_response"/>
+                <field name="short_result"/>
+                <field name="result" optional="hidden"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="integration_request_log_form">
+        <field eval="True" name="active"/>
+        <field eval="[(6, 0, [])]" name="groups_id"/>
+        <field name="mode">primary</field>
+        <field name="name">Integration Request Log Form</field>
+        <field name="model">integration.request.log</field>
+        <field name="priority">16</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                </header>
+                <sheet string="Integration Request">
+                    <group>
+                        <group>
+                            <field name="request_id"/>
+                            <field name="http_response"/>
+                            <field name="response"/>
+                            <field name="result" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="integration_request_log_pivot">
+        <field name="name">integration.request.log.pivot</field>
+        <field name="model">integration.request.log</field>
+        <field name="arch" type="xml">
+            <pivot string="Log Request" disable_linking="True">
+                <field name="http_response" type="col"/>
+                <field name="request_id" type="row"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="integration_request_log_view_graph">
+        <field name="name">integration.request.log.graph</field>
+        <field name="model">integration.request.log</field>
+        <field name="arch" type="xml">
+            <graph string="service_log_view_graph" type="line">
+                <field name="create_date" interval="day"/>
+                <field name="request_id" type="row"/>
+                <field name="http_response" type="row"/>
+                <field name="count" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+
+</odoo>

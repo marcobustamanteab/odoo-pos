@@ -1,0 +1,40 @@
+<odoo>
+    <record model="ir.ui.view" id="integration_settings_tree">
+        <field name="name">Integration Settings</field>
+        <field name="model">integration.settings</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Integration Settings">
+                <field name="company_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="integration_settings_form">
+        <field eval="True" name="active"/>
+        <field eval="[(6, 0, [])]" name="groups_id"/>
+        <field name="mode">primary</field>
+        <field name="name">Integration Settings Form</field>
+        <field name="model">integration.settings</field>
+        <field name="priority">16</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                </header>
+                <sheet string="Integration Settings">
+                    <div class="oe_title">
+                        <h1>
+                            <field name="company_id"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="sync_stock_qty"/>
+                        <field name="increase_picking_type_id" attrs="{'invisible':[('sync_stock_qty','=','False')]}"/>
+                        <field name="decrease_picking_type_id" attrs="{'invisible':[('sync_stock_qty','=','False')]}"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

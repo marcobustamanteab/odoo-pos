@@ -1,0 +1,17 @@
+<odoo>
+    <record model="ir.ui.view" id="product_template_integration_form_view">
+        <field name="name">product.template.product.integration.form</field>
+        <field name="model">product.template</field>
+        <field name="priority">16</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='inventory']" position="after">
+                <page string="Synchronization" name="synchronization">
+                    <group>
+                        <field name="sync_stock_qty"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

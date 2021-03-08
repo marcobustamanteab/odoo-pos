@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+    <data>
+        <!-- INTEGRATION SETTINGS -->
+        <record model="ir.actions.act_window" id="integration_settings_action">
+            <field name="binding_type">action</field>
+            <field name="context">{}</field>
+            <field eval="[(6, 0, [])]" name="groups_id"/>
+            <field name="help"><![CDATA[Integration Settings]]></field>
+            <field name="limit">80</field>
+            <field name="name">Integration Settings</field>
+            <field name="res_model">integration.settings</field>
+            <field name="target">current</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <!-- INTEGRATION TASK DEFINITION -->
+        <record model="ir.actions.act_window" id="integration_task_definition_action">
+            <field name="binding_type">action</field>
+            <field name="context">{}</field>
+            <field eval="[(6, 0, [])]" name="groups_id"/>
+            <field name="limit">80</field>
+            <field name="help"><![CDATA[Integration Task Definition]]></field>
+            <field name="name">Integration Task Definition</field>
+            <field name="res_model">integration.task.definition</field>
+            <field name="target">current</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <!-- INTEGRATION ENDPOINT -->
+        <record model="ir.actions.act_window" id="integration_endpoint_action">
+            <field name="binding_type">action</field>
+            <field name="context">{}</field>
+            <field eval="[(6, 0, [])]" name="groups_id"/>
+            <field name="help"><![CDATA[Integration Endpoint]]></field>
+            <field name="limit">80</field>
+            <field name="name">Integration Endpoint</field>
+            <field name="res_model">integration.endpoint</field>
+            <field name="target">current</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <!-- INTEGRATION REQUEST -->
+        <record model="ir.actions.act_window" id="integration_request_action">
+            <field name="binding_type">action</field>
+            <field name="context">{}</field>
+            <field eval="[(6, 0, [])]" name="groups_id"/>
+            <field name="help"><![CDATA[Integration Request]]></field>
+            <field name="limit">80</field>
+            <field name="name">Integration Request</field>
+            <field name="res_model">integration.request</field>
+            <field name="target">current</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <!-- INTEGRATION REQUEST LOG -->
+        <record model="ir.actions.act_window" id="integration_request_log_action">
+            <field name="binding_type">action</field>
+            <field name="context">{}</field>
+            <field eval="[(6, 0, [])]" name="groups_id"/>
+            <field name="help"><![CDATA[Integration Request Log]]></field>
+            <field name="limit">80</field>
+            <field name="name">Integration Request Log</field>
+            <field name="res_model">integration.request.log</field>
+            <field name="target">current</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form,pivot,graph</field>
+        </record>
+        <!-- -->
+        <record id="action_res_city_integration_tree" model="ir.actions.act_window">
+            <field name="name">Cities</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.city</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help">
+                Display and manage the list of all cities that can be assigned to
+                your partner records. Note that an option can be set on each country separately
+                to enforce any address of it to have a city in this list.
+            </field>
+        </record>
+    </data>
+</odoo>
