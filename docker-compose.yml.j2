@@ -1,7 +1,7 @@
 version: '3'
 services:
   {{ odoo.service_name }}:
-    image: wso2qa4.ccu.cl:5000/odoo:ccu_pos-[SHA]
+    image: wso2qa4.ccu.cl:5000/odoo:ccu_pos-$SHA
     container_name: {{ odoo.container_name }}
     user: root
     ports:
