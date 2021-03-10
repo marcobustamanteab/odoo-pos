@@ -1,36 +1,18 @@
 version: '3'
 services:
   {{ odoo.service_name }}:
-    image: odoo-pos
+    image: wso2qa4.ccu.cl:5000/odoo:ccu_pos-[SHA]
     container_name: {{ odoo.container_name }}
-
     user: root
     ports:
       - 8069:8069
       {%- if debug %}
       - 8888:3001
       {%- endif %}
-    build:
-      context: .
-      dockerfile: Dockerfile
-      {%- if mode == 'update' %}
-      command: -u ${MODULE} -d MASTER --test-enable --stop-after-init
-      {%- elif mode == 'install' %}
-      command: -i ${MODULE} -d MASTER --test-enable --stop-after-init
-      {%- endif %} 
     networks:
       - frontend
       - backend
-
-    {% if debug -%}
-    entrypoint: ['/entrypoint.sh', 'odoo', 'dev']
-    {%- else -%}
-    entrypoint: ['/entrypoint.sh', 'odoo']
-    {%- endif %}      
-    volumes:
-      - ./config:/etc/odoo
-      - ./enterprise:/mnt/enterprise
-      - ./src/custom-addons:/mnt/extra-addons/custom-addons
+    entrypoint: ['/entrypoint.sh', 'odoo']  
 
   {{ nginx.service_name }}:     
     container_name: {{ nginx.container_name }}
