@@ -12,7 +12,21 @@ services:
     networks:
       - frontend
       - backend
-    entrypoint: ['/entrypoint.sh', 'odoo']  
+    entrypoint: ['/entrypoint.sh', 'odoo'] 
+
+  {{ nginx.service_name }}:     
+    container_name: {{ nginx.container_name }}
+    restart: unless-stopped
+    image: nginx:latest
+    networks:
+      - frontend
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./nginx/nginx-config/nginx_template.conf:{{ nginx.path_config }}
+      - ./nginx/ssl/private.key:{{ nginx.path_ssl_certificate_key }}
+      - ./nginx/ssl/public.cer:{{ nginx.path_ssl_certificate }}
 
 networks:
   frontend:
