@@ -8,9 +8,7 @@ COPY src/custom-addons  /mnt/extra-addons/custom-addons
 
 # forward request and error logs to docker log collector
 RUN ln -sf /dev/stdout /var/log/odoo/odoo.log \
-    && ln -sf /dev/stderr /var/log/odoo/odoo.log
-
-USER odoo    
+    && ln -sf /dev/stderr /var/log/odoo/odoo.log 
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["odoo"]
