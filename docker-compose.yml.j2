@@ -13,7 +13,7 @@ services:
       - odoo-pos
     entrypoint: ['/entrypoint.sh', 'odoo', '-d', 'MASTER'] 
     volumes:
-      - ./logs:/var/log/odoo
+      - ./logs:/mnt/log
 
   {{ nginx.service_name }}:     
     container_name: {{ nginx.container_name }}
