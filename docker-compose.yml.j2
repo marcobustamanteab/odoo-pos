@@ -11,9 +11,9 @@ services:
       {%- endif %}
     networks:
       - odoo-pos
-    volumes:
-      - ./logs:/var/log/odoo      
     entrypoint: ['/entrypoint.sh', 'odoo', '-d', 'MASTER'] 
+    #volumes:
+    #  - ./logs:/var/log/odoo
 
   {{ nginx.service_name }}:     
     container_name: {{ nginx.container_name }}
