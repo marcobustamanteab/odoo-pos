@@ -3,7 +3,7 @@ services:
   {{ odoo.service_name }}:
     image: wso2qa4.ccu.cl:5000/odoo:ccu_pos-$SHA
     container_name: {{ odoo.container_name }}
-    user: root
+    #user: root
     ports:
       - 8069:8069
       {%- if debug %}
@@ -12,8 +12,8 @@ services:
     networks:
       - odoo-pos
     entrypoint: ['/entrypoint.sh', 'odoo', '-d', 'MASTER'] 
-    #volumes:
-    #  - ./logs:/var/log/odoo
+    volumes:
+      - ./logs:/var/log/odoo
 
   {{ nginx.service_name }}:     
     container_name: {{ nginx.container_name }}
