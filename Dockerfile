@@ -14,7 +14,7 @@ RUN set -x \
     && sed -ri \
     -e 's!^(\s*odoo)\s+\S+!\1 /proc/self/fd/1!g' \
     -e 's!^(\s*odoo)\s+\S+!\1 /proc/self/fd/2!g' \
-    "/var/log/odoo"    
+    "/var/log/odoo/odoo.log"    
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["odoo"]
