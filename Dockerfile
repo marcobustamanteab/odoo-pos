@@ -10,5 +10,11 @@ COPY src/custom-addons  /mnt/extra-addons/custom-addons
 RUN ln -sf /dev/stdout /var/log/odoo/odoo.log \
     && ln -sf /dev/stderr /var/log/odoo/odoo.log
 
+RUN set -x \
+    && sed -ri \
+    -e 's!^(\s*odoo)\s+\S+!\1 /proc/self/fd/1!g' \
+    -e 's!^(\s*odoo)\s+\S+!\1 /proc/self/fd/2!g' \
+    "/var/log/odoo"    
+
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["odoo"]
