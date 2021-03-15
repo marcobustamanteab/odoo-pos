@@ -3,7 +3,7 @@ services:
   {{ odoo.service_name }}:
     image: wso2qa4.ccu.cl:5000/odoo:ccu_pos-$SHA
     container_name: {{ odoo.container_name }}
-    #user: root
+    user: odoo
     ports:
       - 8069:8069
       {%- if debug %}
