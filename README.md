@@ -2,7 +2,7 @@
 
 - docker
 - docker-compose
-- Jinja 2.
+- Jinja 2
 
 # Instalación de Docker
 
