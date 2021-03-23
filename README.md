@@ -2,7 +2,7 @@
 
 - docker
 - docker-compose
-- Jinja 2.
+- Jinja 2
 
 # Instalación de Docker
 
@@ -52,7 +52,7 @@ sudo chmod +x /usr/local/bin/docker-compose
 docker-compose --version
 ```
 
-# ODOO + POSGRESQL + NGINX
+# ODOO + NGINX
 
 - Como sudo
 
@@ -64,14 +64,6 @@ sudo su
 
 ```bash
 mkdir /opt/odoo
-```
-
-- Habilitar PostgreSQL
-
-```bash
-cd /opt/odoo/odoo-pos/postgreSQL
-j2 docker-compose.yml.j2 ../env.json > ./docker-compose.yml
-docker-compose up -d
 ```
 
 - NGINX Config
