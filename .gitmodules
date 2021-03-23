@@ -1,4 +1,0 @@
-[submodule "enterprise"]
-	path = enterprise
-	url = https://github.com/odoo/enterprise.git
-	branch = 14.0
