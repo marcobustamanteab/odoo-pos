@@ -1,4 +1,4 @@
-FROM wso2qa4.ccu.cl:5000/odoo:ccu_enterprise-14.0
+FROM wso2qa4.ccu.cl:5000/pos-odoo-img
 
 # Set default user when running the container
 #USER root
