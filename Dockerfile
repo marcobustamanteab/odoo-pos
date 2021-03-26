@@ -1,17 +1,13 @@
-FROM odoo:14.0
+FROM wso2qa4.ccu.cl:5000/pos-odoo-img
 
 # Set default user when running the container
-USER root
+#USER root
 
-# Install some deps, lessc and less-plugin-clean-css, and wkhtmltopdf
-RUN apt-get update \
-        && apt-get install -y --no-install-recommends \
-            python3-cachetools
+COPY config             /etc/odoo
+COPY src/custom-addons  /mnt/extra-addons/custom-addons
 
-# Install python libraries for base rest
-RUN python3 -m pip install --force-reinstall pip setuptools
-RUN apt-get install -y python3-openssl
+# forward request and error logs to docker log collector
+RUN ln -sf /dev/stdout /var/log/odoo/odoo.log
 
-
-RUN ["chmod", "+x", "/entrypoint.sh"]
-RUN ["chmod", "+x", "/usr/local/bin/wait-for-psql.py"]
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["odoo"]

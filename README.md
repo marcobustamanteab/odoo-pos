@@ -1,13 +1,15 @@
-# requisitos previos
+# Requisitos previos
+
 - docker
 - docker-compose
 - Jinja 2
-- 
+
 # Instalación de Docker
 
 Referencia: https://docs.docker.com/engine/install/ubuntu/
 
-* con usuario root
+- con usuario root
+
 ```bash
 apt-get update
 
@@ -17,7 +19,7 @@ sudo apt-get install \
     curl \
     gnupg-agent \
     software-properties-common
-    
+
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
 sudo apt-key fingerprint 0EBFCD88
@@ -36,7 +38,7 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io
 docker --version
 ```
 
-* Instalación de docker-compose
+- Instalación de docker-compose
 
 Referencia: https://docs.docker.com/compose/install/
 
@@ -50,39 +52,36 @@ sudo chmod +x /usr/local/bin/docker-compose
 docker-compose --version
 ```
 
-# ODOO  + POSGRESQL + NGINX
+# ODOO + NGINX
 
-* Como sudo
+- Como sudo
 
 ```bash
 sudo su
 ```
 
-* crear directorio de trabajo
+- crear directorio de trabajo
+
 ```bash
 mkdir /opt/odoo
 ```
 
-* Habilitar PostgreSQL
-```bash
-cd /opt/odoo/odoo-pos/postgreSQL
-j2 docker-compose.yml.j2 ../env.json > ./docker-compose.yml
-docker-compose up -d
-```
+- NGINX Config
 
-* NGINX Config
 ```bash
 cd /opt/odoo/odoo-pos/nginx/nginx-config
 j2 nginx_template.conf.j2 ../../env.json > nginx_template.conf
 ```
 
-* ODOO Config
+- ODOO Config
+
 ```bash
 cd /opt/odoo/odoo-pos/config
 j2 odoo.conf.j2 ../env.json > odoo.conf
 ```
 
-* ODOO docker-compose
+- ODOO docker-compose
+
 ```bash
 cd /opt/odoo/odoo-pos
 j2 docker-compose.yml.j2 env.json > docker-compose.yml
