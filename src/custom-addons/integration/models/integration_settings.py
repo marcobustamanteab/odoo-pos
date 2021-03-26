@@ -5,7 +5,7 @@ class IntegrationSettings(models.Model):
     _name = "integration.settings"
     _description = "Settings for Integration"
 
-    company_id = fields.Many2one('res.company')
+    company_id = fields.Many2one('res.company', default=lambda self: self.env.user.company_id.id)
     name = fields.Char("Name", related="company_id.name", store=True)
     increase_picking_type_id = fields.Many2one('stock.picking.type', string="Increase Picking Type" )
     decrease_picking_type_id = fields.Many2one('stock.picking.type', string="Decrease Picking Type" )

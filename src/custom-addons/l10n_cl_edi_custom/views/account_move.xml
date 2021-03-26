@@ -1,0 +1,17 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="view_out_invoice_l10n_cl_edi_custom_tree">
+            <field name="name">account.move.l10n_cl_edi.custom.form</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_out_invoice_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='payment_state']" position="after">
+                    <field name="l10n_cl_dte_status" />
+                    <field name="l10n_cl_dte_acceptation_status" />
+                    <field name="l10n_cl_claim" />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

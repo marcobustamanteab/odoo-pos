@@ -3,12 +3,13 @@ import json
 import sys
 from base64 import b64encode
 from urllib.parse import urlencode
-
-import requests
+import logging
 
 from odoo import models, fields, api
 from odoo.exceptions import UserError
 import urllib3
+
+_logger = logging.getLogger(__name__)
 
 class IntegrationRequest(models.Model):
     _name = 'integration.request'
@@ -26,6 +27,7 @@ class IntegrationRequest(models.Model):
     endpoint_host = fields.Char("Host", store=True, related="endpoint_id.host")
     endpoint_port = fields.Integer("Port", store=True, related="endpoint_id.port")
     resource = fields.Char("Resource")
+    ref = fields.Char("Reference")
     url = fields.Char("URL")
     method = fields.Selection(
         [
@@ -58,7 +60,7 @@ class IntegrationRequest(models.Model):
 
     @api.onchange('endpoint_id','resource','endpoint_host','endpoint_port')
     def _calculate_url(self):
-        self.url = "%s:%s/%s" %(self.endpoint_host, self.endpoint_port, self.resource.strip("/") if self.resource else "")
+        self.url = "%s%s/%s" %(self.endpoint_host, ":%s" if self.endpoint_port else "", self.resource.strip("/") if self.resource else "")
 
     def action_perform_request(self, **kwargs):
         """
@@ -96,7 +98,7 @@ class IntegrationRequest(models.Model):
             encoded_args = urlencode(pre_params)
             finalurl = finalurl + "?" + encoded_args
         # PREPARE BODY
-        pre_payload = kwargs.get("body", "")
+        pre_payload = kwargs.get("body", self.payload or "")
         payload = {}
         if pre_payload:
             if self.content_type == self.CT_JSON:
@@ -114,6 +116,7 @@ class IntegrationRequest(models.Model):
         # PREPARE OTHERS
         response = None
         try:
+            _logger.info("TEST MODE: %s" %(self.test_mode))
             if not self.test_mode:
                 print("#####")
                 print(["URL REQUEST", finalurl])
@@ -144,14 +147,15 @@ class IntegrationRequest(models.Model):
                 response = "Test Mode"
             if response:
                 if not self.test_mode:
-                    self.response = response
+                    self.response = response.data if hasattr(response, "data") else response
                 else:
                     self.response = json.dumps({"Mode":"Test"})
                 new_log = self.env['integration.request.log']
-                if not self.test_mode:
-                    log = new_log.create_log(self.id, response, response.data)
-                else:
-                    log = new_log.create_log(self.id, response, response)
+                log = new_log.create_log(request_id=self.id,
+                                         payload=payload,
+                                         response=response,
+                                         traffic='outbound',
+                                         result=response.data if not self.test_mode else response)
         except Exception as exception:
             new_log = self.env['integration.request.log']
             vars = {}
@@ -165,10 +169,17 @@ class IntegrationRequest(models.Model):
 
 class IntegrationRequestLog(models.Model):
     _name = "integration.request.log"
-    _description = "Results of Requests"
+    _description = "Results of Out/In Requests"
     _order = "create_date DESC"
 
     request_id = fields.Many2one("integration.request", string="Request Id")
+    request_payload = fields.Text("Payload")
+    request_header = fields.Text("Header")
+    traffic = fields.Selection(
+        [
+            ('outbound','Outbound'),
+            ('inbound','Inbound'),
+        ], string="Direction")
     http_response = fields.Char("Http Response")
     response = fields.Text("Response")
     result = fields.Text("Result")
@@ -176,7 +187,13 @@ class IntegrationRequestLog(models.Model):
     count = fields.Integer("Count", default=1)
 
     @api.model
-    def create_log(self, request_id, response, result ):
+    def create_log(self, **kwargs ):
+        request_id = kwargs.get("request_id", "")
+        response = kwargs.get("response", "")
+        result = kwargs.get("result", "")
+        payload = kwargs.get("payload", "")
+        header = kwargs.get("header", "")
+        traffic = kwargs.get("traffic","")
         # print(["params", request_id, response, result])
         new_log = self.env[self._name]
         vars = {}
@@ -186,8 +203,16 @@ class IntegrationRequestLog(models.Model):
                 vars["http_response"] = response.status
             vars["response"] = response
         vars["result"] = result
+        vars["request_payload"] = payload
+        vars["request_header"] = header
+        vars["traffic"] = traffic
         new_log.create(vars)
 
     def _compute_short_result(self):
         for record in self:
-            record.short_result = "%s ..." %(record.result[:300])
+            if record.traffic == 'outbound':
+                record.short_result = "%s ..." %(record.result[:300])
+            elif record.traffic == 'inbound':
+                record.short_result = "%s ..." % (record.request_payload[:300])
+            else:
+                record.short_result = "%s ..." % (record.result[:300] or record.request_payload[:300])

@@ -6,6 +6,7 @@
         <field name="arch" type="xml">
             <tree string="Integration Request">
                 <field name="name"/>
+                <field name="ref"/>
                 <field name="url"/>
                 <field name="method"/>
             </tree>
@@ -38,6 +39,7 @@
                             <field name="endpoint_port"/>
                             <field name="resource"/>
                             <field name="url" readonly="True" force_save="True"/>
+                            <field name="ref"/>
                             <field name="test_mode"/>
                         </group>
                         <group>

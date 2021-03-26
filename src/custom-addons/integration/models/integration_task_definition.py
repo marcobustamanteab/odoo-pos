@@ -34,6 +34,7 @@ class IntegrationTaskDefinition(models.Model):
         [
             ('sync_stock_1', 'Synchronize Stock from External Service 1'),
             ('sync_stock_2', 'Synchronize Stock from External Service 2'),
+            ('send_stock_movement', 'Send Stock Movement'),
         ]
     )
     company_id = fields.Many2one('res.company', required=True, default=lambda self: self.env.user.company_id.id)
@@ -76,6 +77,8 @@ class IntegrationTaskDefinition(models.Model):
                         'domain': [('origin', '=', "INT_TASK_%s" % (self.id))],
                         'target': 'current'
                     }
+        elif self.business_logic == 'send_stock_movement':
+            self._send_stock_movement()
 
     # @api.onchange('request_id')
     # def _onchange_request_id(self):
@@ -83,7 +86,7 @@ class IntegrationTaskDefinition(models.Model):
 
     @api.model
     def run_task_from_cron(self, active_id):
-        task = self.env['task.definition'].browse(active_id).action_perform_task()
+        task = self.env['task.definition'].browse(active_id).action_perform_task(guimode=False)
 
     # BUSINESS LOGIC METHODS
     def _sync_stock_1(self):
@@ -113,7 +116,7 @@ class IntegrationTaskDefinition(models.Model):
                 ('default_code', '!=', False),
                 ('sale_ok', '=', 1),
                 ('active', '=', 1),
-                ('default_code', 'in', ['450229', '450230', 'ET11754']),
+                ('default_code', 'in', ['450235', '450344', 'ET11754']),
             ]
         )
         for prod in products:
@@ -148,7 +151,7 @@ class IntegrationTaskDefinition(models.Model):
                     continue
                 if not material.get("Material", ""):
                     continue
-                product = self.env['product.template'].search([('default_code', '=', material.get("Material"))])
+                product = self.env['product.template'].search([('default_code', '=', material.get("Material"))], limit=1)
                 if not product:
                     continue
                 product_code = material.get("Material")
@@ -188,7 +191,7 @@ class IntegrationTaskDefinition(models.Model):
                         vals[des_loc_field[stage]] = dest_location[0].id
                     items = []
                     for product_code in stock_info[stage][centro]:
-                        product = self.env['product.template'].search([('default_code', '=', product_code)])
+                        product = self.env['product.template'].search([('default_code', '=', product_code)],limit=1)
                         items.append(
                             (0, 0,
                              {'product_id': product.id,
@@ -269,6 +272,15 @@ class IntegrationTaskDefinition(models.Model):
             raise UserError("Worng Request Response Object")
 
         return settings, increase_products, decrease_products
+
+    def _send_stock_movement(self):
+        settings = self.env['integration.settings'].search([('company_id', '=', self.company_id.id)])
+        if not settings.sync_stock_qty:
+            _logger.debug("Stock Synchronization Disabled")
+            return True
+        return True
+
+
 
     def _get_param(self, key):
         res = ""

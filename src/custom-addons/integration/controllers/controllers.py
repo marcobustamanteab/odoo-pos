@@ -1,11 +1,40 @@
 # -*- coding: utf-8 -*-
-from odoo import http
+from datetime import datetime
+from odoo.http import content_disposition, Controller, request, route, Response
 import json
+import logging
+from html import unescape
 
+_logger = logging.getLogger(__name__)
 
-class ConsultaStockMateriales(http.Controller):
+class ConsultaStockMateriales(Controller):
 
-    @http.route('/RESTAdapter/ConsultaStockMateriales360', methods=['POST'], auth='public', csrf=False, cors="*")
+    @route('/check_connection', methods=['GET',], auth='public', csrf=False, cors="*")
+    def check_connection(self):
+        res_data = {"Connection":"OK", "TimeStamp":str(datetime.now())}
+        return json.dumps(res_data)
+
+    @route('/restapi/private/stock_movement/confirmation', methods=['POST',], type='json', auth='public', csrf=False, cors="*")
+    def stock_movement_confirmation(self):
+        res_data = {"Connection":"OK", "TimeStamp":str(datetime.now())}
+        req = request.httprequest
+        res_data["headers"] = {}
+        for head in req.headers.keys():
+            res_data["headers"][head] = req.headers.get(head)
+        payload = json.loads(req.data.decode('utf-8'))
+        _logger.info("DICT TYPE %s", type(payload))
+        new_log = request.env['integration.request.log'].sudo()
+        request_id = request.env['integration.request'].sudo().search(
+            [
+                ('ref','=',req.headers.get('CODIGO_INTERFAZ','NONE')),
+            ], limit=1)
+        log = new_log.create_log(request_id=request_id.id if request else None,
+                                 header=req.headers,
+                                 payload=payload,
+                                 traffic='inbound')
+        return json.dumps(res_data)
+
+    @route('/stock_consult', methods=["POST"], auth='public', csrf=False, cors="*")
     def consulta_stock_materiales(self, **kw):
         res_data = {
                 "ResponseConsultaStockMateriales_Inb": {

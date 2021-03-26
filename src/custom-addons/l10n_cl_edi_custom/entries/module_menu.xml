@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+
+    <menuitem id="fiscal_office_menu_entry" name="Fiscal Office"
+              parent="account_accountant.menu_accounting"
+              sequence="30"
+              />
+
+        <menuitem id="fiscal_dte_log_menu_entry" name="Fiscal DTE Log"
+                  parent="fiscal_office_menu_entry"
+                  action="fiscal_dte_log_action"/>
+
+        <menuitem id="l10n_cl_certificate_menu_entry" name="Certificate"
+                  parent="fiscal_office_menu_entry"
+                  action="l10n_cl_certificate_action"/>
+
+        <menuitem id="l10n_cl_dte_caf_menu_entry" name="CAF"
+                  parent="fiscal_office_menu_entry"
+                  action="l10n_cl_edi.action_l10n_cl_dte_caf"/>
+
+        <menuitem id="l10n_latam_invoice_document_menu_entry" name="Document Type"
+                  parent="fiscal_office_menu_entry"
+                  action="l10n_latam_invoice_document.action_document_type"/>
+
+        <menuitem id="l10n_cl_edi_partner_activities_menu_entry" name="Actividades Económicas"
+                  parent="fiscal_office_menu_entry"
+                  action="l10n_cl_edi.act_partner_activities"/>
+
+
+</odoo>

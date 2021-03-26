@@ -1,0 +1,17 @@
+{
+  'HEADER': {
+    'ID_MENSAJE': 'uuid:c4231c96-fc4f-43ed-8b58-6880e363284a',
+    'MENSAJE': 'Procesado',
+    'FECHA': 20210323,
+    'SOCIEDAD': 'A032',
+    'LEGADO': 'ODOO-POS',
+    'CODIGO_INTERFAZ': 'ITD_058'
+  },
+  'RESPUESTA': [
+    {
+      'ID_DOCUMENTO': '000000000112TC',
+      'CODIGO': 4,
+      'MENSAJE': 'CODE  no está soportado por BAPI2017_GOODSMVT_CREATE'
+    }
+  ]
+}

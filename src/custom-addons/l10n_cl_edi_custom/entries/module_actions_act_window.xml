@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+    <data>
+        <!-- FISCAL DTE LOG -->
+        <record model="ir.actions.act_window" id="fiscal_dte_log_action">
+            <field name="binding_type">action</field>
+            <field name="context">{}</field>
+            <field eval="[(6, 0, [])]" name="groups_id"/>
+            <field name="help"><![CDATA[Fiscal DTE Log]]></field>
+            <field name="name">Fiscal DTE Log</field>
+            <field name="res_model">fiscal.dte.log</field>
+            <field name="limit">80</field>
+            <field name="target">current</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <!-- CERTIFICATE FILE -->
+        <record model="ir.actions.act_window" id="l10n_cl_certificate_action">
+            <field name="binding_type">action</field>
+            <field name="context">{}</field>
+            <field eval="[(6, 0, [])]" name="groups_id"/>
+            <field name="help"><![CDATA[Certificate]]></field>
+            <field name="name">Certificate</field>
+            <field name="res_model">l10n_cl.certificate</field>
+            <field name="limit">80</field>
+            <field name="target">current</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</odoo>

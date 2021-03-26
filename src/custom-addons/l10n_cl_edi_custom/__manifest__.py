@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Integration Layer",
+    'name': "Customization for l10n_cl_edi",
     'summary': """
-        Integration Layer Management""",
+        Chilean Customization for CCU""",
     'description': """
-        Integration Layer 
+        Chilean Customization for CCU 
     """,
     'author': "Martin Salcedo Pacheco",
     'website': "http://www.msalcedo.com",
@@ -13,27 +13,25 @@
     # for the full list
     'license': 'LGPL-3',
     'category': 'Generic Modules',
-    'version': '0.20',
+    'version': '0.1',
     # any module necessary for this one to work correctly
-    'depends': ['base','stock', 'base_address_city', 'contacts'],
+    'depends': ['l10n_cl_edi','account'],
     # always loaded
     'data': [
-        'security/ir.model.access.csv',
         'entries/module_actions_act_window.xml',
         'entries/module_menu.xml',
 
-        'views/integration_task_definition.xml',
-        'views/integration_endpoint.xml',
-        'views/integration_request.xml',
-        'views/integration_request_log.xml',
-        'views/integration_settings.xml',
-        'views/product_template.xml',
-        'views/res_city.xml',
+        'security/ir.model.access.csv',
+
+        'views/account_move.xml',
+        'views/fiscal_dte_log.xml',
+
+        # 'template/boleta_token.xml',
     ],
     # only loaded in demonstration mode
-    'demo': [
-        'demo/integration.endpoint.csv',
-    ],
+    # 'demo': [
+    #     'demo/demo.xml',
+    # ],
     'installable': True,
     'application': True,
 }
