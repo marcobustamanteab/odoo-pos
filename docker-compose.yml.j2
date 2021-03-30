@@ -19,7 +19,7 @@ services:
     volumes:
       - ../filestore:{{ odoo.data_dir }}
       - ./logs:/var/log/odoo
-    {%- if env == 'DEV' or env == 'QA' or env == 'PROD' %}  
+    {%- if env != 'DEV' and env != 'QA' and env != 'PROD' %}  
       - ./config:/etc/odoo
       - ./enterprise:/mnt/enterprise
       - ./src/custom-addons:/mnt/extra-addons/custom-addons
