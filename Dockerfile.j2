@@ -1,4 +1,4 @@
-{%- if env == 'QA' or env == 'PROD' -%}
+{%- if env == 'DEV' or env == 'QA' or env == 'PROD' -%}
 FROM wso2qa4.ccu.cl:5000/pos-odoo-img
 
 # Set default user when running the container
