@@ -13,7 +13,7 @@
     # for the full list
     'license': 'LGPL-3',
     'category': 'Generic Modules',
-    'version': '0.1',
+    'version': '0.7',
     # any module necessary for this one to work correctly
     'depends': ['l10n_cl_edi','account'],
     # always loaded
