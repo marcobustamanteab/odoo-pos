@@ -1,7 +1,7 @@
 version: '3'
 services:
   {{ odoo.service_name }}:
-  {%- if env == 'QA' or env == 'PROD' %}  
+  {%- if env == 'DEV' or env == 'QA' or env == 'PROD' %}  
     image: wso2qa4.ccu.cl:5000/odoo:ccu_pos-$SHA
   {%- else %}
     build: .
@@ -19,12 +19,12 @@ services:
     volumes:
       - ../filestore:{{ odoo.data_dir }}
       - ./logs:/var/log/odoo
-    {%- if env != 'QA' and env != 'PROD' %}
+    {%- if env != 'DEV' and env != 'QA' and env != 'PROD' %}
       - ./config:/etc/odoo
       - ./src/custom-addons:/mnt/extra-addons/custom-addons
     {%- endif %}              
 
-  {%- if env == 'QA' or env == 'PROD' %}     
+  {%- if env == 'DEV' or env == 'QA' or env == 'PROD' %}     
   {{ nginx.service_name }}:     
     container_name: {{ nginx.container_name }}
     restart: unless-stopped
