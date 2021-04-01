@@ -21,10 +21,10 @@ services:
       - ./logs:/var/log/odoo
     {%- if env != 'QA' and env != 'PROD' %}
       - ./config:/etc/odoo
-      - ./enterprise:/mnt/enterprise
       - ./src/custom-addons:/mnt/extra-addons/custom-addons
-    {%- endif %}        
+    {%- endif %}              
 
+  {%- if env == 'QA' or env == 'PROD' %}     
   {{ nginx.service_name }}:     
     container_name: {{ nginx.container_name }}
     restart: unless-stopped
@@ -38,6 +38,7 @@ services:
       - ./nginx/nginx-config/nginx_template.conf:{{ nginx.path_config }}
       - ./nginx/ssl/private.key:{{ nginx.path_ssl_certificate_key }}
       - ./nginx/ssl/public.cer:{{ nginx.path_ssl_certificate }}
+  {%- endif %}    
 
 networks:
   odoo-pos:
