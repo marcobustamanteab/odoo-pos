@@ -15,16 +15,16 @@ services:
       {%- endif %}
     networks:
       - odoo-pos
-    entrypoint: ['/entrypoint.sh', 'odoo', '-d', 'MASTER'] 
+    entrypoint: ['/entrypoint.sh', 'odoo', '-d', '{{ database.POSTGRES_DB }}'] 
     volumes:
       - ../filestore:{{ odoo.data_dir }}
       - ./logs:/var/log/odoo
-    {%- if env != 'DEV' and env != 'QA' and env != 'PROD' %} 
+    {%- if env != 'DEV' and env != 'QA' and env != 'PROD' %}
       - ./config:/etc/odoo
-      - ./enterprise:/mnt/enterprise
       - ./src/custom-addons:/mnt/extra-addons/custom-addons
-    {%- endif %}        
+    {%- endif %}              
 
+  {%- if env == 'DEV' or env == 'QA' or env == 'PROD' %}     
   {{ nginx.service_name }}:     
     container_name: {{ nginx.container_name }}
     restart: unless-stopped
@@ -38,6 +38,7 @@ services:
       - ./nginx/nginx-config/nginx_template.conf:{{ nginx.path_config }}
       - ./nginx/ssl/private.key:{{ nginx.path_ssl_certificate_key }}
       - ./nginx/ssl/public.cer:{{ nginx.path_ssl_certificate }}
+  {%- endif %}    
 
 networks:
   odoo-pos:
