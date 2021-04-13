@@ -1,0 +1,34 @@
+<!-- Copyright (C) 2020 CCU License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+<odoo>
+    <data>
+        <record id="view_partner_form_ccu" model="ir.ui.view">
+            <field name="name">Add CCU Fields on partner</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='internal_notes']" position="after">
+                    <page string="CCU Customization" name="CCU Customization">
+                        <group>
+                            <group string="Personal Data">
+                                <field name="distribution_center" placeholder="Centro de Distribución"
+                                       attrs="{'invisible': [('is_employee','!=', True)] }"/>
+                                <field name='is_employee' readonly="1" force_save="1"/>
+                                <field name='status'/>
+                                <field name='gender'/>
+                                <field name='category'/>
+                                <field name="dob"/>
+                                <field name="age" readonly="1" force_save="1"/>
+                            </group>
+                            <group string="Limits">
+                                <field name='limit_purchase' attrs="{'invisible': [('category','=','vip-premium')] }"/>
+                                <field name='monthly_purchase'
+                                       attrs="{'invisible': [('category','=','vip-premium')] }"/>
+                                <field name='reached_limit' attrs="{'invisible': [('category','=','vip-premium')] }"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
