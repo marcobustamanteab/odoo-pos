@@ -3,24 +3,19 @@
 
 
 {
-    "name": "CCU Customization - Base",
+    "name": "CCU Customization - Mail",
     "version": "0.1",
     "category": "customizations",
     "license": "LGPL-3",
-    "summary": "CCU Companies Customizations for Base module",
+    "summary": "CCU Companies Customizations for Mail module",
     "author": "Compañia Cervecerias Unidas S.A. (CCU)",
     "maintainer": "Compañia Cervecerias Unidas S.A. (CCU)",
     "website": "https://www.ccu.cl",
     "depends": [
-        "base",
-        "ccu_mail",
+        "mail",
     ],
     'data': [
-        'security/ir.model.access.csv',
-        'data/distribution_center.xml',
-        # 'data/product_pricelist.xml',
-        # 'data/user_confirmation_email.xml',
-        'views/res_partner.xml',
+        'data/user_confirmation_email.xml',
     ],
     "application": True,
     "sequence": 0,
