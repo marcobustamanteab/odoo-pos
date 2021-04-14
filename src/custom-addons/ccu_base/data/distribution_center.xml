@@ -1,0 +1,896 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="antofagasta" model="res.partner.distribution_center">
+            <field name="name">ANTOFAGASTA</field>
+            <field name="zone">NORTE GRANDE</field>
+            <field name="type">CDPP</field>
+            <field name="type_description">CENTRO DISTRIBUCIÓN /PLANTA PRODUCTORA</field>
+            <field name="x_coordenates">-23.612240</field>
+            <field name="y_coordenates">-70.386617</field>
+            <field name="street">Pedro Aguirre Cerda</field>
+            <field name="street_number">6420</field>
+            <field name="commune_name">Antofagasta</field>
+            <field name="city_name">Antofagasta</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="arica" model="res.partner.distribution_center">
+            <field name="name">ARICA</field>
+            <field name="zone">NORTE GRANDE</field>
+            <field name="type">CD</field>
+            <field name="type_description">CENTRO DISTRIBUCIÓN</field>
+            <field name="x_coordenates">-18.466940</field>
+            <field name="y_coordenates">-70.300061</field>
+            <field name="street">Avda. Santa Maria</field>
+            <field name="street_number">2318</field>
+            <field name="commune_name">Arica</field>
+            <field name="city_name">Arica</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="calaf" model="res.partner.distribution_center">
+            <field name="name">CALAF</field>
+            <field name="zone">CENTRO SUR</field>
+            <field name="type">PP</field>
+            <field name="type_description">PLANTA PRODUCTORA</field>
+            <field name="x_coordenates">-35.439738</field>
+            <field name="y_coordenates">-71.639657</field>
+            <field name="street">Longitudinal Sur</field>
+            <field name="street_number">255</field>
+            <field name="commune_name">Talca</field>
+            <field name="city_name">Talca</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="calama" model="res.partner.distribution_center">
+            <field name="name">CALAMA</field>
+            <field name="zone">NORTE GRANDE</field>
+            <field name="type">CD</field>
+            <field name="type_description">CENTRO DISTRIBUCIÓN</field>
+            <field name="x_coordenates">-22.435390</field>
+            <field name="y_coordenates">-68.893102</field>
+            <field name="street">Richard Cifuentes</field>
+            <field name="street_number">S/N</field>
+            <field name="commune_name">Calama</field>
+            <field name="city_name">Calama</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="castro" model="res.partner.distribution_center">
+            <field name="name">CASTRO</field>
+            <field name="zone">SUR</field>
+            <field name="type">CD</field>
+            <field name="type_description">CENTRO DISTRIBUCIÓN</field>
+            <field name="x_coordenates">-42.367223</field>
+            <field name="y_coordenates">-73.737229</field>
+            <field name="street">Panamericana Sur</field>
+            <field name="street_number">S/N</field>
+            <field name="commune_name">Castro</field>
+            <field name="city_name">Castro</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="chillan" model="res.partner.distribution_center">
+            <field name="name">CHILLAN</field>
+            <field name="zone">CENTRO SUR</field>
+            <field name="type">BE</field>
+            <field name="type_description">BODEGA EXTERNA</field>
+            <field name="x_coordenates">-36.595306</field>
+            <field name="y_coordenates">-72.131083</field>
+            <field name="street">Centro Distribución Chillán</field>
+            <field name="commune_name">Chillán</field>
+            <field name="city_name">Chillán</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="chillan_nuevo" model="res.partner.distribution_center">
+            <field name="name">CHILLAN NUEVO</field>
+            <field name="zone">CENTRO SUR</field>
+            <field name="type">CD</field>
+            <field name="type_description">CENTRO DISTRIBUCIÓN</field>
+            <field name="x_coordenates">-36.630258</field>
+            <field name="y_coordenates">-72.183213</field>
+            <field name="street">Panamericana Sur. KM 408</field>
+            <field name="commune_name">Chillán</field>
+            <field name="city_name">Chillán</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="cobija" model="res.partner.distribution_center">
+            <field name="name">COBIJA</field>
+            <field name="zone">NORTE GRANDE</field>
+            <field name="type">BE</field>
+            <field name="type_description">BODEGA EXTERNA</field>
+            <field name="x_coordenates">-23.536718</field>
+            <field name="y_coordenates">-70.387925</field>
+            <field name="street">Lapislázuli</field>
+            <field name="street_number">786</field>
+            <field name="commune_name">Antofagasta</field>
+            <field name="city_name">Antofagasta</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="coinco" model="res.partner.distribution_center">
+            <field name="name">COINCO</field>
+            <field name="zone">CENTRO</field>
+            <field name="type">PP</field>
+            <field name="type_description">PLANTA PRODUCTORA</field>
+            <field name="x_coordenates">-34.259699</field>
+            <field name="y_coordenates">-70.926429</field>
+            <field name="street">CALLE URETA</field>
+            <field name="street_number">1140</field>
+            <field name="commune_name">Coínco</field>
+            <field name="city_name">Rancagua</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="copiapo" model="res.partner.distribution_center">
+            <field name="name">COPIAPO</field>
+            <field name="zone">Norte chico</field>
+            <field name="type">CD</field>
+            <field name="type_description">CENTRO DISTRIBUCIÓN</field>
+            <field name="x_coordenates">-27.331884</field>
+            <field name="y_coordenates">-70.379861</field>
+            <field name="street">Panamericana Norte km. 813</field>
+            <field name="commune_name">Copiapó</field>
+            <field name="city_name">Copiapó</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="coquimbo" model="res.partner.distribution_center">
+            <field name="name">COQUIMBO</field>
+            <field name="zone">Norte chico</field>
+            <field name="type">CD</field>
+            <field name="type_description">CENTRO DISTRIBUCIÓN</field>
+            <field name="x_coordenates">-29.971419</field>
+            <field name="y_coordenates">-71.266026</field>
+            <field name="street">Calle Cinco, Barrio Industrial</field>
+            <field name="street_number">1217</field>
+            <field name="commune_name">Coquimbo</field>
+            <field name="city_name">Coquimbo</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="coquimbo_ext" model="res.partner.distribution_center">
+            <field name="name">COQUIMBO EXT</field>
+            <field name="zone">Norte chico</field>
+            <field name="type">BE</field>
+            <field name="type_description">BODEGA EXTERNA</field>
+            <field name="x_coordenates">-29.971419</field>
+            <field name="y_coordenates">-71.266026</field>
+            <field name="street">Calle Cinco, B. Industrial</field>
+            <field name="street_number">1217</field>
+            <field name="commune_name">Coquimbo</field>
+            <field name="city_name">Coquimbo</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="coyhaique" model="res.partner.distribution_center">
+            <field name="name">COYHAIQUE</field>
+            <field name="zone">SUR</field>
+            <field name="type">CD</field>
+            <field name="type_description">CENTRO DISTRIBUCIÓN</field>
+            <field name="x_coordenates">-45.589934</field>
+            <field name="y_coordenates">-72.076879</field>
+            <field name="street">Camino Internacional Balmaceda Km.2</field>
+            <field name="commune_name">Coyhaique</field>
+            <field name="city_name">Coyhaique</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="cristal_chile" model="res.partner.distribution_center">
+            <field name="name">CRISTAL CHILE</field>
+            <field name="zone">CENTRO</field>
+            <field name="type">PE</field>
+            <field name="type_description">PLANTA ENVASES</field>
+            <field name="x_coordenates">-33.565545</field>
+            <field name="y_coordenates">-70.818665</field>
+            <field name="street">CD Cristal Chile</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="cristal_toro" model="res.partner.distribution_center">
+            <field name="name">CRISTAL TORO</field>
+            <field name="zone">CENTRO</field>
+            <field name="type">PE</field>
+            <field name="type_description">PLANTA ENVASES</field>
+            <field name="x_coordenates">-33.480491</field>
+            <field name="y_coordenates">-70.695372</field>
+            <field name="street">CD Cristal Toro</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="curauma" model="res.partner.distribution_center">
+            <field name="name">CURAUMA</field>
+            <field name="zone">CENTRO</field>
+            <field name="type">CD</field>
+            <field name="type_description">CENTRO DISTRIBUCIÓN</field>
+            <field name="x_coordenates">-33.134506</field>
+            <field name="y_coordenates">-71.552821</field>
+            <field name="street">Avda. Tupungato</field>
+            <field name="street_number">3090</field>
+            <field name="city_name">Valparaiso</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="elqui" model="res.partner.distribution_center">
+            <field name="name">ELQUI</field>
+            <field name="zone">NORTE CHICO</field>
+            <field name="type">PP</field>
+            <field name="type_description">PLANTA PRODUCTORA</field>
+            <field name="x_coordenates">-30.123893</field>
+            <field name="y_coordenates">-70.499498</field>
+            <field name="street">O' Higgins</field>
+            <field name="street_number">746</field>
+            <field name="commune_name">Paihuano</field>
+            <field name="city_name">Pisco Elqui</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="fepasa" model="res.partner.distribution_center">
+            <field name="name">FEPASA</field>
+            <field name="zone">CENTRO SUR</field>
+            <field name="type">BE</field>
+            <field name="type_description">BODEGA EXTERNA</field>
+            <field name="x_coordenates">-36.754019</field>
+            <field name="y_coordenates">-73.078319</field>
+            <field name="street">Jaime Repullo</field>
+            <field name="street_number">1835</field>
+            <field name="commune_name">Talcahuano</field>
+            <field name="city_name">Talcahuano</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="globalfast" model="res.partner.distribution_center">
+            <field name="name">GLOBALFAST</field>
+            <field name="zone">CENTRO</field>
+            <field name="type">ME</field>
+            <field name="type_description">MAQUILAS Y EMPAQUES</field>
+            <field name="x_coordenates">-33.389563</field>
+            <field name="y_coordenates">-70.692179</field>
+            <field name="street">Camino Lo Ruiz</field>
+            <field name="street_number">4700</field>
+            <field name="commune_name">Renca</field>
+            <field name="city_name">Santiago</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="illapel" model="res.partner.distribution_center">
+            <field name="name">ILLAPEL</field>
+            <field name="zone">Norte chico</field>
+            <field name="type">CD</field>
+            <field name="type_description">CENTRO DISTRIBUCIÓN</field>
+            <field name="x_coordenates">-31.645922</field>
+            <field name="y_coordenates">-71.189731</field>
+            <field name="street">La Puntilla Lote 05</field>
+            <field name="commune_name">Illapel</field>
+            <field name="city_name">Illapel</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="iqq_hospicio" model="res.partner.distribution_center">
+            <field name="name">IQQ HOSPICIO</field>
+            <field name="zone">NORTE GRANDE</field>
+            <field name="type">CD</field>
+            <field name="type_description">CENTRO DISTRIBUCIÓN</field>
+            <field name="x_coordenates">-20.267089</field>
+            <field name="y_coordenates">-70.081504</field>
+            <field name="street">RUTA A-16 LOTE 1 KM 11.5</field>
+            <field name="commune_name">Alto Hospicio</field>
+            <field name="city_name">Alto Hospicio</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="iquique" model="res.partner.distribution_center">
+            <field name="name">IQUIQUE</field>
+            <field name="zone">NORTE GRANDE</field>
+            <field name="type">BE</field>
+            <field name="type_description">BODEGA EXTERNA</field>
+            <field name="x_coordenates">-20.197872</field>
+            <field name="y_coordenates">-70.135607</field>
+            <field name="street">Oficina Bellavista sitio 18. Barrio industrial</field>
+            <field name="commune_name">Iquique</field>
+            <field name="city_name">Iquique</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="iquiqueccu" model="res.partner.distribution_center">
+            <field name="name">IQUIQUECCU</field>
+            <field name="zone">NORTE GRANDE</field>
+            <field name="type">BE</field>
+            <field name="type_description">BODEGA EXTERNA</field>
+            <field name="x_coordenates">-20.197872</field>
+            <field name="y_coordenates">-70.135607</field>
+            <field name="street">Oficina Bellavista sitio # 18 B.Ind</field>
+            <field name="commune_name">Iquique</field>
+            <field name="city_name">Iquique</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="isla_maipo" model="res.partner.distribution_center">
+            <field name="name">ISLA MAIPO</field>
+            <field name="zone">CENTRO</field>
+            <field name="type">PP</field>
+            <field name="type_description">PLANTA PRODUCTORA</field>
+            <field name="x_coordenates">-33.760367</field>
+            <field name="y_coordenates">-70.936084</field>
+            <field name="street">Fundo El Rosario de Naltagua</field>
+            <field name="street_number">s/n</field>
+            <field name="commune_name">Talagante</field>
+            <field name="city_name">Isla de Maipo</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="langeles" model="res.partner.distribution_center">
+            <field name="name">L.ANGELES</field>
+            <field name="zone">CENTRO SUR</field>
+            <field name="type">CD</field>
+            <field name="type_description">CENTRO DISTRIBUCIÓN</field>
+            <field name="x_coordenates">-37.449892</field>
+            <field name="y_coordenates">-72.328059</field>
+            <field name="street">Longitudinal Sur km. 510</field>
+            <field name="commune_name">Los Angeles</field>
+            <field name="city_name">Los Angeles</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="langeles_ext" model="res.partner.distribution_center">
+            <field name="name">L.ANGELES EXT</field>
+            <field name="zone">CENTRO SUR</field>
+            <field name="type">BE</field>
+            <field name="type_description">BODEGA EXTERNA</field>
+            <field name="x_coordenates">-37.446774</field>
+            <field name="y_coordenates">-72.327808</field>
+            <field name="street">Avenida las industrias.</field>
+            <field name="street_number">6800</field>
+            <field name="commune_name">Los Ángeles</field>
+            <field name="city_name">Los Ángeles</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="la_reina" model="res.partner.distribution_center">
+            <field name="name">LA REINA</field>
+            <field name="zone">CENTRO</field>
+            <field name="type">PP</field>
+            <field name="type_description">PLANTA PRODUCTORA</field>
+            <field name="x_coordenates">-33.453046</field>
+            <field name="y_coordenates">-70.544158</field>
+            <field name="street">Jorge Alessandri</field>
+            <field name="street_number">210</field>
+            <field name="commune_name">La Reina</field>
+            <field name="city_name">Santiago</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="la_vara" model="res.partner.distribution_center">
+            <field name="name">LA VARA</field>
+            <field name="zone">CENTRO</field>
+            <field name="type">CD</field>
+            <field name="type_description">CENTRO DISTRIBUCIÓN</field>
+            <field name="x_coordenates">-33.566781</field>
+            <field name="y_coordenates">-70.710893</field>
+            <field name="street">LA VARA KM 16</field>
+            <field name="street_number">03395</field>
+            <field name="commune_name">Santiago</field>
+            <field name="city_name">San Bernardo</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="laguna_sur" model="res.partner.distribution_center">
+            <field name="name">LAGUNA SUR</field>
+            <field name="zone">CENTRO</field>
+            <field name="type">BE</field>
+            <field name="type_description">BODEGA EXTERNA</field>
+            <field name="x_coordenates">-33.459281</field>
+            <field name="y_coordenates">-70.765513</field>
+            <field name="street">Laguna Sur</field>
+            <field name="street_number">9600</field>
+            <field name="commune_name">Pudahuel</field>
+            <field name="city_name">Pudahuel</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="las_parcelas" model="res.partner.distribution_center">
+            <field name="name">LAS PARCELAS</field>
+            <field name="zone">NORTE GRANDE</field>
+            <field name="type">BE</field>
+            <field name="type_description">BODEGA EXTERNA</field>
+            <field name="x_coordenates">-20.278227</field>
+            <field name="y_coordenates">-70.089202</field>
+            <field name="street">Parcela 8 Lote B</field>
+            <field name="commune_name">Iquique</field>
+            <field name="city_name">Alto Hospicio</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="licanco" model="res.partner.distribution_center">
+            <field name="name">LICANCO</field>
+            <field name="zone">SUR</field>
+            <field name="type">BE</field>
+            <field name="type_description">BODEGA EXTERNA</field>
+            <field name="x_coordenates">-38.511350</field>
+            <field name="y_coordenates">-72.452188</field>
+            <field name="street">Parque Ind. Tecnológico de la Araucanía, Dickinson N° 1</field>
+            <field name="commune_name">Lautaro</field>
+            <field name="city_name">Temuco</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="limache" model="res.partner.distribution_center">
+            <field name="name">LIMACHE</field>
+            <field name="zone">CENTRO</field>
+            <field name="type">CD</field>
+            <field name="type_description">CENTRO DISTRIBUCIÓN</field>
+            <field name="x_coordenates">-32.989374</field>
+            <field name="y_coordenates">-71.282693</field>
+            <field name="street">San Martin</field>
+            <field name="street_number">111</field>
+            <field name="commune_name">Limache</field>
+            <field name="city_name">Limache</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="llay_llay" model="res.partner.distribution_center">
+            <field name="name">LLAY LLAY</field>
+            <field name="zone">CENTRO</field>
+            <field name="type">CD</field>
+            <field name="type_description">CENTRO DISTRIBUCIÓN</field>
+            <field name="x_coordenates">-32.846531</field>
+            <field name="y_coordenates">-70.959991</field>
+            <field name="street">O'Higgins</field>
+            <field name="street_number">400</field>
+            <field name="commune_name">Llay-Llay</field>
+            <field name="city_name">Llay-Llay</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="lo_ruiz" model="res.partner.distribution_center">
+            <field name="name">LO RUIZ</field>
+            <field name="zone">CENTRO</field>
+            <field name="type">BE</field>
+            <field name="type_description">BODEGA EXTERNA</field>
+            <field name="x_coordenates">-33.358735</field>
+            <field name="y_coordenates">-70.704734</field>
+            <field name="street">Panamericana Norte</field>
+            <field name="street_number">8000</field>
+            <field name="commune_name">Quilicura</field>
+            <field name="city_name">Santiago</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="lontue" model="res.partner.distribution_center">
+            <field name="name">LONTUE</field>
+            <field name="zone">CENTRO SUR</field>
+            <field name="type">PP</field>
+            <field name="type_description">PLANTA PRODUCTORA</field>
+            <field name="x_coordenates">-35.056465</field>
+            <field name="y_coordenates">-71.268530</field>
+            <field name="street">Av. San Pedro</field>
+            <field name="street_number">1874</field>
+            <field name="commune_name">Lontue</field>
+            <field name="city_name">Lontue</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="molina" model="res.partner.distribution_center">
+            <field name="name">MOLINA</field>
+            <field name="zone">CENTRO SUR</field>
+            <field name="type">PP</field>
+            <field name="type_description">PLANTA PRODUCTORA</field>
+            <field name="x_coordenates">-35.093904</field>
+            <field name="y_coordenates">-71.322361</field>
+            <field name="street">Km. 205 Ruta 5 Sur</field>
+            <field name="commune_name">Molina</field>
+            <field name="city_name">Molina</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="natur" model="res.partner.distribution_center">
+            <field name="name">NATUR</field>
+            <field name="zone">CENTRO SUR</field>
+            <field name="type">PP</field>
+            <field name="type_description">PLANTA PRODUCTORA</field>
+            <field name="x_coordenates">-35.439738</field>
+            <field name="y_coordenates">-71.639657</field>
+            <field name="street">Longitudinal Sur</field>
+            <field name="street_number">255</field>
+            <field name="commune_name">Hualqui</field>
+            <field name="city_name">Talca</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="nutrabien" model="res.partner.distribution_center">
+            <field name="name">NUTRABIEN</field>
+            <field name="zone">CENTRO</field>
+            <field name="type">PP</field>
+            <field name="type_description">PLANTA PRODUCTORA</field>
+            <field name="x_coordenates">-33.674824</field>
+            <field name="y_coordenates">-70.951209</field>
+            <field name="street">Av. Bernardo O'higgins</field>
+            <field name="street_number">3160</field>
+            <field name="commune_name">Talagante</field>
+            <field name="city_name">Talagante</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="olivos" model="res.partner.distribution_center">
+            <field name="name">OLIVOS</field>
+            <field name="zone">CENTRO</field>
+            <field name="type">CD</field>
+            <field name="type_description">CENTRO DISTRIBUCIÓN</field>
+            <field name="x_coordenates">-33.358735</field>
+            <field name="y_coordenates">-70.704734</field>
+            <field name="street">PANAMERICANA NORTE</field>
+            <field name="street_number">8000</field>
+            <field name="commune_name">Quilicura</field>
+            <field name="city_name">Santiago</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="osorno" model="res.partner.distribution_center">
+            <field name="name">OSORNO</field>
+            <field name="zone">SUR</field>
+            <field name="type">CD</field>
+            <field name="type_description">CENTRO DISTRIBUCIÓN</field>
+            <field name="x_coordenates">-40.570268</field>
+            <field name="y_coordenates">-73.126455</field>
+            <field name="street">German Hube</field>
+            <field name="street_number">1403</field>
+            <field name="commune_name">Osorno</field>
+            <field name="city_name">Osorno</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="ovalle" model="res.partner.distribution_center">
+            <field name="name">OVALLE</field>
+            <field name="zone">Norte chico</field>
+            <field name="type">PP</field>
+            <field name="type_description">PLANTA PRODUCTORA</field>
+            <field name="x_coordenates">-30.664505</field>
+            <field name="y_coordenates">-71.361616</field>
+            <field name="street">Llanos de San Julian Lote A-1</field>
+            <field name="commune_name">Ovalle</field>
+            <field name="city_name">Ovalle</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="ovalle_tccu" model="res.partner.distribution_center">
+            <field name="name">OVALLE TCCU</field>
+            <field name="zone">Norte chico</field>
+            <field name="type">CD</field>
+            <field name="type_description">CENTRO DISTRIBUCIÓN</field>
+            <field name="x_coordenates">-30.664505</field>
+            <field name="y_coordenates">-71.361616</field>
+            <field name="street">Llanos de San Julián, Lote A-1, Km 15</field>
+            <field name="commune_name">Ovalle</field>
+            <field name="city_name">Ovalle</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="pn1500" model="res.partner.distribution_center">
+            <field name="name">PN1500</field>
+            <field name="zone">CENTRO</field>
+            <field name="type">CDPP</field>
+            <field name="type_description">CENTRO DISTRIBUCIÓN /PLANTA PRODUCTORA</field>
+            <field name="x_coordenates">-33.408040</field>
+            <field name="y_coordenates">-70.681735</field>
+            <field name="street">Panamericana Norte</field>
+            <field name="street_number">1500</field>
+            <field name="commune_name">Renca</field>
+            <field name="city_name">Santiago</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="pn8000" model="res.partner.distribution_center">
+            <field name="name">PN8000</field>
+            <field name="zone">CENTRO</field>
+            <field name="type">CDPP</field>
+            <field name="type_description">CENTRO DISTRIBUCIÓN /PLANTA PRODUCTORA</field>
+            <field name="x_coordenates">-33.358735</field>
+            <field name="y_coordenates">-70.704734</field>
+            <field name="street">Panamericana Norte</field>
+            <field name="street_number">8000</field>
+            <field name="commune_name">Quilicura</field>
+            <field name="city_name">Santiago</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="porvenir" model="res.partner.distribution_center">
+            <field name="name">PORVENIR</field>
+            <field name="zone">CENTRO</field>
+            <field name="type">PP</field>
+            <field name="type_description">PLANTA PRODUCTORA</field>
+            <field name="x_coordenates">-33.247485</field>
+            <field name="y_coordenates">-71.491344</field>
+            <field name="street">Fundo El Porvenir</field>
+            <field name="street_number">S/N</field>
+            <field name="commune_name">Casablanca</field>
+            <field name="city_name">Casablanca</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="pto_montt_ext" model="res.partner.distribution_center">
+            <field name="name">PTO MONTT EXT</field>
+            <field name="zone">SUR</field>
+            <field name="type">BE</field>
+            <field name="type_description">BODEGA EXTERNA</field>
+            <field name="x_coordenates">-41.431053</field>
+            <field name="y_coordenates">-72.957155</field>
+            <field name="street">Ruta 5 Sur Km. 1018</field>
+            <field name="commune_name">Puerto Montt</field>
+            <field name="city_name">Puerto Montt</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="pudahuel_vspt" model="res.partner.distribution_center">
+            <field name="name">PUDAHUEL_VSPT</field>
+            <field name="zone">CENTRO</field>
+            <field name="type">BE</field>
+            <field name="type_description">BODEGA EXTERNA</field>
+            <field name="x_coordenates">-33.389458</field>
+            <field name="y_coordenates">-70.778364</field>
+            <field name="street">Miraflores</field>
+            <field name="street_number">9699</field>
+            <field name="commune_name">Pudahuel</field>
+            <field name="city_name">Santiago</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="puerto_montt" model="res.partner.distribution_center">
+            <field name="name">PUERTO MONTT</field>
+            <field name="zone">SUR</field>
+            <field name="type">CD</field>
+            <field name="type_description">CENTRO DISTRIBUCIÓN</field>
+            <field name="x_coordenates">-41.487327</field>
+            <field name="y_coordenates">-73.022880</field>
+            <field name="street">Alto Bonito KM 1028</field>
+            <field name="commune_name">Pto.Montt</field>
+            <field name="city_name">Pto.Montt</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="rancagua" model="res.partner.distribution_center">
+            <field name="name">RANCAGUA</field>
+            <field name="zone">CENTRO</field>
+            <field name="type">CD</field>
+            <field name="type_description">CENTRO DISTRIBUCIÓN</field>
+            <field name="x_coordenates">-34.137585</field>
+            <field name="y_coordenates">-70.741785</field>
+            <field name="street">Avda. Nelson Pereira</field>
+            <field name="street_number">2119</field>
+            <field name="commune_name">Rancagua</field>
+            <field name="city_name">Rancagua</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="rancagua_ext" model="res.partner.distribution_center">
+            <field name="name">RANCAGUA EXT</field>
+            <field name="zone">CENTRO</field>
+            <field name="type">BE</field>
+            <field name="type_description">BODEGA EXTERNA</field>
+            <field name="x_coordenates">-34.205014</field>
+            <field name="y_coordenates">-70.762823</field>
+            <field name="street">Carretera 5 Sur KM 90</field>
+            <field name="commune_name">Rancagua</field>
+            <field name="city_name">Rancagua</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="san_francisco" model="res.partner.distribution_center">
+            <field name="name">SAN FRANCISCO</field>
+            <field name="zone">CENTRO</field>
+            <field name="type">BE</field>
+            <field name="type_description">BODEGA EXTERNA</field>
+            <field name="x_coordenates">-33.452452</field>
+            <field name="y_coordenates">-70.786359</field>
+            <field name="street">Puerto Madero</field>
+            <field name="street_number">9710</field>
+            <field name="commune_name">Pudahuel</field>
+            <field name="city_name">Pudahuel</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="santiago_sur" model="res.partner.distribution_center">
+            <field name="name">SANTIAGO SUR</field>
+            <field name="zone">CENTRO</field>
+            <field name="type">CD</field>
+            <field name="type_description">CENTRO DISTRIBUCIÓN</field>
+            <field name="x_coordenates">-33.545754</field>
+            <field name="y_coordenates">-70.717478</field>
+            <field name="street">Roberto Simpson</field>
+            <field name="street_number">01780</field>
+            <field name="commune_name">San Bernardo</field>
+            <field name="city_name">San Bernardo</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="talca" model="res.partner.distribution_center">
+            <field name="name">TALCA</field>
+            <field name="zone">CENTRO SUR</field>
+            <field name="type">CD</field>
+            <field name="type_description">CENTRO DISTRIBUCIÓN</field>
+            <field name="x_coordenates">-35.445679</field>
+            <field name="y_coordenates">-71.643146</field>
+            <field name="street">Calle de Servicio Ruta 5 Sur N° 95 Talca</field>
+            <field name="commune_name">Talca</field>
+            <field name="city_name">Talca</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="talca_ext" model="res.partner.distribution_center">
+            <field name="name">TALCA EXT</field>
+            <field name="zone">CENTRO SUR</field>
+            <field name="type">BE</field>
+            <field name="type_description">BODEGA EXTERNA</field>
+            <field name="x_coordenates">-35.449136</field>
+            <field name="y_coordenates">-71.643310</field>
+            <field name="street">Ruta 5 Sur Km 255 calle de servicios</field>
+            <field name="commune_name">Talca</field>
+            <field name="city_name">Talca</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="talcahuano" model="res.partner.distribution_center">
+            <field name="name">TALCAHUANO</field>
+            <field name="zone">CENTRO SUR</field>
+            <field name="type">CD</field>
+            <field name="type_description">CENTRO DISTRIBUCIÓN</field>
+            <field name="x_coordenates">-36.774091</field>
+            <field name="y_coordenates">-73.100035</field>
+            <field name="street">Las Golondrinas</field>
+            <field name="street_number">1400</field>
+            <field name="commune_name">Talcahuano</field>
+            <field name="city_name">Talcahuano</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="temuco" model="res.partner.distribution_center">
+            <field name="name">TEMUCO</field>
+            <field name="zone">SUR</field>
+            <field name="type">CDPP</field>
+            <field name="type_description">CENTRO DISTRIBUCIÓN /PLANTA PRODUCTORA</field>
+            <field name="x_coordenates">-38.654436</field>
+            <field name="y_coordenates">-72.473066</field>
+            <field name="street">Ruta 5 Sur km. 658</field>
+            <field name="commune_name">Temuco</field>
+            <field name="city_name">Temuco</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="valdivia" model="res.partner.distribution_center">
+            <field name="name">VALDIVIA</field>
+            <field name="zone">SUR</field>
+            <field name="type">PP</field>
+            <field name="type_description">PLANTA PRODUCTORA</field>
+            <field name="x_coordenates">-39.837376</field>
+            <field name="y_coordenates">-73.278541</field>
+            <field name="street">RUTA T 350</field>
+            <field name="street_number">950</field>
+            <field name="commune_name">Valdivia</field>
+            <field name="city_name">Niebla</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="valdivia_tccu" model="res.partner.distribution_center">
+            <field name="name">VALDIVIA TCCU</field>
+            <field name="zone">SUR</field>
+            <field name="type">CD</field>
+            <field name="type_description">CENTRO DISTRIBUCIÓN</field>
+            <field name="x_coordenates">-39.733426</field>
+            <field name="y_coordenates">-73.211526</field>
+            <field name="street">Rta T-202 K37,5 sector Chorocamayo (ex Fundo La Dehesa)</field>
+            <field name="commune_name">Valdivia</field>
+            <field name="city_name">Valdivia</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="parenas" model="res.partner.distribution_center">
+            <field name="name">paRENAS</field>
+            <field name="zone">SUR</field>
+            <field name="type">CD</field>
+            <field name="type_description">CENTRO DISTRIBUCIÓN</field>
+            <field name="x_coordenates">-53.153711</field>
+            <field name="y_coordenates">-70.913417</field>
+            <field name="street">Patagona</field>
+            <field name="street_number">508</field>
+            <field name="commune_name">Punta Arenas</field>
+            <field name="city_name">Punta Arenas</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="index" model="res.partner.distribution_center">
+            <field name="name">INDEX</field>
+            <field name="zone">CENTRO</field>
+            <field name="type">BE</field>
+            <field name="type_description">BODEGA EXTERNA</field>
+            <field name="x_coordenates">-33.332922</field>
+            <field name="y_coordenates">-70.697489</field>
+            <field name="street">Caupolicán, Bodega n° 19</field>
+            <field name="street_number">9400</field>
+            <field name="commune_name">Santiago</field>
+            <field name="city_name">Quilicura</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="austral" model="res.partner.distribution_center">
+            <field name="name">AUSTRAL</field>
+            <field name="zone">SUR</field>
+            <field name="type">PP</field>
+            <field name="type_description">PLANTA PRODUCTORA</field>
+            <field name="x_coordenates">-53.153711</field>
+            <field name="y_coordenates">-70.913417</field>
+            <field name="street">Patagona</field>
+            <field name="street_number">508</field>
+            <field name="commune_name">Punta Arenas</field>
+            <field name="city_name">Punta Arenas</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="serviempaques" model="res.partner.distribution_center">
+            <field name="name">SERVIEMPAQUES</field>
+            <field name="zone">CENTRO</field>
+            <field name="type">ME</field>
+            <field name="type_description">MAQUILAS Y EMPAQUES</field>
+            <field name="x_coordenates">-33.303033</field>
+            <field name="y_coordenates">-70.717391</field>
+            <field name="street">Bdo.O'Higgins, Loteo Los Libertadores</field>
+            <field name="street_number">157</field>
+            <field name="commune_name">Colina</field>
+            <field name="city_name">Santiago</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="temuco_svta" model="res.partner.distribution_center">
+            <field name="name">TEMUCO SVTA</field>
+            <field name="zone">SUR</field>
+            <field name="type">CD</field>
+            <field name="type_description">CENTRO DISTRIBUCIÓN</field>
+            <field name="x_coordenates">-38.654436</field>
+            <field name="y_coordenates">-72.473066</field>
+            <field name="street">Ruta 5 Sur km. 658</field>
+            <field name="commune_name">Temuco</field>
+            <field name="city_name">Temuco</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="valdivia_svta" model="res.partner.distribution_center">
+            <field name="name">VALDIVIA SVTA</field>
+            <field name="zone">SUR</field>
+            <field name="type">CD</field>
+            <field name="type_description">CENTRO DISTRIBUCIÓN</field>
+            <field name="x_coordenates">-39.811513</field>
+            <field name="y_coordenates">-73.243933</field>
+            <field name="street">Rta T-202 K37,5 sector Chorocamayo (ex Fundo La Dehesa)</field>
+            <field name="commune_name">Valdivia</field>
+            <field name="city_name">Valdivia</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="puerto_montt_lg" model="res.partner.distribution_center">
+            <field name="name">PUERTO MONTT LG</field>
+            <field name="zone">SUR</field>
+            <field name="type">BE</field>
+            <field name="type_description">BODEGA EXTERNA</field>
+            <field name="x_coordenates">-41.431053</field>
+            <field name="y_coordenates">-72.957155</field>
+            <field name="street">Ruta 5 Sur Km. 1018</field>
+            <field name="commune_name">Puerto Montt</field>
+            <field name="city_name">Puerto Montt</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="praxair" model="res.partner.distribution_center">
+            <field name="name">PRAXAIR</field>
+            <field name="zone">CENTRO</field>
+            <field name="type">PCO2</field>
+            <field name="type_description">PLANTA PRODUCTORA CO2</field>
+            <field name="x_coordenates">-33.297092</field>
+            <field name="y_coordenates">-70.729455</field>
+            <field name="street">Panamericana Norte, Km 18,5</field>
+            <field name="commune_name">Colina</field>
+            <field name="city_name">Santiago</field>
+            <field name="active" eval="True"/>
+        </record>
+    </data>
+</odoo>

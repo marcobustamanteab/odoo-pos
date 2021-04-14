@@ -73,6 +73,7 @@ class ResPartner(models.Model):
 
     dob = fields.Date(string='Date of Birth', help="Date of Birth", required=True)
     age = fields.Integer(string="Age")
+
     limit_purchase = fields.Float(string="Limit Purchase", default=500000)
     monthly_purchase = fields.Float(string="Monthly Purchase")
     reached_limit = fields.Boolean(string="Reached Limit")

@@ -1,26 +1,21 @@
 # Copyright (C) 2020 CCU
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
-
-
+# noinspection PyStatementEffect
 {
-    "name": "CCU Customization - Base",
+    "name": "CCU Customization - Product",
     "version": "0.1",
     "category": "customizations",
     "license": "LGPL-3",
-    "summary": "CCU Companies Customizations for Base module",
+    "summary": "CCU Companies Customizations for Product module",
     "author": "Compañia Cervecerias Unidas S.A. (CCU)",
     "maintainer": "Compañia Cervecerias Unidas S.A. (CCU)",
     "website": "https://www.ccu.cl",
     "depends": [
-        "base",
-        "ccu_mail",
+        "product",
     ],
     'data': [
-        'security/ir.model.access.csv',
-        'data/distribution_center.xml',
-        # 'data/product_pricelist.xml',
-        # 'data/user_confirmation_email.xml',
-        'views/res_partner.xml',
+        'data/product_pricelist.xml',
+        "views/product_template.xml",
     ],
     "application": True,
     "sequence": 0,

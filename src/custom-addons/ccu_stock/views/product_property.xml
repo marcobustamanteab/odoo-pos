@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+    <record model="ir.ui.view" id="product_property_tree">
+        <field name="name">Product Property</field>
+        <field name="model">product.property</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Product Property">
+                <field name="display_name"/>
+                <field name="code"/>
+                <field name="show_in_card"/>
+                <field name="show_in_filter"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="product_property_form">
+        <field eval="True" name="active"/>
+        <field eval="[(6, 0, [])]" name="groups_id"/>
+        <field name="mode">primary</field>
+        <field name="name">Product Property Form</field>
+        <field name="model">product.property</field>
+        <field name="priority">16</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                </header>
+                <sheet string="Product Property">
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Product Property"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="code"/>
+                        <field name="display_name" invisible="1" />
+                        <field name="parent_id"/>
+                        <field name="show_in_card"/>
+                        <field name="show_in_filter"/>
+                        <field name="url"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

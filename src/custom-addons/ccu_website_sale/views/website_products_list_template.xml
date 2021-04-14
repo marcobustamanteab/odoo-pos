@@ -1,0 +1,12 @@
+<odoo>
+    <!-- Changes on E-commerce products list view -->
+    <template id="show_reference_price_list" inherit_id="website_sale.products_item" name="Show Reference Price">
+        <xpath expr="//div[hasclass('product_price')]" position="before">
+            <small>
+            Precio Referencial: 
+                <span t-field="product.reference_price" t-options="{'widget': 'monetary'}" />
+            </small>
+        </xpath>
+    </template>
+</odoo>
+    
