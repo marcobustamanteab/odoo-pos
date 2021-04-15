@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="pricelist_copero" model="product.pricelist">
+            <field name="name">Copero</field>
+            <field name="active" eval="True"/>
+            <field name="currency_id">45</field>
+            <field name="sequence">16</field>
+            <field name="discount_policy">with_discount</field>
+        </record>
+
+        <record id="pricelist_catador" model="product.pricelist">
+            <field name="name">Catador</field>
+            <field name="active" eval="True"/>
+            <field name="currency_id">45</field>
+            <field name="sequence">16</field>
+            <field name="discount_policy">with_discount</field>
+        </record>
+
+        <record id="pricelist_bartender" model="product.pricelist">
+            <field name="name">Bartender</field>
+            <field name="active" eval="True"/>
+            <field name="currency_id">45</field>
+            <field name="sequence">16</field>
+            <field name="discount_policy">with_discount</field>
+        </record>
+
+        <record id="pricelist_vip" model="product.pricelist">
+            <field name="name">VIP</field>
+            <field name="active" eval="True"/>
+            <field name="currency_id">45</field>
+            <field name="sequence">16</field>
+            <field name="discount_policy">with_discount</field>
+        </record>
+
+        <record id="pricelist_vip_premium" model="product.pricelist">
+            <field name="name">VIP - Premium</field>
+            <field name="active" eval="True"/>
+            <field name="currency_id">45</field>
+            <field name="sequence">16</field>
+            <field name="discount_policy">with_discount</field>
+        </record>
+    </data>
+</odoo>

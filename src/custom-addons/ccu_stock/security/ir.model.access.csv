@@ -1,0 +1,10 @@
+id,name,model_id/id,group_id/id,perm_read,perm_create,perm_write,perm_unlink
+ccu_stock.access_product_tag_system,Product Tag,ccu_stock.model_product_tag,base.group_system,1,1,1,1
+ccu_stock.access_product_tag_user,Product Tag,ccu_stock.model_product_tag,base.group_user,1,0,0,0
+ccu_stock.access_product_tag_portal,Product Tag,ccu_stock.model_product_tag,base.group_public,1,0,0,0
+ccu_stock.access_product_brand_system,Product Brand,ccu_stock.model_product_brand,base.group_system,1,1,1,1
+ccu_stock.access_product_brand_user,Product Brand,ccu_stock.model_product_brand,base.group_user,1,0,0,0
+ccu_stock.access_product_brand_portal,Product Brand,ccu_stock.model_product_brand,base.group_public,1,0,0,0
+ccu_stock.access_product_property_system,Districts,ccu_stock.model_product_property,base.group_system,1,1,1,1
+ccu_stock.access_product_property_user,Districts,ccu_stock.model_product_property,base.group_user,1,0,0,0
+ccu_stock.access_product_property_portal,Districts,ccu_stock.model_product_property,base.group_public,1,0,0,0
