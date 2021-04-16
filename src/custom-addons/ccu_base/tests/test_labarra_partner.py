@@ -2,11 +2,10 @@ from datetime import datetime
 from unittest.mock import MagicMock
 
 from dateutil.relativedelta import relativedelta
-from odoo.tests import common
-
 from odoo.exceptions import ValidationError
-
+from odoo.tests import common
 from odoo.tests import tagged
+
 from ..models.res_partner import PartnerGender
 
 
