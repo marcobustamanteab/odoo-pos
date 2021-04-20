@@ -1,38 +1,35 @@
-import models
+from odoo import fields, models, api
 
-from . import fields, models
 
-class integration_accounting(models.Model):
+class IntegrationAccounting(models.Model):
     _inherit = 'account.account'
+    _name = "integration.account.account"
+    _description = "Record for Online Stock Consult"
 
-    CUENTA_PS = fields.Integer('Account PeopleSoft',
-                    groups='base.group_user',
-                    states={'lost': [('readonly', True)]},
-                    help='Total book page count', company_dependent=False)
-    CUENTA_SAP = fields.Integer('Account SAP',
-                    groups='base.group_user',
-                    states={'lost': [('readonly', True)]},
-                    help='Total book page count', company_dependent=False)
-    SAP_DESCR20 = fields.Char(string='Account Description', required=True, translate=True)
-    CLASE_CTA = fields.Selection(
+    external_account_1 = fields.Integer('Account PeopleSoft', groups='base.group_user', help='Cuenta PeopleSoft',
+                                     required=True, translate=True)
+    external_account_2 = fields.Integer('Account SAP', groups='base.group_user', help='Cuenta SAP', required=True,
+                                     translate=True)
+    int_description = fields.Char(string='Account Description', required=True, translate=True)
+    class_account = fields.Selection(
                     [('X', 'X'),
                     ('P', 'P')],
-                    'State', default="draft")
-    SAP_TP_CTA = fields.Selection(
+                    'State')
+    type_account = fields.Selection(
                     [('A', 'A'),
                      ('D', 'D'),
                      ('K', 'K'),
                      ('P', 'P'),
                      ('S', 'S')],
-                    'State', default="draft")
-    IND_CECO = fields.Boolean(string="Bring Accounts Balance Forward", help="Used in")
-    IND_CEBE = fields.Boolean(string="Bring Accounts Balance Forward", help="Used in")
-    IND_REF = fields.Char(string="Bring Accounts Balance Forward", help="Used in")
-    IND_REF2 = fields.Char(string="Bring Accounts Balance Forward", help="Used in")
-    IND_REF3 = fields.Char(string="Bring Accounts Balance Forward", help="Used in")
-    SAP_ASIG = fields.Boolean(string="Bring Accounts Balance Forward", help="Used in")
-    IND_SOC_GLFIL = fields.Boolean(string="Bring Accounts Balance Forward", help="Used in")
-    ELEMENTO_PEP = fields.Boolean(string="Bring Accounts Balance Forward", help="Used in")
-    IND_ART_SKU = fields.Boolean(string="Bring Accounts Balance Forward", help="Used in")
-    IND_FECHA_VALOR = fields.Boolean(string="Bring Accounts Balance Forward", help="Used in")
+                    'State')
+    ind_ceco = fields.Boolean(string="ind_ceco", help="Used in")
+    ind_cebe = fields.Boolean(string="ind_cebe", help="Used in")
+    ind_ref = fields.Char(string="ind_ref", help="Used in")
+    ind_ref2 = fields.Char(string="ind_ref 2", help="Used in")
+    ind_ref3 = fields.Char(string="ind_ref 3", help="Used in")
+    sap_asig = fields.Boolean(string="sap_asig", help="Used in")
+    ind_soc_glfil = fields.Boolean(string="ind_soc_glfil", help="Used in")
+    pep_element = fields.Boolean(string="elemento_pep", help="Used in")
+    ind_art_sku = fields.Boolean(string="ind_art_sku", help="Used in")
+    ind_date_value = fields.Boolean(string="ind_fecha_valor", help="Used in")
 
