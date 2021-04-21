@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="product_banner_config_tree">
+            <field name="name">product.banner.config.tree</field>
+            <field name="model">product.banner.config</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Printing Format">
+                    <field name="type"/>
+                    <field name="product_id"/>
+                    <field name="product_category_id"/>
+                    <field name="ir_attachment_id"/>
+                    <field name="link"/>
+                    <field name="button_link"/>
+                    <field name="bg_color"/>
+                    <field name="priority"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="product_banner_config_form">
+            <field name="name">product.banner.config.form</field>
+            <field name="model">product.banner.config</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                    </header>
+                    <sheet string="Configuración de Banners">
+                        <group>
+                            <field name="type"/>
+                            <field name="product_category_id"/>
+                            <field name="product_id"
+                                   domain="[('categ_id','=',context.get('product_category_id','False'))]"/>
+                            <field name="ir_attachment_id"/>
+                            <field name="banner_image" widget='image' class="oe_avatar"/>
+                            <field name="link"/>
+                            <field name="button_link"/>
+                            <field name="bg_color" widget='color'/>
+                            <field name="priority"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="product_banner_config_kanban">
+            <field name="name">product.banner.config.kanban</field>
+            <field name="model">product.banner.config</field>
+            <field name="priority">1</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_mobile">
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_content oe_kanban_global_click">
+                                <div class="row">
+                                    <div class="col-10">
+                                        <strong>
+                                            <field name="product_category_id"/>
+                                        </strong>
+                                    </div>
+                                    <div class="col-10">
+                                        <strong>
+                                            <field name="product_id"/>
+                                        </strong>
+                                    </div>
+                                    <div class="col-12">
+                                        <field name="banner_image" widget='image' class="oe_avatar"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+    </data>
+</odoo>
