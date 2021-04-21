@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+    <record model="ir.ui.view" id="res_holiday_tree">
+        <field name="name">Holiday</field>
+        <field name="model">res.holiday</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Holiday">
+                <field name="date"/>
+                <field name="name"/>
+                <field name="country_id" />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="res_holiday_form">
+        <field eval="True" name="active"/>
+        <field eval="[(6, 0, [])]" name="groups_id"/>
+        <field name="mode">primary</field>
+        <field name="name">Holiday Form</field>
+        <field name="model">res.holiday</field>
+        <field name="priority">16</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                </header>
+                <sheet string="Holiday">
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Holiday"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="date"  />
+                        <field name="country_id" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
