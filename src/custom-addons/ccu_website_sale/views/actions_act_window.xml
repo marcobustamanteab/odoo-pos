@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+    <!-- PRODUCT BANNER CONFIG -->
+    <record model="ir.actions.act_window" id="banner_api_config_action">
+        <field name="binding_type">action</field>
+        <field name="context">{}</field>
+        <field eval="[(6, 0, [])]" name="groups_id"/>
+        <field name="help"><![CDATA[Chart of Accounts]]></field>
+        <field name="limit">80</field>
+        <field name="name">Configuración de Banners</field>
+        <field name="res_model">product.banner.config</field>
+        <field name="target">current</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+    <!-- DISTRICT -->
+    <record model="ir.actions.act_window" id="res_city_district_action">
+        <field name="binding_type">action</field>
+        <field name="context">{}</field>
+        <field eval="[(6, 0, [])]" name="groups_id"/>
+        <field name="help"><![CDATA[District]]></field>
+        <field name="limit">80</field>
+        <field name="name">District</field>
+        <field name="res_model">res.city.district</field>
+        <field name="target">current</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- WEEKDAY -->
+    <record model="ir.actions.act_window" id="res_weekday_action">
+        <field name="binding_type">action</field>
+        <field name="context">{}</field>
+        <field eval="[(6, 0, [])]" name="groups_id"/>
+        <field name="help"><![CDATA[Days of the Week]]></field>
+        <field name="limit">80</field>
+        <field name="name">Days of the Week</field>
+        <field name="res_model">res.weekday</field>
+        <field name="target">current</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- HOLIDAY -->
+    <record model="ir.actions.act_window" id="res_holiday_action">
+        <field name="binding_type">action</field>
+        <field name="context">{}</field>
+        <field eval="[(6, 0, [])]" name="groups_id"/>
+        <field name="help"><![CDATA[Holidays]]></field>
+        <field name="limit">80</field>
+        <field name="name">Holidays</field>
+        <field name="res_model">res.holiday</field>
+        <field name="target">current</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,21 @@
+<!-- Copyright (C) 2020 CCU
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+<odoo>
+    <record id="view_product_pricelist_item_form_ccu_labarra" model="ir.ui.view">
+        <field name="name">product.pricelist.item.max_quantity</field>
+        <field name="model">product.pricelist.item</field>
+        <field name="inherit_id" ref="product.product_pricelist_item_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='min_quantity']/.." position="after">
+                <group>
+                    <field name="max_quantity_check"/>
+                    <field name="max_quantity" attrs="{'invisible': [('max_quantity_check','=', False)] }"/>
+                    <field name="max_qty_options" attrs="{'invisible': [('max_quantity_check','=', False)] }"/>
+                    <field name="max_qty_init_date" attrs="{'invisible': [('max_qty_options','in',['Monthly', 'Daily'])]}" />
+                    <field name="max_qty_end_date" attrs="{'invisible': [('max_qty_options','in',['Monthly', 'Daily'])]}" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+

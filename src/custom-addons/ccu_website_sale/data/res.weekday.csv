@@ -1,0 +1,8 @@
+id,name,day_id
+labarra_website_api.res_weekday_monday,Lunes,0
+labarra_website_api.res_weekday_tuesday,Martes,1
+labarra_website_api.res_weekday_wednesday,Miércoles,2
+labarra_website_api.res_weekday_thursday,Jueves,3
+labarra_website_api.res_weekday_friday,Viernes,4
+labarra_website_api.res_weekday_saturday,Sábado,5
+labarra_website_api.res_weekday_sunday,Domingo,6
