@@ -8,7 +8,7 @@
 
     <menuitem id="integration_module"
         name="Integration Layer"
-        web_icon="integration,static/description/icon.png"/>
+        web_icon="ccu_integration,static/icon.png"/>
 
         <menuitem id="integration_main_data_module"
             name="Main Data"
