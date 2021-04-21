@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+    <!-- PRODUCT TAG -->
+    <record model="ir.actions.act_window" id="product_tag_action">
+        <field name="binding_type">action</field>
+        <field name="context">{}</field>
+        <field eval="[(6, 0, [])]" name="groups_id"/>
+        <field name="help"><![CDATA[Product Tag]]></field>
+        <field name="limit">80</field>
+        <field name="name">Product Tag</field>
+        <field name="res_model">product.tag</field>
+        <field name="target">current</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- PRODUCT BRAND -->
+    <record model="ir.actions.act_window" id="product_brand_action">
+        <field name="binding_type">action</field>
+        <field name="context">{}</field>
+        <field eval="[(6, 0, [])]" name="groups_id"/>
+        <field name="help"><![CDATA[Product Brand]]></field>
+        <field name="limit">80</field>
+        <field name="name">Product Brand</field>
+        <field name="res_model">product.brand</field>
+        <field name="target">current</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- PRODUCT PROPERTY -->
+    <record model="ir.actions.act_window" id="product_property_action">
+        <field name="binding_type">action</field>
+        <field name="context">{}</field>
+        <field eval="[(6, 0, [])]" name="groups_id"/>
+        <field name="help"><![CDATA[Product Property]]></field>
+        <field name="limit">80</field>
+        <field name="name">Product Property</field>
+        <field name="res_model">product.property</field>
+        <field name="target">current</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

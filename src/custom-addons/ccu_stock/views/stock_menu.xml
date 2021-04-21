@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+
+    <menuitem name="Product Tag"
+        id="menu_website_product_tag"
+        parent="stock.menu_product_in_config_stock"
+        action="product_tag_action"
+        sequence="80"/>
+
+    <menuitem name="Product Brand"
+        id="menu_website_product_brand"
+        parent="stock.menu_product_in_config_stock"
+        action="product_brand_action"
+        sequence="85"/>
+
+    <menuitem name="Product Property"
+        id="menu_website_product_property"
+        parent="stock.menu_product_in_config_stock"
+        action="product_property_action"
+        sequence="90"/>
+
+</odoo>
