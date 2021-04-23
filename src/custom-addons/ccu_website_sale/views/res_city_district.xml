@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+    <record model="ir.ui.view" id="res_city_district_tree">
+        <field name="name">District</field>
+        <field name="model">res.city.district</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="District">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="city_id"/>
+                <field name="weekday_ids" widget="many2many_tags"/>
+                <field name="lead_time"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="res_city_district_form">
+        <field eval="True" name="active"/>
+        <field eval="[(6, 0, [])]" name="groups_id"/>
+        <field name="mode">primary</field>
+        <field name="name">District Form</field>
+        <field name="model">res.city.district</field>
+        <field name="priority">16</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                </header>
+                <sheet string="District">
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="District"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="code" />
+                        <field name="city_id" />
+                        <field name="weekday_ids" widget="many2many_tags"/>
+                        <field name="lead_time" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

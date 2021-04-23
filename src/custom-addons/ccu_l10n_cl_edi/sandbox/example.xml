@@ -1,0 +1,63 @@
+<html>
+    <head>
+        <title>JBWEB000065: HTTP Status 500 - Request processing failed; nested exception is
+            org.jboss.resteasy.spi.UnsupportedMediaTypeException: RESTEASY001055: Cannot consume content type
+        </title>
+        <style><!--H1 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:22px;} H2 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:16px;} H3 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:14px;} BODY {font-family:Tahoma,Arial,sans-serif;color:black;background-color:white;} B {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;} P {font-family:Tahoma,Arial,sans-serif;background:white;color:black;font-size:12px;}A {color : black;}A.name {color : black;}HR {color : #525D76;}--></style>
+    </head>
+    <body>
+        <h1>JBWEB000065: HTTP Status 500 - Request processing failed; nested exception is
+            org.jboss.resteasy.spi.UnsupportedMediaTypeException: RESTEASY001055: Cannot consume content type
+        </h1>
+        <HR size="1" noshade="noshade">
+        <p>
+            <b>JBWEB000309: type</b>
+            JBWEB000066: Exception report
+        </p>
+        <p>
+            <b>JBWEB000068: message</b>
+            <u>Request processing failed; nested exception is org.jboss.resteasy.spi.UnsupportedMediaTypeException:
+                RESTEASY001055: Cannot consume content type
+            </u>
+        </p>
+        <p>
+            <b>JBWEB000069: description</b>
+            <u>JBWEB000145: The server encountered an internal error that prevented it from fulfilling this request.</u>
+        </p>
+        <p>
+            <b>JBWEB000070: exception</b>
+            <pre>org.springframework.web.util.NestedServletException: Request processing failed; nested exception is
+                org.jboss.resteasy.spi.UnsupportedMediaTypeException: RESTEASY001055: Cannot consume content type
+                org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:656)
+                org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:560)
+                javax.servlet.http.HttpServlet.service(HttpServlet.java:754)
+                javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+            </pre>
+        </p>
+        <p>
+            <b>JBWEB000071: root cause</b>
+            <pre>org.jboss.resteasy.spi.UnsupportedMediaTypeException: RESTEASY001055: Cannot consume content type
+                org.jboss.resteasy.core.registry.Segment.match(Segment.java:125)
+                org.jboss.resteasy.core.registry.SimpleSegment.matchSimple(SimpleSegment.java:34)
+                org.jboss.resteasy.core.registry.RootSegment.matchChildren(RootSegment.java:328)
+                org.jboss.resteasy.core.registry.SimpleSegment.matchSimple(SimpleSegment.java:45)
+                org.jboss.resteasy.core.registry.RootSegment.matchChildren(RootSegment.java:328)
+                org.jboss.resteasy.core.registry.RootSegment.matchRoot(RootSegment.java:375)
+                org.jboss.resteasy.core.registry.RootSegment.matchRoot(RootSegment.java:368)
+                org.jboss.resteasy.core.ResourceMethodRegistry.getResourceInvoker(ResourceMethodRegistry.java:349)
+                org.jboss.resteasy.core.SynchronousDispatcher.getInvoker(SynchronousDispatcher.java:196)
+                org.jboss.resteasy.springmvc.ResteasyHandlerMapping.getInvoker(ResteasyHandlerMapping.java:97)
+                org.jboss.resteasy.springmvc.ResteasyHandlerMapping.getHandler(ResteasyHandlerMapping.java:74)
+                org.springframework.web.servlet.DispatcherServlet.getHandler(DispatcherServlet.java:930)
+                org.springframework.web.servlet.DispatcherServlet.getHandler(DispatcherServlet.java:915)
+                org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:753)
+                org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:719)
+                org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:644)
+                org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:560)
+                javax.servlet.http.HttpServlet.service(HttpServlet.java:754)
+                javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+            </pre>
+        </p>
+        <HR size="1" noshade="noshade">
+    </body>
+</html>

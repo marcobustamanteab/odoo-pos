@@ -1,0 +1,21 @@
+<!-- Copyright (C) 2020 CCU
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+<odoo>
+    <template id="portal_my_details_ccu_labarra" inherit_id="portal.portal_my_details">
+        <xpath expr="//form/div/div/div/div[3]" position="before">
+            <div t-attf-class="form-group #{error.get('dob') and 'o_has_error' or ''} col-xl-6">
+                <label class="col-form-label" for="dob">Fecha de Nacimiento</label>
+                <input type="date" name="dob" t-attf-class="form-control #{error.get('dob') and 'is-invalid' or ''}" t-att-value="dob or partner.dob"/>
+            </div>
+            <div t-attf-class="form-group #{error.get('gender') and 'o_has_error' or ''} col-xl-6">
+                <label class="col-form-label" for="gender">Sexo</label>
+                <select name="gender" t-attf-class="form-control #{error.get('gender') and 'is-invalid' or ''}">
+                    <option t-attf-value="male" t-att-selected="'male' == gender if gender else 'male' == partner.gender">Masculino</option>
+                    <option t-attf-value="female" t-att-selected="'female' == gender if gender else 'female' == partner.gender">Femenino</option>
+                    <option t-attf-value="other" t-att-selected="'other' == gender if gender else 'other' == partner.gender">Otro</option>
+                    <option t-attf-value="unspecified" t-att-selected="'unspecified' == gender if gender else 'unspecified' == partner.gender">Prefiero no Decirlo</option>
+                </select>
+            </div>
+        </xpath>
+    </template>
+</odoo>
