@@ -1,0 +1,39 @@
+<odoo>
+    <record model="ir.ui.view" id="account_account_integration_form_view">
+        <field name="name">Integration Accounting</field>
+        <field name="model">account.account</field>
+        <field name="priority">17</field>
+        <field name="inherit_id" ref="account.view_account_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet/group" position="after">
+                <group>
+                    <notebook>
+                        <page string="CCU Customization">
+                            <group>
+                                <group>
+                                    <field name="external_account_1"/>
+                                    <field name="external_account_2"/>
+                                    <field name="int_description"/>
+                                    <field name="class_account"/>
+                                    <field name="type_account"/>
+                                    <field name="ind_ceco"/>
+                                    <field name="ind_cebe"/>
+                                </group>
+                                <group>
+                                    <field name="ind_ref"/>
+                                    <field name="ind_ref2"/>
+                                    <field name="ind_ref3"/>
+                                    <field name="sap_asig"/>
+                                    <field name="ind_soc_glfil"/>
+                                    <field name="pep_element"/>
+                                    <field name="ind_art_sku"/>
+                                    <field name="ind_date_value"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

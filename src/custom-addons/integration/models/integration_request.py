@@ -60,7 +60,7 @@ class IntegrationRequest(models.Model):
 
     @api.onchange('endpoint_id','resource','endpoint_host','endpoint_port')
     def _calculate_url(self):
-        self.url = "%s%s/%s" %(self.endpoint_host, ":%s" if self.endpoint_port else "", self.resource.strip("/") if self.resource else "")
+        self.url = "%s:%s/%s" %(self.endpoint_host,  self.endpoint_port, self.resource.strip("/") if self.resource else "")
 
     def action_perform_request(self, **kwargs):
         """
@@ -140,7 +140,7 @@ class IntegrationRequest(models.Model):
                     request_args["body"] = payload
                     request_args["fields"] = formdata
                 print("#####")
-                response = http.request(self.method,finalurl,**request_args)
+                response = http.request(self.method, finalurl, **request_args)
                 print(["RESPONSE", response, type(response)])
                 print("#####")
             else:

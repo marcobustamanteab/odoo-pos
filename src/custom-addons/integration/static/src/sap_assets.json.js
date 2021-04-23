@@ -1,7 +1,7 @@
 {
    "T_DOCUMENTOS" :{
       "CABECERA" :{
-         "ID_DOCUMENTO":"TC1293O",
+         "ID_DOCUMENTO":"{{ movement.name }}",
          "USERNAME":"KDCPEREZ",
          "HEADER_TXT":"Asiento12221922",
          "COMP_CODE":"A050",

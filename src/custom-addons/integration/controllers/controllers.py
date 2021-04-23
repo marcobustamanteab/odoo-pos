@@ -7,6 +7,7 @@ from html import unescape
 
 _logger = logging.getLogger(__name__)
 
+
 class ConsultaStockMateriales(Controller):
 
     @route('/check_connection', methods=['GET',], auth='public', csrf=False, cors="*")

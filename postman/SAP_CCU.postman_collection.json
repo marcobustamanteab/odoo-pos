@@ -1,0 +1,218 @@
+{
+	"info": {
+		"_postman_id": "e25e6633-99b3-4a95-ae7d-921a5785dcda",
+		"name": "SAP_CCU",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "MTIPP005_RecepcionPallet",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "FECHA",
+						"value": "1",
+						"type": "text"
+					},
+					{
+						"key": "MENSAJE",
+						"value": "2",
+						"type": "text"
+					},
+					{
+						"key": "SOCIEDAD",
+						"value": "3",
+						"type": "text"
+					},
+					{
+						"key": "ID_MENSAJE",
+						"value": "4",
+						"type": "text"
+					},
+					{
+						"key": "LEGADO",
+						"value": "5",
+						"type": "text"
+					},
+					{
+						"key": "CODIGO_INTERFAZ",
+						"value": "6",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/xml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<RecepcionIDPallet>\n<AUFNR>006600000188</AUFNR>\n<EXIDV>001230101000000474</EXIDV>\n<WERKS>2313</WERKS>\n<MATNR>450417</MATNR>\n<ISDD>2021-03-17</ISDD>\n<ISDZ>11:35:30</ISDZ>\n<ERFMG>41</ERFMG>\n<CHARG>0000000956</CHARG>\n</RecepcionIDPallet>"
+				},
+				"url": {
+					"raw": "http://wso2-desa01.ccu.cl:8280/RecepcionIDPallet_MTIPP005/api",
+					"protocol": "http",
+					"host": [
+						"wso2-desa01",
+						"ccu",
+						"cl"
+					],
+					"port": "8280",
+					"path": [
+						"RecepcionIDPallet_MTIPP005",
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DSS_PG",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"AUFNR\": \"006600000188\",\n\t\"EXIDV\": \"001230101000000474\",\n\t\"WERKS\": \"2313\",\n\t\"MATNR\": \"450417\",\n\t\"ISDD\": \"2021-03-17\",\n\t\"ISDZ\": \"11:35:30\",\n\t\"ERFMG\": \"41\",\n\t\"CHARG\": \"0000000956\",\n    \"CREATEDTTM\": \"2021-03-17\",\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8280/services/registro_log/insert",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8280",
+					"path": [
+						"services",
+						"registro_log",
+						"insert"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "rtr038 - subir-sap",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic  SkZBSkFSRE9UOk5hZmUxODI5",
+						"type": "text"
+					},
+					{
+						"key": "ID_MENSAJE",
+						"value": "1234",
+						"type": "text"
+					},
+					{
+						"key": "MENSAJE",
+						"value": "Asiento Contable",
+						"type": "text"
+					},
+					{
+						"key": "LEGADO",
+						"value": "ODOO",
+						"type": "text"
+					},
+					{
+						"key": "FECHA",
+						"value": "13-04-2021 17:00:00",
+						"type": "text"
+					},
+					{
+						"key": "CODIGO_INTERFAZ",
+						"value": "01",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"T_DOCUMENTOS\": {\n    \"HEADER\" : {\n        \"ID_MENSAJE\" : 1234,\n        \"LEGADO\" : \"ODOO\",\n        \"FECHA\" : \"13-04-2021 17:00:00\",\n        \"CODIGO_INTERFAZ\" : \"01\",\n        \"MENSAJE\" : \"Asiento contable\"\n    },\n    \"CABECERA\": {\n      \"ID_DOCUMENTO\": \"TC210312171438000O\",\n      \"USERNAME\": \"IRAFFO\",\n      \"HEADER_TXT\": \"TRK_RECIBO\",\n      \"COMP_CODE\": \"A032\",\n      \"DOC_DATE\": \"20201202\",\n      \"PSTNG_DATE\": \"20201202\",\n      \"DOC_TYPE\": \"IE\",\n      \"REF_DOC_NO\": \"1154044\",\n      \"TRANS_DATE\": \" \"\n    },\n    \"ACREEDOR\": [\n      {\n        \"ITEMNO_ACC\": \"0\",\n        \"VENDOR_NO\": \"\",\n        \"SP_GL_IND\": \"\",\n        \"SGTXT\": \"\",\n        \"REF_KEY_1\": \"\",\n        \"REF_KEY_2\": \"\",\n        \"REF_KEY_3\": \"\",\n        \"BUS_AREA\": \"\",\n        \"BP_GEBER\": \"\",\n        \"PMNTTRMS\": \"\",\n        \"BLINE_DATE\": \"\",\n        \"PMNT_BLOCK\": \"\",\n        \"ALLOC_NMBR\": \"\",\n        \"ALT_PAYEE\": \"\",\n        \"PROFIT_CTR\": \"\",\n        \"PYMT_CUR\": \"\",\n        \"PYMT_AMT\": \"\"\n      }\n    ],\n    \"CREACION_VENDOR\": [\n      {\n        \"PAIS\": \"\",\n        \"RUT\": \" \",\n        \"NOMBRE_1\": \" \",\n        \"NOMBRE_2\": \" \",\n        \"COD_BUSQUEDA\": \" \",\n        \"DIRECCION\": \" \",\n        \"CALLE\": \" \",\n        \"NUMERO\": \" \",\n        \"CIUDAD\": \" \",\n        \"COMUNA\": \" \",\n        \"REGION\": \" \",\n        \"SOCIEDAD\": \" \",\n        \"CTA_ASOCIADA\": \" \",\n        \"GRUPO_TESORERIA\": \" \",\n        \"VIA_PAGO\": \" \",\n        \"CONDICION_PAGO\": \" \",\n        \"ID_CUENTA_BANCARIA\": \" \",\n        \"PAIS_BANCO\": \" \",\n        \"CLAVE_BANCO\": \" \",\n        \"CUENTA_BANCARIA\": \" \"\n      }\n    ],\n    \"DEUDOR\": [\n      {\n        \"ITEMNO_ACC\": \"1\",\n        \"CUSTOMER\": \"76023952-6\",\n        \"SP_GL_IND\": \"\",\n        \"SGTXT\": \"2Q NOVIEMBRE CD 01\",\n        \"PMNTTRMS\": \"\",\n        \"PYMT_METH\": \"\",\n        \"C_CTR_AREA\": \"\",\n        \"TAX_CODE\": \"\",\n        \"PROFIT_CTR\": \"\",\n        \"BLINE_DATE\": \"\",\n        \"PMNT_BLOCK\": \"\",\n        \"REF_KEY_1\": \"\",\n        \"REF_KEY_2\": \"\",\n        \"REF_KEY_3\": \"\",\n        \"ALT_PAYEE\": \"\",\n        \"ALLOC_NMBR\": \"76023952-6\"\n      }\n    ],\n    \"CUENTADEMAYOR\": [\n      {\n        \"ITEMNO_ACC\": \"2\",\n        \"HKONT\": \"1103010006\",\n        \"SGTXT\": \"2Q NOVIEMBRE CD 01\",\n        \"VALUE_DATE\": \" \",\n        \"ALLOC_NMBR\": \"76023952-6\",\n        \"COSTCENTER\": \"\",\n        \"TAX_CODE\": \"\",\n        \"BUS_AREA\": \"\",\n        \"PLANT\": \"\",\n        \"MATERIAL\": \"\",\n        \"FUNC_AREA\": \"\",\n        \"FIS_PERIOD\": \"0\",\n        \"FISC_YEAR\": \"0\",\n        \"ALLOC_NMBR_2\": \"76023952-6\",\n        \"PROFIT_CTR\": \"\",\n        \"WBS_ELEMENT\": \"\",\n        \"ORDERID\": \"\",\n        \"ASSET_NO\": \"\",\n        \"SALES_ORD\": \"\",\n        \"S_ORD_ITEM\": \"0\",\n        \"DISTR_CHAN\": \"\",\n        \"DIVISION\": \"\",\n        \"SALESORG\": \"\",\n        \"SALES_GRP\": \"\",\n        \"SALES_OFF\": \"\",\n        \"SOLD_TO\": \"\",\n        \"SEGMENT\": \"\",\n        \"REF_KEY_1\": \"\",\n        \"REF_KEY_2\": \"\",\n        \"REF_KEY_3\": \"\",\n        \"TRADE_ID\": \"\"\n      }\n    ],\n    \"CURRENCYAMOUNT\": [\n      {\n        \"ITEMNO_ACC\": \"1\",\n        \"CURR_TYPE\": \"0\",\n        \"CURRENCY\": \"CLP\",\n        \"CURRENCY_ISO\": \"\",\n        \"AMT_DOCCUR\": \"1787592\",\n        \"AMT_BASE\": \"\",\n        \"EXCH_RATE\": \"\"\n      },\n      {\n        \"ITEMNO_ACC\": \"2\",\n        \"CURR_TYPE\": \"0\",\n        \"CURRENCY\": \"CLP\",\n        \"CURRENCY_ISO\": \"\",\n        \"AMT_DOCCUR\": \"-1787592\",\n        \"AMT_BASE\": \"\",\n        \"EXCH_RATE\": \"\"\n      }\n    ],\n    \"CRITERIA\": [\n      {\n        \"ITEMNO_ACC\": \"0\",\n        \"FIELDNAME\": \" \",\n        \"CHARACTER\": \" \",\n        \"PROD_NO_LONG\": \" \"\n      }\n    ]\n  }\n}"
+				},
+				"url": {
+					"raw": "http://qpo-ci01.ccu.cl:50000/RESTAdapter/EnvioAsientoContable360",
+					"protocol": "http",
+					"host": [
+						"qpo-ci01",
+						"ccu",
+						"cl"
+					],
+					"port": "50000",
+					"path": [
+						"RESTAdapter",
+						"EnvioAsientoContable360"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "rtr038 - envio-sap",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "ORIGEN",
+						"value": "ODOO",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"T_DOCUMENTOS\": {\n    \"HEADER\" : {\n        \"ORIGEN\" : \"ODOO\"\n\n    },\n    \"CABECERA\": {\n      \"ID_DOCUMENTO\": \"TC210312171438000O\",\n      \"USERNAME\": \"IRAFFO\",\n      \"HEADER_TXT\": \"TRK_RECIBO\",\n      \"COMP_CODE\": \"A032\",\n      \"DOC_DATE\": \"20201202\",\n      \"PSTNG_DATE\": \"20201202\",\n      \"DOC_TYPE\": \"IE\",\n      \"REF_DOC_NO\": \"1154044\",\n      \"TRANS_DATE\": \" \"\n    },\n    \"ACREEDOR\": [\n      {\n        \"ITEMNO_ACC\": \"0\",\n        \"VENDOR_NO\": \"\",\n        \"SP_GL_IND\": \"\",\n        \"SGTXT\": \"\",\n        \"REF_KEY_1\": \"\",\n        \"REF_KEY_2\": \"\",\n        \"REF_KEY_3\": \"\",\n        \"BUS_AREA\": \"\",\n        \"BP_GEBER\": \"\",\n        \"PMNTTRMS\": \"\",\n        \"BLINE_DATE\": \"\",\n        \"PMNT_BLOCK\": \"\",\n        \"ALLOC_NMBR\": \"\",\n        \"ALT_PAYEE\": \"\",\n        \"PROFIT_CTR\": \"\",\n        \"PYMT_CUR\": \"\",\n        \"PYMT_AMT\": \"\"\n      }\n    ],\n    \"CREACION_VENDOR\": [\n      {\n        \"PAIS\": \"\",\n        \"RUT\": \" \",\n        \"NOMBRE_1\": \" \",\n        \"NOMBRE_2\": \" \",\n        \"COD_BUSQUEDA\": \" \",\n        \"DIRECCION\": \" \",\n        \"CALLE\": \" \",\n        \"NUMERO\": \" \",\n        \"CIUDAD\": \" \",\n        \"COMUNA\": \" \",\n        \"REGION\": \" \",\n        \"SOCIEDAD\": \" \",\n        \"CTA_ASOCIADA\": \" \",\n        \"GRUPO_TESORERIA\": \" \",\n        \"VIA_PAGO\": \" \",\n        \"CONDICION_PAGO\": \" \",\n        \"ID_CUENTA_BANCARIA\": \" \",\n        \"PAIS_BANCO\": \" \",\n        \"CLAVE_BANCO\": \" \",\n        \"CUENTA_BANCARIA\": \" \"\n      }\n    ],\n    \"DEUDOR\": [\n      {\n        \"ITEMNO_ACC\": \"1\",\n        \"CUSTOMER\": \"76023952-6\",\n        \"SP_GL_IND\": \"\",\n        \"SGTXT\": \"2Q NOVIEMBRE CD 01\",\n        \"PMNTTRMS\": \"\",\n        \"PYMT_METH\": \"\",\n        \"C_CTR_AREA\": \"\",\n        \"TAX_CODE\": \"\",\n        \"PROFIT_CTR\": \"\",\n        \"BLINE_DATE\": \"\",\n        \"PMNT_BLOCK\": \"\",\n        \"REF_KEY_1\": \"\",\n        \"REF_KEY_2\": \"\",\n        \"REF_KEY_3\": \"\",\n        \"ALT_PAYEE\": \"\",\n        \"ALLOC_NMBR\": \"76023952-6\"\n      }\n    ],\n    \"CUENTADEMAYOR\": [\n      {\n        \"ITEMNO_ACC\": \"2\",\n        \"HKONT\": \"1103010006\",\n        \"SGTXT\": \"2Q NOVIEMBRE CD 01\",\n        \"VALUE_DATE\": \" \",\n        \"ALLOC_NMBR\": \"76023952-6\",\n        \"COSTCENTER\": \"\",\n        \"TAX_CODE\": \"\",\n        \"BUS_AREA\": \"\",\n        \"PLANT\": \"\",\n        \"MATERIAL\": \"\",\n        \"FUNC_AREA\": \"\",\n        \"FIS_PERIOD\": \"0\",\n        \"FISC_YEAR\": \"0\",\n        \"ALLOC_NMBR_2\": \"76023952-6\",\n        \"PROFIT_CTR\": \"\",\n        \"WBS_ELEMENT\": \"\",\n        \"ORDERID\": \"\",\n        \"ASSET_NO\": \"\",\n        \"SALES_ORD\": \"\",\n        \"S_ORD_ITEM\": \"0\",\n        \"DISTR_CHAN\": \"\",\n        \"DIVISION\": \"\",\n        \"SALESORG\": \"\",\n        \"SALES_GRP\": \"\",\n        \"SALES_OFF\": \"\",\n        \"SOLD_TO\": \"\",\n        \"SEGMENT\": \"\",\n        \"REF_KEY_1\": \"\",\n        \"REF_KEY_2\": \"\",\n        \"REF_KEY_3\": \"\",\n        \"TRADE_ID\": \"\"\n      }\n    ],\n    \"CURRENCYAMOUNT\": [\n      {\n        \"ITEMNO_ACC\": \"1\",\n        \"CURR_TYPE\": \"0\",\n        \"CURRENCY\": \"CLP\",\n        \"CURRENCY_ISO\": \"\",\n        \"AMT_DOCCUR\": \"1787592\",\n        \"AMT_BASE\": \"\",\n        \"EXCH_RATE\": \"\"\n      },\n      {\n        \"ITEMNO_ACC\": \"2\",\n        \"CURR_TYPE\": \"0\",\n        \"CURRENCY\": \"CLP\",\n        \"CURRENCY_ISO\": \"\",\n        \"AMT_DOCCUR\": \"-1787592\",\n        \"AMT_BASE\": \"\",\n        \"EXCH_RATE\": \"\"\n      }\n    ],\n    \"CRITERIA\": [\n      {\n        \"ITEMNO_ACC\": \"0\",\n        \"FIELDNAME\": \" \",\n        \"CHARACTER\": \" \",\n        \"PROD_NO_LONG\": \" \"\n      }\n    ]\n  }\n}"
+				},
+				"url": {
+					"raw": "http://wso2qa1.ccu.cl:8280/api/asientoscontables/envio/sap",
+					"protocol": "http",
+					"host": [
+						"wso2qa1",
+						"ccu",
+						"cl"
+					],
+					"port": "8280",
+					"path": [
+						"api",
+						"asientoscontables",
+						"envio",
+						"sap"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

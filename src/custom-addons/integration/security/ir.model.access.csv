@@ -5,3 +5,4 @@ integration.access_integration_endpoint_user,"Integration Endpoint",integration.
 integration.access_integration_request_user,"Integration Request",integration.model_integration_request,base.group_user,1,1,1,1
 integration.access_integration_request_log_user,"Integration Request Log",integration.model_integration_request_log,base.group_user,1,1,1,1
 integration.access_integration_settings_user,"Integration Settings",integration.model_integration_settings,base.group_user,1,1,1,1
+integration.access_integration_account_move_line_system,"Integration Account Move Line",integration.model_integration_account_move_line,base.group_user,1,1,1,1

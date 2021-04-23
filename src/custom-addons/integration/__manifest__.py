@@ -15,13 +15,14 @@
     'category': 'Generic Modules',
     'version': '0.20',
     # any module necessary for this one to work correctly
-    'depends': ['base','stock', 'base_address_city', 'contacts'],
+    'depends': ['base', 'stock', 'base_address_city', 'contacts', 'account'],
     # always loaded
     'data': [
         'security/ir.model.access.csv',
         'entries/module_actions_act_window.xml',
         'entries/module_menu.xml',
-
+        'views/integration_account_move.xml',
+        'views/integration_accounting.xml',
         'views/integration_task_definition.xml',
         'views/integration_endpoint.xml',
         'views/integration_request.xml',
