@@ -140,7 +140,7 @@ class IntegrationRequest(models.Model):
                     request_args["body"] = payload
                     request_args["fields"] = formdata
                 print("#####")
-                response = http.request(self.method,finalurl,**request_args)
+                response = http.request(self.method, finalurl, **request_args)
                 print(["RESPONSE", response, type(response)])
                 print("#####")
             else:
