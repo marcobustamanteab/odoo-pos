@@ -16,6 +16,7 @@
     'data': [
         'data/product_pricelist.xml',
         "views/product_template.xml",
+        "views/product_pricelist_item.xml",
     ],
     "application": True,
     "sequence": 0,

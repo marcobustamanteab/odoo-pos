@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+
+    <menuitem name="Configuración de Banners"
+        id="menu_website_rewrite"
+        action="banner_api_config_action"
+        parent="website_sale.menu_product_settings"
+        sequence="40"/>
+
+    <menuitem name="District"
+        id="menu_contacts_menu_district"
+        parent="contacts.menu_localisation"
+        action="res_city_district_action"
+        sequence="40"/>
+
+    <menuitem name="Day of the Week"
+        id="menu_contacts_weekdays"
+        parent="contacts.menu_localisation"
+        action="res_weekday_action"
+        sequence="40"/>
+
+    <menuitem name="Holidays"
+        id="menu_contacts_holiday"
+        parent="contacts.menu_localisation"
+        action="res_holiday_action"
+        sequence="40"/>
+
+</odoo>

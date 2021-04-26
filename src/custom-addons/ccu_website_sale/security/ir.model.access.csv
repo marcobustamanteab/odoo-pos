@@ -1,0 +1,13 @@
+id,name,model_id/id,group_id/id,perm_read,perm_create,perm_write,perm_unlink
+ccu_website_sale.access_product_banner_config_system,Product Banner Config,ccu_website_sale.model_product_banner_config,base.group_system,1,1,1,1
+ccu_website_sale.access_product_banner_config_user,Product Banner Config,ccu_website_sale.model_product_banner_config,base.group_user,1,0,0,0
+ccu_website_sale.access_product_banner_config_portal,Product Banner Config,ccu_website_sale.model_product_banner_config,base.group_public,1,0,0,0
+ccu_website_sale.access_res_city_district_system,Districts,ccu_website_sale.model_res_city_district,base.group_system,1,1,1,1
+ccu_website_sale.access_res_city_district_user,Districts,ccu_website_sale.model_res_city_district,base.group_user,1,0,0,0
+ccu_website_sale.access_res_city_district_portal,Districts,ccu_website_sale.model_res_city_district,base.group_public,1,0,0,0
+ccu_website_sale.access_res_weekday_system,Districts,ccu_website_sale.model_res_weekday,base.group_system,1,1,1,1
+ccu_website_sale.access_res_weekday_user,Districts,ccu_website_sale.model_res_weekday,base.group_user,1,0,0,0
+ccu_website_sale.access_res_weekday_portal,Districts,ccu_website_sale.model_res_weekday,base.group_public,1,0,0,0
+ccu_website_sale.access_res_holiday_system,Districts,ccu_website_sale.model_res_holiday,base.group_system,1,1,1,1
+ccu_website_sale.access_res_holiday_user,Districts,ccu_website_sale.model_res_holiday,base.group_user,1,0,0,0
+ccu_website_sale.access_res_holiday_portal,Districts,ccu_website_sale.model_res_holiday,base.group_public,1,0,0,0

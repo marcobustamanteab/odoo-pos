@@ -1,7 +1,6 @@
 # Copyright (C) 2020 CCU
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
-
-
+# noinspection PyStatementEffect
 {
     "name": "CCU Customization - Base",
     "version": "0.1",
@@ -16,6 +15,7 @@
         "ccu_mail",
     ],
     'data': [
+        # 'data/res_users.xml',
         'security/ir.model.access.csv',
         'data/distribution_center.xml',
         # 'data/product_pricelist.xml',
