@@ -14,7 +14,7 @@
     # for the full list
     'license': 'LGPL-3',
     'category': 'customizations',
-    'version': '0.20',
+    'version': '0.23',
     # any module necessary for this one to work correctly
     'depends': ['stock',
                 'base_address_city',
