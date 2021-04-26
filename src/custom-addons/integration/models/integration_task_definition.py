@@ -7,6 +7,7 @@ import urllib3
 _logger = logging.getLogger(__name__)
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
+from . import integration_account_move
 
 
 class IntegrationTaskDefinition(models.Model):
@@ -293,170 +294,30 @@ class IntegrationTaskDefinition(models.Model):
     def _send_account_movement(self):
         settings = self.env['integration.settings'].search([('company_id', '=', self.company_id.id)])
         movement = self.env['account.move'].search([('name', '=', 'INV/2021/04/0001')])
-        journal_line = movement.line
+        result = integration_account_move.get_account_move_line_custom(movement)
 
-        asiento_cabecera = {
-            "T_DOCUMENTOS": {
-                "CABECERA": {
-                    "ID_DOCUMENTO": "%s" % movement.name,
-                    "USERNAME": "KDCPEREZ",
-                    "HEADER_TXT": "Asiento12221922",
-                    "COMP_CODE": "A050",
-                    "DOC_DATE": "%s" % movement.date.strftime("%Y%m%d"),
-                    "PSTNG_DATE": "%s" % movement.date.strftime("%Y%m%d"),
-                    "DOC_TYPE": "IA",
-                    "REF_DOC_NO": "%s" % movement.payment_reference,
-                    "TRANS_DATE": " "
-                }}}
-
-        # class_account = integration_accounting.class_account
-        # type_account = integration_accounting.type_account
-        # ind_ceco = integration_accounting.ind_ceco
-        # ind_cebe = integration_accounting.ind_cebe
-
-        for lines in journal_line:
-
-            acreedor = {
-              "ACREEDOR":[
-                 {
-                    "ITEMNO_ACC":"%s" % lines.company_id.id,
-                    "VENDOR_NO":"%s" % lines.,
-                    "SP_GL_IND":"",
-                    "SGTXT":"",
-                    "REF_KEY_1":"",
-                    "REF_KEY_2":"",
-                    "REF_KEY_3":"",
-                    "BUS_AREA":"",
-                    "BP_GEBER":"",
-                    "PMNTTRMS":"",
-                    "BLINE_DATE":"",
-                    "PMNT_BLOCK":"",
-                    "ALLOC_NMBR":"77019678-7",
-                    "ALT_PAYEE":"",
-                    "PROFIT_CTR":"A50B899200",
-                    "PYMT_CUR":"",
-                    "PYMT_AMT":""
-                 }
-              ]}
-            creacion_vendor = {
-                  "CREACION_VENDOR":[
-                 {
-                    "PAIS":"%s" % lines.company,
-                    "RUT":"77019678-7",
-                    "NOMBRE_1":"DISTRIBUIDORA L",
-                    "NOMBRE_2":"DISTRIBUIDORA LA KAVA SPA",
-                    "COD_BUSQUEDA":"77019678-7",
-                    "DIRECCION":"Arauco 1025, Santiago 7700, 6",
-                    "CALLE":"Arauco 1025, Santiago",
-                    "NUMERO":"7700, 6",
-                    "CIUDAD":"SANTIAGO",
-                    "COMUNA":"LAS CONDES",
-                    "REGION":"13",
-                    "SOCIEDAD":"A050",
-                    "CTA_ASOCIADA":"2102030011",
-                    "GRUPO_TESORERIA":"KPN",
-                    "VIA_PAGO":"V",
-                    "CONDICION_PAGO":"Z000",
-                    "ID_CUENTA_BANCARIA":"",
-                    "PAIS_BANCO":"",
-                    "CLAVE_BANCO":"",
-                    "CUENTA_BANCARIA":""
-                 }
-              ]}
-            deudor = {
-              "DEUDOR":[
-                 {
-                    "ITEMNO_ACC":"0",
-                    "CUSTOMER":" ",
-                    "SP_GL_IND":" ",
-                    "SGTXT":" ",
-                    "PMNTTRMS":" ",
-                    "PYMT_METH":" ",
-                    "C_CTR_AREA":" ",
-                    "TAX_CODE":" ",
-                    "PROFIT_CTR":" ",
-                    "BLINE_DATE":" ",
-                    "PMNT_BLOCK":" ",
-                    "REF_KEY_1":" ",
-                    "REF_KEY_2":" ",
-                    "REF_KEY_3":" ",
-                    "ALT_PAYEE":" ",
-                    "ALLOC_NMBR":" "
-                 }
-              ]}
-            cuenta_de_mayor = {
-                  "CUENTADEMAYOR":[
-                 {
-                    "ITEMNO_ACC":"2",
-                    "HKONT":"2108010000",
-                    "SGTXT":"",
-                    "VALUE_DATE":" ",
-                    "ALLOC_NMBR":"77019678-7",
-                    "COSTCENTER":"",
-                    "TAX_CODE":"",
-                    "BUS_AREA":"",
-                    "PLANT":"",
-                    "MATERIAL":"",
-                    "FUNC_AREA":"",
-                    "FIS_PERIOD":"0",
-                    "FISC_YEAR":"0",
-                    "ALLOC_NMBR_2":"77019678-7",
-                    "PROFIT_CTR":"A50B899200",
-                    "WBS_ELEMENT":"",
-                    "ORDERID":"",
-                    "ASSET_NO":"",
-                    "SALES_ORD":"",
-                    "S_ORD_ITEM":"0",
-                    "DISTR_CHAN":"",
-                    "DIVISION":"",
-                    "SALESORG":"",
-                    "SALES_GRP":"",
-                    "SALES_OFF":"",
-                    "SOLD_TO":"",
-                    "SEGMENT":"",
-                    "REF_KEY_1":"",
-                    "REF_KEY_2":"",
-                    "REF_KEY_3":"",
-                    "TRADE_ID":""
-                 }
-              ]}
-            currency_amount = {
-                  "CURRENCYAMOUNT":[
-                 {
-                    "ITEMNO_ACC":"1",
-                    "CURR_TYPE":"0",
-                    "CURRENCY":"CLP",
-                    "CURRENCY_ISO":"0",
-                    "AMT_DOCCUR":"-348750",
-                    "AMT_BASE":"0",
-                    "EXCH_RATE":".00000"
-                 },
-                 {
-                    "ITEMNO_ACC":"2",
-                    "CURR_TYPE":"0",
-                    "CURRENCY":"CLP",
-                    "CURRENCY_ISO":"0",
-                    "AMT_DOCCUR":"348750",
-                    "AMT_BASE":"0",
-                    "EXCH_RATE":".00000"
-                 }
-              ]}
-            criteria = {
-              "CRITERIA":[
-                 {
-                    "ITEMNO_ACC":"0",
-                    "FIELDNAME":" ",
-                    "CHARACTER":" ",
-                    "PROD_NO_LONG":" "
-                 }
-              ]}
+        urivalues = [param.value for param in self.param_line_ids if param.scope == IntegrationTaskDefinitionParam.S_URL]
+        par_keys = [param.key for param in self.param_line_ids if param.scope == IntegrationTaskDefinitionParam.S_HEADER]
+        par_values = [param.value for param in self.param_line_ids if param.scope == IntegrationTaskDefinitionParam.S_HEADER]
+        header = dict(zip(par_keys, par_values))
+        request = self.env["integration.request"].browse(self.request_id.id)
+        raw_response = request.action_perform_request(body=result,
+                                                      urivalues=urivalues,
+                                                      header=header)
+        if isinstance(raw_response, urllib3.HTTPResponse):
+            if request.content_type == request.CT_JSON:
+                print(["RESPONSE_DATA_TYPE", type(raw_response.data)])
+                print(["RESPONSE_DATA", raw_response.data])
+                response = json.loads(raw_response.data)
+            else:
+                print(["RESPONSE_DATA_TYPE", type(raw_response.data)])
+                print(["RESPONSE_DATA", raw_response.data])
+                response = raw_response.data
+            try:
+                response = json.loads(raw_response.data)
+            except json.JSONDecoder as errstring:
+                response = raw_response.data
         return True
-
-        #print(asiento)
-        # if not settings.sync_stock_qty:
-        #     _logger.debug("Stock Synchronization Disabled")
-        #     return True
-
 
     def _get_param(self, key):
         res = ""
