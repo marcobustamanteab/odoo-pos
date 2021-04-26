@@ -60,7 +60,10 @@ class IntegrationRequest(models.Model):
 
     @api.onchange('endpoint_id','resource','endpoint_host','endpoint_port')
     def _calculate_url(self):
-        self.url = "%s%s/%s" %(self.endpoint_host, ":%s" %(self.endpoint_port) if self.endpoint_port else "", self.resource.strip("/") if self.resource else "")
+        host = self.endpoint_host
+        port = ":%s" %(self.endpoint_port) if self.endpoint_port else ''
+        resource = self.resource.strip("/") if self.resource else ""
+        self.url = "%s%s/%s" %(host, port, resource)
 
     def action_perform_request(self, **kwargs):
         """
