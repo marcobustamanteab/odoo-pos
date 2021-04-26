@@ -1,4 +1,3 @@
-ccu_integration.access_integration_account_move_line_system,Integration Account Move Line,ccu_integration.model_integration_account_move_line,base.group_user,1,1,1,1
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 ccu_integration.access_integration_task_definition_user,"Integration Task Definition",ccu_integration.model_integration_task_definition,base.group_user,1,1,1,1
 ccu_integration.access_integration_task_param_user,"Integration Task Params",ccu_integration.model_integration_task_param,base.group_user,1,1,1,1
@@ -6,3 +5,4 @@ ccu_integration.access_integration_endpoint_user,"Integration Endpoint",ccu_inte
 ccu_integration.access_integration_request_user,"Integration Request",ccu_integration.model_integration_request,base.group_user,1,1,1,1
 ccu_integration.access_integration_request_log_user,"Integration Request Log",ccu_integration.model_integration_request_log,base.group_user,1,1,1,1
 ccu_integration.access_integration_settings_user,"Integration Settings",ccu_integration.model_integration_settings,base.group_user,1,1,1,1
+ccu_integration.access_integration_account_move_line_system,Integration Account Move Line,ccu_integration.model_integration_account_move_line,base.group_user,1,1,1,1
