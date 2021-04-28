@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="ccu_l10n_cl_edi.report_account_move_invoice_page">
+        <!--        <div class="header">-->
+        <!--            <div>-->
+        <!--                            </div>-->
+        <!--        </div>-->
+        <div class="page" style="margin-top: 5px;">
+            <t t-foreach="[1,2]" t-as="page">
+                <table width="100%">
+                    <tr>
+                        <td rowspan="7">
+                            <img t-if="doc.company_id.logo" width="100px" height="auto"
+                                 t-att-src="image_data_uri(doc.company_id.logo)"/>
+                        </td>
+                        <td>
+                            <table>
+                                <tr style="font-size:18px;">
+                                    <td>
+                                        <strong>
+                                            <span t-field="doc.company_id.name"/>
+                                        </strong>
+                                    </td>
+                                </tr>
+                                <tr style="font-size:12px; ">
+                                    <td>
+                                        <strong>
+                                            <span t-field="doc.company_id.l10n_cl_activity_description"/>
+                                        </strong>
+                                    </td>
+                                </tr>
+                                <tr style="font-size:12px; ">
+                                    <td>Casa Matriz:
+                                        <span t-field="doc.company_id.street"/>
+                                    </td>
+                                </tr>
+                                <tr style="font-size:12px; ">
+                                    <td>
+                                        <span t-field="doc.company_id.city"/>
+                                        -
+                                        <span t-field="doc.company_id.state_id.name"/>
+                                        -
+                                        <span t-field="doc.company_id.country_id.name"/>
+                                    </td>
+                                </tr>
+                                <tr style="font-size:12px; ">
+                                    <td>Fono:
+                                        <span t-field="doc.company_id.phone"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td>
+                            <table style="border:1px solid black; margin:5px; padding:10px; " width="100%">
+                                <tr>
+                                    <td style="text-align:center; ">
+                                        <strong><span t-esc="doc.company_id.country_id.vat_label"/>:
+                                            <span t-esc="doc.company_id.vat"/>
+                                        </strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td/>
+                                </tr>
+                                <tr>
+                                    <t t-if="doc.l10n_latam_document_type_id.code == '61' ">
+                                        <td style="text-align:center;">
+                                            NOTA DE CRÉDITO ELECTRÓNICA
+                                        </td>
+                                    </t>
+                                    <t t-if="doc.l10n_latam_document_type_id.code == '56' ">
+                                        <td style="text-align:center;">
+                                            NOTA DE DÉBITO ELECTRÓNICA
+                                        </td>
+                                    </t>
+                                    <t t-if="doc.l10n_latam_document_type_id.code == '39' ">
+                                        <td style="text-align:center;">
+                                            BOLETA ELECTRÓNICA
+                                        </td>
+                                    </t>
+                                    <t t-if="doc.l10n_latam_document_type_id.code == '33' ">
+                                        <td style="text-align:center;">
+                                            FACTURA ELECTRÓNICA
+                                        </td>
+                                    </t>
+                                </tr>
+                                <tr>
+                                    <td/>
+                                </tr>
+                                <tr>
+                                    <td style="text-align:center; ">
+                                        <span t-field="doc.l10n_latam_document_number"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table width="100%" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td style="font-size:10px; text-align:center; ">S.I.I. -
+                                        <span t-field="doc.company_id.l10n_cl_sii_regional_office"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                <table width="100%" style="font-size:10px;">
+                    <tr>
+                        <td>
+                            <strong>CLIENTE:</strong>
+                        </td>
+                        <td>
+                            <span t-field="doc.partner_id.name"/>
+                        </td>
+                        <td>
+                            <strong>RUT:</strong>
+                        </td>
+                        <td>
+                            <span t-field="doc.invoice_date"/>
+                        </td>
+                        <td>
+                            <strong>PLANILLA:</strong>
+                        </td>
+                        <td>
+                            -
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>DIRECCION FACTURA:</strong>
+                        </td>
+                        <td>
+                            <span t-field="doc.partner_id.street"/>-
+                        </td>
+                        <td>
+                            <strong>COMUNA:</strong>
+                        </td>
+                        <td>
+                            <span t-field="doc.partner_id.city"/>
+                        </td>
+                        <td>
+                            <strong>LOCAL:</strong>
+                        </td>
+                        <td>
+                            -
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>DIRECCIÓN ENTREGA:</strong>
+                        </td>
+                        <!-- CALLE-->
+                        <t t-if="docs_extra.get(doc.id,{}).get('stock_picking',None)">
+                            <td>
+                                <span t-esc="docs_extra.get(doc.id,{}).get('stock_picking',None).picking_type_id.warehouse_id.partner_id.street"/>
+                            </td>
+                        </t>
+                        <t t-else="">
+                            <td style="border-right:1px solid black; ">
+                                -
+                            </td>
+                        </t>
+                        <td>
+                            <strong>COMUNA:</strong>
+                        </td>
+                        <!-- COMUNA-->
+                        <t t-if="docs_extra.get(doc.id,{}).get('stock_picking',None)">
+                            <td>
+                                <span t-esc="docs_extra.get(doc.id,{}).get('stock_picking',None).picking_type_id.warehouse_id.partner_id.city"/>
+                            </td>
+                        </t>
+                        <t t-else="">
+                            <td style="border-right:1px solid black; ">
+                                -
+                            </td>
+                        </t>
+                        <td>
+                            <strong>GIRO:</strong>
+                        </td>
+                        <td>
+                            <span t-field="doc.partner_id.l10n_cl_activity_description"/>
+                        </td>
+                    </tr>
+                </table>
+                <table style="font-size:10px;
+                    text-align:center;
+                    border:1px solid black; "
+                       width="100%"
+                       cellspacing="0">
+                    <tr style="font-weight: bold;
+                    background-color:#e6e6e6; ">
+                        <td style="border-right:1px solid black; border-bottom:1px solid black;">FECHA FACTURA</td>
+                        <td style="border-right:1px solid black; border-bottom:1px solid black;">LUGAR EMISIÓN</td>
+                        <td style="border-right:1px solid black; border-bottom:1px solid black;">NUM. PED.</td>
+                        <td style="border-right:1px solid black; border-bottom:1px solid black;">DEP.</td>
+                        <td style="border-right:1px solid black; border-bottom:1px solid black;">TERR.</td>
+                        <td style="border-right:1px solid black; border-bottom:1px solid black;">PREV.</td>
+                        <td style="border-right:1px solid black; border-bottom:1px solid black;">CAMION</td>
+                        <td style="border-right:1px solid black; border-bottom:1px solid black;">C.P.</td>
+                        <td style="border-right:1px solid black; border-bottom:1px solid black;">FORMA DE PAGO</td>
+                        <td style="border-bottom:1px solid black;">VENCIMIENTO</td>
+                    </tr>
+                    <tr>
+                        <!-- FECHA FACTURA-->
+                        <td style="border-right:1px solid black; ">
+                            <span t-field="doc.invoice_date"/>
+                        </td>
+                        <!-- LUGAR EMISIÓN-->
+                        <t t-if="docs_extra.get(doc.id,{}).get('stock_picking',None)">
+                            <td style="border-right:1px solid black; ">
+                                <span t-esc="docs_extra.get(doc.id,{}).get('stock_picking',None).picking_type_id.warehouse_id.name"/>
+                            </td>
+                        </t>
+                        <t t-else="">
+                            <td style="border-right:1px solid black; ">
+                                -
+                            </td>
+                        </t>
+                        <!-- NUM. PED-->
+                        <td style="border-right:1px solid black; ">
+                            <span t-field="doc.ref"/>
+                        </td>
+                        <!-- DEP.-->
+                        <t t-if="docs_extra.get(doc.id,{}).get('stock_picking',None)">
+                            <td style="border-right:1px solid black; ">
+                                <span t-esc="docs_extra.get(doc.id,{}).get('stock_picking',None).picking_type_id.warehouse_id.external_code"/>
+                            </td>
+                        </t>
+                        <t t-else="">
+                            <td style="border-right:1px solid black; ">
+                                -
+                            </td>
+                        </t>
+                        <!-- TERR.-->
+                        <t t-if="docs_extra.get(doc.id,{}).get('stock_picking',None)">
+                            <td style="border-right:1px solid black; ">
+                                <span t-esc="docs_extra.get(doc.id,{}).get('stock_picking',None).picking_type_id.warehouse_id.external_code"/>
+                            </td>
+                        </t>
+                        <t t-else="">
+                            <td style="border-right:1px solid black; ">
+                                -
+                            </td>
+                        </t>
+                        <!-- PREV.-->
+                        <td style="border-right:1px solid black; ">
+                            <span t-field="doc.user_id.ref"/>
+                        </td>
+                        <!-- CAMION-->
+                        <td style="border-right:1px solid black; ">-</td>
+                        <!-- C.P. -->
+                        <td style="border-right:1px solid black; ">
+                            <span t-field="doc.partner_id.ref"/>
+                        </td>
+                        <!-- FORMA DE PAGO -->
+                        <td style="border-right:1px solid black; ">
+                            <span t-esc="docs_extra.get(doc.id,{}).get('payment_form','-')"/>
+                        </td>
+                        <!-- VENCIMIENTO -->
+                        <td>
+                            <span t-field="doc.invoice_date_due"/>
+                        </td>
+                    </tr>
+                </table>
+                <table cellpadding="2" cellspacing="0" width="100%" height="220px"
+                       style="font-size:10px;
+                    margin-top:8px;
+                    border:1px solid black;">
+                    <tr height="8px"
+                        style="background-color:#e6e6e6;">
+                        <th style="border-right:1px solid black; border-bottom:1px solid black;">Código</th>
+                        <th style="border-right:1px solid black; border-bottom:1px solid black;">Descripción</th>
+                        <th style="border-right:1px solid black; border-bottom:1px solid black;">Grado Alcoh.</th>
+                        <th style="border-right:1px solid black; border-bottom:1px solid black;">UM</th>
+                        <th style="border-right:1px solid black; border-bottom:1px solid black;">Cantidad</th>
+                        <th style="border-right:1px solid black; border-bottom:1px solid black;">Precio Unit.</th>
+                        <th style="border-right:1px solid black; border-bottom:1px solid black;">%</th>
+                        <th style="border-right:1px solid black; border-bottom:1px solid black;">Descuento</th>
+                        <th style="border-right:1px solid black; border-bottom:1px solid black;">Valor</th>
+                        <th style="border-bottom:1px solid black;">Total x Unidad</th>
+                    </tr>
+                    <t t-set="itemnr" t-value="0"/>
+                    <t t-foreach="doc.invoice_line_ids" t-as="row">
+                        <t t-set="itemnr" t-value="itemnr+1"/>
+                        <tr>
+                            <td style="border-right:solid 1px black; text-align:center;">
+                                <span t-field="row.product_id.default_code"/>
+                            </td>
+                            <td style="border-right:solid 1px black">
+                                <span t-field="row.product_id.name"/>
+                            </td>
+                            <td style="border-right:solid 1px black; text-align:center;">
+                                <span t-field="row.product_id.alcohol_grade"/>
+                            </td>
+                            <td style="border-right:solid 1px black; text-align:center; ">
+                                <span t-field="row.product_id.uom_id.name"/>
+                            </td>
+                            <td style="border-right:solid 1px black; text-align:right;">
+                                <span t-esc='"{:,}".format(row.quantity)'/>
+                            </td>
+                            <td style="border-right:solid 1px black; text-align:right;">
+                                <span t-esc='"{:,.0f}".format(row.price_unit)'/>
+                            </td>
+                            <td style="border-right:solid 1px black; text-align:right;">
+                                <span t-esc='"{:,.2f}".format(row.discount)'/>
+                            </td>
+                            <td style="border-right:solid 1px black; text-align:right;">
+                                <span t-esc='"{:,.2f}".format(row.quantity * row.price_unit * row.discount / 100)'/>
+                            </td>
+                            <td style="border-right:solid 1px black;; text-align:right;">
+                                <span t-esc='"{:,.0f}".format(row.price_subtotal)'/>
+                            </td>
+                            <td style="text-align:right;">
+                                <span t-esc='"{:,.2f}".format(row.price_subtotal / row.quantity)'/>
+                            </td>
+                        </tr>
+                    </t>
+                    <tr>
+                        <td style="border-right: 1px solid black" height="100%"/>
+                        <td style="border-right: 1px solid black" height="100%"/>
+                        <td style="border-right: 1px solid black" height="100%"/>
+                        <td style="border-right: 1px solid black" height="100%"/>
+                        <td style="border-right: 1px solid black" height="100%"/>
+                        <td style="border-right: 1px solid black" height="100%"/>
+                        <td style="border-right: 1px solid black" height="100%"/>
+                        <td style="border-right: 1px solid black" height="100%"/>
+                        <td style="border-right: 1px solid black" height="100%"/>
+                        <td height="100%"/>
+                    </tr>
+                </table>
+                <table width="100%" cellspacing="0"
+                       style="font-weight:bold;
+                   font-size:10px;
+                   border:2px solid black;
+                   text-align:center;
+                   margin-top:8px; ">
+                    <tr style="background-color:#e6e6e6; ">
+                        <t t-if="doc.l10n_latam_document_type_id.code != '39' ">
+                            <td style="border-right:1px solid black;">SUBTOTAL</td>
+                            <td style="border-right:1px solid black;">IABA 10%</td>
+                            <td style="border-right:1px solid black;">IABA 18%</td>
+                            <td style="border-right:1px solid black;">ILA VIN 20,5%</td>
+                            <td style="border-right:1px solid black;">ILA CER 20,5%</td>
+                            <td style="border-right:1px solid black;">ILA 31,5%</td>
+                            <td style="border-right:1px solid black;">NETO</td>
+                            <td style="border-right:1px solid black;">IVA 19%</td>
+                        </t>
+                        <t t-if="doc.l10n_latam_document_type_id.code == '39' ">
+                            <td style="border-right:1px solid black;" colspan="7" width="80%"></td>
+                            <td style="border-right:1px solid black;">IVA 19%</td>
+                        </t>
+                        <td>TOTAL FACTURA</td>
+                    </tr>
+                    <t t-foreach="docs_extra" t-as="docx">
+                        <tr>
+                            <t t-if="doc.l10n_latam_document_type_id.code != '39' ">
+                                <t t-foreach="docs_extra.get(docx,{}).get('subtotal_values',[])" t-as="subtotal_value">
+                                    <td style="border-top:1px solid black; border-right:1px solid black;">
+                                        <span t-esc='"{:,.0f}".format(subtotal_value)'/>
+                                    </td>
+                                </t>
+                                <td style="border-top:1px solid black; ">
+                                    <span t-esc='"{:,.0f}".format(doc.amount_total)'/>
+                                </td>
+                            </t>
+                            <t t-if="doc.l10n_latam_document_type_id.code == '39' ">
+                                <td style="border-top:1px solid black; border-right:1px solid black;" colspan="7"
+                                    width="80%"></td>
+                                <td style="border-top:1px solid black; border-right:1px solid black;  ">
+                                    <span t-esc="docs_extra.get(docx,{}).get('vat_total',[])"/>
+                                </td>
+                                <td style="border-top:1px solid black; ">
+                                    <span t-esc='"{:,.0f}".format(doc.amount_total)'/>
+                                </td>
+                            </t>
+                        </tr>
+                    </t>
+
+                </table>
+                <table height="150px" width="100%" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td style="font-size:10px;" width="70%">
+                            <t t-if="page == 2">
+                                <p>
+                                    <strong>ACUSE RECIBO MERCADERIA / SERVICIO</strong>
+                                </p>
+                                <table style="border:1px solid black; padding:2px; font-size:10px; ">
+                                    <tr>
+                                        <td>NOMBRE:</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>RUT:</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>FECHA:</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>FIRMA:</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>________________________________________</td>
+                                    </tr>
+                                </table>
+
+                            </t>
+                            <t t-else="">
+                                <p>
+                                    <strong>OBSERVACIONES:</strong>
+                                </p>
+                                <p>
+                                    <span t-field="doc.narration"/>
+                                </p>
+                            </t>
+
+                        </td>
+                        <td style="text-align:right; " width="*">
+                            <t t-foreach="docs_extra" t-as="docx_id">
+                                <t t-if="doc.id == docx_id">
+                                    <table cellspacing="0" cellpadding="0" style="font-size:8px; ">
+                                        <tr>
+                                            <td>
+                                                <img t-att-src="image_data_uri(docs_extra.get(docx_id,{}).get('pdf417'))"
+                                                     height="120px" width="auto"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="white-space: nowrap; text-align:center; ">Timbre Electrónico
+                                                SII
+                                                - Res.
+                                                <span t-field="doc.company_id.l10n_cl_dte_resolution_number"/>
+                                                de
+                                                <span t-field="doc.company_id.l10n_cl_dte_resolution_date"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="white-space: nowrap; text-align:center;">Verifique documento:
+                                                www.sii.cl
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </t>
+                            </t>
+                        </td>
+                    </tr>
+                </table>
+            </t>
+        </div>
+        <!--        <div class="footer">-->
+
+        <!--        </div>-->
+    </template>
+
+    <template id="ccu_l10n_cl_edi.report_account_move_invoice">
+        <!--        <t t-set="data_report_margin_top" t-value="12"/>-->
+        <!--        <t t-set="data_report_header_spacing" t-value="0"/>-->
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="ccu_l10n_cl_edi.report_account_move_invoice_page"/>
+            </t>
+        </t>
+    </template>
+</odoo>

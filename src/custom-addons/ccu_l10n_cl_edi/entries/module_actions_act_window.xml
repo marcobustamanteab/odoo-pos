@@ -27,6 +27,31 @@
             <field name="type">ir.actions.act_window</field>
             <field name="view_mode">tree,form</field>
         </record>
-
+        <!-- CRM TEAM -->
+        <record model="ir.actions.act_window" id="crm_sales_team_action">
+            <field name="binding_type">action</field>
+            <field name="context">{}</field>
+            <field eval="[(6, 0, [])]" name="groups_id"/>
+            <field name="help"><![CDATA[Sales Team]]></field>
+            <field name="name">Sales Team</field>
+            <field name="limit">80</field>
+            <field name="res_model">crm.team</field>
+            <field name="target">current</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+         <!-- CRM TEAM -->
+        <record model="ir.actions.act_window" id="fiscal_dte_printing_config_action">
+            <field name="binding_type">action</field>
+            <field name="context">{}</field>
+            <field eval="[(6, 0, [])]" name="groups_id"/>
+            <field name="help"><![CDATA[Fiscal DTE Printing Config]]></field>
+            <field name="name">Fiscal DTE Printing Config</field>
+            <field name="limit">80</field>
+            <field name="res_model">fiscal.dte.printing.config</field>
+            <field name="target">current</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+        </record>
     </data>
 </odoo>
