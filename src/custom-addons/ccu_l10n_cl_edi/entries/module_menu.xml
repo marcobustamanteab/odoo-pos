@@ -26,5 +26,13 @@
                   parent="fiscal_office_menu_entry"
                   action="l10n_cl_edi.act_partner_activities"/>
 
+        <menuitem id="l10n_cl_edi_printing_config_menu_entry" name="Config. Formato Impresión"
+                  parent="fiscal_office_menu_entry"
+                  action="fiscal_dte_printing_config_action"/>
+
+        <menuitem id="l10n_cl_edi_team_menu_entry" name="Equipos de Venta"
+                  parent="hr.menu_human_resources_configuration"
+                  action="crm_sales_team_action"/>
+
 
 </odoo>

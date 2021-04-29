@@ -16,11 +16,16 @@
     'category': 'customizations',
     'version': '0.1',
     # any module necessary for this one to work correctly
-    'depends': ['l10n_cl_edi','account'],
+    'depends': ['l10n_cl_edi','account','hr'],
     # always loaded
     'data': [
+        'data/paper_format.xml',
+
         'entries/module_actions_act_window.xml',
         'entries/module_menu.xml',
+        'entries/module_actions_report.xml',
+
+        'report/account_move_invoice.xml',
 
         'security/ir.model.access.csv',
 

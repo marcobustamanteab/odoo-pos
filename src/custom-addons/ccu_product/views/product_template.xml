@@ -11,6 +11,7 @@
                 <page string="CCU Customization" name="ccu_customization">
                     <group name="commercial" string="Commercial">
                         <field name="reference_price" widget="monetary"/>
+                        <field name="alcohol_grade" />
                     </group>
                 </page>
             </xpath>

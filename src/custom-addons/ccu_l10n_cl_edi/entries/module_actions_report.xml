@@ -1,0 +1,15 @@
+<odoo>
+    <data>
+        <record id="action_report_account_move_invoice" model="ir.actions.report">
+            <field name="name">Factura Electrónica</field>
+            <field name="model">account.move</field>
+            <field name="report_name">ccu_l10n_cl_edi.report_account_move_invoice</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_file">ccu_l10n_cl_edi.account_move_invoice</field>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="paperformat_id" ref="ccu_l10n_cl_edi.paperformat_euro_invoice_custom"/>
+            <field name="print_report_name">'Factura Electrónica %s' % (object.name) if object.state == 'sent' else 'Factura Electrónica Borrador %s' %(object.name) </field>
+        </record>
+
+    </data>
+</odoo>
