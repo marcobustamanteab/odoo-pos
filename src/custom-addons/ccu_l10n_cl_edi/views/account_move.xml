@@ -11,14 +11,4 @@
             </xpath>
         </field>
     </record>
-<!--    <record model="ir.ui.view" id="view_out_invoice_l10n_cl_edi_custom_form">-->
-<!--        <field name="name">account.move.l10n_cl_edi.custom.form</field>-->
-<!--        <field name="model">account.move</field>-->
-<!--        <field name="inherit_id" ref="account.view_move_form"/>-->
-<!--        <field name="arch" type="xml">-->
-<!--            <xpath expr="//button[@name='action_invoice_sent']" position="after">-->
-<!--                <button name="action_test" string="Test" class="oe_highlight" type="object"/>-->
-<!--            </xpath>-->
-<!--        </field>-->
-<!--    </record>-->
 </odoo>

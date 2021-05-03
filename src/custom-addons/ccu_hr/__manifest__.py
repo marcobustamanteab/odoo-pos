@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # noinspection PyStatementEffect
 {
-    'name': "Customization for l10n_cl_edi",
+    'name': "Customization for HR",
     'summary': """
         Chilean Customization for CCU""",
     'description': """
@@ -14,23 +14,13 @@
     # for the full list
     'license': 'LGPL-3',
     'category': 'customizations',
-    'version': '0.30',
+    'version': '0.10',
     # any module necessary for this one to work correctly
-    'depends': ['l10n_cl_edi',
-                'account',
-                'product',
-                'point_of_sale'],
+    'depends': ['hr'],
     # always loaded
     'data': [
-        'data/paper_format.xml',
         'entries/module_actions_act_window.xml',
         'entries/module_menu.xml',
-        'report/account_move_invoice.xml',
-        'entries/module_actions_report.xml',
-        'security/ir.model.access.csv',
-        'views/account_move.xml',
-        'views/fiscal_dte_log.xml',
-        # 'template/boleta_token.xml',
     ],
     # only loaded in demonstration mode
     # 'demo': [

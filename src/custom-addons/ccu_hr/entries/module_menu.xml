@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+
+    <menuitem id="hr_team_menu_entry" name="Equipos de Venta"
+              parent="hr.menu_human_resources_configuration"
+              action="crm_sales_team_action"/>
+
+</odoo>

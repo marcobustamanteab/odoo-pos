@@ -1,0 +1,19 @@
+<!-- Copyright (C) 2020 CCU
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+<odoo>
+    <record id="view_product_pricelist_ccu_form" model="ir.ui.view">
+        <field name="name">product.pricelist.ccu_product</field>
+        <field name="model">product.pricelist</field>
+        <field name="inherit_id" ref="product.product_pricelist_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='pricelist_config']" position="after">
+                <page name="ccu_customization" string="CCU Customization">
+                    <group>
+                        <field name="invoice_default_tnc"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+
