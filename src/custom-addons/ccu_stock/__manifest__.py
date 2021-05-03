@@ -22,6 +22,7 @@
         "views/product_property.xml",
         "views/product_tag.xml",
         "views/product_template_only.xml",
+        "views/stock_warehouse.xml",
     ],
     "application": True,
     "sequence": 0,

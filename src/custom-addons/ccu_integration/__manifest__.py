@@ -14,17 +14,20 @@
     # for the full list
     'license': 'LGPL-3',
     'category': 'customizations',
-    'version': '0.20',
+    'version': '0.21',
     # any module necessary for this one to work correctly
     'depends': ['stock',
                 'base_address_city',
-                'contacts'],
+                'contacts',
+                'ccu_stock',
+                'account'],
     # always loaded
     'data': [
         'security/ir.model.access.csv',
         'entries/module_actions_act_window.xml',
         'entries/module_menu.xml',
-
+        'views/integration_account_move.xml',
+        'views/integration_accounting.xml',
         'views/integration_task_definition.xml',
         'views/integration_endpoint.xml',
         'views/integration_request.xml',

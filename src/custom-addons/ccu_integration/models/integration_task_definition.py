@@ -7,6 +7,7 @@ import urllib3
 _logger = logging.getLogger(__name__)
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
+from . import integration_account_move
 
 
 class IntegrationTaskDefinition(models.Model):
@@ -32,6 +33,7 @@ class IntegrationTaskDefinition(models.Model):
     request_id = fields.Many2one("integration.request", string="Request")
     business_logic = fields.Selection(
         [
+            ('sync_account_move', 'Synchronize Accounting movement'),
             ('sync_stock_1', 'Synchronize Stock from External Service 1'),
             ('sync_stock_2', 'Synchronize Stock from External Service 2'),
             ('send_stock_movement', 'Send Stock Movement'),
@@ -79,6 +81,8 @@ class IntegrationTaskDefinition(models.Model):
                     }
         elif self.business_logic == 'send_stock_movement':
             self._send_stock_movement()
+        elif self.business_logic == 'sync_account_move':
+            self._send_account_movement()
 
     # @api.onchange('request_id')
     # def _onchange_request_id(self):
@@ -86,7 +90,7 @@ class IntegrationTaskDefinition(models.Model):
 
     @api.model
     def run_task_from_cron(self, active_id):
-        task = self.env['task.definition'].browse(active_id).action_perform_task(guimode=False)
+        task = self.env['integration.task.definition'].browse(active_id).action_perform_task(guimode=False)
 
     # BUSINESS LOGIC METHODS
     def _sync_stock_1(self):
@@ -281,7 +285,40 @@ class IntegrationTaskDefinition(models.Model):
             return True
         return True
 
+    def _get_stock_movement(self):
+        settings = self.env['integration.settings'].search([('company_id', '=', self.company_id.id)])
+        if not settings.sync_stock_qty:
+            _logger.debug("Stock Synchronization Disabled")
+            return True
+        return True
 
+    def _send_account_movement(self):
+        settings = self.env['integration.settings'].search([('company_id', '=', self.company_id.id)])
+        movement = self.env['account.move'].search([('name', '=', 'INV/2021/04/0001')])
+        result = integration_account_move.get_account_move_line_custom(movement)
+
+        urivalues = [param.value for param in self.param_line_ids if param.scope == IntegrationTaskDefinitionParam.S_URL]
+        par_keys = [param.key for param in self.param_line_ids if param.scope == IntegrationTaskDefinitionParam.S_HEADER]
+        par_values = [param.value for param in self.param_line_ids if param.scope == IntegrationTaskDefinitionParam.S_HEADER]
+        header = dict(zip(par_keys, par_values))
+        request = self.env["integration.request"].browse(self.request_id.id)
+        raw_response = request.action_perform_request(body=result,
+                                                      urivalues=urivalues,
+                                                      header=header)
+        if isinstance(raw_response, urllib3.HTTPResponse):
+            if request.content_type == request.CT_JSON:
+                print(["RESPONSE_DATA_TYPE", type(raw_response.data)])
+                print(["RESPONSE_DATA", raw_response.data])
+                response = json.loads(raw_response.data)
+            else:
+                print(["RESPONSE_DATA_TYPE", type(raw_response.data)])
+                print(["RESPONSE_DATA", raw_response.data])
+                response = raw_response.data
+            try:
+                response = json.loads(raw_response.data)
+            except json.JSONDecoder as errstring:
+                response = raw_response.data
+        return True
 
     def _get_param(self, key):
         res = ""
