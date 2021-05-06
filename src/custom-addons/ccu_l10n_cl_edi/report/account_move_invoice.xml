@@ -119,7 +119,7 @@
                             <strong>RUT:</strong>
                         </td>
                         <td>
-                            <span t-field="doc.invoice_date"/>
+                            <span t-field="doc.partner_id.vat"/>
                         </td>
                         <td>
                             <strong>PLANILLA:</strong>
