@@ -8,6 +8,7 @@
         <!--        </div>-->
         <div class="page" style="margin-top: 5px;">
             <t t-foreach="[1,2]" t-as="page">
+                <!-- CABECERA DOCUMENTO -->
                 <table width="100%">
                     <tr>
                         <td rowspan="7">
@@ -105,6 +106,7 @@
                         </td>
                     </tr>
                 </table>
+                <!-- CABECERA OPERACION -->
                 <table width="100%" style="font-size:10px;">
                     <tr>
                         <td>
@@ -157,7 +159,7 @@
                             </td>
                         </t>
                         <t t-else="">
-                            <td style="border-right:1px solid black; ">
+                            <td>
                                 -
                             </td>
                         </t>
@@ -171,7 +173,7 @@
                             </td>
                         </t>
                         <t t-else="">
-                            <td style="border-right:1px solid black; ">
+                            <td>
                                 -
                             </td>
                         </t>
@@ -183,6 +185,7 @@
                         </td>
                     </tr>
                 </table>
+                <!-- CABECERA DETALLE -->
                 <table style="font-size:10px;
                     text-align:center;
                     border:1px solid black; "
@@ -224,7 +227,7 @@
                         <!-- DEP.-->
                         <t t-if="docs_extra.get(doc.id,{}).get('stock_picking',None)">
                             <td style="border-right:1px solid black; ">
-                                <span t-esc="docs_extra.get(doc.id,{}).get('stock_picking',None).picking_type_id.warehouse_id.external_code"/>
+                                <span t-esc="docs_extra.get(doc.id,{}).get('stock_picking',None).location_id.external_code"/>
                             </td>
                         </t>
                         <t t-else="">
@@ -235,7 +238,7 @@
                         <!-- TERR.-->
                         <t t-if="docs_extra.get(doc.id,{}).get('stock_picking',None)">
                             <td style="border-right:1px solid black; ">
-                                <span t-esc="docs_extra.get(doc.id,{}).get('stock_picking',None).picking_type_id.warehouse_id.external_code"/>
+                                <span t-esc="docs_extra.get(doc.id,{}).get('stock_picking',None).location_id.external_code"/>
                             </td>
                         </t>
                         <t t-else="">
@@ -263,6 +266,7 @@
                         </td>
                     </tr>
                 </table>
+                <!-- DETALLE DE PRODUCTOS -->
                 <table cellpadding="2" cellspacing="0" width="100%" height="220px"
                        style="font-size:10px;
                     margin-top:8px;
@@ -328,6 +332,7 @@
                         <td height="100%"/>
                     </tr>
                 </table>
+                <!-- SUBTOTALES -->
                 <table width="100%" cellspacing="0"
                        style="font-weight:bold;
                    font-size:10px;
@@ -335,8 +340,8 @@
                    text-align:center;
                    margin-top:8px; ">
                     <tr style="background-color:#e6e6e6; ">
-                        <t t-if="docs_extra.get(docx,{}).get('is_voucher_document',False)">
-                            <!--                            <t t-if="doc.l10n_latam_document_type_id.code != '39' ">-->
+                        <t t-if="docs_extra.get(doc.id,{}).get('is_voucher_document') == '0' ">
+                            <!-- <t t-if="doc.l10n_latam_document_type_id.code != '39' ">-->
                             <td style="border-right:1px solid black;">SUBTOTAL</td>
                             <td style="border-right:1px solid black;">IABA 10%</td>
                             <td style="border-right:1px solid black;">IABA 18%</td>
@@ -346,8 +351,8 @@
                             <td style="border-right:1px solid black;">NETO</td>
                             <td style="border-right:1px solid black;">IVA 19%</td>
                         </t>
-                        <t t-if="not docs_extra.get(docx,{}).get('is_voucher_document',False)">
-                            <!--                            <t t-if="doc.l10n_latam_document_type_id.code == '39' ">-->
+                        <t t-if="docs_extra.get(doc.id,{}).get('is_voucher_document') == '1' ">
+                            <!-- <t t-if="doc.l10n_latam_document_type_id.code == '39' ">-->
                             <td style="border-right:1px solid black;" colspan="7" width="80%"/>
                             <td style="border-right:1px solid black;">IVA 19%</td>
                         </t>
@@ -355,7 +360,7 @@
                     </tr>
                     <t t-foreach="docs_extra" t-as="docx">
                         <tr>
-                            <t t-if="not docs_extra.get(docx,{}).get('is_voucher_document',False)">
+                            <t t-if="docs_extra.get(doc.id,{}).get('is_voucher_document') == '0' ">
                                 <t t-foreach="docs_extra.get(docx,{}).get('subtotal_values',[])"
                                    t-as="subtotal_value">
                                     <td style="border-top:1px solid black; border-right:1px solid black;">
@@ -366,7 +371,7 @@
                                     <span t-esc='"{:,.0f}".format(doc.amount_total)'/>
                                 </td>
                             </t>
-                            <t t-if="docs_extra.get(docx,{}).get('is_voucher_document',False)">
+                            <t t-if="docs_extra.get(doc.id,{}).get('is_voucher_document') == '1' ">
                                 <td style="border-top:1px solid black; border-right:1px solid black;" colspan="7"
                                     width="80%"/>
                                 <td style="border-top:1px solid black; border-right:1px solid black;  ">
@@ -380,6 +385,7 @@
                     </t>
 
                 </table>
+                <!-- PIE COMPROBANTE -->
                 <table height="150px" width="100%" cellspacing="0" cellpadding="0">
                     <tr>
                         <td style="font-size:10px; vertical-align: top;" width="70%">

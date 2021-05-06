@@ -5,3 +5,4 @@ from . import product_property
 from . import product_tag
 from . import product_template
 from . import stock_warehouse
+from . import stock_location

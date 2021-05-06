@@ -30,15 +30,15 @@ class AccountInvoiceReport(models.AbstractModel):
             doc_extra[rec.id]['subtotal_values'] = []
             doc_extra[rec.id]['subtotal_values'].append(rec.amount_untaxed)
             if rec.l10n_latam_document_type_id.code == '39':
-                doc_extra[rec.id]['is_voucher_document'] = True
+                doc_extra[rec.id]['is_voucher_document'] = "1"
             else:
-                doc_extra[rec.id]['is_voucher_document'] = False
+                doc_extra[rec.id]['is_voucher_document'] = "0"
                 for ref_rec in rec.l10n_cl_reference_ids:
                     print(ref_rec, ref_rec, ref_rec.l10n_cl_reference_doc_type_selection)
                     if ref_rec.l10n_cl_reference_doc_type_selection == '39':
-                        doc_extra[rec.id]['is_voucher_document'] = True
+                        doc_extra[rec.id]['is_voucher_document'] = "1"
                         break
-                print(["IS_VOUCHER", doc_extra[rec.id]['is_voucher_document']])
+            print(["IS_VOUCHER", doc_extra[rec.id]['is_voucher_document']])
             if printing_config:
                 tax_6 = self._get_tax_amount(printing_config.tax_6_id.id, list(rec.amount_by_group))
                 doc_extra[rec.id]['subtotal_values'].append(

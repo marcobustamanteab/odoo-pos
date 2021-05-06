@@ -14,7 +14,7 @@
     # for the full list
     'license': 'LGPL-3',
     'category': 'customizations',
-    'version': '0.30',
+    'version': '0.20210506.1439',
     # any module necessary for this one to work correctly
     'depends': ['l10n_cl_edi',
                 'account',
