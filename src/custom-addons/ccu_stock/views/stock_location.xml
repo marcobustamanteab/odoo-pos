@@ -1,0 +1,27 @@
+<odoo>
+    <record model="ir.ui.view" id="stock_location_form_view">
+        <field name="name">ccu_stock.stock.location.form</field>
+        <field name="model">stock.location</field>
+        <field name="priority">16</field>
+        <field name="inherit_id" ref="stock.view_location_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field name="external_code"/>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="stock_location_tree_view">
+        <field name="name">ccu_stock.stock.location.tree</field>
+        <field name="model">stock.location</field>
+        <field name="priority">16</field>
+        <field name="inherit_id" ref="stock.view_location_tree2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='usage']" position="after">
+                <field name="external_code"/>
+<!--                <field name="external_center_code"/>-->
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,6 +1,6 @@
 <odoo>
     <record id="ccu_l10n_cl_edi.account_invoice_report" model="ir.actions.report">
-        <field name="name">Factura Electrónica</field>
+        <field name="name">Comprobante Electrónico</field>
         <field name="model">account.move</field>
         <field name="report_name">ccu_l10n_cl_edi.account_invoice_report</field>
         <field name="report_type">qweb-pdf</field>
@@ -11,7 +11,7 @@
     </record>
 
     <record id="point_of_sale.pos_invoice_report" model="ir.actions.report">
-        <field name="name">Factura Electrónica POS</field>
+        <field name="name">Comprobante Electrónico POS</field>
         <field name="model">pos.order</field>
         <field name="report_name">ccu_l10n_cl_edi.pos_invoice_report</field>
         <field name="report_type">qweb-pdf</field>
