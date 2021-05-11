@@ -30,7 +30,8 @@
         'security/ir.model.access.csv',
         'views/account_move.xml',
         'views/fiscal_dte_log.xml',
-        # 'template/boleta_token.xml',
+        'views/l10n_cl_dte_caf.xml',
+        'template/dte_template.xml',
     ],
     # only loaded in demonstration mode
     # 'demo': [
