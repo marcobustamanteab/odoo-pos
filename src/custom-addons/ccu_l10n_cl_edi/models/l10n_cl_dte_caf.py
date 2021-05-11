@@ -15,8 +15,12 @@ class L10NClDteCaf(models.Model):
                 ]
             ).mapped('l10n_latam_document_number')
             am_list = [x for x in am_list if record.start_nb <= int(x) <= record.final_nb]
-            print(["NUMBERS", ", ".join(sorted([str(x) for x in am_list]))])
-            record.last_used_number = max([int(x) for x in am_list])
-            record.remain_qty = record.final_nb - record.last_used_number
-            if record.last_used_number >= record.start_nb:
-                record.remain_percent = (record.final_nb - record.last_used_number) * 100 / ((record.remain_qty) or 1)
+            if am_list:
+                record.last_used_number = max([int(x) for x in am_list])
+                record.remain_qty = record.final_nb - record.last_used_number
+                if record.last_used_number >= record.start_nb:
+                    record.remain_percent = (record.final_nb - record.last_used_number) * 100 / ((record.remain_qty) or 1)
+            else:
+                record.last_used_number = 0
+                record.remain_qty = 0
+                record.remain_percent = 0
