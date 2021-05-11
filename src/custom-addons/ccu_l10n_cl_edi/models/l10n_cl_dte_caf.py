@@ -3,9 +3,9 @@ from odoo import models, fields, api
 class L10NClDteCaf(models.Model):
     _inherit = 'l10n_cl.dte.caf'
 
-    last_used_number = fields.Integer("Last Used", compute="_compute_remain", store=True)
-    remain_qty = fields.Integer("Qty. Remain", compute="_compute_remain", store=True)
-    remain_percent = fields.Float("% Remain", compute="_compute_remain", store=True)
+    last_used_number = fields.Integer("Last Used", compute="_compute_remain")
+    remain_qty = fields.Integer("Qty. Remain", compute="_compute_remain")
+    remain_percent = fields.Float("% Remain", compute="_compute_remain")
 
     def _compute_remain(self):
         for record in self:
