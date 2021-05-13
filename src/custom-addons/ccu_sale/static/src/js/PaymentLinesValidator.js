@@ -2,7 +2,8 @@ odoo.define('ccu_sale.PaymentTransbankLinesValidator', function (require) {
     "use strict";
 
     const { xml } = owl.tags;
-    const PaymentScreenStatus = require('point_of_sale.PaymentScreenPaymentLines');
+    const { useListener } = require('web.custom_hooks');
+    const PaymentScreenPaymentLines = require('point_of_sale.PaymentScreenPaymentLines');
     const PaymentScreen = require('point_of_sale.PaymentScreen');
     const NumberBufferTrx = require('point_of_sale.NumberBuffer');
     const Registries = require('point_of_sale.Registries');
@@ -25,8 +26,6 @@ odoo.define('ccu_sale.PaymentTransbankLinesValidator', function (require) {
             }
 
             savePaymentLine(event) {
-                const {cid} = event.detail;
-                const line = this.paymentLines.find((line) => line.cid === cid);
                 line.transbank_saved = true
                 line.transaction_id = NumberBufferTrx.getText();
 
@@ -35,8 +34,6 @@ odoo.define('ccu_sale.PaymentTransbankLinesValidator', function (require) {
             }
 
             editPaymentLine(event) {
-                const {cid} = event.detail;
-                const line = this.paymentLines.find((line) => line.cid === cid);
                 line.transbank_saved = false
                 line.transaction_id = NumberBufferTrx.getText();
 
@@ -51,5 +48,7 @@ odoo.define('ccu_sale.PaymentTransbankLinesValidator', function (require) {
         }
 
     Registries.Component.extend(PaymentScreenPaymentLines, PaymentTransbankLinesValidator);
+
+    return PaymentTransbankLinesValidator;
 
 });

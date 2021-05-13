@@ -28,6 +28,8 @@
     "application": True,
     "sequence": 0,
     'qweb': [
-        'static/src/xml/PaymentLinesValidator.xml'
+        'static/src/xml/PaymentLinesValidator.xml',
+        'static/src/xml/OrderReceiptTransbank.xml',
+        'static/src/xml/PaymentScreenStatusTransbank.xml'
     ]
 }

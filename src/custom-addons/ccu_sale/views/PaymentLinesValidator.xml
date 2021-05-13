@@ -4,6 +4,8 @@
         <xpath expr="." position="inside">
             <link type="text/css" rel="stylesheet" href="/web/static/sccs/PaymentTransbank.scss"/>
             <script type="text/javascript" src="/ccu_sale/static/src/js/PaymentLinesValidator.js"></script>
+            <script type="text/javascript" src="/ccu_sale/static/src/js/OrderReceiptTransbank.js"></script>
+            <script type="text/javascript" src="/ccu_sale/static/src/js/PaymentScreenStatusTransbank.js"></script>
         </xpath>
     </template>
 </odoo>
