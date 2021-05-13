@@ -1,0 +1,5 @@
+"id","name","host","port"
+"ccu_integration.integration_endpoint_sap_qa","Entorno QA SAP","http://qpo-ci01.ccu.cl","50000"
+"ccu_integration.integration_endpoint_sap_dev","Entorno DEV SAP","http://dpo-ci01.ccu.cl","50000"
+"ccu_integration.integration_endpoint_ps_qa","Entorno QA PS","http://wso2qa5.ccu.cl","8280"
+"ccu_integration.integration_endpoint_wso2_qa1","Entorno WSO2 QA1","http://wso2qa1.ccu.cl","8280"

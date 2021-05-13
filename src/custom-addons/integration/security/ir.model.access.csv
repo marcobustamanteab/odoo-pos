@@ -1,8 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-integration.access_integration_task_definition_user,"Integration Task Definition",integration.model_integration_task_definition,base.group_user,1,1,1,1
-integration.access_integration_task_param_user,"Integration Task Params",integration.model_integration_task_param,base.group_user,1,1,1,1
-integration.access_integration_endpoint_user,"Integration Endpoint",integration.model_integration_endpoint,base.group_user,1,1,1,1
-integration.access_integration_request_user,"Integration Request",integration.model_integration_request,base.group_user,1,1,1,1
-integration.access_integration_request_log_user,"Integration Request Log",integration.model_integration_request_log,base.group_user,1,1,1,1
-integration.access_integration_settings_user,"Integration Settings",integration.model_integration_settings,base.group_user,1,1,1,1
-integration.access_integration_account_move_line_system,"Integration Account Move Line",integration.model_integration_account_move_line,base.group_user,1,1,1,1
