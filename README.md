@@ -4,6 +4,11 @@
 - docker
 - docker-compose
 - Jinja 2
+- 
+
+# Librerías Adicionales para modulos externos y desarrollos
+
+apt-get -y install python3-simplejson python3-cachetools python3-xmltodict python3-openssl signxml pdf417gen
 
 # Instalación de Docker
 
