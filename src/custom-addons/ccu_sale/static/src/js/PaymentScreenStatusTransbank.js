@@ -10,6 +10,12 @@ odoo.define('ccu_sale.PaymentScreenStatusTransbank', function (require) {
             constructor() {
                 super(...arguments);
             }
+            getTransactionId(){
+                return this.env.pos.format_currency_no_symbol(this.env.pos.attributes.selectedOrder.paymentlines.models[0].transaction_id);
+            }
+            getTransactionName(){
+                return this.env.pos.attributes.selectedOrder.paymentlines.models[0].name;
+            }
         }
 
     Registries.Component.extend(PaymentScreenStatus, PaymentScreenStatusTransbank);

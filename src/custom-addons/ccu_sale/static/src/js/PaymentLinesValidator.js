@@ -15,6 +15,7 @@ odoo.define('ccu_sale.PaymentTransbankLinesValidator', function (require) {
                 useListener('save-payment-line', this.savePaymentLine);
                 useListener('edit-payment-line', this.editPaymentLine);
                 useListener('update-selected-paymentline', this.updateTransbankPaymentline);
+                // this.props.paymentLines[0].transaction_id = 1234;
                 NumberBufferTrx.use({
                     // The numberBuffer listens to this event to update its state.
                     // Basically means 'update the buffer when this event is triggered'
@@ -24,23 +25,28 @@ odoo.define('ccu_sale.PaymentTransbankLinesValidator', function (require) {
                     triggerAtInput: 'update-selected-paymentline',
                 });
             }
-
+            getTransactionId(){
+                return this.props.paymentLines[0].transaction_id;
+            }
+            getTransactionName(){
+                return this.getPaymentLines().name;
+            }
             savePaymentLine(event) {
-                line.transbank_saved = true
-                line.transaction_id = NumberBufferTrx.getText();
+                //this.props.paymentlines.transbanksaved = false;
+                this.env.pos.attributes.selectedOrder.paymentlines.models[0].transaction_id = this.env.pos.attributes.selectedOrder.paymentlines.models[0].amount;
+                // this.NumberBufferTrx = PaymentScreen.buffer;
+                // this.props.paymentlines.transaction_id = NumberBufferTrx.getText();
 
-                NumberBuffer.reset();
+                // NumberBuffer.reset();
                 this.render();
             }
-
             editPaymentLine(event) {
-                line.transbank_saved = false
-                line.transaction_id = NumberBufferTrx.getText();
-
-                NumberBuffer.reset();
+                this.env.pos.attributes.selectedOrder.paymentlines.models[0].transaction_id = 0;
                 this.render();
             }
-
+            getPaymentLines(){
+                return this.props.paymentLines[0];
+            }
             updateTransbankPaymentline() {
                 line.transaction_id = NumberBufferTrx.getText();
                 this.render();

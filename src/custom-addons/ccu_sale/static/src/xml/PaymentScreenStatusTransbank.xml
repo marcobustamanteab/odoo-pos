@@ -3,14 +3,14 @@
 
    <t t-name="PaymentScreenStatusTransbank" t-inherit="point_of_sale.PaymentScreenStatus" t-inherit-mode="extension" owl="1">
         <xpath expr="//div[hasclass('payment-status-total-due')]" position="after">
-<!--            <t t-if="receipt.paymentlines.name != 'Transbank'">-->
+            <t t-if="getTransactionName().includes('Transbank')">
                <div class="payment-status-total-due">
                     <span class="label">Transbank ID : </span>
                     <span>
-<!--                        <t t-esc="transactionid" />-->
+                        <t t-esc="getTransactionId()" />
                     </span>
                 </div>
-<!--            </t>-->
+            </t>
         </xpath>
     </t>
 
