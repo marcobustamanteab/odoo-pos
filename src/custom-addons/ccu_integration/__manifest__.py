@@ -16,11 +16,8 @@
     'category': 'customizations',
     'version': '0.21',
     # any module necessary for this one to work correctly
-    'depends': ['stock',
-                'base_address_city',
-                'contacts',
-                'ccu_stock',
-                'account'],
+
+    'depends': ['base', 'stock', 'ccu_stock', 'base_address_city', 'contacts', 'account'],
     # always loaded
     'data': [
         'security/ir.model.access.csv',

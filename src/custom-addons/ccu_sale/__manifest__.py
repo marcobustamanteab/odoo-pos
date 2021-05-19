@@ -13,6 +13,7 @@
     "depends": [
         "sale",
         "ccu_base",
+        "point_of_sale"
     ],
     'data': [
         # "security/ir.model.access.csv",
@@ -22,7 +23,14 @@
         # "views/product_property.xml",
         # "views/product_tag.xml",
         # "views/product_template_only.xml",
+        'views/PaymentLinesValidator.xml'
     ],
     "application": True,
     "sequence": 0,
+    'qweb': [
+        'static/src/xml/PaymentTransbankLinesValidator.xml',
+        'static/src/xml/OrderReceiptTransbank.xml',
+        'static/src/xml/PaymentScreenStatusTransbank.xml',
+        'static/src/xml/PaymentScreenValidator.xml',
+    ]
 }
