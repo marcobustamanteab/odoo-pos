@@ -26,8 +26,8 @@
     'qweb': [
         'static/src/xml/OrderReceiptTransbank.xml',
         'static/src/xml/PaymentTransbankLinesValidator.xml',
-#        'static/src/xml/PaymentScreenStatusTransbank.xml',
-#        'static/src/xml/PaymentScreenValidator.xml',
+        'static/src/xml/PaymentScreenStatusTransbank.xml',
+        'static/src/xml/PaymentScreenValidator.xml',
     ],
     "website": "https://www.ccu.cl",
 }
