@@ -10,7 +10,7 @@
     "summary": "CCU Companies Customizations for Sale module",
     "author": "Compañia Cervecerias Unidas S.A. (CCU)",
     "maintainer": "Compañia Cervecerias Unidas S.A. (CCU)",
-    "depends": ["point_of_sale", "sale", "ccu_base"],
+    "depends": ["sale", "ccu_base","point_of_sale"],
     'data': [
         # "security/ir.model.access.csv",
         # "views/stock_actions_act_window.xml",
