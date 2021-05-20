@@ -12,8 +12,8 @@
     "website": "https://www.ccu.cl",
     "depends": [
         "sale",
-        "ccu_base",
-        "point_of_sale"
+        "point_of_sale",
+        "ccu_base
     ],
     'data': [
         # "security/ir.model.access.csv",
