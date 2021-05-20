@@ -13,7 +13,7 @@
     "depends": [
         "sale",
         "point_of_sale",
-        "ccu_base
+        "ccu_base"
     ],
     'data': [
         # "security/ir.model.access.csv",
