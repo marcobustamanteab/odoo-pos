@@ -24,8 +24,8 @@
     'installable': True,
     'application': True,
     'qweb': [
-#        'static/src/xml/PaymentTransbankLinesValidator.xml',
         'static/src/xml/OrderReceiptTransbank.xml',
+        'static/src/xml/PaymentTransbankLinesValidator.xml',
 #        'static/src/xml/PaymentScreenStatusTransbank.xml',
 #        'static/src/xml/PaymentScreenValidator.xml',
     ],
