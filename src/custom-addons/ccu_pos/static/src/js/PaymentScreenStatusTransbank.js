@@ -1,4 +1,4 @@
-odoo.define('ccu_sale.PaymentScreenStatusTransbank', function (require) {
+odoo.define('ccu_pos.PaymentScreenStatusTransbank', function (require) {
     "use strict";
 
     const PaymentScreenStatus = require('point_of_sale.PaymentScreenStatus');

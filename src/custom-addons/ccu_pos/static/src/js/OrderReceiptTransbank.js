@@ -1,4 +1,4 @@
-odoo.define('ccu_sale.OrderReceiptTransbank', function (require) {
+odoo.define('ccu_pos.OrderReceiptTransbank', function (require) {
     "use strict";
 
     const OrderReceipt = require('point_of_sale.OrderReceipt');

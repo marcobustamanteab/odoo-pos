@@ -1,4 +1,4 @@
-odoo.define('ccu_sale.PaymentScreenValidator', function (require) {
+odoo.define('ccu_pos.PaymentScreenValidator', function (require) {
     "use strict";
 
     const { useListener } = require('web.custom_hooks');

@@ -1,26 +1,21 @@
-odoo.define('ccu_sale.PaymentTransbankLinesValidator', function (require) {
+odoo.define('ccu_pos.PaymentLinesValidator', function (require) {
     "use strict";
 
     const { useListener } = require('web.custom_hooks');
-    const PaymentScreenPaymentLines = require('point_of_sale.PaymentScreen');
+    const PaymentScreenPaymentLines = require('point_of_sale.PaymentScreenPaymentLines');
     const Registries = require('point_of_sale.Registries');
 
-    const PaymentTransbankLinesValidator = PaymentScreenPaymentLines =>
+    const PaymentLinesValidator = PaymentScreenPaymentLines =>
         class extends PaymentScreenPaymentLines {
             constructor() {
                 super(...arguments);
                 useListener('save-payment-line', this.savePaymentLine);
                 useListener('edit-payment-line', this.editPaymentLine);
             }
-            getTransactionId(){
-                return this.getPaymentLines().transaction_id;
-            }
-            getTransactionName(){
-                return this.getPaymentLines().name;
-            }
             savePaymentLine(event) {
-                if(this.env.pos.attributes.selectedOrder.paymentlines.models[0].transaction_id > 99999) {
+                if(this.env.pos.attributes.selectedOrder.paymentlines.models[0].amount > 99999) {
                     this.env.pos.attributes.selectedOrder.paymentlines.models[0].transaction_id = this.env.pos.attributes.selectedOrder.paymentlines.models[0].amount;
+                    this.env.pos.attributes.selectedOrder.paymentlines.models[0].amount = this.env.pos.attributes.selectedOrder.paymentlines.models[0].totalDueText;
                 }else{
                     this.showPopup('ErrorPopup', {
                         title: this.env._t('Transbank Id Erroneo'),
@@ -29,7 +24,6 @@ odoo.define('ccu_sale.PaymentTransbankLinesValidator', function (require) {
                         ),
                     });
                 }
-
                 this.render();
             }
             editPaymentLine(event) {
@@ -39,10 +33,16 @@ odoo.define('ccu_sale.PaymentTransbankLinesValidator', function (require) {
             getPaymentLines(){
                 return this.env.pos.attributes.selectedOrder.paymentlines.models[0];
             }
+            getTransactionId(){
+                return this.getPaymentLines().transaction_id;
+            }
+            getTransactionNameVal(){
+                return this.getPaymentLines().name;
+            }
         }
 
-    Registries.Component.extend(PaymentScreenPaymentLines, PaymentTransbankLinesValidator);
+    Registries.Component.extend(PaymentScreenPaymentLines, PaymentLinesValidator);
 
-    return PaymentTransbankLinesValidator;
+    return PaymentLinesValidator;
 
 });
