@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+   <t t-name="PaymentLinesValidator" t-inherit="point_of_sale.PaymentScreenPaymentLines" t-inherit-mode="extension" owl="1">
+<!--        <xpath expr="//div[hasclass('payment-amount')]" position="replace">-->
+<!--            <t t-if="getTransactionNameVal().includes('Transbank')">-->
+<!--                 <div class="payment-amount">-->
+<!--                    <t t-esc="getTransactionId" />-->
+<!--                </div>-->
+<!--            </t>-->
+<!--        </xpath>-->
+        <xpath expr="//div[hasclass('delete-button')]" position="after">
+            <t t-if="getTransactionNameVal().includes('Transbank')">
+<!--                <div class="edit-button"-->
+<!--                    t-on-click="trigger('edit-payment-line', { cid: line.cid })"-->
+<!--                    aria-label="Edit" title="Editar">-->
+<!--                    <i class="fa fa-pencil" />-->
+<!--                </div>-->
+
+                <div class="save-button"
+                    t-on-click="trigger('save-payment-line', { cid: line.cid })"
+                    aria-label="Saved" title="Guardado">
+                    <i class="fa fa-floppy-o" />
+                </div>
+            </t>
+        </xpath>
+
+    </t>
+
+</templates>
