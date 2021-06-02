@@ -14,11 +14,12 @@
     'data': [
         # "security/ir.model.access.csv",
         #'data/pos.payment.method.csv',
-        'views/PaymentLinesValidator.xml'
+        'views/PosCommonAssets.xml',
     ],
     'installable': True,
     'application': True,
     'qweb': [
+        'static/src/xml/ClientDetailsEditValidate.xml',
         'static/src/xml/OrderReceiptTransbank.xml',
         'static/src/xml/PaymentLinesValidator.xml',
         'static/src/xml/PaymentScreenStatusTransbank.xml',
