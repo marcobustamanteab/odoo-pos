@@ -1,13 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
 
-   <t t-name="ClientDetailsEditValidate" t-inherit="point_of_sale.ClientDetailsEdit" t-inherit-mode="extension" owl="1">
-        <xpath expr="//div[hasclass('client-details-left')]" position="inside">
+     <t t-name="ClientLine" t-inherit="point_of_sale.ClientLine" t-inherit-mode="extension" owl="1">
+        <xpath expr="//tr" position="inside">
+            <td>
+<!--                <t t-esc='props.partner.loyalty_points or 0' />-->
+<!--                <span t-if="highlight"><br/></span>-->
+                <span></span>
+                <input type="checkbox" name="is_company" disabled="true"><t t-esc='props.partner.is_company' /></input>
+            </td>
+        </xpath>
+    </t>
+
+    <t t-name="ClientListScreen" t-inherit="point_of_sale.ClientListScreen" t-inherit-mode="extension" owl="1">
+        <xpath expr="//tr" position="inside">
+<!--            <th t-if="env.pos.config.module_pos_loyalty">Points</th>-->
+            <th>Es Empresa</th>
+        </xpath>
+    </t>
+
+   <t t-name="ClientDetailsEdit" t-inherit="point_of_sale.ClientDetailsEdit" t-inherit-mode="extension" owl="1">
+        <xpath expr="//input[@name=('name')]" position="after">
             <div class="client-detail">
+                <span class="label">Individual</span>
+                <input type="radio" name="favorite_pet" value="false">Individual</input>
+                <span class="label">Empresa</span>
+                <input type="radio" name="favorite_pet" value="true">Empresa</input>
+            </div>
+        </xpath>
+    </t>
+
+   <t t-name="ClientDetailsEdit" t-inherit="point_of_sale.ClientDetailsEdit" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('client-details-left')]" position="inside">
+            <div class="client-detail" t-if="isCompany">
                 <span class="label">Giro</span>
+                <select class="detail client-address-states needsclick" name="state_id"
+                        t-on-change="captureChange">
+                    <option value="">None</option>
+                    <t t-foreach="env.pos.states" t-as="state" t-key="state.id">
+                        <option t-if="props.partner.country_id[0] == state.country_id[0]"
+                                t-att-value="state.id"
+                                t-att-selected="props.partner.state_id ? ((state.id === props.partner.state_id[0]) ? true : undefined) : undefined">
+                            <t t-esc="state.name" />
+                        </option>
+                    </t>
+                </select>
+            </div>
+<!--            <div class="client-detail">-->
+<!--                <span class="label"><t t-esc='giroEmpresa' /></span>-->
+<!--            </div>-->
+        </xpath>
+    </t>
+
+   <t t-name="ClientDetailsEdit" t-inherit="point_of_sale.ClientDetailsEdit" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('client-details-right')]" position="inside">
+            <div class="client-detail">
+                <span class="label">Edad</span>
+                <input class="detail client-address-street" name="street"
+                               t-on-change="captureChange" t-att-value="props.partner.age || ''"
+                               placeholder="Edad" />
             </div>
             <div class="client-detail">
-                <span class="label">Comuna</span>
+                <span class="label">Categoría</span>
+                <input class="detail client-address-street" name="street"
+                               t-on-change="captureChange" t-att-value="props.partner.category || ''"
+                               placeholder="Categoria" />
+            </div>
+            <div class="client-detail">
+                <span class="label">Fecha de Nacimiento</span>
+                <input type="date" t-att-value="props.partner.dob || ''"/>
             </div>
         </xpath>
     </t>

@@ -5,7 +5,7 @@
     "name": "CCU Customization - Pos",
     "version": "0.1",
     "category": "customizations",
-    "sequence": 0,
+    "sequence": 1000,
     "license": "LGPL-3",
     "summary": "CCU Companies Customizations for Pos module",
     "author": "Compañia Cervecerias Unidas S.A. (CCU)",
@@ -19,6 +19,7 @@
     'installable': True,
     'application': True,
     'qweb': [
+        #'static/src/xml/ClientLineValidate.xml',
         'static/src/xml/ClientDetailsEditValidate.xml',
         'static/src/xml/OrderReceiptTransbank.xml',
         'static/src/xml/PaymentLinesValidator.xml',
