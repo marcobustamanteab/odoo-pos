@@ -5,6 +5,7 @@ odoo.define('ccu_pos.ClientDetailsEdit', function (require) {
     var core = require('web.core');
     var utils = require('web.utils');
 
+    const { useListener } = require('web.custom_hooks');
     const ClientDetailsEdit = require('point_of_sale.ClientDetailsEdit');
     const Registries = require('point_of_sale.Registries');
     const session = require('web.session');
@@ -21,23 +22,42 @@ odoo.define('ccu_pos.ClientDetailsEdit', function (require) {
         class extends ClientDetailsEdit {
             constructor() {
                 super(...arguments);
-                // useListener('save-payment-line', this.validateOrderTransbank);
+                useListener('type-customer-validate', this.typeCustomerValidate);
             }
-            isCompany(){
-                return this.env.props.partner.is_company;
+            get isCompany(){
+                return this.props.partner.is_company;
             }
-            // get TransactionName(){
-            //     return this.get_client();
-            // }
+
             giroEmpresa(){
                 return this.env.props.partner.l10n_cl_activity_description;
             }
-            // validateOrderTransbank(event) {
-            //     if(this.env.pos.attributes.selectedOrder.paymentlines.models[0].transaction_id > 99999){
-            //         this.validateOrder(false);
-            //     }
-            //     this.render();
-            // }
+            async typeCustomerValidate(event) {
+                if(event.getValue() === 'person' && this.isCompany){
+                   const { confirmed, payload } = await this.showPopup('ConfirmPopup', {
+                       title: this.env._t('Confirmación'),
+                       body: this.env._t('Desea cambiar la modalidad del cliente a Persona.'),
+                   });
+                   if (confirmed) {
+                       console.log(payload, 'payload')
+                   }
+                }if(event.getValue() === 'company' && !this.isCompany){
+                   const { confirmed, payload } = await this.showPopup('ConfirmPopup', {
+                       title: this.env._t('Confirmación'),
+                       body: this.env._t('Desea cambiar la modalidad del cliente a Empresa.'),
+                   });
+                   if (confirmed) {
+                       console.log(payload, 'payload')
+                   }
+                }
+                this.render();
+            }
+            _is_valid_age(){
+                if(18 <= this.prop.partner.age <= 120){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
         }
 
     Registries.Component.extend(ClientDetailsEdit, ClientDetailsEditValidate);

@@ -4,17 +4,18 @@
      <t t-name="ClientLine" t-inherit="point_of_sale.ClientLine" t-inherit-mode="extension" owl="1">
         <xpath expr="//tr" position="inside">
             <td>
-<!--                <t t-esc='props.partner.loyalty_points or 0' />-->
-<!--                <span t-if="highlight"><br/></span>-->
-                <span></span>
-                <input type="checkbox" name="is_company" disabled="true"><t t-esc='props.partner.is_company' /></input>
+                <t t-if="props.partner.is_company">
+                    <input type="checkbox" name="is_company" disabled="true" checked="true"/>
+                </t>
+                <t t-else="">
+                    <input type="checkbox" name="is_company" disabled="true"/>
+                </t>
             </td>
         </xpath>
     </t>
 
     <t t-name="ClientListScreen" t-inherit="point_of_sale.ClientListScreen" t-inherit-mode="extension" owl="1">
         <xpath expr="//tr" position="inside">
-<!--            <th t-if="env.pos.config.module_pos_loyalty">Points</th>-->
             <th>Es Empresa</th>
         </xpath>
     </t>
@@ -23,9 +24,20 @@
         <xpath expr="//input[@name=('name')]" position="after">
             <div class="client-detail">
                 <span class="label">Individual</span>
-                <input type="radio" name="favorite_pet" value="false">Individual</input>
-                <span class="label">Empresa</span>
-                <input type="radio" name="favorite_pet" value="true">Empresa</input>
+                <t t-if="isCompany">
+                    <input type="radio" name="company_condition" value="person"
+                        t-on-change="type-customer-validate">Individual</input>
+                    <span class="label">Empresa</span>
+                    <input type="radio" name="company_condition" checked="true" value="company"
+                        t-on-change="type-customer-validate">Empresa</input>
+                </t>
+                <t t-else="">
+                    <input type="radio" name="company_condition" checked="true"
+                        t-on-change="type-customer-validate">Individual</input>
+                    <span class="label">Empresa</span>
+                    <input type="radio" name="company_condition"
+                        t-on-change="type-customer-validate">Empresa</input>
+                </t>
             </div>
         </xpath>
     </t>
@@ -69,6 +81,15 @@
             <div class="client-detail">
                 <span class="label">Fecha de Nacimiento</span>
                 <input type="date" t-att-value="props.partner.dob || ''"/>
+            </div>
+        </xpath>
+    </t>
+
+    <t t-name="ClientListScreen" t-inherit="point_of_sale.ClientListScreen" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('searchbox-client')]" position="before">
+            <div t-on-click="clickRefresh" class="button next" t-if="!state.detailIsShown">
+                    <i class="fa fa-refresh"/>
+                    <span> <t t-esc="refreshButton.text" /></span>
             </div>
         </xpath>
     </t>

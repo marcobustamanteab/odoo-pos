@@ -3,8 +3,9 @@
     <template id="assets" inherit_id="point_of_sale.assets">
         <xpath expr="." position="inside">
 <!--            <link type="text/css" rel="stylesheet" href="/web/static/sccs/PaymentTransbank.scss"/>-->
-<!--            <script type="text/javascript" src="/ccu_pos/static/src/js/ClientLineValidate.js"></script>-->
+            <script type="text/javascript" src="/ccu_pos/static/src/js/ClientLineValidate.js"></script>
             <script type="text/javascript" src="/ccu_pos/static/src/js/ClientDetailsEdit.js"></script>
+            <script type="text/javascript" src="/ccu_pos/static/src/js/ClientListScreenValidate.js"></script>
             <script type="text/javascript" src="/ccu_pos/static/src/js/PaymentLinesValidator.js"></script>
             <script type="text/javascript" src="/ccu_pos/static/src/js/OrderReceiptTransbank.js"></script>
             <script type="text/javascript" src="/ccu_pos/static/src/js/PaymentScreenStatusTransbank.js"></script>
