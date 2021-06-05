@@ -1,0 +1,16 @@
+<odoo>
+
+    <record id="view_res_company_esb_form" model="ir.ui.view">
+        <field name="name">res.company.esb.form</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <field name="backend_acp_id" position="after">
+                <field name="backend_esb_id" domain="[('connection_type', '=', 'esb')]"/>
+                <field name="ccu_business_unit"/>
+                <field name="esb_default_analytic_id"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

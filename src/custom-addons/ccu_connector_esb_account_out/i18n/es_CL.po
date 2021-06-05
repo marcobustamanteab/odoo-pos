@@ -1,0 +1,38 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* ccu_connector_esb_account_out
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-03-19 21:41+0000\n"
+"PO-Revision-Date: 2020-03-19 18:39-0300\n"
+"Last-Translator: Nelson Ramírez  <nramirez@konos.cl>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: es_CL\n"
+"X-Generator: Poedit 2.3\n"
+
+#. module: ccu_connector_esb_account_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_journal__ccu_code
+msgid "CCU Code"
+msgstr "Código CCU"
+
+#. module: ccu_connector_esb_account_out
+#: model:ir.model,name:ccu_connector_esb_account_out.model_account_journal
+msgid "Journal"
+msgstr "Diario"
+
+#. module: ccu_connector_esb_account_out
+#: model:ir.model,name:ccu_connector_esb_account_out.model_account_move
+msgid "Journal Entries"
+msgstr "Asientos contables"
+
+#. module: ccu_connector_esb_account_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_journal__ccu_sync
+msgid "Syncs with ESB"
+msgstr "Sincroniza con ESB"
