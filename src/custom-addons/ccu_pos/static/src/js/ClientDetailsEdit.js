@@ -10,13 +10,7 @@ odoo.define('ccu_pos.ClientDetailsEdit', function (require) {
     const Registries = require('point_of_sale.Registries');
     const session = require('web.session');
 
-    models.load_fields('res.partner',['is_company','l10n_cl_activity_description']);
-    // models.load_fields('res.partner','l10n_cl_activity_description');
-    models.load_fields('res.partner','l10n_latam_identification_type_id');
-    models.load_fields('res.partner','gender');
-    models.load_fields('res.partner','dob');
-    models.load_fields('res.partner','age');
-    models.load_fields('res.partner','category');
+    models.load_fields('res.partner',['is_company','l10n_cl_activity_description','gender','dob','age','category','l10n_cl_sii_taxpayer_type']);
 
     const ClientDetailsEditValidate = ClientDetailsEdit =>
         class extends ClientDetailsEdit {

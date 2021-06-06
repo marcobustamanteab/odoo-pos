@@ -45,7 +45,7 @@
    <t t-name="ClientDetailsEdit" t-inherit="point_of_sale.ClientDetailsEdit" t-inherit-mode="extension" owl="1">
         <xpath expr="//div[hasclass('client-details-left')]" position="inside">
             <div class="client-detail" t-if="isCompany">
-                <span class="label">Giro</span>
+                <span class="label">Tipo de Contribuyente</span>
                 <select class="detail client-address-states needsclick" name="state_id"
                         t-on-change="captureChange">
                     <option value="">None</option>
@@ -58,9 +58,12 @@
                     </t>
                 </select>
             </div>
-<!--            <div class="client-detail">-->
-<!--                <span class="label"><t t-esc='giroEmpresa' /></span>-->
-<!--            </div>-->
+            <div class="client-detail" t-if="isCompany">
+                <span class="label">Giro</span>
+                <input class="detail client-address-street" name="street"
+                                               t-on-change="captureChange" t-att-value="props.partner.l10n_cl_activity_description || ''"
+                                               placeholder="Giro" />
+            </div>
         </xpath>
     </t>
 
