@@ -1,0 +1,17 @@
+<odoo>
+    <record model="ir.ui.view" id="ccu_dte_client_account_move_form_view">
+        <field name="name">CCU DTE Client Account Move</field>
+        <field name="model">account.move</field>
+        <field name="priority">17</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='other_info']" position="after">
+                <page string="CCU Customization" name="ccu_customization">
+                    <group>
+                        <field name="dte_send_status"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
