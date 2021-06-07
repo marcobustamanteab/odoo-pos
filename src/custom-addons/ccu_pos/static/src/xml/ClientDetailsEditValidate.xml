@@ -25,18 +25,18 @@
             <div class="client-detail">
                 <span class="label">Individual</span>
                 <t t-if="isCompany">
-                    <input type="radio" name="company_condition" value="person"
-                        t-on-change="type-customer-validate">Individual</input>
+                    <input type="radio" name="company_condition" value="person" checked="props.conditionPerson"
+                        t-on-click="trigger('person-type-validate', { isCompany: false })">Individual</input>
                     <span class="label">Empresa</span>
-                    <input type="radio" name="company_condition" checked="true" value="company"
-                        t-on-change="type-customer-validate">Empresa</input>
+                    <input type="radio" name="company_condition" checked="props.conditionCompany" value="company"
+                        t-on-click="trigger('company-type-validate, { isCompany: true }')">Empresa</input>
                 </t>
-                <t t-else="">
-                    <input type="radio" name="company_condition" checked="true"
-                        t-on-change="type-customer-validate">Individual</input>
+                <t t-else="!isCompany">
+                    <input type="radio" name="company_condition" checked="props.conditionPerson"
+                        t-on-click="trigger('person-type-validate, { isCompany: false }')">Individual</input>
                     <span class="label">Empresa</span>
-                    <input type="radio" name="company_condition"
-                        t-on-change="type-customer-validate">Empresa</input>
+                    <input type="radio" name="company_condition" checked="props.conditionCompany"
+                        t-on-click="trigger('company-type-validate, { isCompany: true }')">Empresa</input>
                 </t>
             </div>
         </xpath>
@@ -45,22 +45,22 @@
    <t t-name="ClientDetailsEdit" t-inherit="point_of_sale.ClientDetailsEdit" t-inherit-mode="extension" owl="1">
         <xpath expr="//div[hasclass('client-details-left')]" position="inside">
             <div class="client-detail" t-if="isCompany">
-                <span class="label">Giro</span>
+                <span class="label">Tipo de Contribuyente</span>
                 <select class="detail client-address-states needsclick" name="state_id"
                         t-on-change="captureChange">
-                    <option value="">None</option>
-                    <t t-foreach="env.pos.states" t-as="state" t-key="state.id">
-                        <option t-if="props.partner.country_id[0] == state.country_id[0]"
-                                t-att-value="state.id"
-                                t-att-selected="props.partner.state_id ? ((state.id === props.partner.state_id[0]) ? true : undefined) : undefined">
-                            <t t-esc="state.name" />
-                        </option>
-                    </t>
+                  <option value="">Tipo de Contribuyente</option>
+                  <option value="1">IVA afecto 1ª categoría</option>
+                  <option value="2">Emisor de boleta 2da categoría</option>
+                  <option value="3">Consumidor final</option>
+                  <option value="4">Extranjero</option>
                 </select>
             </div>
-<!--            <div class="client-detail">-->
-<!--                <span class="label"><t t-esc='giroEmpresa' /></span>-->
-<!--            </div>-->
+            <div class="client-detail" t-if="isCompany">
+                <span class="label">Giro</span>
+                <input class="detail client-address-street" name="street"
+                                               t-on-change="captureChange" t-att-value="props.partner.l10n_cl_activity_description || ''"
+                                               placeholder="Giro" />
+            </div>
         </xpath>
     </t>
 
@@ -87,7 +87,7 @@
 
     <t t-name="ClientListScreen" t-inherit="point_of_sale.ClientListScreen" t-inherit-mode="extension" owl="1">
         <xpath expr="//div[hasclass('searchbox-client')]" position="before">
-            <div t-on-click="clickRefresh" class="button next" t-if="!state.detailIsShown">
+            <div t-on-click="trigger('click-refresh')" class="button next" t-if="!state.detailIsShown">
                     <i class="fa fa-refresh"/>
                     <span> <t t-esc="refreshButton.text" /></span>
             </div>
