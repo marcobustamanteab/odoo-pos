@@ -17,6 +17,8 @@ workers={{ odoo.worker }}
 limit_time_cpu = 3600
 limit_time_real = 3600
 data_dir = {{ odoo.data_dir }}
+server_wide_modules = web,queue_job
+
 [queue_job]
 channels = root:3
 #scheme = https
@@ -26,7 +28,7 @@ channels = root:3
 #http_auth_password = s3cr3t
 #jobrunner_db_host = localhost
 #jobrunner_db_port = 5432
-server_wide_modules = web,queue_job
+
 [base_rest]
 dev_mode=True
 
