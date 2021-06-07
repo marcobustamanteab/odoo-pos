@@ -17,40 +17,92 @@ odoo.define('ccu_pos.ClientDetailsEdit', function (require) {
             constructor() {
                 super(...arguments);
                 useListener('type-customer-validate', this.typeCustomerValidate);
+                useListener('person-type-validate', this.personTypeValidate);
+                useListener('company-type-validate', this.companyTypeValidate);
+                useListener('click-refresh', this.clickRefresh);
             }
             get isCompany(){
+                if(this.props.partner.is_company){
+                    this.props.conditionCompany = true;
+                    this.props.conditionPerson = false;
+                    this.props.conditionHiddenFields = false;
+                }else{
+                    this.props.conditionCompany = false;
+                    this.props.conditionPerson = true;
+                    this.props.conditionHiddenFields = true;
+                }
                 return this.props.partner.is_company;
             }
-
             giroEmpresa(){
                 return this.env.props.partner.l10n_cl_activity_description;
             }
             async typeCustomerValidate(event) {
-                if(event.getValue() === 'person' && this.isCompany){
-                   const { confirmed, payload } = await this.showPopup('ConfirmPopup', {
-                       title: this.env._t('Confirmación'),
-                       body: this.env._t('Desea cambiar la modalidad del cliente a Persona.'),
-                   });
-                   if (confirmed) {
-                       console.log(payload, 'payload')
-                   }
-                }if(event.getValue() === 'company' && !this.isCompany){
-                   const { confirmed, payload } = await this.showPopup('ConfirmPopup', {
-                       title: this.env._t('Confirmación'),
-                       body: this.env._t('Desea cambiar la modalidad del cliente a Empresa.'),
-                   });
-                   if (confirmed) {
-                       console.log(payload, 'payload')
-                   }
+                var self = this;
+                const {isCompany} = event.detail;
+                const {confirmed, payload} = await this.showPopup('ConfirmPopup', {
+                    title: this.env._t('Confirm Popup'),
+                    body: this.env._t('This click is successfully done.'),
+                });
+                if (confirmed) {
+                    // console.log(payload, 'payload')
+                    this.props.conditionCompany = false;
+                    this.props.conditionPerson = true;
                 }
-                this.render();
             }
-            _is_valid_age(){
+            async personTypeValidate(event) {
+                var self = this;
+                const {isCompany} = event.detail;
+                const {confirmed, payload} = await this.showPopup('ConfirmPopup', {
+                    title: this.env._t('Confirmar Acción'),
+                    body: this.env._t('Desea cambiar la configuración de cliente persona.'),
+                });
+                if (confirmed) {
+                    // console.log(payload, 'person')
+                    this.props.conditionCompany = false;
+                    this.props.conditionPerson = true;
+                }else{
+                    this.props.conditionCompany = true;
+                    this.props.conditionPerson = false;
+                }
+            }
+            async companyTypeValidate(event) {
+                var self = this;
+                const {isCompany} = event.detail;
+                const {confirmed, payload} = await this.showPopup('ConfirmPopup', {
+                    title: this.env._t('Confirmar Acción'),
+                    body: this.env._t('Desea cambiar la configuración de cliente empresa.'),
+                });
+                if (confirmed) {
+                    // console.log(payload, 'company')
+                    this.props.conditionCompany = true;
+                    this.props.conditionPerson = false;
+                }else{
+                    this.props.conditionCompany = true;
+                    this.props.conditionPerson = false;
+                }
+            }
+            isValidAge(){
                 if(18 <= this.prop.partner.age <= 120){
                     return true;
                 }else{
                     return false;
                 }
+            }
+            checkCompany(condition){
+                return condition;
+            }
+            checkPerson(condition){
+                return condition;
+            }
+            async clickRefresh() {
+               var self = this;
+               const { confirmed, payload } = await this.showPopup('NumberPopup', {
+                   title: this.env._t('Number Popup'),
+                   body: this.env._t('This click is successfully done.'),
+               });
+               if (confirmed) {
+                   console.log(payload, 'payload')
+               }
             }
         }
 

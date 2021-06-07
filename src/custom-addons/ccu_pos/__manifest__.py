@@ -10,7 +10,7 @@
     "summary": "CCU Companies Customizations for Pos module",
     "author": "Compañia Cervecerias Unidas S.A. (CCU)",
     "maintainer": "Compañia Cervecerias Unidas S.A. (CCU)",
-    "depends": ["point_of_sale", "l10n_cl_edi", ],
+    "depends": ["point_of_sale", "l10n_cl", ],
     'data': [
         # "security/ir.model.access.csv",
         #'data/pos.payment.method.csv',
