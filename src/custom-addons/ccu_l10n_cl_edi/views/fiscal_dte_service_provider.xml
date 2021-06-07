@@ -1,0 +1,41 @@
+<odoo>
+    <record model="ir.ui.view" id="fiscal_dte_service_provider_tree">
+        <field name="name">Fiscal DTE Service Provider</field>
+        <field name="model">fiscal.dte.service.provider</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Fiscal DTE Service Provider">
+                <field name="name"/>
+                <field name="url"/>
+                <field name="type"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="fiscal_dte_service_provider_form">
+        <field eval="True" name="active"/>
+        <field eval="[(6, 0, [])]" name="groups_id"/>
+        <field name="mode">primary</field>
+        <field name="name">Fiscal DTE Service Provider Form</field>
+        <field name="model">fiscal.dte.service.provider</field>
+        <field name="priority">16</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                </header>
+                <sheet string="Fiscal DTE Service Provider">
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="url"/>
+                        <field name="type"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

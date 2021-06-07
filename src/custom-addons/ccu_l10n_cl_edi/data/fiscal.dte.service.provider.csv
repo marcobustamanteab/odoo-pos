@@ -1,0 +1,5 @@
+id,name,url,type
+ccu_l10n_cl_edi.fiscal_dte_service_provider_voucher_cert_server,"Certification Server", "https://apicert.sii.cl/recursos/v1",cert
+ccu_l10n_cl_edi.fiscal_dte_service_provider_voucher_cert_send_server,"Certification Send POST Server", "https://pangal.sii.cl/recursos/v1",cert
+ccu_l10n_cl_edi.fiscal_dte_service_provider_voucher_prod_server,"Production Server", "https://api.sii.cl/recursos/v1",prod
+ccu_l10n_cl_edi.fiscal_dte_service_provider_voucher_prod_send_server,"Production Send POST Server", "https://rahue.sii.cl/recursos/v1",prod

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<odoo>
+    <data>
+        <record id="dte_subtemplate" model="ir.ui.view">
+            <field name="inherit_id" ref="l10n_cl_edi.dte_subtemplate"/>
+            <field name="name">ccu_l10n_cl_edi.dte_subtemplate</field>
+            <field name="arch" type="xml">
+                <xpath expr="//CodImpAdic" position="replace">
+                    <t t-if="not move._is_doc_type_voucher()">
+                        <CodImpAdic t-esc="tax.l10n_cl_sii_code"/>
+                    </t>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
