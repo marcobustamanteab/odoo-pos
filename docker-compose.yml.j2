@@ -15,7 +15,7 @@ services:
       {%- endif %}
     networks:
       - odoo-pos
-    entrypoint: ['/entrypoint.sh', 'odoo', '-d', '{{ database.POSTGRES_DB }}'] 
+    entrypoint: ['/entrypoint.sh', 'odoo', '-d', '{{ database.POSTGRES_DB }}', '-u ccu_connector_esb_stock_out -u ccu_connector_esb_stock_in --log-handler=odoo.addons.queue_job:DEBUG --log-handler=odoo.addons.ccu_connector_esb_inventory_out:DEBUG --log-handler=odoo.addons.connector:DEBUG --log-handler=requests.exceptions:DEBU']
     volumes:
       - ../filestore:{{ odoo.data_dir }}
       - ./logs:/var/log/odoo
