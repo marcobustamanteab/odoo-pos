@@ -1,5 +1,7 @@
 ccu_l10n_cl_edi.access_fiscal_dte_config_settings_user,Fiscal DTE Config. Settings,ccu_l10n_cl_edi.model_fiscal_dte_config_settings,base.group_user,1,1,1,1
+ccu_l10n_cl_edi.access_fiscal_dte_config_settings_user,Fiscal DTE Config. Settings,ccu_l10n_cl_edi.model_fiscal_dte_config_settings,base.group_user,1,1,1,1
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 ccu_l10n_cl_edi.access_fiscal_dte_log_user,"Fiscal DTE Log",ccu_l10n_cl_edi.model_fiscal_dte_log,base.group_user,1,1,1,1
+ccu_l10n_cl_edi.access_fiscal_dte_printing_config_system,Fiscal DTE Printing Config,ccu_l10n_cl_edi.model_fiscal_dte_printing_config,base.group_system,1,1,1,1
 ccu_l10n_cl_edi.access_fiscal_dte_printing_config_user,Fiscal DTE Printing Config,ccu_l10n_cl_edi.model_fiscal_dte_printing_config,base.group_user,1,1,1,1
 ccu_l10n_cl_edi.access_fiscal_dte_service_provider_user,Fiscal DTE Service Provider,ccu_l10n_cl_edi.model_fiscal_dte_service_provider,base.group_user,1,1,1,1
