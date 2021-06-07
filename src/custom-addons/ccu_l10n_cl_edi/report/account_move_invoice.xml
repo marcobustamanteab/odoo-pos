@@ -311,12 +311,23 @@
                                 <td style="border-right:solid 1px black; text-align:right;">
                                     <span t-esc='"{:,.2f}".format(row.quantity * row.price_unit * row.discount / 100)'/>
                                 </td>
-                                <td style="border-right:solid 1px black;; text-align:right;">
-                                    <span t-esc='"{:,.0f}".format(row.price_subtotal)'/>
+                                <t t-if="doc._is_doc_type_voucher()">
+                                    <td style="border-right:solid 1px black;; text-align:right;">
+                                        <span t-esc='"{:,.0f}".format(row.price_total)'/>
+                                    </td>
+                                    <td style="text-align:right;">
+                                    <span t-esc='"{:,.2f}".format(row.price_total / row.quantity)'/>
                                 </td>
-                                <td style="text-align:right;">
+                                </t>
+                                <t t-else="">
+                                    <td style="border-right:solid 1px black;; text-align:right;">
+                                        <span t-esc='"{:,.0f}".format(row.price_subtotal)'/>
+                                    </td>
+                                    <td style="text-align:right;">
                                     <span t-esc='"{:,.2f}".format(row.price_subtotal / row.quantity)'/>
                                 </td>
+                                </t>
+
                             </tr>
                         </t>
                         <tr>

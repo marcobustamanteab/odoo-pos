@@ -16,6 +16,9 @@ odoo.define('ccu_pos.PaymentLinesValidator', function (require) {
                 if(this.env.pos.attributes.selectedOrder.paymentlines.models[0].amount > 99999) {
                     this.env.pos.attributes.selectedOrder.paymentlines.models[0].transaction_id = this.env.pos.attributes.selectedOrder.paymentlines.models[0].amount;
                     this.env.pos.attributes.selectedOrder.paymentlines.models[0].amount = this.env.pos.attributes.selectedOrder.paymentlines.models[0].totalDueText;
+                    this.env.pos.attributes.selectedOrder.paymentlines.models[0].totalDueText = 0;
+                    this.env.pos.attributes.selectedOrder.paymentlines.models[0].remaining = 0;
+                    this.formatLineAmount(this.getPaymentLines());
                 }else{
                     this.showPopup('ErrorPopup', {
                         title: this.env._t('Transbank Id Erroneo'),
