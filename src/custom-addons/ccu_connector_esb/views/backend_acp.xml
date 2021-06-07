@@ -1,0 +1,25 @@
+<odoo>
+
+    <record id="view_backend_acp_form_esb" model="ir.ui.view">
+        <field name="name">backend.acp.form.esb</field>
+        <field name="model">backend.acp</field>
+        <field name="inherit_id" ref="connector_acp.view_backend_acp_form"/>
+        <field name="arch" type="xml">
+            <field name="host" position="attributes">
+                <attribute name="placeholder">https://api.authorization-server.com</attribute>
+            </field>
+            <field name="user" position="attributes">
+                <attribute name="attrs">{'required': [('connection_type', '=', 'esb')]}</attribute>
+            </field>
+            <field name="connection_type" position="after">
+                <field name="esb_auth_endpoint" attrs="{'invisible': [('connection_type', '!=', 'esb')]}"/>
+                <field name="esb_auth_grant_type" attrs="{'invisible': [('connection_type', '!=', 'esb')]}"/>
+            </field>
+            <field name="password" position="after">
+                <field name="client_id" attrs="{'invisible': [('connection_type', '!=', 'esb')]}"/>
+                <field name="client_secret" password="True" attrs="{'invisible': [('connection_type', '!=', 'esb')]}"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

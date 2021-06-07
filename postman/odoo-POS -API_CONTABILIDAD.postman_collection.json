@@ -1,0 +1,195 @@
+{
+	"info": {
+		"_postman_id": "34a1e446-dddb-4108-a81e-93abdcf0be9a",
+		"name": "odoo-POS -API_CONTABILIDAD",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "contabilidad asiento crear SAP",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "Nafe1829",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "jfajardot",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"HEADER\": {\n        \"ID_MENSAJE\": \"ca93c559-f675-379d-8fea-f0c64695662f\",\n        \"MENSAJE\": \"OK\",\n        \"FECHA\": \"20210507\",\n        \"SOCIEDAD\": \"A032\",\n        \"LEGADO\": \"TRUCK_CHI\",\n        \"CODIGO_INTERFAZ\": \"ITD_058\"\n    },\n    \"t_movimiento\": {\n        \"cabecera\": {\n            \"id_documento\": \"327538450287TC\",\n            \"username\": \"CLAMORAL\",\n            \"header_txt\": \"TRUCK_CHILE\",\n            \"doc_date\": \"20210505\",\n            \"pstng_date\": \"20210505\",\n            \"ref_doc_no\": \"10394260\"\n        },\n        \"detalle\": [\n            {\n                \"pos_num\": \"3\",\n                \"hkont\": {},\n                \"costcenter\": \"A90VQ45300\",\n                \"text\": {},\n                \"plant\": \"9031\",\n                \"material\": \"ENVG005\",\n                \"stge_loc\": \"EN01\",\n                \"move_stloc\": \"0\",\n                \"batch\": \"NONE\",\n                \"entry_qnt\": \"1\",\n                \"item_text\": \"Entrada sin Pedido Sub-Stand. TRK (BLQ)\",\n                \"move_type\": \"T19\"\n            },\n            {\n                \"pos_num\": \"2\",\n                \"hkont\": {},\n                \"costcenter\": \"A90VQ45300\",\n                \"text\": {},\n                \"plant\": \"9031\",\n                \"material\": \"ENVG014\",\n                \"stge_loc\": \"EN01\",\n                \"move_stloc\": \"0\",\n                \"batch\": \"NONE\",\n                \"entry_qnt\": \"1\",\n                \"item_text\": \"Entrada sin Pedido Sub-Stand. TRK (BLQ)\",\n                \"move_type\": \"T19\"\n            }\n        ]\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://qpo-ci01.ccu.cl:50000/RESTAdapter/movimientoinventariocrea",
+					"protocol": "http",
+					"host": [
+						"qpo-ci01",
+						"ccu",
+						"cl"
+					],
+					"port": "50000",
+					"path": [
+						"RESTAdapter",
+						"movimientoinventariocrea"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "contabilidad asiento crear WSO2",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"HEADER\": {\n        \"ID_MENSAJE\": \"ca93c559-f675-379d-8fea-f0c64695662f\",\n        \"MENSAJE\": \"OK\",\n        \"FECHA\": \"20210507\",\n        \"SOCIEDAD\": \"A032\",\n        \"LEGADO\": \"TRUCK_CHI\",\n        \"CODIGO_INTERFAZ\": \"ITD_058\"\n    },\n    \"t_movimiento\": {\n        \"cabecera\": {\n            \"id_documento\": \"327538450287TC\",\n            \"username\": \"CLAMORAL\",\n            \"header_txt\": \"TRUCK_CHILE\",\n            \"doc_date\": \"20210505\",\n            \"pstng_date\": \"20210505\",\n            \"ref_doc_no\": \"10394260\"\n        },\n        \"detalle\": [\n            {\n                \"pos_num\": \"3\",\n                \"hkont\": {},\n                \"costcenter\": \"A90VQ45300\",\n                \"text\": {},\n                \"plant\": \"9031\",\n                \"material\": \"ENVG005\",\n                \"stge_loc\": \"EN01\",\n                \"move_stloc\": \"0\",\n                \"batch\": \"NONE\",\n                \"entry_qnt\": \"1\",\n                \"item_text\": \"Entrada sin Pedido Sub-Stand. TRK (BLQ)\",\n                \"move_type\": \"T19\"\n            },\n            {\n                \"pos_num\": \"2\",\n                \"hkont\": {},\n                \"costcenter\": \"A90VQ45300\",\n                \"text\": {},\n                \"plant\": \"9031\",\n                \"material\": \"ENVG014\",\n                \"stge_loc\": \"EN01\",\n                \"move_stloc\": \"0\",\n                \"batch\": \"NONE\",\n                \"entry_qnt\": \"1\",\n                \"item_text\": \"Entrada sin Pedido Sub-Stand. TRK (BLQ)\",\n                \"move_type\": \"T19\"\n            }\n        ]\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://wso2qa2.ccu.cl:8280/sap/inventario/movimiento/crear",
+					"protocol": "http",
+					"host": [
+						"wso2qa2",
+						"ccu",
+						"cl"
+					],
+					"port": "8280",
+					"path": [
+						"sap",
+						"inventario",
+						"movimiento",
+						"crear"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Contabilidad Health Status",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "Nafe1829",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "jfajardot",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"HEADER\": {\n        \"ID_MENSAJE\": \"D11\",\n        \"MENSAJE\": \"CREACLIENTE\",\n        \"FECHA\": \"20210504\",\n        \"SOCIEDAD\": \"0001\",\n        \"LEGADO\": \"ODOO\",\n        \"CODIGO_INTERFAZ\": \"RTR_038\"\n    },\n    \"BP\": {\n        \"FINTR\": 1,\n        \"TRATAM\": \"Empresa\",\n        \"NOMBRE\": \"NOMBRE TEST \",\n        \"APELLIDO\": \"APELLIDO TEST\",\n        \"RUTDNI\": \"15669979-9\",\n        \"CALLE\": \"CALLE NUMERO 1\",\n        \"CODPOS\": \"\",\n        \"CIUDAD\": \"SANTIAGO\",\n        \"COMUNA\": \"SANTIAGO\",\n        \"REGION\": 13,\n        \"PAIS\": \"CL\",\n        \"TELEF1\": \"+56982011751\",\n        \"TELEF2\": \"\",\n        \"EMAIL\": \"\"\n    },\n    \"DATOS_VENTA\": {\n        \"CENTRO\": \"5034\",\n        \"CONPA\": \"ZN00\",\n    },\n    \"DATOS_IMPUESTO\": {\n        \"MWST\": \"1\",\n        \"J1CA\": \"1\",\n        \"J2CA\": \"1\",\n        \"J3CA\": \"1\",\n        \"Z1CA\": \"1\",\n        \"Z2CA\": \"1\",\n        \"Z3CA\": \"1\",\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://wso2qa2.ccu.cl:8280/sap/contabilidad/health/status",
+					"protocol": "http",
+					"host": [
+						"wso2qa2",
+						"ccu",
+						"cl"
+					],
+					"port": "8280",
+					"path": [
+						"sap",
+						"contabilidad",
+						"health",
+						"status"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
