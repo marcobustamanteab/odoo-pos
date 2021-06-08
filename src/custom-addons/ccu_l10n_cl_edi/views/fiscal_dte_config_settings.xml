@@ -1,0 +1,37 @@
+<odoo>
+    <record model="ir.ui.view" id="fiscal_dte_config_settings_tree">
+        <field name="name">Fiscal DTE Config. Settings</field>
+        <field name="model">fiscal.dte.config.settings</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Fiscal DTE Config. Settings">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="fiscal_dte_config_settings_form">
+        <field eval="True" name="active"/>
+        <field eval="[(6, 0, [])]" name="groups_id"/>
+        <field name="mode">primary</field>
+        <field name="name">Fiscal DTE Config. Settings Form</field>
+        <field name="model">fiscal.dte.config.settings</field>
+        <field name="priority">16</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                </header>
+                <sheet string="Fiscal DTE Config. Settings">
+                    <group>
+                        <field name="name"/>
+                        <field name="company_id"/>
+                        <field name="l10n_cl_dte_voucher_service_provider"/>
+                        <field name="l10n_cl_dte_voucher_service_provider_post"/>
+                        <field name="l10n_cl_use_last_token"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

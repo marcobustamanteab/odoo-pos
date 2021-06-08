@@ -1,0 +1,401 @@
+{
+	"info": {
+		"_postman_id": "f946a7cc-fc67-4b98-b5a2-1f0972165423",
+		"name": "odoo-POS -API_INVENTARIO",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "movimiento inventario crear SAP",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "Nafe1829",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "jfajardot",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"HEADER\": {\n        \"ID_MENSAJE\": \"ca93c559-f675-379d-8fea-f0c64695662f\",\n        \"MENSAJE\": \"OK\",\n        \"FECHA\": \"20210507\",\n        \"SOCIEDAD\": \"A032\",\n        \"LEGADO\": \"TRUCK_CHI\",\n        \"CODIGO_INTERFAZ\": \"ITD_058\"\n    },\n    \"t_movimiento\": {\n        \"cabecera\": {\n            \"id_documento\": \"327538450287TC\",\n            \"username\": \"CLAMORAL\",\n            \"header_txt\": \"TRUCK_CHILE\",\n            \"doc_date\": \"20210505\",\n            \"pstng_date\": \"20210505\",\n            \"ref_doc_no\": \"10394260\"\n        },\n        \"detalle\": [\n            {\n                \"pos_num\": \"3\",\n                \"hkont\": {},\n                \"costcenter\": \"A90VQ45300\",\n                \"text\": {},\n                \"plant\": \"9031\",\n                \"material\": \"ENVG005\",\n                \"stge_loc\": \"EN01\",\n                \"move_stloc\": \"0\",\n                \"batch\": \"NONE\",\n                \"entry_qnt\": \"1\",\n                \"item_text\": \"Entrada sin Pedido Sub-Stand. TRK (BLQ)\",\n                \"move_type\": \"T19\"\n            },\n            {\n                \"pos_num\": \"2\",\n                \"hkont\": {},\n                \"costcenter\": \"A90VQ45300\",\n                \"text\": {},\n                \"plant\": \"9031\",\n                \"material\": \"ENVG014\",\n                \"stge_loc\": \"EN01\",\n                \"move_stloc\": \"0\",\n                \"batch\": \"NONE\",\n                \"entry_qnt\": \"1\",\n                \"item_text\": \"Entrada sin Pedido Sub-Stand. TRK (BLQ)\",\n                \"move_type\": \"T19\"\n            }\n        ]\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://qpo-ci01.ccu.cl:50000/RESTAdapter/movimientoinventariocrea",
+					"protocol": "http",
+					"host": [
+						"qpo-ci01",
+						"ccu",
+						"cl"
+					],
+					"port": "50000",
+					"path": [
+						"RESTAdapter",
+						"movimientoinventariocrea"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "movimiento inventario crear WSO2",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"HEADER\": {\n        \"ID_MENSAJE\": \"ca93c559-f675-379d-8fea-f0c64695662f\",\n        \"MENSAJE\": \"OK\",\n        \"FECHA\": \"20210507\",\n        \"SOCIEDAD\": \"A032\",\n        \"LEGADO\": \"TRUCK_CHI\",\n        \"CODIGO_INTERFAZ\": \"ITD_058\"\n    },\n    \"t_movimiento\": {\n        \"cabecera\": {\n            \"id_documento\": \"327538450287TC\",\n            \"username\": \"CLAMORAL\",\n            \"header_txt\": \"TRUCK_CHILE\",\n            \"doc_date\": \"20210505\",\n            \"pstng_date\": \"20210505\",\n            \"ref_doc_no\": \"10394260\"\n        },\n        \"detalle\": [\n            {\n                \"pos_num\": \"3\",\n                \"hkont\": {},\n                \"costcenter\": \"A90VQ45300\",\n                \"text\": {},\n                \"plant\": \"9031\",\n                \"material\": \"ENVG005\",\n                \"stge_loc\": \"EN01\",\n                \"move_stloc\": \"0\",\n                \"batch\": \"NONE\",\n                \"entry_qnt\": \"1\",\n                \"item_text\": \"Entrada sin Pedido Sub-Stand. TRK (BLQ)\",\n                \"move_type\": \"T19\"\n            },\n            {\n                \"pos_num\": \"2\",\n                \"hkont\": {},\n                \"costcenter\": \"A90VQ45300\",\n                \"text\": {},\n                \"plant\": \"9031\",\n                \"material\": \"ENVG014\",\n                \"stge_loc\": \"EN01\",\n                \"move_stloc\": \"0\",\n                \"batch\": \"NONE\",\n                \"entry_qnt\": \"1\",\n                \"item_text\": \"Entrada sin Pedido Sub-Stand. TRK (BLQ)\",\n                \"move_type\": \"T19\"\n            }\n        ]\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://wso2qa2.ccu.cl:8280/sap/inventario/movimiento/crear",
+					"protocol": "http",
+					"host": [
+						"wso2qa2",
+						"ccu",
+						"cl"
+					],
+					"port": "8280",
+					"path": [
+						"sap",
+						"inventario",
+						"movimiento",
+						"crear"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "movimiento inventario recibir confirmación WQSO2",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"sync_uuid\":\"9d9db9f4-c4af-11eb-a8c2-94e6f79cc24b\",\n    \"reference\": \"test\",\n    \"status\": \"OK\",\n    \"text\": \"Recibido OK\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://wso2qa2.ccu.cl:8280/sap/inventario/movimiento/confirmar",
+					"protocol": "http",
+					"host": [
+						"wso2qa2",
+						"ccu",
+						"cl"
+					],
+					"port": "8280",
+					"path": [
+						"sap",
+						"inventario",
+						"movimiento",
+						"confirmar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "stock consulta SAP",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "Nafe1829",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "jfajardot",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"HEADER\": {\n        \"ID_MENSAJE\": \"D11\",\n        \"MENSAJE\": \"TT09\",\n        \"FECHA\": \"20210504\",\n        \"SOCIEDAD\": \"0001\",\n        \"LEGADO\": \"ODOO\",\n        \"CODIGO_INTERFAZ\": \"ITD09\"\n    },\n    \"DETAIL\": [\n        {\n            \"Centro\": \"5033\",\n            \"Almacen\": \"\",\n            \"Material\": \"\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://qpo-ci01.ccu.cl:50000/RESTAdapter/stockconsulta",
+					"protocol": "http",
+					"host": [
+						"qpo-ci01",
+						"ccu",
+						"cl"
+					],
+					"port": "50000",
+					"path": [
+						"RESTAdapter",
+						"stockconsulta"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "stock consulta WSO2",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "Nafe1829",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "jfajardot",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"HEADER\": {\n        \"ID_MENSAJE\": \"D11\",\n        \"MENSAJE\": \"TT09\",\n        \"FECHA\": \"20210504\",\n        \"SOCIEDAD\": \"0001\",\n        \"LEGADO\": \"ODOO\",\n        \"CODIGO_INTERFAZ\": \"ITD09\"\n    },\n    \"DETAIL\": [\n        {\n            \"Centro\": \"5033\",\n            \"Almacen\": \"\",\n            \"Material\": \"\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://wso2qa2.ccu.cl:8280/sap/inventario/stock/consultar",
+					"protocol": "http",
+					"host": [
+						"wso2qa2",
+						"ccu",
+						"cl"
+					],
+					"port": "8280",
+					"path": [
+						"sap",
+						"inventario",
+						"stock",
+						"consultar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "inventario Health Status",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "Nafe1829",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "jfajardot",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://wso2qa2.ccu.cl:8280/sap/inventario/health/status",
+					"protocol": "http",
+					"host": [
+						"wso2qa2",
+						"ccu",
+						"cl"
+					],
+					"port": "8280",
+					"path": [
+						"sap",
+						"inventario",
+						"health",
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Odoo Confirmación",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"sync_uuid\":\"9d9db9f4-c4af-11eb-a8c2-94e6f79cc24b\",\n    \"reference\": \"test\",\n    \"status\": \"OK\",\n    \"text\": \"Recibido OK\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8069/base_rest_inventory_api/inventory/update_sync\n",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8069",
+					"path": [
+						"base_rest_inventory_api",
+						"inventory",
+						"update_sync\n"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

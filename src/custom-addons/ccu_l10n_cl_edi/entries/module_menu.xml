@@ -4,30 +4,39 @@
     <menuitem id="fiscal_office_menu_entry" name="Fiscal Office"
               parent="account_accountant.menu_accounting"
               sequence="30"
-              />
+    />
+
+        <menuitem id="fiscal_dte_service_provider_menu_entry" name="Fiscal DTE Service Provider"
+                  parent="fiscal_office_menu_entry"
+                  action="fiscal_dte_service_provider_action" sequence="10" />
+
+        <menuitem id="fiscal_dte_config_settings_menu_entry" name="Fiscal DTE Config. Settings"
+                  parent="fiscal_office_menu_entry"
+                  action="fiscal_dte_config_settings_action" sequence="20" />
+
 
         <menuitem id="fiscal_dte_log_menu_entry" name="Fiscal DTE Log"
                   parent="fiscal_office_menu_entry"
-                  action="fiscal_dte_log_action"/>
+                  action="fiscal_dte_log_action" sequence="30" />
 
         <menuitem id="l10n_cl_certificate_menu_entry" name="Certificate"
                   parent="fiscal_office_menu_entry"
-                  action="l10n_cl_certificate_action"/>
+                  action="l10n_cl_certificate_action" sequence="40" />
 
         <menuitem id="l10n_cl_dte_caf_menu_entry" name="CAF"
                   parent="fiscal_office_menu_entry"
-                  action="l10n_cl_edi.action_l10n_cl_dte_caf"/>
+                  action="l10n_cl_edi.action_l10n_cl_dte_caf" sequence="50" />
 
         <menuitem id="l10n_latam_invoice_document_menu_entry" name="Document Type"
                   parent="fiscal_office_menu_entry"
-                  action="l10n_latam_invoice_document.action_document_type"/>
+                  action="l10n_latam_invoice_document.action_document_type" sequence="60" />
 
         <menuitem id="l10n_cl_edi_partner_activities_menu_entry" name="Actividades Económicas"
                   parent="fiscal_office_menu_entry"
-                  action="l10n_cl_edi.act_partner_activities"/>
+                  action="l10n_cl_edi.act_partner_activities" sequence="70" />
 
         <menuitem id="l10n_cl_edi_printing_config_menu_entry" name="Config. Formato Impresión"
                   parent="fiscal_office_menu_entry"
-                  action="fiscal_dte_printing_config_action"/>
+                  action="fiscal_dte_printing_config_action" sequence="80"/>
 
 </odoo>

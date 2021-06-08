@@ -1,0 +1,103 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* ccu_connector_esb
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-03-19 21:37+0000\n"
+"PO-Revision-Date: 2020-03-19 18:35-0300\n"
+"Last-Translator: Nelson Ramírez  <nramirez@konos.cl>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: es\n"
+"X-Generator: Poedit 2.3\n"
+
+#. module: ccu_connector_esb
+#: model:ir.model,name:ccu_connector_esb.model_backend_acp
+msgid "Backend of Authorized Certification Providers"
+msgstr "Backend para Proveedores Autorizados para Facturación"
+
+#. module: ccu_connector_esb
+#: model:ir.model.fields,field_description:ccu_connector_esb.field_res_company__ccu_business_unit
+msgid "CCU Business Unit"
+msgstr "Unidad de Negocio de CCU"
+
+#. module: ccu_connector_esb
+#: model:ir.model.fields,field_description:ccu_connector_esb.field_backend_acp__client_id
+msgid "Client ID"
+msgstr "ID del Cliente"
+
+#. module: ccu_connector_esb
+#: model:ir.model.fields,field_description:ccu_connector_esb.field_backend_acp__client_secret
+msgid "Client Secret"
+msgstr "Cliente Secreto"
+
+#. module: ccu_connector_esb
+#: model:ir.model,name:ccu_connector_esb.model_res_company
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: ccu_connector_esb
+#: model:ir.model.fields,field_description:ccu_connector_esb.field_backend_acp__connection_type
+msgid "Connection Type"
+msgstr "Tipo de Conexión"
+
+#. module: ccu_connector_esb
+#: code:addons/ccu_connector_esb/models/backend_acp.py:64
+#, python-format
+msgid "Connection failed. Could not get an authorization token. Please check your configuration settings."
+msgstr "Error de conexión. No se pudo obtener un token de autorización. Compruebe los ajustes de configuración."
+
+#. module: ccu_connector_esb
+#: selection:backend.acp,connection_type:0
+msgid "ESB"
+msgstr ""
+
+#. module: ccu_connector_esb
+#: model:ir.model.fields,field_description:ccu_connector_esb.field_backend_acp__esb_auth_endpoint
+msgid "ESB Auth Endpoint"
+msgstr "Punto Final de Autenticación ESB"
+
+#. module: ccu_connector_esb
+#: model:ir.model.fields,field_description:ccu_connector_esb.field_backend_acp__esb_auth_grant_type
+msgid "ESB Auth grant_type"
+msgstr "Tipo de Acceso de Autenticación ESB"
+
+#. module: ccu_connector_esb
+#: model:ir.model.fields,field_description:ccu_connector_esb.field_res_company__backend_esb_id
+msgid "ESB Provider"
+msgstr "Proveedor de ESB"
+
+#. module: ccu_connector_esb
+#: code:addons/ccu_connector_esb/models/backend_acp.py:93
+#, python-format
+msgid ""
+"ESB call failed:\n"
+"%s\n"
+"%s\n"
+"%s"
+msgstr ""
+"Error en la llamada ESB:\n"
+"%s\n"
+"%s\n"
+"%s"
+
+#. module: ccu_connector_esb
+#: selection:backend.acp,connection_type:0
+msgid "FTP"
+msgstr ""
+
+#. module: ccu_connector_esb
+#: selection:backend.acp,connection_type:0
+msgid "Not defined"
+msgstr "No definido"
+
+#. module: ccu_connector_esb
+#: model_terms:ir.ui.view,arch_db:ccu_connector_esb.view_backend_acp_form_esb
+msgid "https://api.authorization-server.com"
+msgstr ""
