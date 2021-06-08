@@ -9,9 +9,11 @@ odoo.define('ccu_pos.ClientListScreenValidate', function (require) {
         class extends ClientListScreen {
             constructor() {
                 super(...arguments);
+                useListener('click-refresh', this.clickRefresh);
             }
-            clickRefresh(){
-                return true;
+            async clickRefresh(){
+                await this.env.pos.load_new_partners();
+                // create_from_ui
             }
             get refreshButton(){
                 return { command: 'refresh', text: 'Refrescar Cliente' };
