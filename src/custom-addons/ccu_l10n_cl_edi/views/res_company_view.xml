@@ -7,7 +7,7 @@
             <field name="inherit_id" ref="base.view_company_form" />
             <field name="arch" type="xml">
                 <field name="l10n_cl_dte_service_provider" position="after">
-<!--                    <field name="l10n_cl_dte_voucher_service_provider" attrs="{'invisible': [('country_id', '!=', %(base.cl)d)]}"/>-->
+                    <field name="l10n_cl_dte_voucher_service_provider" attrs="{'invisible': [('country_id', '!=', %(base.cl)d)]}"/>
                 </field>
             </field>
         </record>
