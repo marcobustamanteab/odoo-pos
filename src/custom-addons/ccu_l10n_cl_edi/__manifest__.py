@@ -32,7 +32,7 @@
         'views/account_move.xml',
         'views/fiscal_dte_log.xml',
         'views/l10n_cl_dte_caf.xml',
-        # 'views/res_company_view.xml',
+        'views/res_company_view.xml',
         'views/res_config_settings_view.xml',
         'views/fiscal_dte_service_provider.xml',
         'views/fiscal_dte_config_settings.xml',
