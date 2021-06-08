@@ -5,10 +5,10 @@
         <xpath expr="//tr" position="inside">
             <td>
                 <t t-if="props.partner.is_company">
-                    <input type="checkbox" name="is_company" disabled="true" checked="true"/>
+                    <input type="checkbox" name="is_company" disabled="true" checked="true" class="input-is-company"/>
                 </t>
                 <t t-else="">
-                    <input type="checkbox" name="is_company" disabled="true"/>
+                    <input type="checkbox" name="is_company" disabled="true" class="input-is-company"/>
                 </t>
             </td>
         </xpath>
@@ -24,19 +24,18 @@
         <xpath expr="//input[@name=('name')]" position="after">
             <div class="client-detail">
                 <span class="label">Individual</span>
-                <t t-if="isCompany">
-                    <input type="radio" name="company_condition" value="person" checked="props.conditionPerson"
-                        t-on-click="trigger('person-type-validate', { isCompany: false })">Individual</input>
+                <t t-if="props.partner.is_company">
+                    <input type="radio" name="is_company" value="false" t-on-change="captureChange"
+                           t-on-click="trigger('person-type-validate', { isCompany: false })"/>
                     <span class="label">Empresa</span>
-                    <input type="radio" name="company_condition" checked="props.conditionCompany" value="company"
-                        t-on-click="trigger('company-type-validate, { isCompany: true }')">Empresa</input>
+                    <input type="radio" name="is_company" checked="true" t-on-click="trigger('company-type-validate', { isCompany: true })"/>
                 </t>
-                <t t-else="!isCompany">
-                    <input type="radio" name="company_condition" checked="props.conditionPerson"
-                        t-on-click="trigger('person-type-validate, { isCompany: false }')">Individual</input>
+                <t t-else="!props.partner.is_company">
+                    <input type="radio" name="is_company" checked="true"
+                        t-on-click="trigger('person-type-validate', { isCompany: true })"/>
                     <span class="label">Empresa</span>
-                    <input type="radio" name="company_condition" checked="props.conditionCompany"
-                        t-on-click="trigger('company-type-validate, { isCompany: true }')">Empresa</input>
+                    <input type="radio" name="is_company" value="true" t-on-change="captureChange"
+                           t-on-click="trigger('company-type-validate', { isCompany: false })"/>
                 </t>
             </div>
         </xpath>
@@ -44,9 +43,9 @@
 
    <t t-name="ClientDetailsEdit" t-inherit="point_of_sale.ClientDetailsEdit" t-inherit-mode="extension" owl="1">
         <xpath expr="//div[hasclass('client-details-left')]" position="inside">
-            <div class="client-detail" t-if="isCompany">
+            <div class="client-detail" t-if="props.partner.is_company">
                 <span class="label">Tipo de Contribuyente</span>
-                <select class="detail client-address-states needsclick" name="state_id"
+                <select class="detail client-address-states needsclick" name="l10n_cl_sii_taxpayer_type"
                         t-on-change="captureChange">
                   <option value="">Tipo de Contribuyente</option>
                   <option value="1">IVA afecto 1ª categoría</option>
@@ -55,9 +54,9 @@
                   <option value="4">Extranjero</option>
                 </select>
             </div>
-            <div class="client-detail" t-if="isCompany">
+            <div class="client-detail" t-if="props.partner.is_company">
                 <span class="label">Giro</span>
-                <input class="detail client-address-street" name="street"
+                <input class="detail client-address-street" name="l10n_cl_activity_description"
                                                t-on-change="captureChange" t-att-value="props.partner.l10n_cl_activity_description || ''"
                                                placeholder="Giro" />
             </div>
@@ -68,19 +67,19 @@
         <xpath expr="//div[hasclass('client-details-right')]" position="inside">
             <div class="client-detail">
                 <span class="label">Edad</span>
-                <input class="detail client-address-street" name="street"
+                <input class="detail client-address-street" name="age"
                                t-on-change="captureChange" t-att-value="props.partner.age || ''"
                                placeholder="Edad" />
             </div>
             <div class="client-detail">
                 <span class="label">Categoría</span>
-                <input class="detail client-address-street" name="street"
+                <input class="detail client-address-street" name="category"
                                t-on-change="captureChange" t-att-value="props.partner.category || ''"
                                placeholder="Categoria" />
             </div>
             <div class="client-detail">
                 <span class="label">Fecha de Nacimiento</span>
-                <input type="date" t-att-value="props.partner.dob || ''"/>
+                <input type="date" name="dob" t-on-change="captureChange" t-att-value="props.partner.dob || ''"/>
             </div>
         </xpath>
     </t>
