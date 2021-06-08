@@ -7,9 +7,9 @@ class FidcslDTEConfigSettings(models.Model):
 
     name = fields.Char("Name", compute="_compute_name")
     company_id = fields.Many2one('res.company', string='Company"')
-    # l10n_cl_dte_voucher_service_provider = fields.Many2one('fiscal.dte.service.provider',
-    #                                                        string='Prepare DTE Server',
-    #                                                        help='Please select your company service provider for voucher DTE service.')
+    l10n_cl_dte_voucher_service_provider = fields.Many2one('fiscal.dte.service.provider',
+                                                           string='Prepare DTE Server',
+                                                           help='Please select your company service provider for voucher DTE service.')
     l10n_cl_dte_voucher_service_provider_post = fields.Many2one('fiscal.dte.service.provider',
                                                            string='Server for POST Send ',
                                                            help='Please select your company service provider for voucher DTE service.')
