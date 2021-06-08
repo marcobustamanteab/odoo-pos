@@ -3,8 +3,8 @@ from odoo import models, fields, api
 class ResConfigSettings(models.TransientModel):
     _inherit = 'res.config.settings'
 
-    l10n_cl_dte_voucher_service_provider = fields.Selection(related='company_id.l10n_cl_dte_voucher_service_provider', readonly=False,
-                                                    help='Please select your company service provider for Voucher DTE service.')
+    # l10n_cl_dte_voucher_service_provider = fields.Selection(related='company_id.l10n_cl_dte_voucher_service_provider', readonly=False,
+    #                                                 help='Please select your company service provider for Voucher DTE service.')
 
     @api.model
     def set_values(self):
