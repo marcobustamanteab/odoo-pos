@@ -101,7 +101,7 @@ class StockPicking(models.Model):
     @api.model
     def send_picking_to_ESB(self):
         if self.picking_type_id.ccu_sync:
-            self.with_delay(channel='root.picking').esb_send_stock_out()
+            self.with_delay(channel='root.inventory').esb_send_stock_out()
 
     def update_sync(self, message='none'):
         #picking = self.env['stock.picking'].browse(picking_put_request.stock_picking_id)

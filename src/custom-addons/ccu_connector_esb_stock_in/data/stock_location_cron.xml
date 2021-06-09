@@ -3,7 +3,7 @@
         <field name="name">Get Inventory From SAP</field>
         <field name="model_id" ref="model_stock_inventory"/>
         <field name="state">code</field>
-        <field name="code">model.with_delay(channel='root.picking').cron_esb_get_inventory()</field>
+        <field name="code">model.with_delay(channel='root.inventory').cron_esb_get_inventory()</field>
         <field name="user_id" ref="base.user_root" />
         <field name="interval_number">1</field>
         <field name="interval_type">days</field>
