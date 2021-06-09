@@ -3,7 +3,7 @@
         <field name="name">Get Inventory From SAP</field>
         <field name="model_id" ref="model_stock_inventory"/>
         <field name="state">code</field>
-        <field name="code">model.with_delay(channel='root.inventory').cron_esb_get_inventory()</field>
+        <field name="code">model.cron_esb_get_inventory()</field>
         <field name="user_id" ref="base.user_root" />
         <field name="interval_number">1</field>
         <field name="interval_type">days</field>
@@ -18,7 +18,7 @@
 
     <record id="job_function_stock_inventory_esb_send_stock_in" model="queue.job.function">
         <field name="model_id" ref="stock.model_stock_inventory" />
-        <field name="method">cron_esb_get_inventory</field>
+        <field name="method">esb_import_inventory</field>
         <field name="channel_id" ref="channel_inventory" />
 <!--&lt;!&ndash;        <field name="related_action" eval='{"func_name": "related_action_get_inventory"}' />&ndash;&gt;-->
 <!--        <field name="retry_pattern" eval="{1: 60, 2: 180, 3: 10, 5: 300}" />-->
