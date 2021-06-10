@@ -28,7 +28,7 @@ odoo.define('ccu_pos.ClientDetailsEdit', function (require) {
                 this.render();
             }
             isValidAge(){
-                if(18 <= this.prop.partner.age <= 120){
+                if(18 <= this.props.partner.age <= 120){
                     return true;
                 }else{
                     return false;
