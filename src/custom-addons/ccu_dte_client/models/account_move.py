@@ -14,7 +14,8 @@ class AccountMove(models.Model):
             ('pending', 'Pending'),
             ('sent', 'Sent'),
             ('accepted', 'Accepted'),
-            ('error', 'Error')
+            ('error', 'Error'),
+            ('queue', 'In Queue')
         ], string="DTE Status", default='pending'
     )
 
@@ -96,7 +97,9 @@ class AccountMove(models.Model):
             error_code = result.get("ErrorCode","")
             error_description = result.get("ErrorDescription","")
             if error_code:
-                raise UserError("DTE Service Error: %s - %s" %(error_code, error_description))
+                self.dte_send_status = "queue"
+                if not config.pass_error:
+                    raise UserError("DTE Service Error: %s - %s" %(error_code, error_description))
             if response and response.status_code != '200':
                 print(response.raise_for_status())
         # except BaseException as errstr:

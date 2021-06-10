@@ -32,6 +32,7 @@
                     <group>
                         <field name="company_id"/>
                         <field name="server_base_url"/>
+                        <field name="pass_error"/>
                     </group>
                 </sheet>
             </form>
