@@ -22,10 +22,13 @@
 
     # always loaded
     'data': [
+        'entries/module_actions_act_window.xml',
+        'entries/module_menu.xml',
         'security/ir.model.access.csv',
         'views/dte_client_config.xml',
         'views/account_move.xml',
         'views/account_journal.xml',
+        'views/account_tax.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

@@ -1,2 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 ccu_dte_client.access_dte_client_config_system,"DTE Client Config",ccu_dte_client.model_dte_client_config,base.group_system,1,1,1,1
+ccu_dte_client.access_dte_client_config_user,"DTE Client Config",ccu_dte_client.model_dte_client_config,base.group_user,1,1,1,1

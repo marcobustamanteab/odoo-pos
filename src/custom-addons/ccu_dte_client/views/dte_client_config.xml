@@ -30,6 +30,7 @@
                         </h1>
                     </div>
                     <group>
+                        <field name="company_id"/>
                         <field name="server_base_url"/>
                     </group>
                 </sheet>
