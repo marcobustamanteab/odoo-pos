@@ -1,9 +1,11 @@
 import json
+import logging
 
 from odoo import fields, api, models
 from odoo.exceptions import UserError
 import urllib3
 import requests
+_logger = logging.getLogger(__name__)
 
 
 class AccountMove(models.Model):
@@ -22,6 +24,9 @@ class AccountMove(models.Model):
     def _post(self, soft=True):
         res = super(AccountMove, self)._post(soft)
         print(["RES", res, res.name])
+        if not self.company_id.id:
+            _logger.info("No Company ID for Invoice")
+            return res
         config = self.env["dte.client.config"].search(
             [
                 ('company_id', "=", self.company_id.id)
