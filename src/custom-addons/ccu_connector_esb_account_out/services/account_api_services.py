@@ -13,7 +13,7 @@ class AccountApiService(Component):
     """
 
     @restapi.method(
-        [(["/", "move/update_sync"], "POST")],
+        [(["/", "/move/update_sync"], "POST")],
         input_param=Datamodel("account.move.put.request"),
         output_param=Datamodel("account.move.put.response"),
         auth="public",
