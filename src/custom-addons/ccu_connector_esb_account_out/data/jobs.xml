@@ -1,0 +1,22 @@
+<odoo noupdate="0">
+    <record id="channel_picking" model="queue.job.channel">
+        <field name="name">picking</field>
+        <field name="parent_id" ref="queue_job.channel_root" />
+    </record>
+
+    <record id="job_function_stock_picking_esb_send_stock_out" model="queue.job.function">
+        <field name="model_id" ref="stock.model_stock_picking" />
+        <field name="method">esb_send_stock_out</field>
+        <field name="channel_id" ref="channel_picking" />
+<!--&lt;!&ndash;        <field name="related_action" eval='{"func_name": "related_action_get_inventory"}' />&ndash;&gt;-->
+        <field name="retry_pattern" eval="{1: 60, 2: 180, 3: 10, 5: 300}" />
+    </record>
+
+    <record id="job_function_stock_picking_update_sync" model="queue.job.function">
+        <field name="model_id" ref="stock.model_stock_picking" />
+        <field name="method">update_sync</field>
+        <field name="channel_id" ref="channel_picking" />
+<!--&lt;!&ndash;        <field name="related_action" eval='{"func_name": "related_action_get_inventory"}' />&ndash;&gt;-->
+        <field name="retry_pattern" eval="{1: 60, 2: 180, 3: 10, 5: 300}" />
+    </record>
+</odoo>
