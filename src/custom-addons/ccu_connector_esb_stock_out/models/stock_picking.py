@@ -23,10 +23,6 @@ class StockPicking(models.Model):
     sync_text = fields.Text(string='Sync with this text', readonly=True)
 
     def esb_send_stock_out(self):
-        """
-        Envía cada linea del movimiento de Stock a SAP
-        :return:
-        """
         self.ensure_one()
         payload_lines = []
         esb_api_endpoint = "/sap/inventario/movimiento/crear"
@@ -98,8 +94,9 @@ class StockPicking(models.Model):
                 print(payload)
                 res = backend.api_esb_call("POST", esb_api_endpoint, payload)
                 print(res)
-                if not res['mt_response']['MENSAJE'] == 'Recibido OK':
-                    raise ValidationError(res['mt_response']['MENSAJE'])
+                msg = res['mt_response']['HEADER']['MENSAJE']
+                if 'Recibido OK' not in msg:
+                    raise ValidationError(msg)
     @api.model
     def send_picking_to_ESB(self):
         if self.picking_type_id.ccu_sync:

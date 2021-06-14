@@ -89,10 +89,6 @@ class Inventory(models.Model):
 
     @api.model
     def cron_esb_get_inventory(self):
-        """ GET INVENTARIO SAP
-            rutina que invoca servicio REST SAP para obntener inventario EP: /sap/inventario/stock/consultar
-        :return: none
-        """
         id_mensaje = str(uuid.uuid1())
         year, month, day, hour, min = map(int, time.strftime("%Y %m %d %H %M").split())
         fecha_AAAAMMDD = str((year*10000) + (month*100) + day)

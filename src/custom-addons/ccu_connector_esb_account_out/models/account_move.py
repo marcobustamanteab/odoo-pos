@@ -34,7 +34,7 @@ class AccountMove(models.Model):
                 "FECHA": fecha_AAAAMMDD,
                 "SOCIEDAD": self.company_id.ccu_business_unit,
                 "LEGADO": "Odoo",
-                "CODIGO_INTERFAZ": {}
+                "CODIGO_INTERFAZ": "RTR038_Odoo"
             },
             "DOCUMENT_POST": {
                 "HEAD": {
@@ -87,8 +87,9 @@ class AccountMove(models.Model):
         print(payload)
         res = backend.api_esb_call("POST", esb_api_endpoint, payload)
         print(res)
-        if not res['mt_response']['MENSAJE'] == 'Recibido OK':
-            raise ValidationError(res['mt_response']['MENSAJE'])
+        msg = res['mt_response']['HEADER']['MENSAJE']
+        if 'Recibido OK' not in msg:
+            raise ValidationError(msg)
 
 
 
@@ -105,8 +106,8 @@ class AccountMove(models.Model):
     def send_account_move_to_ESB(self):
         if self.journal_id.type != 'bank' and self.journal_id.ccu_sync:
             _logger.info(
-                'Sending JOB QUEUE for Account Move: ',
-                self.name)
+                'Sending JOB QUEUE for Account Move ID: ',
+                self.id)
             self.with_delay(channel='root.account').esb_send_account_move()
 
     def update_sync(self, message='none'):
