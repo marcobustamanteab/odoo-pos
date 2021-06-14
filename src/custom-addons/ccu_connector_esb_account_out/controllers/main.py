@@ -3,7 +3,7 @@
 
 from odoo.addons.base_rest.controllers import main
 
-class InventoryApiController(main.RestController):
-    _root_path = "/base_rest_inventory_api/"
-    _collection_name = "base.rest.inventory.api.services"
+class AccountMoveApiController(main.RestController):
+    _root_path = "/base_rest_account_api/"
+    _collection_name = "base.rest.account.api.services"
     _default_auth = "public"

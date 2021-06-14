@@ -27,9 +27,6 @@ class InventoryApiService(Component):
         res = []
         picking_put_response = self.env.datamodels["picking.put.response"]
         if picking_put_request.sync_uuid:
-            # AQUI LLAMAR A FUNCION DE MODELO
-            # picking = self.env['stock.picking'].sudo().search([('sync_uuid', '=', picking_put_request.sync_uuid)],
-            #                                                   limit=1)
             picking = self.env['stock.picking'].sudo().search([('sync_uuid', '=', picking_put_request.sync_uuid)],
                                                               limit=1)
             if len(picking) == 1:

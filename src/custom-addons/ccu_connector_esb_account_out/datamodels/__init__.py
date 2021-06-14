@@ -1,2 +1,2 @@
-from . import picking_put_request
-from . import picking_put_response
+from . import account_move_put_request
+from . import account_move_put_response

@@ -7,6 +7,7 @@
         <field name="arch" type="xml">
             <field name="user_type_id" position="after">
                 <field name="ccu_sync"/>
+                <field name="ccu_code"/>
             </field>
         </field>
     </record>

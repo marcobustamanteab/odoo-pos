@@ -95,9 +95,11 @@ class StockPicking(models.Model):
                     })
 
             if len(payload_lines) >= 1:
-                _logger.warning(payload)
+                print(payload)
                 res = backend.api_esb_call("POST", esb_api_endpoint, payload)
                 print(res)
+                if not res['mt_response']['MENSAJE'] == 'Recibido OK':
+                    raise ValidationError(res['mt_response']['MENSAJE'])
     @api.model
     def send_picking_to_ESB(self):
         if self.picking_type_id.ccu_sync:
