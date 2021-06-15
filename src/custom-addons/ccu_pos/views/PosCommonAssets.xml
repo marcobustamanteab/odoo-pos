@@ -2,14 +2,15 @@
 <odoo>
     <template id="assets" inherit_id="point_of_sale.assets">
         <xpath expr="." position="inside">
-            <link type="text/css" rel="stylesheet" href="/ccu_pos/static/src/ccs/PaymentTransbank.css"/>
+<!--            <link type="text/css" rel="stylesheet" href="/ccu_pos/static/src/ccs/PaymentTransbank.css"/>-->
             <script type="text/javascript" src="/ccu_pos/static/src/js/ClientLineValidate.js"></script>
             <script type="text/javascript" src="/ccu_pos/static/src/js/ClientDetailsEdit.js"></script>
             <script type="text/javascript" src="/ccu_pos/static/src/js/ClientListScreenValidate.js"></script>
             <script type="text/javascript" src="/ccu_pos/static/src/js/PaymentLinesValidator.js"></script>
             <script type="text/javascript" src="/ccu_pos/static/src/js/OrderReceiptTransbank.js"></script>
             <script type="text/javascript" src="/ccu_pos/static/src/js/PaymentScreenStatusTransbank.js"></script>
-            <script type="text/javascript" src="/ccu_pos/static/src/js/PaymentScreenValidator.js"></script>
+<!--            <script type="text/javascript" src="/ccu_pos/static/src/js/PaymentScreenValidator.js"></script>-->
+            <script type="text/javascript" src="/ccu_pos/static/src/js/ActionpadWidgetValidate.js"></script>
         </xpath>
     </template>
 </odoo>
