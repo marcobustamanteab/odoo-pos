@@ -1,25 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
 
-     <t t-name="ClientLine" t-inherit="point_of_sale.ClientLine" t-inherit-mode="extension" owl="1">
-        <xpath expr="//tr" position="inside">
-            <td>
-                <t t-if="props.partner.is_company">
-                    <input type="checkbox" name="is_company" disabled="true" checked="true" class="input-is-company"/>
-                </t>
-                <t t-else="">
-                    <input type="checkbox" name="is_company" disabled="true" class="input-is-company"/>
-                </t>
-            </td>
-        </xpath>
-    </t>
-
-    <t t-name="ClientListScreen" t-inherit="point_of_sale.ClientListScreen" t-inherit-mode="extension" owl="1">
-        <xpath expr="//tr" position="inside">
-            <th>Es Empresa</th>
-        </xpath>
-    </t>
-
    <t t-name="ClientDetailsEdit" t-inherit="point_of_sale.ClientDetailsEdit" t-inherit-mode="extension" owl="1">
         <xpath expr="//div[hasclass('client-details-left')]" position="replace">
             <div class="client-details-left">
@@ -57,23 +38,27 @@
                     <select class="detail client-address-states needsclick" name="state_id"
                             t-on-change="captureChange">
                         <option value="">None</option>
-                        <t t-foreach="env.pos.states" t-as="state" t-key="state.id">
-                            <option t-if="props.partner.country_id[0] == state.country_id[0]"
-                                    t-att-value="state.id"
-                                    t-att-selected="props.partner.state_id ? ((state.id === props.partner.state_id[0]) ? true : undefined) : undefined">
-                                <t t-esc="state.name" />
-                            </option>
-                        </t>
+<!--                        <option value=""><t t-esc="customerTrx"/></option>-->
+<!--                            chile_id = 46-->
+<!--                        <t t-if="props.partner.is_company">-->
+                            <t t-foreach="env.pos.states" t-as="state" t-key="state.id">
+                                <option t-if="props.partner.country_id[0] == state.country_id[0]"
+                                        t-att-value="state.id"
+                                        t-att-selected="props.partner.state_id ? ((state.id === props.partner.state_id[0]) ? true : undefined) : undefined">
+                                    <t t-esc="state.name" />
+                                </option>
+                            </t>
+<!--                        </t>-->
                     </select>
                 </div>
                 <div class="client-detail">
                     <span class="label">Country *</span>
                     <select class="detail client-address-country needsclick" name="country_id"
-                            t-on-change="captureChange">
+                            t-on-change="(props.partner.country_id[0] == env.state.country_id[0]) ? captureChange : refreshStatesPos">
                         <option value="">None</option>
                         <t t-foreach="env.pos.countries" t-as="country" t-key="country.id">
                             <option t-att-value="country.id"
-                                    t-att-selected="props.partner.country_id ? ((country.id === props.partner.country_id[0]) ? true : undefined) : undefined">
+                                    t-att-selected="props.partner.country_id ? ((country.id === 46) ? true : undefined) : undefined">
                                 <t t-esc="country.name" />
                             </option>
                         </t>
@@ -193,59 +178,17 @@
         </xpath>
     </t>
 
-    <t t-name="ClientListScreen" t-inherit="point_of_sale.ClientListScreen" t-inherit-mode="extension" owl="1">
-        <xpath expr="//div[hasclass('searchbox-client')]" position="before">
-            <div t-on-click="trigger('click-refresh')" class="button next" t-if="!state.detailIsShown">
-                    <i class="fa fa-refresh"/>
-                    <span> <t t-esc="refreshButton.text" /></span>
-            </div>
-        </xpath>
-    </t>
+<!--    <t t-name="ClientListScreen" t-inherit="point_of_sale.ClientListScreen" t-inherit-mode="extension" owl="1">-->
+<!--        <xpath expr="//div[hasclass('searchbox-client')]" position="before">-->
+<!--            <div t-on-click="trigger('click-refresh')" class="button next" t-if="!state.detailIsShown">-->
+<!--                    <i class="fa fa-refresh"/>-->
+<!--                    <span> <t t-esc="refreshButton.text" /></span>-->
+<!--            </div>-->
+<!--
+pay-circle
+</xpath>-->
+<!--    </t>-->
 
-    <t t-name="ClientListScreen" t-inherit="point_of_sale.ClientListScreen" t-inherit-mode="extension" owl="1">
-        <xpath expr="//div[hasclass('top-content')]" position="replace">
-            <div class="top-content">
-                <div t-if="!state.detailIsShown &amp;&amp; !state.selectedClient" class="button new-customer" role="img" aria-label="Add a customer"
-                      t-on-click="trigger('activate-edit-mode', { isNewClient: true })"
-                      title="Add a customer">
-                    <t t-if="!env.isMobile">
-                        Create
-                    </t>
-                    <t t-else="">
-                        <i class="fa fa-plus"></i>
-                    </t>
-                </div>
-                <div t-if="isNextButtonVisible" t-on-click="clickNext"
-                      class="button next highlight">
-                    <t t-if="!env.isMobile">
-                        <t t-esc="nextButton.text" />
-                    </t>
-                    <t t-else="">
-                        <i t-if="nextButton.command === 'deselect'" class="fa fa-trash"></i>
-                        <i t-if="nextButton.command === 'set'" class="fa fa-check"></i>
-                    </t>
-                </div>
-                <div class="button" t-if="state.detailIsShown" t-on-click="trigger('click-save-transbank')">
-                    <t t-if="!env.isMobile">
-                        <i class="fa fa-floppy-o"/>
-                        <span> Save1</span>
-                    </t>
-                    <t t-else="">
-                        <i class="fa fa-floppy-o"/>
-                    </t>
-                </div>
-                <div class="button back" t-on-click="back">
-                    <t t-if="!env.isMobile">Discard</t>
-                    <t t-else="">
-                        <i class="fa fa-undo"></i>
-                    </t>
-                </div>
-                <div t-if="!state.detailIsShown" class="searchbox-client top-content-center">
-                    <input placeholder="Search Customers" size="1" t-on-keyup="updateClientList" />
-                    <span class="search-clear-client"></span>
-                </div>
-            </div>
-        </xpath>
-    </t>
+
 
 </templates>

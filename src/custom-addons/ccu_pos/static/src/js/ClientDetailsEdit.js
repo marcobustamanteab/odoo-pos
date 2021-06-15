@@ -34,12 +34,19 @@ odoo.define('ccu_pos.ClientDetailsEdit', function (require) {
                     return false;
                 }
             }
-            checkCompany(condition){
-                return condition;
+            get customerTrx(){
+                return this.env.pos.states;
             }
-            checkPerson(condition){
-                return condition;
+            refreshStatesPos(event){
+                this.render();
             }
+
+            // checkCompany(condition){
+            //     return condition;
+            // }
+            // checkPerson(condition){
+            //     return condition;
+            // }
         }
 
     Registries.Component.extend(ClientDetailsEdit, ClientDetailsEditValidate);

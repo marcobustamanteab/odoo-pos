@@ -11,6 +11,7 @@ odoo.define('ccu_pos.ClientListScreenValidate', function (require) {
                 super(...arguments);
                 useListener('click-refresh', this.clickRefresh);
                 useListener('click-save-transbank', this.clickSaveTransbank);
+                useListener('activate-pos-clear', this.activateEditClear);
             }
             async clickRefresh(){
                 await this.env.pos.load_new_partners();
@@ -32,34 +33,15 @@ odoo.define('ccu_pos.ClientListScreenValidate', function (require) {
                         return this.showPopup('ErrorPopup', {
                           title: ('Ingrese los datos requeridos'),
                         });
+                } else {
+                    this.env.bus.trigger('save-customer');
                 }
-
-
-              // try {
-              //       let partnerId = await this.rpc({
-              //           model: 'res.partner',
-              //           method: 'create_from_ui',
-              //           args: [event.detail.processedChanges],
-              //       });
-              //       await this.env.pos.load_new_partners();
-              //       this.state.selectedClient = this.env.pos.db.get_partner_by_id(partnerId);
-              //       this.state.detailIsShown = false;
-              //       this.render();
-              //   } catch (error) {
-              //       if (error.message.code < 0) {
-              //           await this.showPopup('OfflineErrorPopup', {
-              //               title: this.env._t('Offline'),
-              //               body: this.env._t('Unable to save changes.'),
-              //           });
-              //       } else {
-              //           throw error;
-              //       }
-              //   }
-
-
-
-
-
+            }
+            async activateEditClear(){
+                this.state.editModeProps = {
+                    partner: null,
+                };
+                this.env.bus.trigger('activate-edit-mode', { isNewClient: true })
             }
         }
 

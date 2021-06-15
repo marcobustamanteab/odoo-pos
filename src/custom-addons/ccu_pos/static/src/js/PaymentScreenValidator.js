@@ -36,6 +36,6 @@ odoo.define('ccu_pos.PaymentScreenValidator', function (require) {
 
     Registries.Component.extend(PaymentScreen, PaymentScreenValidator);
 
-    return PaymentScreenValidator;
+    return PaymentScreen;
 
 });
