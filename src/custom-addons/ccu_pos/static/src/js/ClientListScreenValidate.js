@@ -37,11 +37,12 @@ odoo.define('ccu_pos.ClientListScreenValidate', function (require) {
                     this.env.bus.trigger('save-customer');
                 }
             }
-            async activateEditClear(){
+            activateEditClear(){
+                console.log("aqui");
                 this.state.editModeProps = {
                     partner: null,
                 };
-                this.env.bus.trigger('activate-edit-mode', { isNewClient: true })
+                this.env.bus.trigger('activate-edit-mode', { isNewClient: true });
             }
         }
 

@@ -4,11 +4,14 @@
     <t t-name="ClientListScreen" t-inherit="point_of_sale.ClientListScreen" t-inherit-mode="extension" owl="1">
         <xpath expr="//div[hasclass('top-content')]" position="replace">
             <div class="top-content">
-                <div t-if="!state.detailIsShown &amp;&amp; !state.selectedClient" class="button new-customer" role="img" aria-label="Add a customer"
-                      t-on-click="trigger('activate-pos-clear', { isNewClient: true })"
-                      title="Add a customer">
+<!--                <div t-if="!state.detailIsShown &amp;&amp; !state.selectedClient" class="button new-customer" role="img" aria-label="Add a customer"-->
+<!--                      t-on-click="trigger('activate-pos-clear', { isNewClient: true })"-->
+<!--                      title="Add a customer">-->
+                    <div t-if="!state.detailIsShown &amp;&amp; !state.selectedClient" class="button new-customer" role="img" aria-label="Add a customer"
+                          t-on-click="trigger('activate-edit-mode', { isNewClient: true })"
+                          title="Add a customer">
                     <t t-if="!env.isMobile">
-                        Create1
+                        Create
                     </t>
                     <t t-else="">
                         <i class="fa fa-plus"></i>
