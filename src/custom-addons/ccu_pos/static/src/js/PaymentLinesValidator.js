@@ -9,10 +9,10 @@ odoo.define('ccu_pos.PaymentLinesValidator', function (require) {
         class extends PaymentScreenPaymentLines {
             constructor() {
                 super(...arguments);
-                useListener('save-payment-line', this.savePaymentLine);
-                useListener('edit-payment-line', this.editPaymentLine);
+                useListener('del-transbank-line', this.delPaymentLine);
+                useListener('edit-transbank-line', this.editPaymentLine);
             }
-            async savePaymentLine(event) {
+            async editPaymentLine(event) {
                 var self = this;
                 const { confirmed, payload } = await this.showPopup('NumberPopup', {
                    title: this.env._t('Ingrese ID Transbank'),
@@ -24,17 +24,17 @@ odoo.define('ccu_pos.PaymentLinesValidator', function (require) {
                 }
                 this.render();
             }
-            editPaymentLine(event) {
+            async delPaymentLine(event) {
                 this.env.pos.attributes.selectedOrder.paymentlines.models[0].transaction_id = 0;
                 this.render();
             }
             getPaymentLines(){
                 return this.env.pos.attributes.selectedOrder.paymentlines.models[0];
             }
-            getTransactionId(){
+            get transactionId(){
                 return this.getPaymentLines().transaction_id;
             }
-            getTransactionNameVal(){
+            get transactionNameVal(){
                 return this.getPaymentLines().name;
             }
         }

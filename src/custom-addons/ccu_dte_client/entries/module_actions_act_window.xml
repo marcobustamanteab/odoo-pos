@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+    <data>
+        <!-- CONFIG -->
+        <record model="ir.actions.act_window" id="dte_client_config_action">
+            <field name="binding_type">action</field>
+            <field name="context">{}</field>
+            <field eval="[(6, 0, [])]" name="groups_id"/>
+            <field name="help"><![CDATA[DTE Client Config]]></field>
+            <field name="name">DTE Client Config</field>
+            <field name="limit">80</field>
+            <field name="res_model">dte.client.config</field>
+            <field name="target">current</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>
