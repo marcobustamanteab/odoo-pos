@@ -10,7 +10,7 @@
     "summary": "CCU Companies Customizations for Pos module",
     "author": "Compañia Cervecerias Unidas S.A. (CCU)",
     "maintainer": "Compañia Cervecerias Unidas S.A. (CCU)",
-    "depends": ["point_of_sale", "l10n_cl", ],
+    "depends": ["point_of_sale", "l10n_cl"],
     'data': [
         # "security/ir.model.access.csv",
         #'data/pos.payment.method.csv',
@@ -19,12 +19,15 @@
     'installable': True,
     'application': True,
     'qweb': [
-        #'static/src/xml/ClientLineValidate.xml',
+        # 'static/src/xml/ActionpadWidgetValidate.xml',
+        'static/src/xml/ClientLineValidate.xml',
+        'static/src/xml/ClientListScreenValidate.xml',
         'static/src/xml/ClientDetailsEditValidate.xml',
         'static/src/xml/OrderReceiptTransbank.xml',
         'static/src/xml/PaymentLinesValidator.xml',
         'static/src/xml/PaymentScreenStatusTransbank.xml',
-        'static/src/xml/PaymentScreenValidator.xml',
+        # 'static/src/xml/PaymentScreenValidator.xml',
+        # 'static/src/xml/ProductScreenValidate.xml',
     ],
     "website": "https://www.ccu.cl",
 }

@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+
+    <menuitem id="dte_client_menu_entry" name="DTE Client"
+              parent="account_accountant.menu_accounting"
+              sequence="30"/>
+
+        <menuitem id="dte_client_config_menu_entry" name="Config"
+                  parent="dte_client_menu_entry"
+                  action="dte_client_config_action" sequence="40"/>
+
+</odoo>
