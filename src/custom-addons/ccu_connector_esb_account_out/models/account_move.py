@@ -26,6 +26,7 @@ class AccountMove(models.Model):
         year, month, day, hour, min = map(int, self.date.strftime("%Y %m %d %H %M").split())
         fecha_dcto = str((year * 10000) + (month * 100) + day)
         #move_ref = self.name[-10:]
+        branch_ccu_code = self.user.cretae_uid.sale_team_id.branch_ccu_code or ''
 
         payload = {
             "HEADER": {
@@ -39,9 +40,9 @@ class AccountMove(models.Model):
             "DOCUMENT_POST": {
                 "HEAD": {
                     "RUTDNI": "",
-                    "CENTRO": "",
+                    "CENTRO": branch_ccu_code,
                     "FOLIO": self.name,
-                    "CLDOC": self.journal_id.ccu_code,
+                    "CLDOC": self.journal_id.ccu_code, # "IE" tipo de documento
                     "FEDOC": fecha_dcto,
                     "GLOSA": self.ref,
                     "MONTOT": self.amount_total,
@@ -65,13 +66,13 @@ class AccountMove(models.Model):
             # analytic_code = (
             #     line.analytic_account_id.code or (if line.account_id.code == '11403' or )
             #     self.company_id.esb_default_analytic_id.code)
-
+            ceco = line.analytic_account_id.ccu_code or ''
             payload_lines.append({
                 "ITEMNO": str(i),
                 "ACCOUNT": line.account_id.ccu_code,
                 "GLOSA": line.name,
-                "CECO": "",
-                "CEBE": line.analytic_account_id.ccu_code,
+                "CECO": ceco,
+                "CEBE": ceco,
                 "MATERIAL": line.product_id.default_code,
                 "TX_KEY": "S/R",
                 "CANTIDAD": line.quantity,
@@ -90,17 +91,6 @@ class AccountMove(models.Model):
         msg = res['mt_response']['HEADER']['MENSAJE']
         if 'Recibido OK' not in msg:
             raise ValidationError(msg)
-
-
-
-
-    # @api.multi
-    # def post(self, invoice=False):
-    #     res = super(AccountMove, self).post(invoice)
-    #     for move in self:
-    #         if move.journal_id.type != 'bank' and move.journal_id.ccu_sync:
-    #             move.with_delay().esb_send_account_move()
-    #     return res
 
     @api.model
     def send_account_move_to_ESB(self):
