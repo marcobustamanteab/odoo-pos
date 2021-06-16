@@ -77,7 +77,6 @@ class AccountMove(models.Model):
                     "CECO": ceco,
                     "CEBE": '',
                     "MATERIAL": line.product_id.default_code or '',
-                    "TX_KEY": "S/R",
                     "CANTIDAD": line.quantity,
                     "TOTAL": line_amt
                 })
