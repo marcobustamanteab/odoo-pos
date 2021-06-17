@@ -30,6 +30,7 @@
         "views/crm_team.xml",
         "data/jobs.xml",
         "data/automated_actions.xml",
+        "views/res_company.xml",
     ],
     "development_status": "Beta",
     "maintainers": ["dclaver"],

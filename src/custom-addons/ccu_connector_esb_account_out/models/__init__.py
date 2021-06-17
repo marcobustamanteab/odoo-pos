@@ -4,3 +4,4 @@ from . import account_analytic_account
 from . import account_journal
 from . import account_move
 from . import crm_team
+from . import res_company

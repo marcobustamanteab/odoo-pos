@@ -26,6 +26,14 @@ class AccountMove(models.Model):
         year, month, day, hour, min = map(int, self.date.strftime("%Y %m %d %H %M").split())
         fecha_dcto = str((year * 10000) + (month * 100) + day)
         branch_ccu_code = self.create_uid.sale_team_id.branch_ccu_code
+
+        pos_order = self.env['pos.order'].search([('name', '=ilike', self.ref)], limit=1)
+        transbak_id = self.env['pos.payment'].search([('pos_order_id', '=', pos_order.id)], limit=1).transaction_id
+        text = self.ref or ''
+
+        if transbak_id:
+            text += ' & TRANSBANK_ID: ' + transbak_id
+
         if not branch_ccu_code:
             raise ValidationError(
                 'User of the movement does not belong to a work team or the team does not have a CCU Center code'
@@ -47,7 +55,7 @@ class AccountMove(models.Model):
                         "FOLIO": self.name,
                         "CLDOC": self.journal_id.ccu_code, # "IE" tipo de documento
                         "FEDOC": fecha_dcto,
-                        "GLOSA": self.ref,
+                        "GLOSA": text,
                         "MONTOT": self.amount_total,
                         "MONEDA": self.currency_id.name
                     },
@@ -55,33 +63,32 @@ class AccountMove(models.Model):
                 }
             }
 
-            accounts = self.mapped('line_ids.account_id').filtered('ccu_sync')
-            lines = [x for x in self.line_ids if x.account_id in accounts]
+            # accounts = self.mapped('line_ids.account_id').filtered('ccu_sync')
+            # lines = [x for x in self.line_ids if x.account_id in accounts]
 
             i = 0
-            for idx, line in enumerate(lines, start=1):
+            for line in self.line_ids:
                 i = i + 1
                 base_currency = line.currency_id or line.company_currency_id
                 base_amt = line.amount_currency or (line.debit - line.credit)
                 line_currency = line.company_currency_id
                 line_amt = (line.debit - line.credit)
 
-                # analytic_code = (
-                #     line.analytic_account_id.code or (if line.account_id.code == '11403' or )
-                #     self.company_id.esb_default_analytic_id.code)
-                ceco = line.analytic_account_id.ccu_code or ''
+                cost_center = line.move_id.company_id.cost_center_code if line.account_id.send_cost_center else ''
+                profit_center = line.move_id.company_id.profit_center_code if line.account_id.send_profit_center else ''
+
                 payload_lines.append({
                     "ITEMNO": str(i),
                     "ACCOUNT": line.account_id.ccu_code,
                     "GLOSA": line.name,
-                    "CECO": ceco,
-                    "CEBE": '',
+                    "CECO": cost_center,
+                    "CEBE": profit_center,
                     "MATERIAL": line.product_id.default_code or '',
                     "CANTIDAD": line.quantity,
                     "TOTAL": line_amt
                 })
 
-            #grabo payload y referencia UUID
+            # grabo payload y referencia UUID
             json_object = json.dumps(payload, indent=4)
             self.write({
                 'posted_payload': json_object,

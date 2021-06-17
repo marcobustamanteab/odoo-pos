@@ -19,11 +19,6 @@ class InventoryApiService(Component):
         auth="public",
     )
     def update_sync(self, picking_put_request):
-        """
-                Search for partners
-                :param partner_search_param: An instance of partner.search.param
-                :return: List of partner.short.info
-                """
         res = []
         picking_put_response = self.env.datamodels["picking.put.response"]
         if picking_put_request.sync_uuid:
