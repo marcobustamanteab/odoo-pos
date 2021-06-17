@@ -74,8 +74,8 @@ class AccountMove(models.Model):
                 line_currency = line.company_currency_id
                 line_amt = (line.debit - line.credit)
 
-                cost_center = line.move_id.company_id.cost_center_code if line.account_id.send_cost_center else ''
-                profit_center = line.move_id.company_id.profit_center_code if line.account_id.send_profit_center else ''
+                cost_center = line.move_id.company_id.cost_center_code or '' if line.account_id.send_cost_center else ''
+                profit_center = line.move_id.company_id.profit_center_code or '' if line.account_id.send_profit_center else ''
 
                 payload_lines.append({
                     "ITEMNO": str(i),
@@ -108,9 +108,10 @@ class AccountMove(models.Model):
                         'sync_reference': str(dcto_sap)}
                     )
             except KeyError:
-                json_object = json.dumps(res['mt_response']['respuesta'], indent=4)
-                print(json_object)
-                raise ValidationError("SAP response with error, review input data")
+                json_object = json.dumps(payload, indent=4)
+                json_object_response = json.dumps(res, indent=4)
+                msg = "SAP response with error\n input data:\n" + json_object + "\nOUTPUT:\n" + json_object_response
+                raise ValidationError(msg)
 
 
     @api.model

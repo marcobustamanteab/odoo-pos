@@ -7,9 +7,6 @@
         <field name="arch" type="xml">
             <field name="show_reserved" position="after">
                 <field name="ccu_sync"/>
-                <field name="ccu_code"/>
-	            <field name="ccu_code_controlled" />
-                <field name="ccu_code_participated" />
                 <field name="ccu_code_usage" />
             </field>
         </field>
