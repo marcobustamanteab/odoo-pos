@@ -20,7 +20,7 @@ class StockPicking(models.Model):
 
     # Campos para recibir confirmación de sincronización
     sync_uuid = fields.Char(string='Unique ID of sync', default=_default_sync_uuid, index=True)
-    is_sync = fields.Boolean(string='Is sync with external account system?', default=False)
+    is_sync = fields.Boolean(string='Is sync with external inventory system?', default=False)
     sync_text = fields.Text(string='Sync with this text', readonly=True)
 
     def esb_send_stock_out(self):
