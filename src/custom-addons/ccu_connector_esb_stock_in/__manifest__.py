@@ -2,10 +2,10 @@
 
 {
     "name": "ESB Stock In Connector",
-    "version": "12.0.1.0.0",
+    "version": "14.0.1.0.0",
     "license": "AGPL-3",
     "category": "Localization",
-    "summary": "Get stcok from SAP",
+    "summary": "Get stock from SAP",
     "depends": [
         "queue_job",
         "connector",
@@ -13,8 +13,8 @@
         "ccu_stock",
         "ccu_connector_esb_stock_out",
     ],
-    "author": "Open Source Integrators",
-    "website": "https://ccu.cl",
+    "author": "CCU S.A.",
+    "website": "https://www.ccu.cl",
     "data": [
         "data/stock_location_cron.xml",
         "views/stock_location_view.xml",
