@@ -73,13 +73,17 @@ class AccountMove(models.Model):
                 base_amt = line.amount_currency or (line.debit - line.credit)
                 line_currency = line.company_currency_id
                 line_amt = (line.debit - line.credit)
+                cost_center = ''
+                if line.account_id.send_cost_center:
+                    cost_center = line.move_id.company_id.cost_center_code
 
-                cost_center = line.move_id.company_id.cost_center_code or '' if line.account_id.send_cost_center else ''
-                profit_center = line.move_id.company_id.profit_center_code or '' if line.account_id.send_profit_center else ''
+                profit_center = ''
+                if line.account_id.send_profit_center:
+                    profit_center = line.move_id.company_id.profit_center_code
 
                 payload_lines.append({
                     "ITEMNO": str(i),
-                    "ACCOUNT": line.account_id.ccu_code,
+                    "ACCOUNT": line.account_id.code,
                     "GLOSA": line.name,
                     "CECO": cost_center,
                     "CEBE": profit_center,
@@ -112,7 +116,6 @@ class AccountMove(models.Model):
                 json_object_response = json.dumps(res, indent=4)
                 msg = "SAP response with error\n input data:\n" + json_object + "\nOUTPUT:\n" + json_object_response
                 raise ValidationError(msg)
-
 
     @api.model
     def send_account_move_to_ESB(self):
