@@ -81,7 +81,6 @@ class Inventory(models.Model):
         _logger.info(
             "Adjusted inventory for %d Odoo products",
             len(inventory_lines))
-        #if inventory_lines:
         print(inventory_value)
         inventory_rec = self.create(inventory_value)
         inventory_rec.action_validate()
@@ -129,3 +128,8 @@ class Inventory(models.Model):
                             'Sending stock update to JOB QUEUE for location: ',
                         location.name)
                         self.with_delay(channel='root.inventory').esb_import_inventory(location, values)
+                    else:
+                        print('Not data y SAP response')
+                else:
+                    print('Invalidad ESB response')
+
