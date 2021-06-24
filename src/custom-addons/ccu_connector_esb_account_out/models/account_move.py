@@ -83,7 +83,7 @@ class AccountMove(models.Model):
 
                 payload_lines.append({
                     "ITEMNO": str(i),
-                    "ACCOUNT": line.account_id.code,
+                    "ACCOUNT": line.account_id.ccu_code,
                     "GLOSA": line.name,
                     "CECO": cost_center,
                     "CEBE": profit_center,

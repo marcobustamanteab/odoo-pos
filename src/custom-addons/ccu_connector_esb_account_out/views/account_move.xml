@@ -7,7 +7,6 @@
             <field name="ref" position="after">
                 <field name="is_sync"/>
                 <field name="sync_uuid"/>
-                <field name="posted_payload"/>
                 <field name="sync_reference"/>
             </field>
         </field>

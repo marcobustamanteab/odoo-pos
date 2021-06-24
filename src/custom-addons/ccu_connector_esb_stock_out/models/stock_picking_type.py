@@ -8,5 +8,5 @@ class StockPickingType(models.Model):
     _inherit = "stock.picking.type"
 
     ccu_sync = fields.Boolean(string="Sync with ESB", default=False)
-    ccu_code_usage = fields.Char(string='ERP Usage Code', size=3)
+    ccu_code_usage = fields.Char(string='ERP Usage Code')
 

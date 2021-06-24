@@ -24,6 +24,7 @@
         "data/jobs.xml",
         "data/automated_actions.xml",
         "views/stock_location_view.xml",
+        "views/stock_picking_view.xml",
         "views/stock_picking_type_view.xml",
         "views/product_view.xml",
     ],
