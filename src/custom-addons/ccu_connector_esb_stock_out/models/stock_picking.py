@@ -114,7 +114,6 @@ class StockPicking(models.Model):
                 'is_sync': False,
                 'sync_text': message}
             )
-            raise ValidationError(message)
         else:
             if 'OK' in status:
                 self.sudo().write({
@@ -126,4 +125,3 @@ class StockPicking(models.Model):
                     'is_sync': True,
                     'sync_text': message}
                 )
-                raise ValidationError(message)
