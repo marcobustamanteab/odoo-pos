@@ -25,7 +25,10 @@ class InventoryApiService(Component):
             picking = self.env['stock.picking'].sudo().search([('sync_uuid', '=', picking_put_request.sync_uuid)],
                                                               limit=1)
             if len(picking) == 1:
-                picking.sudo().with_delay(channel='root.picking').update_sync(picking_put_request.reference)
+                message = "status: " + picking_put_request.status + "- text: " + picking_put_request.text
+                status = picking_put_request.status
+                #picking.sudo().with_delay(channel='root.picking').update_sync(status, message)
+                picking.sudo().update_sync(status, message)
                 res = picking_put_response(code=1, message='OK')
             else:
                 res = picking_put_response(code=-1, message='Picking not found!')
