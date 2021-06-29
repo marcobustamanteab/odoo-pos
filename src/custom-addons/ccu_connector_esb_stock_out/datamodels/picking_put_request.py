@@ -8,3 +8,5 @@ class PickingPutRequest(Datamodel):
 
     sync_uuid = fields.String(required=True, allow_none=False)
     reference = fields.String(required=False, allow_none=False)
+    status = fields.String(required=False, allow_none=False)
+    text = fields.String(required=False, allow_none=False)
