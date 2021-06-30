@@ -21,15 +21,16 @@ odoo.define('ccu_pos.ClientListScreenValidate', function (require) {
                 return { command: 'refresh', text: 'Refrescar Cliente' };
             }
             async clickSaveTransbank(){
-                const context = this.state.editModeProps;
-                if (context.partner.is_company && !context.partner.name || !context.partner.vat
-                    || !context.partner.l10n_cl_activity_description || !context.partner.l10n_cl_sii_taxpayer_type
-                    || !context.partner.address || !context.partner.city || !context.partner.country || !context.partner.state){
+                const context = this.state.editModeProps.partner;
+                // const context = this.props;
+                if (context.is_company && !context.name || !context.vat
+                    || !context.l10n_cl_activity_description || !context.l10n_cl_sii_taxpayer_type
+                    || !context.address || !context.city || !context.country_id || !context.state_id){
                         return this.showPopup('ErrorPopup', {
                           title: ('Ingrese los datos requeridos'),
                         });
-                } else if (!context.partner.is_company && !context.partner.name || !context.partner.address
-                    || !context.partner.city || !context.partner.country || !context.partner.state){
+                } else if (!context.is_company && !context.name || !context.address
+                    || !context.city || !context.country_id || !context.state_id){
                         return this.showPopup('ErrorPopup', {
                           title: ('Ingrese los datos requeridos'),
                         });
