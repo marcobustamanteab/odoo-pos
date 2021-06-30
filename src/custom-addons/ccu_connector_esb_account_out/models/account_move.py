@@ -32,7 +32,7 @@ class AccountMove(models.Model):
         text = self.ref or ''
 
         if transbak_id:
-            text += ' & TRANSBANK_ID: ' + transbak_id
+            text += ' - TRANSBANK_ID: ' + transbak_id
 
         if not branch_ccu_code:
             raise ValidationError(

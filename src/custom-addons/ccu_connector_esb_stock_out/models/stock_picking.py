@@ -79,7 +79,7 @@ class StockPicking(models.Model):
                     payload_lines.append({
                         "pos_num": str(i),
                         "hkont": {},
-                        "costcenter": "0",
+                        "costcenter": "A50VD20101",
                         "text": {},
                         "plant": centro,
                         "material": line.product_id.default_code,
@@ -107,9 +107,21 @@ class StockPicking(models.Model):
         if self.picking_type_id.ccu_sync:
             self.with_delay(channel='root.inventory').esb_send_stock_out()
 
-    def update_sync(self, message='none'):
+    def update_sync(self, status='NO OK', message='none'):
         #picking = self.env['stock.picking'].browse(picking_put_request.stock_picking_id)
-        self.sudo().write({
-            'is_sync': True,
-            'sync_text': message}
-        )
+        if 'NO OK' in status:
+            self.sudo().write({
+                'is_sync': False,
+                'sync_text': message}
+            )
+        else:
+            if 'OK' in status:
+                self.sudo().write({
+                    'is_sync': True,
+                    'sync_text': message}
+                )
+            else:
+                self.sudo().write({
+                    'is_sync': True,
+                    'sync_text': message}
+                )
