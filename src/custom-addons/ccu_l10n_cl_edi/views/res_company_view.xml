@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_company_ccu_l10n_cl_edi_form" model="ir.ui.view">
+            <field name="model">res.company</field>
+            <field name="name">view.company.ccu_l10n.cl.edi.form</field>
+            <field name="inherit_id" ref="base.view_company_form" />
+            <field name="arch" type="xml">
+                <field name="l10n_cl_dte_service_provider" position="after">
+                    <field name="l10n_cl_dte_voucher_service_provider" attrs="{'invisible': [('country_id', '!=', %(base.cl)d)]}"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -40,5 +40,31 @@
             <field name="type">ir.actions.act_window</field>
             <field name="view_mode">tree,form</field>
         </record>
+         <!-- FISCAL DTE SERVICE PROVIDER -->
+        <record model="ir.actions.act_window" id="fiscal_dte_service_provider_action">
+            <field name="binding_type">action</field>
+            <field name="context">{}</field>
+            <field eval="[(6, 0, [])]" name="groups_id"/>
+            <field name="help"><![CDATA[Fiscal DTE Service Provider]]></field>
+            <field name="name">Fiscal DTE Service Provider</field>
+            <field name="limit">80</field>
+            <field name="res_model">fiscal.dte.service.provider</field>
+            <field name="target">current</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+         <!-- FISCAL DTE CONFIG. SETTINGS -->
+        <record model="ir.actions.act_window" id="fiscal_dte_config_settings_action">
+            <field name="binding_type">action</field>
+            <field name="context">{}</field>
+            <field eval="[(6, 0, [])]" name="groups_id"/>
+            <field name="help"><![CDATA[Fiscal DTE Config. Settings]]></field>
+            <field name="name">Fiscal DTE Config. Settings</field>
+            <field name="res_model">fiscal.dte.config.settings</field>
+            <field name="limit">80</field>
+            <field name="target">current</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+        </record>
     </data>
 </odoo>

@@ -5,12 +5,15 @@
     "name": "CCU Customization - Sale",
     "version": "0.1",
     "category": "customizations",
-    "sequence": 0,
     "license": "LGPL-3",
     "summary": "CCU Companies Customizations for Sale module",
     "author": "Compañia Cervecerias Unidas S.A. (CCU)",
     "maintainer": "Compañia Cervecerias Unidas S.A. (CCU)",
-    "depends": ["sale", "ccu_base"],
+    "website": "https://www.ccu.cl",
+    "depends": [
+        "sale",
+        "ccu_base",
+    ],
     'data': [
         # "security/ir.model.access.csv",
         # "views/stock_actions_act_window.xml",
@@ -20,7 +23,6 @@
         # "views/product_tag.xml",
         # "views/product_template_only.xml",
     ],
-    'installable': True,
-    'application': True,
-    "website": "https://www.ccu.cl",
+    "installable": True,
+    "application": True,
 }

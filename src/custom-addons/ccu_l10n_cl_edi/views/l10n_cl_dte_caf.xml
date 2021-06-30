@@ -1,0 +1,14 @@
+<odoo>
+    <record model="ir.ui.view" id="ccu_l10n_cl_edi.view_dte_caf_ccu_tree">
+        <field name="name">ccu_l10n_cl.dte.caf</field>
+        <field name="model">l10n_cl.dte.caf</field>
+        <field name="inherit_id" ref="l10n_cl_edi.view_dte_caf_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='final_nb']" position="after">
+                <field name="last_used_number"/>
+                <field name="remain_qty"/>
+                <field name="remain_percent"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

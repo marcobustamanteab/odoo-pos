@@ -2,3 +2,5 @@
 /__pycache__/
 
 *.pyc
+
+ccu_l10n_cl_edi/data/pdf417_data.xml
