@@ -9,37 +9,32 @@ odoo.define('ccu_pos.PaymentLinesValidator', function (require) {
         class extends PaymentScreenPaymentLines {
             constructor() {
                 super(...arguments);
-                useListener('save-payment-line', this.savePaymentLine);
-                useListener('edit-payment-line', this.editPaymentLine);
+                useListener('del-transbank-line', this.delPaymentLine);
+                useListener('edit-transbank-line', this.editPaymentLine);
             }
-            savePaymentLine(event) {
-                if(this.env.pos.attributes.selectedOrder.paymentlines.models[0].amount > 99999) {
-                    this.env.pos.attributes.selectedOrder.paymentlines.models[0].transaction_id = this.env.pos.attributes.selectedOrder.paymentlines.models[0].amount;
-                    this.env.pos.attributes.selectedOrder.paymentlines.models[0].amount = this.env.pos.attributes.selectedOrder.paymentlines.models[0].totalDueText;
-                    this.env.pos.attributes.selectedOrder.paymentlines.models[0].totalDueText = 0;
-                    this.env.pos.attributes.selectedOrder.paymentlines.models[0].remaining = 0;
-                    this.formatLineAmount(this.getPaymentLines());
-                }else{
-                    this.showPopup('ErrorPopup', {
-                        title: this.env._t('Transbank Id Erroneo'),
-                        body: this.env._t(
-                            'Ingrese el numero correspondiente al voucher de Transbank.'
-                        ),
-                    });
+            async editPaymentLine(event) {
+                var self = this;
+                const { confirmed, payload } = await this.showPopup('NumberPopup', {
+                   title: this.env._t('Ingrese ID Transbank'),
+                   body: this.env._t('This click is successfully done.'),
+                });
+                if (confirmed) {
+                   console.log(payload, 'payload')
+                    this.env.pos.attributes.selectedOrder.paymentlines.models[0].transaction_id = payload;
                 }
                 this.render();
             }
-            editPaymentLine(event) {
+            async delPaymentLine(event) {
                 this.env.pos.attributes.selectedOrder.paymentlines.models[0].transaction_id = 0;
                 this.render();
             }
             getPaymentLines(){
                 return this.env.pos.attributes.selectedOrder.paymentlines.models[0];
             }
-            getTransactionId(){
+            get transactionId(){
                 return this.getPaymentLines().transaction_id;
             }
-            getTransactionNameVal(){
+            get transactionNameVal(){
                 return this.getPaymentLines().name;
             }
         }

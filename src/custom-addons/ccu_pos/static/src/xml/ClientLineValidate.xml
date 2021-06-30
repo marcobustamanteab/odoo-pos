@@ -1,10 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
 
-   <t t-name="ClientLineValidate" t-inherit="point_of_sale.ClientLine" t-inherit-mode="extension" owl="1">
-        <xpath expr="//div[hasclass('client-line highlight') or hasclass('client-line ')]" position="inside">
-            <td t-if="!env.isMobile">
-                <t t-esc="props.partner.is_company" />
+<!--   <t t-name="ClientLineValidate" t-inherit="point_of_sale.ClientLine" t-inherit-mode="extension" owl="1">-->
+<!--        <xpath expr="//div[hasclass('client-line highlight') or hasclass('client-line ')]" position="inside">-->
+<!--            <td t-if="!env.isMobile">-->
+<!--                <t t-esc="props.partner.is_company" />-->
+<!--            </td>-->
+<!--        </xpath>-->
+<!--    </t>-->
+
+    <t t-name="ClientLine" t-inherit="point_of_sale.ClientLine" t-inherit-mode="extension" owl="1">
+        <xpath expr="//tr" position="inside">
+            <td>
+                <t t-if="props.partner.is_company">
+                    <input type="checkbox" name="is_company" disabled="true" checked="true" class="input-is-company"/>
+                </t>
+                <t t-else="">
+                    <input type="checkbox" name="is_company" disabled="true" class="input-is-company"/>
+                </t>
             </td>
         </xpath>
     </t>

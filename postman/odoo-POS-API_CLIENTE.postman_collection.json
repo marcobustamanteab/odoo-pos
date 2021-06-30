@@ -1,0 +1,309 @@
+{
+	"info": {
+		"_postman_id": "d34528d5-099b-4146-9066-b62ba96a89e5",
+		"name": "odoo-POS-API_CLIENTE",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "cliente consultar",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "Nafe1829",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "jfajardot",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"HEADER\": {\n        \"ID_MENSAJE\": \"D11\",\n        \"MENSAJE\": \"TT09\",\n        \"FECHA\": \"20210504\",\n        \"SOCIEDAD\": \"0001\",\n        \"LEGADO\": \"ODOO\",\n        \"CODIGO_INTERFAZ\": \"ITD09\"\n    },\n    \"CLIENTE\": {\n        \"RUTDNI\": \"4272154-9\",\n        \"CENTRO\": \"\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://qpo-ci01.ccu.cl:50000/RESTAdapter/consultacliente",
+					"protocol": "http",
+					"host": [
+						"qpo-ci01",
+						"ccu",
+						"cl"
+					],
+					"port": "50000",
+					"path": [
+						"RESTAdapter",
+						"consultacliente"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cliente consultar WSO2",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"HEADER\": {\n        \"ID_MENSAJE\": \"D11\",\n        \"MENSAJE\": \"TT09\",\n        \"FECHA\": \"20210504\",\n        \"SOCIEDAD\": \"0001\",\n        \"LEGADO\": \"ODOO\",\n        \"CODIGO_INTERFAZ\": \"ITD09\"\n    },\n    \"CLIENTE\": {\n        \"RUTDNI\": \"4272154-9\",\n        \"CENTRO\": \"\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://wso2qa2.ccu.cl:8280/sap/cliente/consultar",
+					"protocol": "http",
+					"host": [
+						"wso2qa2",
+						"ccu",
+						"cl"
+					],
+					"port": "8280",
+					"path": [
+						"sap",
+						"cliente",
+						"consultar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cliente crear",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "Nafe1829",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "jfajardot",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"HEADER\": {\n        \"ID_MENSAJE\": \"D11\",\n        \"MENSAJE\": \"CREACLIENTE\",\n        \"FECHA\": \"20210504\",\n        \"SOCIEDAD\": \"0001\",\n        \"LEGADO\": \"ODOO\",\n        \"CODIGO_INTERFAZ\": \"RTR_038\"\n    },\n    \"BP\": {\n        \"FINTR\": 1,\n        \"TRATAM\": \"Empresa\",\n        \"NOMBRE\": \"NOMBRE TEST \",\n        \"APELLIDO\": \"APELLIDO TEST\",\n        \"RUTDNI\": \"15669979-9\",\n        \"CALLE\": \"CALLE NUMERO 1\",\n        \"CODPOS\": \"\",\n        \"CIUDAD\": \"SANTIAGO\",\n        \"COMUNA\": \"SANTIAGO\",\n        \"REGION\": 13,\n        \"PAIS\": \"CL\",\n        \"TELEF1\": \"+56982011751\",\n        \"TELEF2\": \"\",\n        \"EMAIL\": \"\"\n    },\n    \"DATOS_VENTA\": {\n        \"CENTRO\": \"5034\",\n        \"CONPA\": \"ZN00\",\n    },\n    \"DATOS_IMPUESTO\": {\n        \"MWST\": \"1\",\n        \"J1CA\": \"1\",\n        \"J2CA\": \"1\",\n        \"J3CA\": \"1\",\n        \"Z1CA\": \"1\",\n        \"Z2CA\": \"1\",\n        \"Z3CA\": \"1\",\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://qpo-ci01.ccu.cl:50000/RESTAdapter/creacliente",
+					"protocol": "http",
+					"host": [
+						"qpo-ci01",
+						"ccu",
+						"cl"
+					],
+					"port": "50000",
+					"path": [
+						"RESTAdapter",
+						"creacliente"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cliente crear WSo2",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "Nafe1829",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "jfajardot",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"HEADER\": {\n        \"ID_MENSAJE\": \"D11\",\n        \"MENSAJE\": \"CREACLIENTE\",\n        \"FECHA\": \"20210504\",\n        \"SOCIEDAD\": \"0001\",\n        \"LEGADO\": \"ODOO\",\n        \"CODIGO_INTERFAZ\": \"RTR_038\"\n    },\n    \"BP\": {\n        \"FINTR\": 1,\n        \"TRATAM\": \"Empresa\",\n        \"NOMBRE\": \"NOMBRE TEST \",\n        \"APELLIDO\": \"APELLIDO TEST\",\n        \"RUTDNI\": \"15669979-9\",\n        \"CALLE\": \"CALLE NUMERO 1\",\n        \"CODPOS\": \"\",\n        \"CIUDAD\": \"SANTIAGO\",\n        \"COMUNA\": \"SANTIAGO\",\n        \"REGION\": 13,\n        \"PAIS\": \"CL\",\n        \"TELEF1\": \"+56982011751\",\n        \"TELEF2\": \"\",\n        \"EMAIL\": \"\"\n    },\n    \"DATOS_VENTA\": {\n        \"CENTRO\": \"5034\",\n        \"CONPA\": \"ZN00\",\n    },\n    \"DATOS_IMPUESTO\": {\n        \"MWST\": \"1\",\n        \"J1CA\": \"1\",\n        \"J2CA\": \"1\",\n        \"J3CA\": \"1\",\n        \"Z1CA\": \"1\",\n        \"Z2CA\": \"1\",\n        \"Z3CA\": \"1\",\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://wso2qa2.ccu.cl:8280/sap/cliente/crear",
+					"protocol": "http",
+					"host": [
+						"wso2qa2",
+						"ccu",
+						"cl"
+					],
+					"port": "8280",
+					"path": [
+						"sap",
+						"cliente",
+						"crear"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cliente Healt Status",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "Nafe1829",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "jfajardot",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"HEADER\": {\n        \"ID_MENSAJE\": \"D11\",\n        \"MENSAJE\": \"CREACLIENTE\",\n        \"FECHA\": \"20210504\",\n        \"SOCIEDAD\": \"0001\",\n        \"LEGADO\": \"ODOO\",\n        \"CODIGO_INTERFAZ\": \"RTR_038\"\n    },\n    \"BP\": {\n        \"FINTR\": 1,\n        \"TRATAM\": \"Empresa\",\n        \"NOMBRE\": \"NOMBRE TEST \",\n        \"APELLIDO\": \"APELLIDO TEST\",\n        \"RUTDNI\": \"15669979-9\",\n        \"CALLE\": \"CALLE NUMERO 1\",\n        \"CODPOS\": \"\",\n        \"CIUDAD\": \"SANTIAGO\",\n        \"COMUNA\": \"SANTIAGO\",\n        \"REGION\": 13,\n        \"PAIS\": \"CL\",\n        \"TELEF1\": \"+56982011751\",\n        \"TELEF2\": \"\",\n        \"EMAIL\": \"\"\n    },\n    \"DATOS_VENTA\": {\n        \"CENTRO\": \"5034\",\n        \"CONPA\": \"ZN00\",\n    },\n    \"DATOS_IMPUESTO\": {\n        \"MWST\": \"1\",\n        \"J1CA\": \"1\",\n        \"J2CA\": \"1\",\n        \"J3CA\": \"1\",\n        \"Z1CA\": \"1\",\n        \"Z2CA\": \"1\",\n        \"Z3CA\": \"1\",\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://wso2qa2.ccu.cl:8280/sap/cliente/health/status",
+					"protocol": "http",
+					"host": [
+						"wso2qa2",
+						"ccu",
+						"cl"
+					],
+					"port": "8280",
+					"path": [
+						"sap",
+						"cliente",
+						"health",
+						"status"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

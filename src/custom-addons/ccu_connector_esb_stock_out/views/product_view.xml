@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    Copyright 2020 Konos 
+-->
+<odoo>
+        <record id="origin_view_category_property_form" model="ir.ui.view">
+            <field name="name">origin.product.category.property.form</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_form_view"/>
+            <field name="arch" type="xml">
+                <group name="first" position="after">
+                    <group name="origin_info" >
+                        <group string="Origin Incoming Info">
+                            <field name="incoming_code"/>
+                            <field name="incoming_code_related"/>
+                            <field name="incoming_code_subsidiary"/>
+                            <field name="incoming_code_no_charge"/>
+                            <field name="incoming_code_substandard"/>
+                        </group>
+                        <group string="Origin Outgoing Info">
+                            <field name="outgoing_code"/>
+                            <field name="outgoing_code_related"/>
+                            <field name="outgoing_code_subsidiary"/>
+                            <field name="outgoing_code_no_charge"/>
+                            <field name="outgoing_code_substandard"/>
+                        </group>
+                    </group>
+                </group>
+            </field>
+        </record>
+</odoo>

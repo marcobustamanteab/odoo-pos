@@ -2,42 +2,44 @@ odoo.define('ccu_pos.ClientDetailsEdit', function (require) {
     "use strict";
 
     var models = require('point_of_sale.models');
-    var core = require('web.core');
-    var utils = require('web.utils');
 
+    const { useListener } = require('web.custom_hooks');
     const ClientDetailsEdit = require('point_of_sale.ClientDetailsEdit');
     const Registries = require('point_of_sale.Registries');
-    const session = require('web.session');
 
-    models.load_fields('res.partner',['is_company','l10n_cl_activity_description']);
-    // models.load_fields('res.partner','l10n_cl_activity_description');
-    models.load_fields('res.partner','l10n_latam_identification_type_id');
-    models.load_fields('res.partner','gender');
-    models.load_fields('res.partner','dob');
-    models.load_fields('res.partner','age');
-    models.load_fields('res.partner','category');
+    models.load_fields('res.partner',['is_company','l10n_cl_activity_description','gender','dob','age','category','l10n_cl_sii_taxpayer_type']);
 
     const ClientDetailsEditValidate = ClientDetailsEdit =>
         class extends ClientDetailsEdit {
             constructor() {
                 super(...arguments);
-                // useListener('save-payment-line', this.validateOrderTransbank);
+                useListener('person-type-validate', this.personTypeValidate);
+                useListener('company-type-validate', this.companyTypeValidate);
             }
-            isCompany(){
-                return this.env.props.partner.is_company;
-            }
-            // get TransactionName(){
-            //     return this.get_client();
-            // }
             giroEmpresa(){
                 return this.env.props.partner.l10n_cl_activity_description;
             }
-            // validateOrderTransbank(event) {
-            //     if(this.env.pos.attributes.selectedOrder.paymentlines.models[0].transaction_id > 99999){
-            //         this.validateOrder(false);
-            //     }
-            //     this.render();
-            // }
+            async personTypeValidate(event) {
+                this.props.partner.is_company = false;
+                this.render();
+            }
+            async companyTypeValidate(event) {
+                this.props.partner.is_company = true;
+                this.render();
+            }
+            isValidAge(){
+                if(18 <= this.props.partner.age <= 120){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+            get customerTrx(){
+                return this.env.pos.states;
+            }
+            refreshStatesPos(event){
+                this.render();
+            }
         }
 
     Registries.Component.extend(ClientDetailsEdit, ClientDetailsEditValidate);

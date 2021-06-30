@@ -1,0 +1,128 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* ccu_connector_esb_stock_out
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-09-08 16:00+0000\n"
+"PO-Revision-Date: 2020-09-08 17:02-0300\n"
+"Last-Translator: Nelson Ramírez  <nramirez@konos.cl>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: es\n"
+"X-Generator: Poedit 2.3\n"
+
+#. module: ccu_connector_esb_stock_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_stock_location__ccu_code
+msgid "CCU Code"
+msgstr "Código CCU"
+
+#. module: ccu_connector_esb_stock_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_stock_picking_type__ccu_code_controlled
+msgid "ERP Origin Controlled Party"
+msgstr ""
+
+#. module: ccu_connector_esb_stock_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_stock_picking_type__ccu_code_participated
+msgid "ERP Origin Participated Party"
+msgstr ""
+
+#. module: ccu_connector_esb_stock_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_stock_picking_type__ccu_code
+msgid "ERP Origin Third-Party"
+msgstr ""
+
+#. module: ccu_connector_esb_stock_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_stock_picking_type__ccu_code_usage
+msgid "ERP Usage Code"
+msgstr ""
+
+#. module: ccu_connector_esb_stock_out
+#: model:ir.model,name:ccu_connector_esb_stock_out.model_stock_location
+msgid "Inventory Locations"
+msgstr "Localización de Inventarios"
+
+#. module: ccu_connector_esb_stock_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_product_category__incoming_code_no_charge
+msgid "No Charge Party In Code"
+msgstr "Código Entrada Boleta Sin Cargo"
+
+#. module: ccu_connector_esb_stock_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_product_category__outgoing_code_no_charge
+msgid "No Charge Party Out Code"
+msgstr "Código Salida Boleta Sin Cargo"
+
+#. module: ccu_connector_esb_stock_out
+#: model_terms:ir.ui.view,arch_db:ccu_connector_esb_stock_out.origin_view_category_property_form
+msgid "Origin Incoming Info"
+msgstr "Origen Info Entradas"
+
+#. module: ccu_connector_esb_stock_out
+#: model_terms:ir.ui.view,arch_db:ccu_connector_esb_stock_out.origin_view_category_property_form
+msgid "Origin Outgoing Info"
+msgstr "Origen Info Salida"
+
+#. module: ccu_connector_esb_stock_out
+#: model:ir.model,name:ccu_connector_esb_stock_out.model_stock_picking_type
+msgid "Picking Type"
+msgstr "Tipo de Picking"
+
+#. module: ccu_connector_esb_stock_out
+#: model:ir.model,name:ccu_connector_esb_stock_out.model_product_category
+msgid "Product Category"
+msgstr "Categoría de producto"
+
+#. module: ccu_connector_esb_stock_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_product_category__incoming_code_related
+msgid "Related Party In Code"
+msgstr "Código Entrada Relacionada"
+
+#. module: ccu_connector_esb_stock_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_product_category__outgoing_code_related
+msgid "Related Party Out Code"
+msgstr "Código Salida Relacionada"
+
+#. module: ccu_connector_esb_stock_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_product_category__incoming_code_subsidiary
+msgid "Subsidiary Party In Code"
+msgstr "Código Entrada Filial"
+
+#. module: ccu_connector_esb_stock_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_product_category__outgoing_code_subsidiary
+msgid "Subsidiary Party Out Code"
+msgstr "Código Salida Filial"
+
+#. module: ccu_connector_esb_stock_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_product_category__incoming_code_substandard
+msgid "Substandard In Code"
+msgstr "Código Entrada SubEstandar"
+
+#. module: ccu_connector_esb_stock_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_product_category__outgoing_code_substandard
+msgid "Substandard Out Code"
+msgstr "Código Salida SubEstandar"
+
+#. module: ccu_connector_esb_stock_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_stock_picking_type__ccu_sync
+msgid "Sync with ESB"
+msgstr ""
+
+#. module: ccu_connector_esb_stock_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_product_category__incoming_code
+msgid "Third-Party In Code"
+msgstr "Código Entrada Terceros"
+
+#. module: ccu_connector_esb_stock_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_product_category__outgoing_code
+msgid "Third-Party Out Code"
+msgstr "Código Salida Terceros"
+
+#. module: ccu_connector_esb_stock_out
+#: model:ir.model,name:ccu_connector_esb_stock_out.model_stock_picking
+msgid "Transfer"
+msgstr "Transferir"
