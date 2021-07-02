@@ -10,7 +10,7 @@
                         <input type="radio" name="is_company" value="false" t-on-change="captureChange"
                                t-on-click="trigger('person-type-validate')"/>
                     </t>
-                    <t t-else="!props.partner.is_company">
+                    <t t-else="!props.partner.is_company">rpc
                         <span class="label">Persona</span>
                         <input type="radio" name="is_company" value="true" checked="true" t-on-change="captureChange"/>
                     </t>
