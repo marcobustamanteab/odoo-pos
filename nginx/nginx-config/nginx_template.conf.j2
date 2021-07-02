@@ -9,13 +9,13 @@ server {{ odoo.container_name }}:8072;
 # http -> https
 server {
    listen 80;
-   server_name {{nginx.domain_name}};
+   #server_name {{nginx.domain_name}};
    rewrite ^(.*) https://$host$1 permanent;
 }
 
 server {
 listen 443;
-server_name {{nginx.domain_name}};
+#server_name {{nginx.domain_name}};
 proxy_read_timeout 720s;
 proxy_connect_timeout 720s;
 proxy_send_timeout 720s;
