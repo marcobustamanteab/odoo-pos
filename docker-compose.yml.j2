@@ -15,7 +15,7 @@ services:
       {%- endif %}
     networks:
       - odoo-pos
-      - pasarela-network
+      - proxy
     entrypoint: ['/entrypoint.sh', 'odoo', '-d', '{{ database.POSTGRES_DB }}', '-i', 'base']
     volumes:
       - ../filestore:{{ odoo.data_dir }}
@@ -49,6 +49,6 @@ services:
 
 networks:
   odoo-pos:
-      external: true   
-  pasarela-network:
-    external: true       
+    external: true   
+  proxy:
+    external: true      
