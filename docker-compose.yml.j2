@@ -24,13 +24,6 @@ services:
       - ./config:/etc/odoo
       - ./src/custom-addons:/mnt/extra-addons/custom-addons
     {%- endif %}
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.{{ odoo.service_name }}.entrypoints=websecure"
-      - "traefik.http.routers.{{ odoo.service_name }}.service={{ odoo.service_name }}"
-      - "traefik.http.services.{{ odoo.service_name }}.loadbalancer.server.port=8069"
-      - "traefik.http.routers.{{ odoo.service_name }}.rule=Host(`pos.ccu.cl`)"
-
       # - "traefik.http.routers.{{ odoo.service_name }}.middlewares=gzip,sslheader,limit"
       # - "traefik.http.middlewares.gzip.compress=true"
       # - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"
@@ -51,7 +44,13 @@ services:
       - ./nginx/nginx-config/nginx_template.conf:{{ nginx.path_config }}
       - ./nginx/ssl/private.key:{{ nginx.path_ssl_certificate_key }}
       - ./nginx/ssl/public.cer:{{ nginx.path_ssl_certificate }}
-  {%- endif %}    
+  {%- endif %}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.{{ nginx.service_name }}.entrypoints=websecure"
+      - "traefik.http.routers.{{ nginx.service_name }}.service={{ nginx.service_name }}"
+      - "traefik.http.services.{{ nginx.service_name }}.loadbalancer.server.port=443"
+      - "traefik.http.routers.{{ nginx.service_name }}.rule=Host(`pos.ccu.cl`)"      
 
 networks:
   odoo-pos:
