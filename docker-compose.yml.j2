@@ -15,7 +15,7 @@ services:
       {%- endif %}
     networks:
       - odoo-pos
-      - wso2
+      - pasarela-network
     entrypoint: ['/entrypoint.sh', 'odoo', '-d', '{{ database.POSTGRES_DB }}', '-i', 'base']
     volumes:
       - ../filestore:{{ odoo.data_dir }}
