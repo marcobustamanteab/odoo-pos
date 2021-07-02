@@ -9,7 +9,7 @@ server {{ odoo.container_name }}:8072;
 # http -> https
 server {
    listen 80;
-   server_name {{nginx.domain_name}};
+   server_name pos_nginx;
    rewrite ^(.*) https://$host$1 permanent;
 }
 
