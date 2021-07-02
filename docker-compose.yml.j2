@@ -16,7 +16,7 @@ services:
     networks:
       - odoo-pos
       - wso2
-    entrypoint: ['/entrypoint.sh', 'odoo', '-d', '{{ database.POSTGRES_DB }}']
+    entrypoint: ['/entrypoint.sh', 'odoo', '-d', '{{ database.POSTGRES_DB }}', '-i', 'base']
     volumes:
       - ../filestore:{{ odoo.data_dir }}
       - ./logs:/var/log/odoo
