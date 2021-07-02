@@ -31,21 +31,21 @@ services:
       - "traefik.http.services.{{ odoo.service_name }}.loadbalancer.server.port=8069"
       - "traefik.http.routers.{{ odoo.service_name }}.rule=Host(`pos.ccu.cl`)"                  
 
-  {%- if env == 'DEV' or env == 'QA' or env == 'PROD' %}     
-  {{ nginx.service_name }}:     
-    container_name: {{ nginx.container_name }}
-    restart: unless-stopped
-    image: nginx:latest
-    networks:
-      - odoo-pos
-    ports:
-      - 80:80
-      - 443:443
-    volumes:
-      - ./nginx/nginx-config/nginx_template.conf:{{ nginx.path_config }}
-      - ./nginx/ssl/private.key:{{ nginx.path_ssl_certificate_key }}
-      - ./nginx/ssl/public.cer:{{ nginx.path_ssl_certificate }}
-  {%- endif %}    
+  # {%- if env == 'DEV' or env == 'QA' or env == 'PROD' %}     
+  # {{ nginx.service_name }}:     
+  #   container_name: {{ nginx.container_name }}
+  #   restart: unless-stopped
+  #   image: nginx:latest
+  #   networks:
+  #     - odoo-pos
+  #   ports:
+  #     - 80:80
+  #     - 443:443
+  #   volumes:
+  #     - ./nginx/nginx-config/nginx_template.conf:{{ nginx.path_config }}
+  #     - ./nginx/ssl/private.key:{{ nginx.path_ssl_certificate_key }}
+  #     - ./nginx/ssl/public.cer:{{ nginx.path_ssl_certificate }}
+  # {%- endif %}    
 
 networks:
   odoo-pos:
