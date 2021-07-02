@@ -23,30 +23,35 @@ services:
     {%- if env != 'DEV' and env != 'QA' and env != 'PROD' %}
       - ./config:/etc/odoo
       - ./src/custom-addons:/mnt/extra-addons/custom-addons
-    {%- endif %}                  
-
-  {%- if env == 'DEV' or env == 'QA' or env == 'PROD' %}     
-  {{ nginx.service_name }}:     
-    container_name: {{ nginx.container_name }}
-    restart: unless-stopped
-    image: nginx:latest
-    networks:
-      - odoo-pos
-      - proxy
-    ports:
-      - 8081:80
-      - 8443:443
-    volumes:
-      - ./nginx/nginx-config/nginx_template.conf:{{ nginx.path_config }}
-      - ./nginx/ssl/private.key:{{ nginx.path_ssl_certificate_key }}
-      - ./nginx/ssl/public.cer:{{ nginx.path_ssl_certificate }}
-  {%- endif %}
+    {%- endif %}
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.{{ nginx.service_name }}.entrypoints=websecure"
-      - "traefik.http.routers.{{ nginx.service_name }}.service={{ nginx.service_name }}"
-      - "traefik.http.services.{{ nginx.service_name }}.loadbalancer.server.port=443"
-      - "traefik.http.routers.{{ nginx.service_name }}.rule=Host(`pos.ccu.cl`)"      
+      - "traefik.http.routers.{{ odoo.service_name }}.entrypoints=websecure"
+      - "traefik.http.routers.{{ odoo.service_name }}.service={{ odoo.service_name }}"
+      - "traefik.http.services.{{ odoo.service_name }}.loadbalancer.server.port=8069"
+      - "traefik.http.routers.{{ odoo.service_name }}.rule=Host(`pos.ccu.cl`) && (PathPrefix(`/web/login`)"
+      - "traefik.http.routers.{{ odoo.service_name }}.middlewares=gzip,sslheader,limit"
+
+      - "traefik.http.middlewares.gzip.compress=true"
+      - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"
+      - "traefik.http.middlewares.limit.buffering.memRequestBodyBytes=20971520"
+      - "traefik.http.middlewares.limit.buffering.maxRequestBodyBytes=20971520"
+
+  # {%- if env == 'DEV' or env == 'QA' or env == 'PROD' %}     
+  # {{ nginx.service_name }}:     
+  #   container_name: {{ nginx.container_name }}
+  #   restart: unless-stopped
+  #   image: nginx:latest
+  #   networks:
+  #     - odoo-pos
+  #   ports:
+  #     - 80:80
+  #     - 443:443
+  #   volumes:
+  #     - ./nginx/nginx-config/nginx_template.conf:{{ nginx.path_config }}
+  #     - ./nginx/ssl/private.key:{{ nginx.path_ssl_certificate_key }}
+  #     - ./nginx/ssl/public.cer:{{ nginx.path_ssl_certificate }}
+  # {%- endif %}    
 
 networks:
   odoo-pos:
