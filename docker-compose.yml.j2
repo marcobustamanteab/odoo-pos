@@ -24,11 +24,6 @@ services:
       - ./config:/etc/odoo
       - ./src/custom-addons:/mnt/extra-addons/custom-addons
     {%- endif %}
-      # - "traefik.http.routers.{{ odoo.service_name }}.middlewares=gzip,sslheader,limit"
-      # - "traefik.http.middlewares.gzip.compress=true"
-      # - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"
-      # - "traefik.http.middlewares.limit.buffering.memRequestBodyBytes=20971520"
-      # - "traefik.http.middlewares.limit.buffering.maxRequestBodyBytes=20971520"
 
   {%- if env == 'DEV' or env == 'QA' or env == 'PROD' %}     
   {{ nginx.service_name }}:     
@@ -37,6 +32,7 @@ services:
     image: nginx:latest
     networks:
       - odoo-pos
+      - proxy
     ports:
       - 8081:80
       - 8443:443
@@ -52,8 +48,8 @@ services:
       - "traefik.http.services.{{ nginx.service_name }}.loadbalancer.server.port=443"
       - "traefik.http.services.{{ nginx.service_name }}.loadbalancer.server.scheme=https"      
       - "traefik.http.routers.{{ nginx.service_name }}.rule=Host(`pos.ccu.cl`)"
-      - "traefik.http.middlewares.odooHeader.headers.customrequestheaders.X-Forwarded-Host=pos.ccu.cl"
-      - "traefik.http.routers.{{ nginx.service_name }}.middlewares=odooHeader@docker"                  
+      # - "traefik.http.middlewares.odooHeader.headers.customrequestheaders.X-Forwarded-Host=pos.ccu.cl"
+      # - "traefik.http.routers.{{ nginx.service_name }}.middlewares=odooHeader@docker"                  
 
 networks:
   odoo-pos:
