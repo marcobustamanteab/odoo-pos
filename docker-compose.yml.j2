@@ -52,7 +52,8 @@ services:
       - "traefik.http.services.{{ nginx.service_name }}.loadbalancer.server.port=443"
       - "traefik.http.services.{{ nginx.service_name }}.loadbalancer.server.scheme=https"      
       - "traefik.http.routers.{{ nginx.service_name }}.rule=Host(`pos.ccu.cl`)"
-      - "traefik.http.middlewares.odooHeader.headers.customrequestheaders.X-Forwarded-Host=pos.ccu.cl"                  
+      - "traefik.http.middlewares.odooHeader.headers.customrequestheaders.X-Forwarded-Host=pos.ccu.cl"
+      - "traefik.http.routers.{{ nginx.service_name }}.middlewares=odooHeader@docker"                  
 
 networks:
   odoo-pos:
