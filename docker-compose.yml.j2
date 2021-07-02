@@ -50,7 +50,8 @@ services:
       - "traefik.http.routers.{{ nginx.service_name }}.entrypoints=websecure"
       - "traefik.http.routers.{{ nginx.service_name }}.service={{ nginx.service_name }}"
       - "traefik.http.services.{{ nginx.service_name }}.loadbalancer.server.port=443"
-      - "traefik.http.routers.{{ nginx.service_name }}.rule=Host(`pos.ccu.cl`)"      
+      - "traefik.http.services.{{ nginx.service_name }}.loadbalancer.server.scheme=https"      
+      - "traefik.http.routers.{{ nginx.service_name }}.rule=Host(`pos.ccu.cl`)"            
 
 networks:
   odoo-pos:
