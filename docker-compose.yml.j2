@@ -9,12 +9,13 @@ services:
     container_name: {{ odoo.container_name }}
     user: root
     ports:
-      - 8069:8069
+      - 8070:8069
       {%- if debug %}
       - 8888:3001
       {%- endif %}
     networks:
       - odoo-pos
+      - wso2
     entrypoint: ['/entrypoint.sh', 'odoo', '-d', '{{ database.POSTGRES_DB }}']
     volumes:
       - ../filestore:{{ odoo.data_dir }}
@@ -22,7 +23,13 @@ services:
     {%- if env != 'DEV' and env != 'QA' and env != 'PROD' %}
       - ./config:/etc/odoo
       - ./src/custom-addons:/mnt/extra-addons/custom-addons
-    {%- endif %}              
+    {%- endif %}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.{{ odoo.service_name }}.entrypoints=websecure"
+      - "traefik.http.routers.{{ odoo.service_name }}.service={{ odoo.service_name }}"
+      - "traefik.http.services.{{ odoo.service_name }}.loadbalancer.server.port=8069"
+      - "traefik.http.routers.{{ odoo.service_name }}.rule=Host(`pos.ccu.cl`)"                  
 
   {%- if env == 'DEV' or env == 'QA' or env == 'PROD' %}     
   {{ nginx.service_name }}:     
@@ -42,4 +49,6 @@ services:
 
 networks:
   odoo-pos:
-      external: true
+      external: true   
+  wso2:
+    external: true       
