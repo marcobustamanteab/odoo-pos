@@ -12,5 +12,19 @@
             </field>
         </field>
     </record>
-
+        <record model="ir.ui.view" id="ccu_view_picking_move_send_button_form">
+        <field name="name">stock.picking send to ESB button</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <header>
+                <button name="action_send_picking_to_ESB"
+                        type="object"
+                        string="Send picking move to esb"
+                        confirm="Are you sure?"
+                        attrs="{'invisible': [('is_sync', '=', True)]}"
+                        class="oe_highlight" />
+            </header>
+        </field>
+    </record>
 </odoo>

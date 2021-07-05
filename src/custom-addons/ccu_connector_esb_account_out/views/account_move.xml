@@ -11,4 +11,19 @@
             </field>
         </field>
     </record>
+    <record model="ir.ui.view" id="ccu_view_account_move_send_button_form">
+        <field name="name">account.move send to ESB button</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <header>
+                <button name="action_send_account_move_to_esb"
+                        type="object"
+                        string="Send move to esb"
+                        confirm="Are you sure?"
+                        attrs="{'invisible': [('is_sync', '=', True)]}"
+                        class="oe_highlight" />
+            </header>
+        </field>
+    </record>
 </odoo>

@@ -123,6 +123,10 @@ class AccountMove(models.Model):
             print('Sending JOB QUEUE for Account Move ID: ', self.id)
             self.with_delay(channel='root.account').esb_send_account_move()
 
+    def action_send_account_move_to_esb(self):
+        self.send_account_move_to_ESB()
+
+
     def update_sync(self, message='none'):
         txt = str(self.id)
         print(            'Response from ESB, JOB QUEUE for Account Move: ', txt)
