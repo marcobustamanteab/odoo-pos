@@ -10,7 +10,7 @@
                         <input type="radio" name="is_company" value="false" t-on-change="captureChange"
                                t-on-click="trigger('person-type-validate')"/>
                     </t>
-                    <t t-else="!props.partner.is_company">rpc
+                    <t t-else="!props.partner.is_company">
                         <span class="label">Persona</span>
                         <input type="radio" name="is_company" value="true" checked="true" t-on-change="captureChange"/>
                     </t>
@@ -18,7 +18,7 @@
                 <div class="client-detail">
                     <span class="label">Calle *</span>
                     <input class="detail client-address-street" name="street"
-                           t-on-change="captureChange" t-att-value="props.partner.street || ''"
+                           t-on-change="captureChange2" t-att-value="props.partner.street || ''"
                            placeholder="Street" />
                 </div>
                 <div class="client-detail">
