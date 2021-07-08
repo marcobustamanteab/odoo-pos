@@ -1,30 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
 
+    <t t-name="ClientDetailsEdit" t-inherit="point_of_sale.ClientDetailsEdit" t-inherit-mode="extension" owl="1">
+        <xpath expr="//input[@name='name']" position="replace">
+            <input class="detail client-name" name="name" t-att-value="props.partner.name"
+                   placeholder="Name" t-on-change="captureChange2" />
+        </xpath>
+    </t>
+
    <t t-name="ClientDetailsEdit" t-inherit="point_of_sale.ClientDetailsEdit" t-inherit-mode="extension" owl="1">
         <xpath expr="//div[hasclass('client-details-left')]" position="replace">
             <div class="client-details-left">
-                <div class="client-detail">
-                    <t t-if="props.partner.is_company">
-                        <span class="label">Persona</span>
-                        <input type="radio" name="is_company" value="false" t-on-change="captureChange"
-                               t-on-click="trigger('person-type-validate')"/>
-                    </t>
-                    <t t-else="!props.partner.is_company">
-                        <span class="label">Persona</span>
-                        <input type="radio" name="is_company" value="true" checked="true" t-on-change="captureChange"/>
-                    </t>
-                </div>
+<!--                <div class="client-detail">-->
+<!--                    <t t-if="props.partner.is_company">-->
+<!--                        <span class="label">Persona</span>-->
+<!--                        <input type="radio" name="is_company" value="false" t-on-change="captureChange"-->
+<!--                               t-on-click="trigger('person-type-validate')"/>-->
+<!--                    </t>-->
+<!--                    <t t-else="!props.partner.is_company">-->
+<!--                        <span class="label">Persona</span>-->
+<!--                        <input type="radio" name="is_company" value="true" checked="true" t-on-change="captureChange"/>-->
+<!--                    </t>-->
+<!--                </div>-->
                 <div class="client-detail">
                     <span class="label">Calle *</span>
                     <input class="detail client-address-street" name="street"
-                           t-on-change="captureChange" t-att-value="props.partner.street || ''"
+                           t-on-change="captureChange2" t-att-value="props.partner.street || ''"
                            placeholder="Street" />
                 </div>
                 <div class="client-detail">
                     <span class="label">Ciudad *</span>
                     <input class="detail client-address-city" name="city"
-                           t-on-change="captureChange" t-att-value="props.partner.city || ''"
+                           t-on-change="captureChange2" t-att-value="props.partner.city || ''"
                            placeholder="City" />
                 </div>
 <!--                <div class="client-detail">-->
@@ -36,7 +43,7 @@
                 <div class="client-detail">
                     <span class="label">Comuna *</span>
                     <select class="detail client-address-states needsclick" name="state_id"
-                            t-on-change="captureChange">
+                            t-on-change="captureChange2" disable="true">
                         <option value="">None</option>
 <!--                        <option value=""><t t-esc="customerTrx"/></option>-->
 <!--                            chile_id = 46-->
@@ -54,7 +61,7 @@
                 <div class="client-detail">
                     <span class="label">Pais *</span>
                     <select class="detail client-address-country needsclick" name="country_id"
-                            t-on-change="captureChange">
+                            t-on-change="captureChange2" disable="true">
 <!--                    <select class="detail client-address-country needsclick" name="country_id"-->
 <!--                            t-on-change="(props.partner.country_id[0] == env.state.country_id[0]) ? captureChange : refreshStatesPos">-->
                         <option value="">None</option>
@@ -66,14 +73,10 @@
                         </t>
                     </select>
                 </div>
-               <div class="client-detail" t-if="props.partner.is_company">
-                    <span class="label">Tipo de Contribuyente
-                        <t t-if="props.partner.is_company">
-                            *
-                        </t>
-                    </span>
+               <div class="client-detail">
+                    <span class="label">Tipo de Contribuyente * </span>
                     <select class="detail client-address-states needsclick" name="l10n_cl_sii_taxpayer_type"
-                            t-on-change="captureChange">
+                            t-on-change="captureChange2">
                       <option value="">Tipo de Contribuyente</option>
                       <option value="1">IVA afecto 1ª categoría</option>
                       <option value="2">Emisor de boleta 2da categoría</option>
@@ -81,14 +84,10 @@
                       <option value="4">Extranjero</option>
                     </select>
                 </div>
-                <div class="client-detail" t-if="props.partner.is_company">
-                    <span class="label">Giro
-                        <t t-if="props.partner.is_company">
-                            *
-                        </t>
-                    </span>
+                <div class="client-detail">
+                    <span class="label">Giro * </span>
                     <input class="detail client-address-street" name="l10n_cl_activity_description"
-                                                   t-on-change="captureChange" t-att-value="props.partner.l10n_cl_activity_description || ''"
+                                                   t-on-change="captureChange2" t-att-value="props.partner.l10n_cl_activity_description || ''"
                                                    placeholder="Giro" />
                 </div>
             </div>
@@ -98,17 +97,17 @@
    <t t-name="ClientDetailsEdit" t-inherit="point_of_sale.ClientDetailsEdit" t-inherit-mode="extension" owl="1">
         <xpath expr="//div[hasclass('client-details-right')]" position="replace">
             <div class="client-details-right">
-                <div class="client-detail">
-                    <t t-if="props.partner.is_company">
-                        <span class="label">Empresa</span>
-                        <input type="radio" name="is_company" checked="true" t-on-change="captureChange"/>
-                    </t>
-                    <t t-else="!props.partner.is_company">
-                        <span class="label">Empresa</span>
-                        <input type="radio" name="is_company" value="false" t-on-change="captureChange"
-                               t-on-click="trigger('company-type-validate')"/>
-                    </t>
-                </div>
+<!--                <div class="client-detail">-->
+<!--                    <t t-if="props.partner.is_company">-->
+<!--                        <span class="label">Empresa</span>-->
+<!--                        <input type="radio" name="is_company" checked="true" t-on-change="captureChange"/>-->
+<!--                    </t>-->
+<!--                    <t t-else="!props.partner.is_company">-->
+<!--                        <span class="label">Empresa</span>-->
+<!--                        <input type="radio" name="is_company" value="false" t-on-change="captureChange"-->
+<!--                               t-on-click="trigger('company-type-validate')"/>-->
+<!--                    </t>-->
+<!--                </div>-->
 <!--                <div class="client-detail">-->
 <!--                    <span class="label">Language</span>-->
 <!--                    <select class="detail client-lang needsclick" name="lang"-->
@@ -122,16 +121,22 @@
 <!--                    </select>-->
 <!--                </div>-->
                 <div class="client-detail">
-                    <span class="label">Email *</span>
+                    <span class="label">Email DTE *</span>
                     <input class="detail client-email" name="email" type="email"
-                           t-on-change="captureChange"
+                           t-on-change="captureChange2"
                            t-att-value="props.partner.email || ''" />
                 </div>
                 <div class="client-detail">
                     <span class="label">Celular *</span>
-                    <input class="detail client-phone" name="phone" type="tel"
-                           t-on-change="captureChange"
+                    <input class="detail client-phone" name="mobile" type="tel"
+                           t-on-change="captureChange2"
                            t-att-value="props.partner.mobile || ''" />
+                </div>
+                <div class="client-detail">
+                    <span class="label">Telefono *</span>
+                    <input class="detail client-phone" name="phone" type="tel"
+                           t-on-change="captureChange2"
+                           t-att-value="props.partner.phone || ''" />
                 </div>
 <!--                <div class="client-detail">-->
 <!--                    <span class="label">Barcode</span>-->
@@ -140,11 +145,9 @@
 <!--                </div>-->
                 <div class="client-detail">
                     <span class="label">RUT
-                        <t t-if="props.partner.is_company">
                             *
-                        </t>
                     </span>
-                    <input class="detail vat" name="vat" t-on-change="captureChange"
+                    <input class="detail vat" name="vat" t-on-change="captureChange2"
                            t-att-value="props.partner.vat || ''" />
                 </div>
 <!--                <div t-if="env.pos.pricelists.length gt 1" class="client-detail">
@@ -174,7 +177,7 @@
 <!--                </div>-->
                 <div class="client-detail">
                     <span class="label">Fecha de Nacimiento</span>
-                    <input type="date" name="dob" t-on-change="captureChange" t-att-value="props.partner.dob || ''"/>
+                    <input type="date" name="dob" t-on-change="captureChange2" t-att-value="props.partner.dob || ''"/>
                 </div>
             </div>
         </xpath>

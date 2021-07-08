@@ -7,6 +7,8 @@
             <tree string="DTE Service Config">
                 <field name="name"/>
                 <field name="server_base_url"/>
+                <field name="enabled" widget="boolean_toggle"/>
+                <field name="pass_error" widget="boolean_toggle"/>
             </tree>
         </field>
     </record>
@@ -32,7 +34,8 @@
                     <group>
                         <field name="company_id"/>
                         <field name="server_base_url"/>
-                        <field name="pass_error"/>
+                        <field name="enabled" widget="boolean_toggle"/>
+                        <field name="pass_error" widget="boolean_toggle"/>
                     </group>
                 </sheet>
             </form>
