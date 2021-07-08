@@ -18,65 +18,35 @@ odoo.define('ccu_pos.ClientListScreenValidate', function (require) {
                     'guardado' : false
                 };
             }
-            async clickRefresh(){
-                await this.env.pos.load_new_partners();
+            clickRefresh(){
+                this.env.partners = this.readCustomer();
+                this.render();
                 // create_from_ui
             }
             get refreshButton(){
                 return { command: 'refresh', text: 'Refrescar Cliente' };
             }
 
-            async readCustomer(){
-
-                var domain = [['id', '=', '10136']];
+            readCustomer(){
+                var domain = [];
+                let partners = null;
                 this.rpc({
                     model: 'res.partner',
                     method: 'search_read',
                     args: [domain],
-                    kwargs: { limit: 5 },
+                    kwargs: { limit: 200 },
                 }).then(function (partner) {
                     if (partner.length > 0) {
-                        for(var i=0; i<partner.length;i++){
-                            console.log(partner[0].name);
-                            console.log(JSON.stringify(partner));
-                        }
+                        partners = partner;
+                        // for(var i=0; i<partner.length;i++){
+                        //     console.log(partner[0].name);
+                        //     console.log(JSON.stringify(partner));
+                        // }
                     } else {
                         this.showPopup('ErrorPopup', { body: 'No previous orders found' });
                     }
                 });
-                // return rpcProm;
-
-
-                // const context = this.state.editModeProps.partner;
-                // if(this.changes != null){
-                //     const change = this.changes;
-                //     context.country_id = change.country_id;
-                //     context.state_id = change.state_id;
-                //     context.name = change.name;
-                //     context.street = change.street;
-                //     context.city = change.city;
-                //     context.email = change.email;
-                //     context.phone = change.phone;
-                //     context.dob = change.dob;
-                //     context.email = change.email;
-                //
-                // }
-                //
-                // // const context = this.props;
-                // if (context.is_company && !context.name || !context.vat
-                //     || !context.l10n_cl_activity_description || !context.l10n_cl_sii_taxpayer_type
-                //     || !context.address || !context.city || !context.country_id || !context.state_id){
-                //         return this.showPopup('ErrorPopup', {
-                //           title: ('Ingrese los datos requeridos'),
-                //         });
-                // } else if (!context.is_company && !context.name || !context.address
-                //     || !context.city || !context.country_id || !context.state_id){
-                //         return this.showPopup('ErrorPopup', {
-                //           title: ('Ingrese los datos requeridos'),
-                //         });
-                // } else {
-                //     this.env.bus.trigger('save-customer');
-                // }
+                return partners;
             }
             async saveCustomer(event){
                 // var domain = [['id', '=', '10136']];
