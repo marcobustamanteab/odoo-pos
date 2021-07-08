@@ -1,18 +1,18 @@
 odoo.define('ccu_pos.ClientListScreenValidate', function (require) {
     "use strict";
 
-    const framework = require('web.framework');
     const { _t } = require('web.core');
-    const { useListener } = require('web.custom_hooks');
     const ClientListScreen = require('point_of_sale.ClientListScreen');
     const Registries = require('point_of_sale.Registries');
+    const { useListener } = require('web.custom_hooks');
 
     const ClientListScreenValidate = ClientListScreen =>
         class extends ClientListScreen {
             constructor() {
                 super(...arguments);
                 useListener('click-refresh', this.clickRefresh);
-                useListener('click-save-transbank', this.saveCustomer);
+                useListener('click-save-transbank', () => this.env.bus.trigger('prepare-customer-pos'));
+                useListener('save-customer-pos', this.saveCustomer);
                 useListener('activate-pos-clear', this.activateEditClear);
             }
             async clickRefresh(){
@@ -38,7 +38,7 @@ odoo.define('ccu_pos.ClientListScreenValidate', function (require) {
                             console.log(JSON.stringify(partner));
                         }
                     } else {
-                        self.showPopup('ErrorPopup', { body: 'No previous orders found' });
+                        this.showPopup('ErrorPopup', { body: 'No previous orders found' });
                     }
                 });
                 // return rpcProm;
@@ -77,16 +77,242 @@ odoo.define('ccu_pos.ClientListScreenValidate', function (require) {
             }
             async saveCustomer(event){
                 // var domain = [['id', '=', '10136']];
+				let data = event.detail.processedChanges;
+				data.partnerPos = this.state.selectedClient;
+				if(data != null && data.changesPos != null){
+				    if(data.changesPos.phone != null ||
+                        data.changesPos.name != null ||
+                        data.changesPos.mobile != null ||
+                        data.changesPos.email != null ||
+                        data.changesPos.street != null ||
+                        data.changesPos.city != null ||
+                        data.changesPos.country != null ||
+                        data.changesPos.vat != null ||
+                        data.changesPos.dob != null ){
+				        let qry = this.getClienteTemplate(data);
+                        if(this.state.selectedClient != null){
+                            console.log("!editar");
+                            try{
+                                this.rpc({
+                                    model: 'res.partner',
+                                    method: 'write',
+                                    args: [data.partnerPos.id, qry],
+                                    kwargs: {},
+                                }).then(function (partner) {
+                                    if (partner.length > 0) {
+                                        console.log(partner);
+                                    } else {
+                                        console.log("error!!!");
+                                    }
+                                });
+                            }catch (error){
+                                if (error.message.code < 0) {
+                                    this.showPopup('ErrorPopup', { body: 'No se puede guardar el cliente' });
+                                } else {
+                                    throw error;
+                                }
+                            }
+                            console.log("!edit rpc ok");
+                        }else {
+                            console.log("!nuevo");
+                            try{
+                                this.rpc({
+                                    model: 'res.partner',
+                                    method: 'create',
+                                    args: [qry],
+                                    kwargs: {},
+                                }).then(function (partner) {
+                                    if (partner.length > 0) {
+                                        console.log(partner);
+                                    } else {
+                                        console.log("error!!!");
+                                    }
+                                });
+                            }catch (error){
+                                if (error.message.code < 0) {
+                                    this.showPopup('ErrorPopup', { body: 'No se puede guardar el cliente' });
+                                } else {
+                                    throw error;
+                                }
+                            }
+                            console.log("!nuevo rpc ok");
+                        }
+                    }else{
+				        this.showPopup('ErrorPopup', { body: 'Debe ingresar los campos obligatorios.' });
+                    }
 
-				if(this.state.selectedClient != null){
-					console.log("!editar");
-				}else {
-					console.log("!nuevo");
-					let xxx = this.state;
-					this.trigger('save-changes-pos', { processedChanges });
-				}
+                }else{
+				    this.showPopup('ErrorPopup', { body: 'No se pueden guardar los cambios por falta de información.' });
+                }
             }
-
+            getClienteTemplate(data) {
+                return {
+                    "id" : data.partnerPos != null ? data.partnerPos.id : false,
+                    "display_name": data.changesPos.name != null ? data.changesPos.name : data.partnerPos.name,
+                    "date": false,
+                    "title": false,
+                    "parent_id": false,
+                    "parent_name": false,
+                    "child_ids": [],
+                    "ref": false,
+                    "lang": "es_CL",
+                    "active_lang_count": 1,
+                    "tz": "America/Santiago",
+                    "tz_offset": "-0400",
+                    "same_vat_partner_id": false,
+                    "bank_ids": [],
+                    "website": false,
+                    "comment": false,
+                    "category_id": [],
+                    "credit_limit": 0,
+                    "active": true,
+                    "employee": false,
+                    "function": false,
+                    "type": "contact",
+                    "street2": false,
+                    "zip": false,
+                    "city": data.changesPos.city ? data.changesPos.city : data.partnerPos.city,
+                    "state_id": 1183,
+                    "country_id": 46,
+                    "partner_latitude": 0,
+                    "partner_longitude": 0,
+                    "email_formatted": data.changesPos.email ? data.changesPos.email : data.partnerPos.email,
+                    "is_company": true,
+                    "industry_id": false,
+                    "company_type": "company",
+                    "company_id": false,
+                    "color": 0,
+                    "user_ids": [],
+                    "partner_share": true,
+                    "contact_address": data.changesPos.name ? data.changesPos.name : data.partnerPos.name,
+                    "commercial_partner_id": [],
+                    "commercial_company_name": data.changesPos.name ? data.changesPos.name : data.partnerPos.name,
+                    "company_name": false,
+                    "barcode": false,
+                    "self": [],
+                    "country_enforce_cities": false,
+                    "city_id": false,
+                    "im_status": "im_partner",
+                    "activity_ids": [],
+                    "activity_state": false,
+                    "activity_user_id": false,
+                    "activity_type_id": false,
+                    "activity_type_icon": false,
+                    "activity_date_deadline": false,
+                    "my_activity_date_deadline": false,
+                    "activity_summary": false,
+                    "activity_exception_decoration": false,
+                    "activity_exception_icon": false,
+                    "message_is_follower": false,
+                    "message_follower_ids": [],
+                    "message_partner_ids": [],
+                    "message_channel_ids": [],
+                    "message_ids": [],
+                    "message_unread": false,
+                    "message_unread_counter": 0,
+                    "message_needaction": false,
+                    "message_needaction_counter": 0,
+                    "message_has_error": false,
+                    "message_has_error_counter": 0,
+                    "message_attachment_count": 0,
+                    "message_main_attachment_id": false,
+                    "email_normalized": data.changesPos.email ? data.changesPos.email : data.partnerPos.email,
+                    "is_blacklisted": false,
+                    "message_bounce": 0,
+                    "phone": data.changesPos.phone ? data.changesPos.phone : data.partnerPos.phone,
+                    "channel_ids": [],
+                    "user_id": false,
+                    "contact_address_complete": data.changesPos.street ? data.changesPos.street : data.partnerPos.street,
+                    "image_medium": false,
+                    "signup_token": false,
+                    "signup_type": false,
+                    "signup_expiration": false,
+                    "signup_valid": false,
+                    "signup_url": false,
+                    "phone_sanitized": data.changesPos.phone ? data.changesPos.phone : data.partnerPos.phone,
+                    "phone_sanitized_blacklisted": false,
+                    "phone_blacklisted": false,
+                    "mobile_blacklisted": false,
+                    "property_product_pricelist": 1,
+                    "team_id": false,
+                    "website_message_ids": [],
+                    "email": data.changesPos.email ? data.changesPos.email : data.partnerPos.email,
+                    "mobile": data.changesPos.mobile ? data.changesPos.mobile : data.partnerPos.mobile,
+                    "name": data.changesPos.name ? data.changesPos.name : data.partnerPos.name,
+                    "street": data.changesPos.street ? data.changesPos.street : data.partnerPos.street,
+                    "gender": "male",
+                    "category": "copero",
+                    "status": "unconfirmed",
+                    "dob": data.changesPos.dob ? data.changesPos.dob : data.partnerPos.dob,
+                    "age": 41,
+                    "limit_purchase": 500000,
+                    "monthly_purchase": 0,
+                    "reached_limit": false,
+                    "is_employee": false,
+                    "distribution_center": false,
+                    "ocn_token": false,
+                    "partner_gid": 0,
+                    "additional_info": false,
+                    "message_has_sms_error": false,
+                    "credit": 0,
+                    "debit": 0,
+                    "debit_limit": 0,
+                    "total_invoiced": 0,
+                    "currency_id": 45,
+                    "journal_item_count": 78,
+                    "property_account_payable_id": 493,
+                    "property_account_receivable_id": 418,
+                    "property_account_position_id": false,
+                    "property_payment_term_id": false,
+                    "property_supplier_payment_term_id": false,
+                    "ref_company_ids": [],
+                    "has_unreconciled_entries": false,
+                    "last_time_entries_checked": false,
+                    "invoice_ids": [],
+                    "contract_ids": [],
+                    "bank_account_count": 0,
+                    "trust": "normal",
+                    "invoice_warn": "no-message",
+                    "invoice_warn_msg": false,
+                    "supplier_rank": 0,
+                    "customer_rank": 0,
+                    "property_stock_customer": 5,
+                    "property_stock_supplier": 4,
+                    "picking_warn": "no-message",
+                    "picking_warn_msg": false,
+                    "online_partner_vendor_name": false,
+                    "online_partner_bank_account": false,
+                    "payment_token_ids": [],
+                    "payment_token_count": 0,
+                    "online_partner_information": false,
+                    "l10n_latam_identification_type_id": 4,
+                    "vat": data.changesPos.vat ? data.changesPos.vat : data.partnerPos.vat,
+                    "pos_order_count": 0,
+                    "pos_order_ids": [],
+                    "sale_order_count": 0,
+                    "sale_order_ids": [],
+                    "sale_warn": "no-message",
+                    "sale_warn_msg": false,
+                    "payment_next_action_date": false,
+                    "unreconciled_aml_ids": [],
+                    "unpaid_invoices": [],
+                    "total_due": 0,
+                    "total_overdue": 0,
+                    "followup_status": "in_need_of_action",
+                    "followup_level": 3,
+                    "payment_responsible_id": false,
+                    "l10n_cl_sii_taxpayer_type": "3",
+                    "loyalty_points": 0,
+                    "image_1920": false,
+                    "image_1024": false,
+                    "image_512": false,
+                    "image_256": false,
+                    "image_128": false,
+                    "l10n_cl_dte_email": data.changesPos.email ? data.changesPos.email : data.partnerPos.email,
+                    "l10n_cl_activity_description": "Consumidor Final",
+                    "write_date": "2021-07-09 00:50:16"
+                };
+            }
 //                {
 // 	"id" : 9963,
 // 	"display_name": "ADWENS  CASSEUS",
