@@ -2,7 +2,7 @@
 # Copyright (C) 2020 Serpent Consulting Services Pvt. Ltd.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html)
 import json
-import logging, time
+import logging, time, uuid, json
 from odoo import api, fields, models, _
 
 _logger = logging.getLogger(__name__)
@@ -81,7 +81,6 @@ class Inventory(models.Model):
         _logger.info(
             "Adjusted inventory for %d Odoo products",
             len(inventory_lines))
-        #if inventory_lines:
         print(inventory_value)
         inventory_rec = self.create(inventory_value)
         inventory_rec.action_validate()
@@ -89,15 +88,11 @@ class Inventory(models.Model):
 
     @api.model
     def cron_esb_get_inventory(self):
-        """ GET INVENTARIO SAP
-            rutina que invoca servicio REST SAP para obntener inventario EP: /sap/inventario/stock/consultar
-        :return: none
-        """
-        id_mensaje = "1234567890" # PENDIENTE
+        id_mensaje = str(uuid.uuid1())
         year, month, day, hour, min = map(int, time.strftime("%Y %m %d %H %M").split())
         fecha_AAAAMMDD = str((year*10000) + (month*100) + day)
 
-        location_rec = self.env['stock.location'].search([('ccu_inventory_sync', '=', True),
+        location_rec = self.sudo().env['stock.location'].search([('ccu_inventory_sync', '=', True),
                                                           ('ccu_code', '!=', False)])
         if location_rec:
             for location in location_rec:
@@ -123,12 +118,18 @@ class Inventory(models.Model):
 
                 # invocación al servicio REST
                 backend = location.company_id.backend_esb_id  # Parámetro con objeto Backend configurado con servidor WSO2
-                _logger.info(payload)
+
                 res = backend.api_esb_call("POST", esb_api_endpoint, payload)
                 # solo si respuesta tiene datos proceso con la syncronización
                 if res:
                     values = res.get('mt_response', {}).get('DETAIL', {})
                     if values:
-                        self.esb_import_inventory(location, values)
-
+                        _logger.info(
+                            'Sending stock update to JOB QUEUE for location: ',
+                        location.name)
+                        self.with_delay(channel='root.inventory').esb_import_inventory(location, values)
+                    else:
+                        print('Not data y SAP response')
+                else:
+                    print('Invalidad ESB response')
 

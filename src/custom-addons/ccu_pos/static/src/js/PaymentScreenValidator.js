@@ -10,6 +10,7 @@ odoo.define('ccu_pos.PaymentScreenValidator', function (require) {
             constructor() {
                 super(...arguments);
                 useListener('save-payment-line', this.validateOrderTransbank);
+                this.currentOrder.set_to_invoice(true);
             }
             getTransactionName(){
                 return this.env.pos.attributes.selectedOrder.paymentlines.models[0].name;

@@ -6,7 +6,9 @@
         <field name="inherit_id" ref="account.view_account_form"/>
         <field name="arch" type="xml">
             <field name="user_type_id" position="after">
-                <field name="ccu_sync"/>
+                <field name="ccu_code"/>
+                <field name="send_cost_center"/>
+                <field name="send_profit_center"/>
             </field>
         </field>
     </record>

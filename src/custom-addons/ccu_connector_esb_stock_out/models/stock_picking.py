@@ -7,6 +7,8 @@ import logging, time
 from odoo.exceptions import ValidationError
 import uuid
 import logging
+import json
+
 _logger = logging.getLogger(__name__)
 
 
@@ -18,14 +20,10 @@ class StockPicking(models.Model):
 
     # Campos para recibir confirmación de sincronización
     sync_uuid = fields.Char(string='Unique ID of sync', default=_default_sync_uuid, index=True)
-    is_sync = fields.Boolean(string='Is sync with external account system?', default=False)
+    is_sync = fields.Boolean(string='Is sync with external inventory system?', default=False)
     sync_text = fields.Text(string='Sync with this text', readonly=True)
 
     def esb_send_stock_out(self):
-        """
-        Envía cada linea del movimiento de Stock a SAP
-        :return:
-        """
         self.ensure_one()
         payload_lines = []
         esb_api_endpoint = "/sap/inventario/movimiento/crear"
@@ -35,20 +33,20 @@ class StockPicking(models.Model):
         almacen = self.location_id.ccu_code or self.location_dest_id.ccu_code
 
         # Solo si el almacen de entrada y salida poseen código CCU
-        if almacen:
+        if not almacen:
+            msg = 'Location without ccu code: ' + self.location_id.name
+            raise ValidationError(msg)
+        else:
             # Document Data from pos_order
             year, month, day, hour, min = map(int, time.strftime("%Y %m %d %H %M").split())
             fecha_AAAAMMDD = str((year * 10000) + (month * 100) + day)
-            id_documento = self.pos_order_id.account_move.name
-            doc_date = self.pos_order_id.account_move.invoice_date
-            centro_costo = '123'
-            # if not id_documento:    # si no obtendo N° de Documento lo intento desde sale_order en vez de pos_order
-            #     id_documento = self.sale_id.account_move.name
-            #     doc_date = self.sale_id.account_move.invoice_date
+            id_documento = self.pos_order_id.account_move.name or ''
 
-            if not id_documento:
-                id_documento="0"
-                doc_date = ""
+            if self.pos_order_id.account_move.date:
+                year, month, day, hour, min = map(int, self.pos_order_id.account_move.date.strftime("%Y %m %d %H %M").split())
+                doc_date = str((year * 10000) + (month * 100) + day)
+            else:
+                doc_date = ''
 
             payload = {
                 "HEADER": {
@@ -64,7 +62,7 @@ class StockPicking(models.Model):
                         "id_documento": self.name,
                         "username": backend.user,
                         "header_txt": "ODOO",
-                        "doc_date": " ",# doc_date,
+                        "doc_date": doc_date,
                         "pstng_date": fecha_AAAAMMDD, #es fecha contable
                         "ref_doc_no": id_documento,
                     },
@@ -94,13 +92,20 @@ class StockPicking(models.Model):
                     })
 
             if len(payload_lines) >= 1:
-                _logger.warning(payload)
+                print(payload)
                 res = backend.api_esb_call("POST", esb_api_endpoint, payload)
                 print(res)
+                status = res['mt_response']['HEADER']['MENSAJE']
+                if 'Recibido OK' not in status:
+                    json_object = json.dumps(payload, indent=4)
+                    json_object_response = json.dumps(res, indent=4)
+                    msg = "SAP response with error\n input data:\n" + json_object + "\nOUTPUT:\n" + json_object_response
+                    raise ValidationError(msg)
+
     @api.model
     def send_picking_to_ESB(self):
         if self.picking_type_id.ccu_sync:
-            self.with_delay(channel='root.picking').esb_send_stock_out()
+            self.with_delay(channel='root.inventory').esb_send_stock_out()
 
     def update_sync(self, message='none'):
         #picking = self.env['stock.picking'].browse(picking_put_request.stock_picking_id)
