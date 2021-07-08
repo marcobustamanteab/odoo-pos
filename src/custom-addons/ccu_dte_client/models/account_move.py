@@ -23,8 +23,8 @@ class AccountMove(models.Model):
     )
     dte_send_error = fields.Char(string="Send Errors", tracking=True)
 
-    def action_post(self):
-        res = super(AccountMove, self).action_post()
+    def _post(self, soft=True):
+        res = super(AccountMove, self)._post(soft)
         self.perform_send_dte()
         return res
 
