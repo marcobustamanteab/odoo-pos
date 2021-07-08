@@ -77,14 +77,15 @@ class AccountMove(models.Model):
             "PRODUCT": []
         }
         for invoice_line in self.invoice_line_ids:
+            product_id_code = ''.join(i for i in invoice_line.product_id.default_code if i.isdigit())
             ivals = {}
-            ivals["product_id"] = invoice_line.product_id.default_code or "000000"
+            ivals["product_id"] = product_id_code or "000000"
             ivals["quantity"] = invoice_line.quantity
             ivals["price_unit"] = invoice_line.price_unit
             ivals["name"] = invoice_line.name or invoice_line.product_id.name
             ivals["account_id"] = invoice_line.account_id.code
             # ivals["display_type"] = "product"
-            ivals["ref_etd"] = invoice_line.product_id.default_code or "000000"
+            ivals["ref_etd"] = product_id_code or "000000"
             ivals["discount"] = invoice_line.discount
             ivals["invoice_line_tax_ids"] = ",".join([x.dte_service_code or 'ERR' for x in invoice_line.tax_ids])
             dte_to_send["DETAIL"].append(ivals)
