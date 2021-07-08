@@ -1,31 +1,31 @@
 <odoo>
-    <record model="ir.ui.view" id="stock_warehouse_form_view">
-        <field name="name">ccu_stock.stock.warehouse.form</field>
-        <field name="model">stock.warehouse</field>
-        <field name="priority">16</field>
-        <field name="inherit_id" ref="stock.view_warehouse"/>
-        <field name="arch" type="xml">
-            <xpath expr="//page[@name='technical_info']" position="after">
-                <page string="CCU Customization" name="ccu_customization">
-                    <group>
-<!--                        <field name="external_code"/>-->
-                        <field name="external_center_code"/>
-                    </group>
-                </page>
-            </xpath>
-        </field>
-    </record>
+<!--    <record model="ir.ui.view" id="stock_warehouse_form_view">-->
+<!--        <field name="name">ccu_stock.stock.warehouse.form</field>-->
+<!--        <field name="model">stock.warehouse</field>-->
+<!--        <field name="priority">16</field>-->
+<!--        <field name="inherit_id" ref="stock.view_warehouse"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <xpath expr="//page[@name='technical_info']" position="after">-->
+<!--                <page string="CCU Customization" name="ccu_customization">-->
+<!--                    <group>-->
+<!--&lt;!&ndash;                        <field name="external_code"/>&ndash;&gt;-->
+<!--                        <field name="external_center_code"/>-->
+<!--                    </group>-->
+<!--                </page>-->
+<!--            </xpath>-->
+<!--        </field>-->
+<!--    </record>-->
 
-    <record model="ir.ui.view" id="stock_warehouse_tree_view">
-        <field name="name">ccu_stock.stock.warehouse.tree</field>
-        <field name="model">stock.warehouse</field>
-        <field name="priority">16</field>
-        <field name="inherit_id" ref="stock.view_warehouse_tree"/>
-        <field name="arch" type="xml">
-            <xpath expr="//field[@name='partner_id']" position="after">
-<!--                <field name="external_code"/>-->
-                <field name="external_center_code"/>
-            </xpath>
-        </field>
-    </record>
+<!--    <record model="ir.ui.view" id="stock_warehouse_tree_view">-->
+<!--        <field name="name">ccu_stock.stock.warehouse.tree</field>-->
+<!--        <field name="model">stock.warehouse</field>-->
+<!--        <field name="priority">16</field>-->
+<!--        <field name="inherit_id" ref="stock.view_warehouse_tree"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <xpath expr="//field[@name='partner_id']" position="after">-->
+<!--&lt;!&ndash;                <field name="external_code"/>&ndash;&gt;-->
+<!--                <field name="external_center_code"/>-->
+<!--            </xpath>-->
+<!--        </field>-->
+<!--    </record>-->
 </odoo>

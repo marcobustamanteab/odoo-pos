@@ -10,10 +10,9 @@ Credits
 Authors
 ~~~~~~~
 
-* Open Source Integrators
+* CCU S.A.
 
 Contributors
 ~~~~~~~~~~~~
 
-* Daniel Reis <dreis@opensourceintegrators.com>
-* Serpent Consulting Services Pvt. Ltd. <support@serpentcs.com>
+* Daniel Clavería <dclaver@ccu.cl>

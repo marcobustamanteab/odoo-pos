@@ -1,96 +1,132 @@
-# Copyright (C) 2020 Open Source Integrators
-# Copyright (C) 2020 Serpent Consulting Services Pvt. Ltd.
-# Copyright (C) 2020 Konos
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html)
 
 from odoo import api, fields, models
-from odoo.addons.queue_job.job import job
+from odoo.exceptions import ValidationError
+import uuid
+import time
+import logging
+import json
 
+_logger = logging.getLogger(__name__)
 
 class AccountMove(models.Model):
     _inherit = 'account.move'
 
-    posted_payload = fields.Char('Posted Payload')
+    is_sync = fields.Boolean(string='Is sync with external account system?', default=False, readonly=True)
+    sync_uuid = fields.Char(string='Unique ID of sync', readonly=True, index=True)
+    posted_payload = fields.Text('Posted Payload', readonly=True)
+    sync_reference = fields.Char(string='Sync with this text', readonly=True)
 
-    @job
+#    @job
     def esb_send_account_move(self):
         self.ensure_one()
         payload_lines = []
-        move_ref=self.name[-10:]
-        if self.ref:
-            move_ref=self.ref[-10:]
-        considered_accounts_for_cc = ['210600'] # list of accounts that must have the analytic account for the integration
-        distribution_center = self.env.user.default_branch_id.distribution_center if self.env.user.default_branch_id else "0"
-        bank_deposit_analytic_account_id = False
-        analytic_account_id = False
-        if self.env['account.invoice'].search([('move_id', '=', self.id)]) and self.journal_id.code == 'DIFR':
-            distribution_center = self.env['account.invoice'].search([('move_id', '=', self.id)]).branch_id.distribution_center
-            analytic_account_id = self.env['account.invoice'].search([('move_id', '=', self.id)]).branch_id.analytic_account_id.code
-            bank_deposit_analytic_account_id = self.env['account.invoice'].search([('move_id', '=', self.id)]).branch_id.bank_deposit_analytic_account_id.code
-        elif self.env['account.invoice'].search([('move_id', '=', self.id)]):
-            distribution_center = self.env['account.invoice'].search([('move_id', '=', self.id)]).branch_id.distribution_center
-            analytic_account_id = self.env['account.invoice'].search([('move_id', '=', self.id)]).branch_id.analytic_account_id.code
-        elif self.env['account.payment'].search([('move_name', '=', self.name)]) and self.journal_id.code == 'TRN': #all payments from Transbank must go to Santiago DC
-            distribution_center = '033' # distribution center for Santiago
-            analytic_account_id = '7A0000000' # Manantial generic analytic account
-        elif self.env['account.payment'].search([('move_name', '=', self.name)]):
-            distribution_center = self.env['account.payment'].search([('move_name', '=', self.name)]).branch_id.distribution_center or 0
-            analytic_account_id = self.env['account.payment'].search([('move_name', '=', self.name)]).branch_id.analytic_account_id.code
-            bank_deposit_analytic_account_id = self.env['account.payment'].search([('move_name', '=', self.name)]).branch_id.bank_deposit_analytic_account_id.code
-        elif self.env['deposit.ticket'].search([('move_id', '=', self.id)]):
-            bank_deposit_analytic_account_id = self.env['deposit.ticket'].search([('move_id', '=', self.id)]).branch_id.bank_deposit_analytic_account_id.code
+        sync_uuid = str(uuid.uuid1())
+        year, month, day, hour, min = map(int, time.strftime("%Y %m %d %H %M").split())
+        fecha_AAAAMMDD = str((year * 10000) + (month * 100) + day)
+        year, month, day, hour, min = map(int, self.date.strftime("%Y %m %d %H %M").split())
+        fecha_dcto = str((year * 10000) + (month * 100) + day)
+        branch_ccu_code = self.create_uid.sale_team_id.branch_ccu_code
 
-        payload = {
-            'account_move_name': self.name[-10:],
-            'account_move_date': fields.Date.to_string(self.date),
-            'account_move_ref': move_ref or '',
-            'ccu_business_unit': self.company_id.ccu_business_unit,
-            'ccu_business_unit_gl': self.company_id.ccu_business_unit,
-            'doc_seq_nbr': distribution_center, #for the integration we decided to use the field doc_seq_nbr to send the CD number. That is a field that is not being used in Peoplesoft
-            'account_move_line': payload_lines,
-        }
-        accounts = self.mapped('line_ids.account_id').filtered('ccu_sync')
-        lines = [x for x in self.line_ids if x.account_id in accounts]
-        for idx, line in enumerate(lines, start=1):
-            base_currency = line.currency_id or line.company_currency_id
-            base_amt = line.amount_currency or (line.debit - line.credit)
-            line_currency = line.company_currency_id
-            line_amt = (line.debit - line.credit)
+        pos_order = self.env['pos.order'].search([('name', '=ilike', self.ref)], limit=1)
+        transbak_id = self.env['pos.payment'].search([('pos_order_id', '=', pos_order.id)], limit=1).transaction_id
+        text = self.ref or ''
 
-            if line.analytic_account_id.code:
-                analytic_code = line.analytic_account_id.code
-            elif line.account_id.code == '110002' and bank_deposit_analytic_account_id:
-                analytic_code = bank_deposit_analytic_account_id
-            elif line.account_id.code not in considered_accounts_for_cc and analytic_account_id:
-                analytic_code = analytic_account_id
-            else:
-                analytic_code = self.company_id.esb_default_analytic_id.code
+        if transbak_id:
+            text += ' & TRANSBANK_ID: ' + transbak_id
 
-            #analytic_code = (
-            #    line.analytic_account_id.code or (if line.account_id.code == '11403' or )
-            #    self.company_id.esb_default_analytic_id.code)
+        if not branch_ccu_code:
+            raise ValidationError(
+                'User of the movement does not belong to a work team or the team does not have a CCU Center code'
+            )
+        else:
+            payload = {
+                "HEADER": {
+                    "ID_MENSAJE": sync_uuid,
+                    "MENSAJE": "Account Movements from Odoo",
+                    "FECHA": fecha_AAAAMMDD,
+                    "SOCIEDAD": self.company_id.ccu_business_unit,
+                    "LEGADO": "Odoo",
+                    "CODIGO_INTERFAZ": "RTR038_Odoo"
+                },
+                "DOCUMENT_POST": {
+                    "HEAD": {
+                        "RUTDNI": "",
+                        "CENTRO": branch_ccu_code,
+                        "FOLIO": self.name,
+                        "CLDOC": self.journal_id.ccu_code, # "IE" tipo de documento
+                        "FEDOC": fecha_dcto,
+                        "GLOSA": text,
+                        "MONTOT": self.amount_total,
+                        "MONEDA": self.currency_id.name
+                    },
+                    "ASSENT": payload_lines
+                }
+            }
 
-            payload_lines.append({
-                "account_move_line_num": str(idx),
-                "account_move_line_name": (
-                    line.name or self.ref or self.name or '-')[:30],
-                "account_move_line_account_code": line.account_id.code,
-                "account_move_line_amount_base": str(int(base_amt)),
-                "account_move_line_base_currency": base_currency.name or "",
-                "account_move_line_analytic_code": analytic_code or "",
-                "account_move_line_currency": line_currency.name or"",
-                "account_move_line_amount": str(int(line_amt)),
-                "account_move_line_tin": line.partner_id.vat or "",
-            })
-        esb_api_endpoint = '/AsientosContablesAPI'
-        backend = self.company_id.backend_esb_id
-        self.posted_payload = payload
-        backend.api_esb_call("POST", esb_api_endpoint, payload)
+            # accounts = self.mapped('line_ids.account_id').filtered('ccu_sync')
+            # lines = [x for x in self.line_ids if x.account_id in accounts]
 
-    @api.multi
-    def post(self, invoice=False):
-        res = super(AccountMove, self).post(invoice)
-        for move in self:
-            if move.journal_id.type != 'bank' and move.journal_id.ccu_sync:
-                move.with_delay().esb_send_account_move()
-        return res
+            i = 0
+            for line in self.line_ids:
+                i = i + 1
+                base_currency = line.currency_id or line.company_currency_id
+                base_amt = line.amount_currency or (line.debit - line.credit)
+                line_currency = line.company_currency_id
+                line_amt = (line.debit - line.credit)
+                cost_center = ''
+                if line.account_id.send_cost_center:
+                    cost_center = line.move_id.company_id.cost_center_code
+
+                profit_center = ''
+                if line.account_id.send_profit_center:
+                    profit_center = line.move_id.company_id.profit_center_code
+
+                payload_lines.append({
+                    "ITEMNO": str(i),
+                    "ACCOUNT": line.account_id.ccu_code,
+                    "GLOSA": line.name,
+                    "CECO": cost_center,
+                    "CEBE": profit_center,
+                    "MATERIAL": line.product_id.default_code or '',
+                    "CANTIDAD": line.quantity,
+                    "TOTAL": line_amt
+                })
+
+            # grabo payload y referencia UUID
+            json_object = json.dumps(payload, indent=4)
+            self.write({
+                'posted_payload': json_object,
+                'sync_uuid': sync_uuid}
+            )
+
+            esb_api_endpoint = '/sap/contabilidad/asiento/crear'
+            backend = self.company_id.backend_esb_id
+            print(json_object)
+            res = backend.api_esb_call("POST", esb_api_endpoint, payload)
+            print(json.dumps(res))
+            try:
+                dcto_sap = int(res['mt_response']['respuesta']['documento_sap'])
+                if dcto_sap > 0:
+                    self.write({
+                        'is_sync': True,
+                        'sync_reference': str(dcto_sap)}
+                    )
+            except KeyError:
+                json_object = json.dumps(payload, indent=4)
+                json_object_response = json.dumps(res, indent=4)
+                msg = "SAP response with error\n input data:\n" + json_object + "\nOUTPUT:\n" + json_object_response
+                raise ValidationError(msg)
+
+    @api.model
+    def send_account_move_to_ESB(self):
+        if self.journal_id.type != 'bank' and self.journal_id.ccu_sync:
+            print('Sending JOB QUEUE for Account Move ID: ', self.id)
+            self.with_delay(channel='root.account').esb_send_account_move()
+
+    def update_sync(self, message='none'):
+        txt = str(self.id)
+        print(            'Response from ESB, JOB QUEUE for Account Move: ', txt)
+        self.sudo().write({
+            'is_sync': True,
+            'sync_reference': message}
+        )

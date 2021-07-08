@@ -16,12 +16,12 @@
         <field name="parent_id" ref="queue_job.channel_root" />
     </record>
 
-    <record id="job_function_stock_inventory_esb_send_stock_in" model="queue.job.function">
+    <record id="job_function_stock_inventory_cron_esb_get_inventory" model="queue.job.function">
         <field name="model_id" ref="stock.model_stock_inventory" />
         <field name="method">cron_esb_get_inventory</field>
         <field name="channel_id" ref="channel_inventory" />
 <!--&lt;!&ndash;        <field name="related_action" eval='{"func_name": "related_action_get_inventory"}' />&ndash;&gt;-->
-<!--        <field name="retry_pattern" eval="{1: 60, 2: 180, 3: 10, 5: 300}" />-->
+        <field name="retry_pattern" eval="{1: 60, 2: 180, 3: 10, 5: 300}" />
     </record>
 
 </odoo>
