@@ -83,7 +83,7 @@ class AccountMove(models.Model):
             ivals["price_unit"] = invoice_line.price_unit
             ivals["name"] = invoice_line.name or invoice_line.product_id.name
             ivals["account_id"] = invoice_line.account_id.code
-            ivals["display_type"] = ""
+            ivals["display_type"] = "product"
             ivals["discount"] = invoice_line.discount
             ivals["invoice_line_tax_ids"] = ",".join([x.dte_service_code or 'ERR' for x in invoice_line.tax_ids])
             dte_to_send["DETAIL"].append(ivals)
