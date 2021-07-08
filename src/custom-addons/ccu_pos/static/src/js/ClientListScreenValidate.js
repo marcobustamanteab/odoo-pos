@@ -14,6 +14,9 @@ odoo.define('ccu_pos.ClientListScreenValidate', function (require) {
                 useListener('click-save-transbank', () => this.env.bus.trigger('prepare-customer-pos'));
                 useListener('save-customer-pos', this.saveCustomer);
                 useListener('activate-pos-clear', this.activateEditClear);
+                this.controlClienterPos = {
+                    'guardado' : false
+                };
             }
             async clickRefresh(){
                 await this.env.pos.load_new_partners();
@@ -79,7 +82,7 @@ odoo.define('ccu_pos.ClientListScreenValidate', function (require) {
                 // var domain = [['id', '=', '10136']];
 				let data = event.detail.processedChanges;
 				data.partnerPos = this.state.selectedClient;
-				if(data != null && data.changesPos != null){
+				if(data != null && data.changesPos != null && !this.controlClienterPos.guardado){
 				    if(data.changesPos.phone != null ||
                         data.changesPos.name != null ||
                         data.changesPos.mobile != null ||
@@ -88,11 +91,13 @@ odoo.define('ccu_pos.ClientListScreenValidate', function (require) {
                         data.changesPos.city != null ||
                         data.changesPos.country != null ||
                         data.changesPos.vat != null ||
-                        data.changesPos.dob != null ){
-				        let qry = this.getClienteTemplate(data);
+                        data.changesPos.dob != null ||
+                        data.changesPos.l10n_cl_sii_taxpayer_type != null ||
+                        data.changesPos.l10n_cl_activity_description != null){
                         if(this.state.selectedClient != null){
                             console.log("!editar");
                             try{
+                                let qry = this.getClienteTemplate(data);
                                 this.rpc({
                                     model: 'res.partner',
                                     method: 'write',
@@ -105,17 +110,19 @@ odoo.define('ccu_pos.ClientListScreenValidate', function (require) {
                                         console.log("error!!!");
                                     }
                                 });
+                                this.controlClienterPos.guardado = true;
                             }catch (error){
-                                if (error.message.code < 0) {
+                                // if (error.message != < 0) {
                                     this.showPopup('ErrorPopup', { body: 'No se puede guardar el cliente' });
-                                } else {
-                                    throw error;
-                                }
+                                // } else {
+                                //     throw error;
+                                // }
                             }
                             console.log("!edit rpc ok");
                         }else {
                             console.log("!nuevo");
                             try{
+                                let qry = this.getClienteTemplate(data);
                                 this.rpc({
                                     model: 'res.partner',
                                     method: 'create',
@@ -128,21 +135,28 @@ odoo.define('ccu_pos.ClientListScreenValidate', function (require) {
                                         console.log("error!!!");
                                     }
                                 });
+                                this.controlClienterPos.guardado = true;
                             }catch (error){
-                                if (error.message.code < 0) {
+                                // if (error.message.code < 0) {
                                     this.showPopup('ErrorPopup', { body: 'No se puede guardar el cliente' });
-                                } else {
-                                    throw error;
-                                }
+                                // } else {
+                                //     throw error;
+                                // }
                             }
                             console.log("!nuevo rpc ok");
                         }
                     }else{
 				        this.showPopup('ErrorPopup', { body: 'Debe ingresar los campos obligatorios.' });
                     }
-
+                    if(this.controlClienterPos.guardado){
+                        alert('Cliente guardado exitosamente.');
+                    }
                 }else{
-				    this.showPopup('ErrorPopup', { body: 'No se pueden guardar los cambios por falta de información.' });
+				    if(this.controlClienterPos.guardado){
+				        this.showPopup('ErrorPopup', { body: 'Cliente ya esta en la base de datos.' });
+                    }else{
+				        this.showPopup('ErrorPopup', { body: 'No se pueden guardar los cambios por falta de información.' });
+                    }
                 }
             }
             getClienteTemplate(data) {
