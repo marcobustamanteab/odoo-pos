@@ -13,16 +13,18 @@ odoo.define('ccu_pos.ActionpadWidgetValidate', function (require) {
                 this.clienteGenerico();
             }
             clienteGenerico(){
-                if(this.currentOrder != null){
-                    let part = this.env.partners;
+                // if(this.currentOrder != null){
+                    let part = this.env.pos.partners;
                     let cust = null;
                     for(var i = 0; i < part.length; i++){
                         if(part[i].name === 'Cliente Boleta'){
+                            console.log(part[i].name);
                             cust = part[i];
                         }
                     }
-                    this.currentOrder.set_client(cust);
-                }
+                    this.props.client = cust;
+                    this.render();
+                // }
             }
             clickPayValidate(){
                 if(this.props.partner === null){

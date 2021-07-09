@@ -34,14 +34,10 @@ odoo.define('ccu_pos.ClientListScreenValidate', function (require) {
                     model: 'res.partner',
                     method: 'search_read',
                     args: [domain],
-                    kwargs: { limit: 200 },
+                    kwargs: { limit: 20000 },
                 }).then(function (partner) {
                     if (partner.length > 0) {
                         partners = partner;
-                        // for(var i=0; i<partner.length;i++){
-                        //     console.log(partner[0].name);
-                        //     console.log(JSON.stringify(partner));
-                        // }
                     } else {
                         this.showPopup('ErrorPopup', { body: 'No previous orders found' });
                     }
@@ -52,6 +48,7 @@ odoo.define('ccu_pos.ClientListScreenValidate', function (require) {
                 // var domain = [['id', '=', '10136']];
 				let data = event.detail.processedChanges;
 				data.partnerPos = this.state.selectedClient;
+				let error = false;
 				if(data != null && data.changesPos != null && !this.controlClienterPos.guardado){
 				    if(data.changesPos.phone != null ||
                         data.changesPos.name != null ||
@@ -74,11 +71,12 @@ odoo.define('ccu_pos.ClientListScreenValidate', function (require) {
                                     args: [data.partnerPos.id, qry],
                                     kwargs: {},
                                 }).then(function (partner) {
-                                    if (partner.length > 0) {
-                                        console.log(partner);
-                                    } else {
-                                        console.log("error!!!");
-                                    }
+                                    // if (partner.length > 0) {
+                                        console.log('editar : ' + partner);
+                                    // } else {
+                                    //     console.log("error!!!");
+                                    //     error = true;
+                                    // }
                                 });
                                 this.controlClienterPos.guardado = true;
                             }catch (error){
@@ -99,11 +97,11 @@ odoo.define('ccu_pos.ClientListScreenValidate', function (require) {
                                     args: [qry],
                                     kwargs: {},
                                 }).then(function (partner) {
-                                    if (partner.length > 0) {
-                                        console.log(partner);
-                                    } else {
-                                        console.log("error!!!");
-                                    }
+                                    // if (partner.length > 0) {
+                                        console.log('nuevo : ' + partner);
+                                    // } else {
+                                    //     console.log("error!!!");
+                                    // }
                                 });
                                 this.controlClienterPos.guardado = true;
                             }catch (error){
@@ -183,7 +181,6 @@ odoo.define('ccu_pos.ClientListScreenValidate', function (require) {
                     "activity_type_id": false,
                     "activity_type_icon": false,
                     "activity_date_deadline": false,
-                    "my_activity_date_deadline": false,
                     "activity_summary": false,
                     "activity_exception_decoration": false,
                     "activity_exception_icon": false,

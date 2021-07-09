@@ -11,17 +11,6 @@
    <t t-name="ClientDetailsEdit" t-inherit="point_of_sale.ClientDetailsEdit" t-inherit-mode="extension" owl="1">
         <xpath expr="//div[hasclass('client-details-left')]" position="replace">
             <div class="client-details-left">
-<!--                <div class="client-detail">-->
-<!--                    <t t-if="props.partner.is_company">-->
-<!--                        <span class="label">Persona</span>-->
-<!--                        <input type="radio" name="is_company" value="false" t-on-change="captureChange"-->
-<!--                               t-on-click="trigger('person-type-validate')"/>-->
-<!--                    </t>-->
-<!--                    <t t-else="!props.partner.is_company">-->
-<!--                        <span class="label">Persona</span>-->
-<!--                        <input type="radio" name="is_company" value="true" checked="true" t-on-change="captureChange"/>-->
-<!--                    </t>-->
-<!--                </div>-->
                 <div class="client-detail">
                     <span class="label">Calle *</span>
                     <input class="detail client-address-street" name="street"
@@ -34,12 +23,6 @@
                            t-on-change="captureChange2" t-att-value="props.partner.city || ''"
                            placeholder="City" />
                 </div>
-<!--                <div class="client-detail">-->
-<!--                    <span class="label">Postcode</span>-->
-<!--                    <input class="detail client-address-zip" name="zip"-->
-<!--                           t-on-change="captureChange" t-att-value="props.partner.zip || ''"-->
-<!--                           placeholder="ZIP" />-->
-<!--                </div>-->
                 <div class="client-detail">
                     <span class="label">Comuna *</span>
                     <select class="detail client-address-states needsclick" name="state_id"
@@ -77,11 +60,13 @@
                     <span class="label">Tipo de Contribuyente * </span>
                     <select class="detail client-address-states needsclick" name="l10n_cl_sii_taxpayer_type"
                             t-on-change="captureChange2">
-                      <option value="">Tipo de Contribuyente</option>
-                      <option value="1">IVA afecto 1ª categoría</option>
-                      <option value="2">Emisor de boleta 2da categoría</option>
-                      <option value="3">Consumidor final</option>
-                      <option value="4">Extranjero</option>
+                        <option value="">Seleccione Tipo</option>
+                        <t t-foreach="props.parameters.taxpayer" t-as="tax" t-key="tax.value">
+                            <option t-att-value="tax.value"
+                                    t-att-selected="props.partner.l10n_cl_sii_taxpayer_type > 0 ? ((tax.value === props.partner.l10n_cl_sii_taxpayer_type) ? true : undefined) : undefined">
+                                <t t-esc="tax.name" />
+                            </option>
+                        </t>
                     </select>
                 </div>
                 <div class="client-detail">
@@ -97,29 +82,6 @@
    <t t-name="ClientDetailsEdit" t-inherit="point_of_sale.ClientDetailsEdit" t-inherit-mode="extension" owl="1">
         <xpath expr="//div[hasclass('client-details-right')]" position="replace">
             <div class="client-details-right">
-<!--                <div class="client-detail">-->
-<!--                    <t t-if="props.partner.is_company">-->
-<!--                        <span class="label">Empresa</span>-->
-<!--                        <input type="radio" name="is_company" checked="true" t-on-change="captureChange"/>-->
-<!--                    </t>-->
-<!--                    <t t-else="!props.partner.is_company">-->
-<!--                        <span class="label">Empresa</span>-->
-<!--                        <input type="radio" name="is_company" value="false" t-on-change="captureChange"-->
-<!--                               t-on-click="trigger('company-type-validate')"/>-->
-<!--                    </t>-->
-<!--                </div>-->
-<!--                <div class="client-detail">-->
-<!--                    <span class="label">Language</span>-->
-<!--                    <select class="detail client-lang needsclick" name="lang"-->
-<!--                            t-on-change="captureChange">-->
-<!--                        <t t-foreach="env.pos.langs" t-as="lang" t-key="lang.id">-->
-<!--                            <option t-att-value="lang.code"-->
-<!--                                    t-att-selected="props.partner.lang ? ((lang.code === props.partner.lang) ? true : undefined) : lang.code === env.pos.user.lang? true : undefined">-->
-<!--                                <t t-esc="lang.name" />-->
-<!--                            </option>-->
-<!--                        </t>-->
-<!--                    </select>-->
-<!--                </div>-->
                 <div class="client-detail">
                     <span class="label">Email DTE *</span>
                     <input class="detail client-email" name="email" type="email"
@@ -138,11 +100,6 @@
                            t-on-change="captureChange2"
                            t-att-value="props.partner.phone || ''" />
                 </div>
-<!--                <div class="client-detail">-->
-<!--                    <span class="label">Barcode</span>-->
-<!--                    <input class="detail barcode" name="barcode" t-on-change="captureChange"-->
-<!--                           t-att-value="props.partner.barcode || ''" />-->
-<!--                </div>-->
                 <div class="client-detail">
                     <span class="label">RUT
                             *
@@ -150,31 +107,6 @@
                     <input class="detail vat" name="vat" t-on-change="captureChange2"
                            t-att-value="props.partner.vat || ''" />
                 </div>
-<!--                <div t-if="env.pos.pricelists.length gt 1" class="client-detail">
-                    <span class="label">Pricelist</span>
-                    <select class="detail needsclick" name="property_product_pricelist"
-                            t-on-change="captureChange">
-                        <t t-foreach="env.pos.pricelists" t-as="pricelist"
-                           t-key="pricelist.id">
-                            <option t-att-value="pricelist.id"
-                                    t-att-selected="props.partner.property_product_pricelist ? (pricelist.id === props.partner.property_product_pricelist[0] ? true : false) : false">
-                                <t t-esc="pricelist.display_name" />
-                            </option>
-                        </t>
-                    </select>
-                </div>-->
-<!--                <div class="client-detail">
-                    <span class="label">Edad</span>
-                    <input class="detail client-address-street" name="age"
-                                   t-on-change="captureChange" t-att-value="props.partner.age || ''"
-                                   placeholder="Edad" />
-                </div>-->
-<!--                <div class="client-detail">-->
-<!--                    <span class="label">Categoría</span>-->
-<!--                    <input class="detail client-address-street" name="category"-->
-<!--                                   t-on-change="captureChange" t-att-value="props.partner.category || ''"-->
-<!--                                   placeholder="Categoria" />-->
-<!--                </div>-->
                 <div class="client-detail">
                     <span class="label">Fecha de Nacimiento</span>
                     <input type="date" name="dob" t-on-change="captureChange2" t-att-value="props.partner.dob || ''"/>
