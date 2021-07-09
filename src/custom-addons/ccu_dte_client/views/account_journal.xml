@@ -14,4 +14,17 @@
             </xpath>
         </field>
     </record>
+
+    <record id="ccu_dte_client.view_account_journal_tree" model="ir.ui.view" >
+        <field name="name">CCU DTE Client Account Journal</field>
+        <field name="model">account.journal</field>
+        <field name="priority">17</field>
+        <field name="inherit_id" ref="account.view_account_journal_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='journal_group_ids']" position="after">
+                <field name="dte_service_code"/>
+            </xpath>
+        </field>
+    </record>
+
 </odoo>
