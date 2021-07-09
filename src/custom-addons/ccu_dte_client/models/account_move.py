@@ -77,7 +77,7 @@ class AccountMove(models.Model):
             "PRODUCT": []
         }
         for invoice_line in self.invoice_line_ids:
-            product_id_code = ''.join(i for i in invoice_line.product_id.default_code if i.isdigit())
+            product_id_code = ''.join(i for i in invoice_line.product_id.default_code or '000000' if i.isdigit())
             ivals = {}
             ivals["product_id"] = product_id_code or "000000"
             ivals["quantity"] = invoice_line.quantity
