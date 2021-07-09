@@ -88,7 +88,7 @@ class AccountMove(models.Model):
             ivals["name"] = invoice_line.name or invoice_line.product_id.name
             ivals["account_id"] = invoice_line.account_id.code
             # ivals["display_type"] = "product"
-            ivals["ref_etd"] = product_id_code or "000000"
+            # ivals["ref_etd"] = product_id_code or "000000"
             ivals["discount"] = invoice_line.discount
             _logger.info(["TAXES", invoice_line.tax_ids, ",".join([x.dte_service_code or 'ERR' for x in invoice_line.tax_ids])])
             if invoice_line.tax_ids:
