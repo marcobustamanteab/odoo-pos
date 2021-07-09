@@ -46,6 +46,7 @@ class AccountMove(models.Model):
         if not config.enabled:
             _logger.info("DTE Synchronization Disabled")
             return
+        journal_id = "BEL" if self.l10n_latam_document_type_id.code == '39' else "FAC"
         dte_to_send = {
             "CLIENT": {
                 "client-vat-company": "CL%s" % (self.company_id.vat)
@@ -60,7 +61,7 @@ class AccountMove(models.Model):
                 "number": self.name,
                 "narration": self.narration,
                 "class_id": self.l10n_latam_document_type_id.code,
-                "journal_id": "%s" % (self.journal_id.dte_service_code),
+                "journal_id": journal_id,
                 "total": "%s" % (self.amount_total)
             },
             "REFERENCE": [],
