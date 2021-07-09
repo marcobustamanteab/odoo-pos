@@ -87,6 +87,7 @@ class AccountMove(models.Model):
             # ivals["display_type"] = "product"
             ivals["ref_etd"] = product_id_code or "000000"
             ivals["discount"] = invoice_line.discount
+            _logger.info(["TAXED", invoice_line.tax_ids, ",".join([x.dte_service_code or 'ERR' for x in invoice_line.tax_ids])])
             ivals["invoice_line_tax_ids"] = ",".join([x.dte_service_code or 'ERR' for x in invoice_line.tax_ids])
             dte_to_send["DETAIL"].append(ivals)
 
