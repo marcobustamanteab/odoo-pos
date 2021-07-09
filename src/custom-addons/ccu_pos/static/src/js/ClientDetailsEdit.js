@@ -22,7 +22,7 @@ odoo.define('ccu_pos.ClientDetailsEdit', function (require) {
                 };
                 this.props.clientePos = this.clientePos;
                 this.props.parameters = this.config();
-                this.readCustomerExtra(this.props.partner);
+                // this.readCustomerExtra(this.props.partner);
             }
             mounted() {
                 this.env.bus.on('prepare-customer-pos', this, this.saveCustomerPos);
