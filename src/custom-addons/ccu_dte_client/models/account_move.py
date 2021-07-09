@@ -101,6 +101,7 @@ class AccountMove(models.Model):
             pvals["default_code"] = product_id_code or '000000'
             pvals["name"] = invoice_line.product_id.name
             pvals["type"] = invoice_line.product_id.type
+            pvals["etd_code"] = product_id_code or '000000'
             pvals["description"] = invoice_line.product_id.description
             dte_to_send["PRODUCT"].append(pvals)
         if self.l10n_latam_document_type_id.code == '61':
