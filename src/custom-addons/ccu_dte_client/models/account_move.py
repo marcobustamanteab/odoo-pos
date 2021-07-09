@@ -23,8 +23,8 @@ class AccountMove(models.Model):
     )
     dte_send_error = fields.Char(string="Send Errors", tracking=True)
 
-    def action_post(self):
-        res = super(AccountMove, self).action_post()
+    def _post(self, soft=True):
+        res = super(AccountMove, self)._post(soft)
         self.perform_send_dte()
         return res
 
@@ -40,12 +40,15 @@ class AccountMove(models.Model):
                 ('company_id', "=", self.company_id.id)
             ]
         )
+        if self.move_type not in ['out_invoice','out_refund']:
+            return True
         if not config:
             msg = "DTE Client Configuration Missing: Company (%s)" % (self.company_id.name)
             raise UserError(msg)
         if not config.enabled:
             _logger.info("DTE Synchronization Disabled")
             return
+        journal_id = "BEL" if self.l10n_latam_document_type_id.code == '39' else "FAC"
         dte_to_send = {
             "CLIENT": {
                 "client-vat-company": "CL%s" % (self.company_id.vat)
@@ -60,7 +63,7 @@ class AccountMove(models.Model):
                 "number": self.name,
                 "narration": self.narration,
                 "class_id": self.l10n_latam_document_type_id.code,
-                "journal_id": "%s" % (self.journal_id.dte_service_code),
+                "journal_id": journal_id,
                 "total": "%s" % (self.amount_total)
             },
             "REFERENCE": [],
@@ -77,19 +80,25 @@ class AccountMove(models.Model):
             "PRODUCT": []
         }
         for invoice_line in self.invoice_line_ids:
+            product_id_code = ''.join(i for i in invoice_line.product_id.default_code or '000000' if i.isdigit())
             ivals = {}
-            ivals["product_id"] = invoice_line.product_id.default_code
+            ivals["product_id"] = product_id_code or "000000"
             ivals["quantity"] = invoice_line.quantity
             ivals["price_unit"] = invoice_line.price_unit
             ivals["name"] = invoice_line.name or invoice_line.product_id.name
             ivals["account_id"] = invoice_line.account_id.code
-            ivals["display_type"] = "product"
+            # ivals["display_type"] = "product"
+            ivals["ref_etd"] = product_id_code or "000000"
             ivals["discount"] = invoice_line.discount
-            ivals["invoice_line_tax_ids"] = ",".join([x.dte_service_code or 'ERR' for x in invoice_line.tax_ids])
+            _logger.info(["TAXES", invoice_line.tax_ids, ",".join([x.dte_service_code or 'ERR' for x in invoice_line.tax_ids])])
+            if invoice_line.tax_ids:
+                ivals["invoice_line_tax_ids"] = ",".join([x.dte_service_code or 'ERR' for x in invoice_line.tax_ids])
+            else:
+                ivals["invoice_line_tax_ids"] = "EX"
             dte_to_send["DETAIL"].append(ivals)
 
             pvals = {}
-            pvals["default_code"] = invoice_line.product_id.default_code
+            pvals["default_code"] = product_id_code or '000000'
             pvals["name"] = invoice_line.product_id.name
             pvals["type"] = invoice_line.product_id.type
             pvals["description"] = invoice_line.product_id.description
