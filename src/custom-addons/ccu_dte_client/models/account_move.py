@@ -40,6 +40,8 @@ class AccountMove(models.Model):
                 ('company_id', "=", self.company_id.id)
             ]
         )
+        if self.move_type not in ['out_invoice','out_refund']:
+            return True
         if not config:
             msg = "DTE Client Configuration Missing: Company (%s)" % (self.company_id.name)
             raise UserError(msg)
