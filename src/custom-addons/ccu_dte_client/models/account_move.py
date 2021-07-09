@@ -91,7 +91,7 @@ class AccountMove(models.Model):
             dte_to_send["DETAIL"].append(ivals)
 
             pvals = {}
-            pvals["default_code"] = invoice_line.product_id.default_code
+            pvals["default_code"] = product_id_code or '000000'
             pvals["name"] = invoice_line.product_id.name
             pvals["type"] = invoice_line.product_id.type
             pvals["description"] = invoice_line.product_id.description
