@@ -20,8 +20,23 @@ odoo.define('ccu_pos.ClientListScreenValidate', function (require) {
                 };
                 this.verifySavedCustomer();
             }
-            async clickRefresh(){
-                this.readCustomer();
+            clickRefresh(){
+                var domain = [];
+                var fields = [];
+                let partners = null;
+                this.rpc({
+                    model: 'res.partner',
+                    method: 'search_read',
+                    args: [domain, fields],
+                    kwargs: {},
+                }).then(function (partner) {
+                    if (partner.length > 0) {
+                        partners = partner;
+                    } else {
+                        this.showPopup('ErrorPopup', { body: 'No previous orders found' });
+                    }
+                });
+                this.env.pos.partners = partners;
                 // this.env.pos.partners = transp;
                 this.render();
                 // create_from_ui
@@ -54,24 +69,6 @@ odoo.define('ccu_pos.ClientListScreenValidate', function (require) {
                 return verified;
             }
 
-            async readCustomer(){
-                var domain = [];
-                var fields = [];
-                let partners = null;
-                this.rpc({
-                    model: 'res.partner',
-                    method: 'search_read',
-                    args: [domain, fields],
-                    kwargs: {},
-                }).then(function (partner) {
-                    if (partner.length > 0) {
-                        partners = partner;
-                    } else {
-                        this.showPopup('ErrorPopup', { body: 'No previous orders found' });
-                    }
-                });
-                this.env.pos.partners = partners;
-            }
             async saveCustomer(event){
                 // var domain = [['id', '=', '10136']];
 				let data = event.detail.processedChanges;
