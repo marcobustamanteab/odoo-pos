@@ -15,26 +15,54 @@ odoo.define('ccu_pos.ClientListScreenValidate', function (require) {
                 useListener('save-customer-pos', this.saveCustomer);
                 useListener('activate-pos-clear', this.activateEditClear);
                 this.controlClienterPos = {
-                    'guardado' : false
+                    'saved_customer' : false,
+                    'last_save_customer' : null
                 };
+                this.verifySavedCustomer();
             }
-            clickRefresh(){
-                this.env.partners = this.readCustomer();
+            async clickRefresh(){
+                this.readCustomer();
+                // this.env.pos.partners = transp;
                 this.render();
                 // create_from_ui
             }
             get refreshButton(){
                 return { command: 'refresh', text: 'Refrescar Cliente' };
             }
+            verifySavedCustomer(){
+                if(this.controlClienterPos.last_save_customer != null && this.state.selectedClient.id != this.controlClienterPos.last_save_customer.id){
+                    this.controlClienterPos.saved_customer = true;
+                }
+            }
+            verifyCustomerSelected(){
+                let verified = false;
+                let context = this.state.selectedClient();
+                if(context.phone === null ||
+                        context.name === null ||
+                        context.mobile === null ||
+                        context.email === null ||
+                        context.street === null ||
+                        context.city === null ||
+                        context.country === null ||
+                        context.vat === null ||
+                        context.dob === null ||
+                        context.l10n_cl_sii_taxpayer_type === null ||
+                        context.l10n_cl_activity_description === null)
+                {
+                    verified = true;
+                }
+                return verified;
+            }
 
-            readCustomer(){
+            async readCustomer(){
                 var domain = [];
+                var fields = [];
                 let partners = null;
                 this.rpc({
                     model: 'res.partner',
                     method: 'search_read',
-                    args: [domain],
-                    kwargs: { limit: 20000 },
+                    args: [domain, fields],
+                    kwargs: {},
                 }).then(function (partner) {
                     if (partner.length > 0) {
                         partners = partner;
@@ -42,14 +70,15 @@ odoo.define('ccu_pos.ClientListScreenValidate', function (require) {
                         this.showPopup('ErrorPopup', { body: 'No previous orders found' });
                     }
                 });
-                return partners;
+                this.env.pos.partners = partners;
             }
             async saveCustomer(event){
                 // var domain = [['id', '=', '10136']];
 				let data = event.detail.processedChanges;
 				data.partnerPos = this.state.selectedClient;
 				let error = false;
-				if(data != null && data.changesPos != null && !this.controlClienterPos.guardado){
+				this.verifySavedCustomer();
+				if(data != null && data.changesPos != null && !this.controlClienterPos.saved_customer){
 				    if(data.changesPos.phone != null ||
                         data.changesPos.name != null ||
                         data.changesPos.mobile != null ||
@@ -60,7 +89,7 @@ odoo.define('ccu_pos.ClientListScreenValidate', function (require) {
                         data.changesPos.vat != null ||
                         data.changesPos.dob != null ||
                         data.changesPos.l10n_cl_sii_taxpayer_type != null ||
-                        data.changesPos.l10n_cl_activity_description != null){
+                        data.changesPos.l10n_cl_activity_description != null && this.verifyCustomerSelected()){
                         if(this.state.selectedClient != null){
                             console.log("!editar");
                             try{
@@ -78,7 +107,7 @@ odoo.define('ccu_pos.ClientListScreenValidate', function (require) {
                                     //     error = true;
                                     // }
                                 });
-                                this.controlClienterPos.guardado = true;
+                                this.controlClienterPos.saved_customer = true;
                             }catch (error){
                                 // if (error.message != < 0) {
                                     this.showPopup('ErrorPopup', { body: 'No se puede guardar el cliente' });
@@ -103,7 +132,7 @@ odoo.define('ccu_pos.ClientListScreenValidate', function (require) {
                                     //     console.log("error!!!");
                                     // }
                                 });
-                                this.controlClienterPos.guardado = true;
+                                this.controlClienterPos.saved_customer = true;
                             }catch (error){
                                 // if (error.message.code < 0) {
                                     this.showPopup('ErrorPopup', { body: 'No se puede guardar el cliente' });
@@ -116,11 +145,11 @@ odoo.define('ccu_pos.ClientListScreenValidate', function (require) {
                     }else{
 				        this.showPopup('ErrorPopup', { body: 'Debe ingresar los campos obligatorios.' });
                     }
-                    if(this.controlClienterPos.guardado){
+                    if(this.controlClienterPos.saved_customer){
                         alert('Cliente guardado exitosamente.');
                     }
                 }else{
-				    if(this.controlClienterPos.guardado){
+				    if(this.controlClienterPos.saved_customer){
 				        this.showPopup('ErrorPopup', { body: 'Cliente ya esta en la base de datos.' });
                     }else{
 				        this.showPopup('ErrorPopup', { body: 'No se pueden guardar los cambios por falta de información.' });
