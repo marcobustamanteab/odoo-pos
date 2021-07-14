@@ -27,6 +27,7 @@
         "data/jobs.xml",
         "data/automated_actions.xml",
         "views/res_company.xml",
+        "views/res_partner.xml",
     ],
     "development_status": "Beta",
     "maintainers": ["dclaver"],
