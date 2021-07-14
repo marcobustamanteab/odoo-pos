@@ -5,3 +5,4 @@ from . import account_journal
 from . import account_move
 from . import crm_team
 from . import res_company
+from . import res_partner

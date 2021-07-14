@@ -25,7 +25,7 @@ class AccountMove(models.Model):
         fecha_AAAAMMDD = str((year * 10000) + (month * 100) + day)
         year, month, day, hour, min = map(int, self.date.strftime("%Y %m %d %H %M").split())
         fecha_dcto = str((year * 10000) + (month * 100) + day)
-        branch_ccu_code = self.create_uid.sale_team_id.branch_ccu_code
+        branch_ccu_code = self.invoice_user_id.sale_team_id.branch_ccu_code
 
         pos_order = self.env['pos.order'].search([('name', '=ilike', self.ref)], limit=1)
         transbak_id = self.env['pos.payment'].search([('pos_order_id', '=', pos_order.id)], limit=1).transaction_id
@@ -73,13 +73,14 @@ class AccountMove(models.Model):
                 base_amt = line.amount_currency or (line.debit - line.credit)
                 line_currency = line.company_currency_id
                 line_amt = (line.debit - line.credit)
+
                 cost_center = ''
                 if line.account_id.send_cost_center:
-                    cost_center = line.move_id.company_id.cost_center_code
+                    cost_center = line.partner_id.cost_center_code
 
                 profit_center = ''
                 if line.account_id.send_profit_center:
-                    profit_center = line.move_id.company_id.profit_center_code
+                    profit_center = self.invoice_user_id.sale_team_id.profit_center_code
 
                 payload_lines.append({
                     "ITEMNO": str(i),

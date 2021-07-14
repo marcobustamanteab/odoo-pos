@@ -5,6 +5,7 @@
     "category": "Localization",
     "summary": "Send Odoo accounting entries to the bus.",
     "depends": [
+        "base",
         "queue_job",
         "connector",
         "base_rest",
