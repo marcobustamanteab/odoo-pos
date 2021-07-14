@@ -29,7 +29,7 @@ class AccountMove(models.Model):
 
         pos_order = self.env['pos.order'].search([('name', '=ilike', self.ref)], limit=1)
         transbak_id = self.env['pos.payment'].search([('pos_order_id', '=', pos_order.id)], limit=1).transaction_id
-        text = self.ref or ''
+        text = self.ref or self.name or ''
 
         if transbak_id:
             text += ' - TRANSBANK_ID: ' + transbak_id
