@@ -11,70 +11,68 @@
    <t t-name="ClientDetailsEdit" t-inherit="point_of_sale.ClientDetailsEdit" t-inherit-mode="extension" owl="1">
         <xpath expr="//div[hasclass('client-details-left')]" position="replace">
             <div class="client-details-left">
-                <div class="client-detail">
-                    <span class="label">Calle *</span>
-                    <input class="detail client-address-street" name="street"
-                           t-on-change="captureChange2" t-att-value="props.partner.street || ''"
-                           placeholder="Street" />
-                </div>
-                <div class="client-detail">
-                    <span class="label">Ciudad *</span>
-                    <input class="detail client-address-city" name="city"
-                           t-on-change="captureChange2" t-att-value="props.partner.city || ''"
-                           placeholder="City" />
-                </div>
-                <div class="client-detail">
-                    <span class="label">Comuna *</span>
-                    <select class="detail client-address-states needsclick" name="state_id"
-                            t-on-change="captureChange2" disable="true">
-                        <option value="">None</option>
-<!--                        <option value=""><t t-esc="customerTrx"/></option>-->
-<!--                            chile_id = 46-->
-<!--                        <t t-if="props.partner.is_company">-->
+                    <div class="client-detail">
+                        <span class="label">Calle *</span>
+                        <input class="detail client-address-street" name="street"
+                               t-on-change="captureChange" t-att-value="props.partner.street || ''"
+                               placeholder="Street" />
+                    </div>
+                    <div class="client-detail">
+                        <span class="label">Ciudad *</span>
+                        <input class="detail client-address-city" name="city"
+                               t-on-change="captureChange" t-att-value="props.partner.city || ''"
+                               placeholder="City" />
+                    </div>
+                    <div class="client-detail">
+                        <span class="label">Comuna *</span>
+                        <select class="detail client-address-states needsclick" name="state_id"
+                                t-on-change="captureChange">
+                            <option value="">None</option>
                             <t t-foreach="env.pos.states" t-as="state" t-key="state.id">
                                 <option t-if="props.partner.country_id[0] == state.country_id[0]"
                                         t-att-value="state.id"
                                         t-att-selected="props.partner.state_id ? ((state.id === props.partner.state_id[0]) ? true : undefined) : undefined">
                                     <t t-esc="state.name" />
                                 </option>
+                                <option t-if="props.partner.country_id[0] != state.country_id[0]"
+                                        t-att-value="state.id"
+                                        t-att-selected="props.partner.state_id ? ((state.id === props.partner.state_id[0]) ? true : undefined) : undefined">
+                                    <t t-esc="state.name" />
+                                </option>
                             </t>
-<!--                        </t>-->
-                    </select>
-                </div>
-                <div class="client-detail">
-                    <span class="label">Pais *</span>
-                    <select class="detail client-address-country needsclick" name="country_id"
-                            t-on-change="captureChange2" disable="true">
-<!--                    <select class="detail client-address-country needsclick" name="country_id"-->
-<!--                            t-on-change="(props.partner.country_id[0] == env.state.country_id[0]) ? captureChange : refreshStatesPos">-->
-                        <option value="">None</option>
-                        <t t-foreach="env.pos.countries" t-as="country" t-key="country.id">
-                            <option t-att-value="country.id"
-                                    t-att-selected="props.partner.country_id ? ((country.id === props.partner.country_id[0]) ? true : undefined) : undefined">
-                                <t t-esc="country.name" />
-                            </option>
-                        </t>
-                    </select>
-                </div>
-               <div class="client-detail">
-                    <span class="label">Tipo de Contribuyente * </span>
-                    <select class="detail client-address-states needsclick" name="l10n_cl_sii_taxpayer_type"
-                            t-on-change="captureChange2">
-                        <option value="">Seleccione Tipo</option>
-                        <t t-foreach="props.parameters.taxpayer" t-as="tax" t-key="tax.value">
-                            <option t-att-value="tax.value"
-                                    t-att-selected="props.partner.l10n_cl_sii_taxpayer_type > 0 ? ((tax.value === props.partner.l10n_cl_sii_taxpayer_type) ? true : undefined) : undefined">
-                                <t t-esc="tax.name" />
-                            </option>
-                        </t>
-                    </select>
-                </div>
-                <div class="client-detail">
-                    <span class="label">Giro * </span>
-                    <input class="detail client-address-street" name="l10n_cl_activity_description"
-                                                   t-on-change="captureChange2" t-att-value="props.partner.l10n_cl_activity_description || ''"
-                                                   placeholder="Giro" />
-                </div>
+                        </select>
+                    </div>
+                    <div class="client-detail">
+                        <span class="label">País *</span>
+                        <select class="detail client-address-country needsclick" name="country_id"
+                                t-on-change="captureChange">
+                            <option value="">None</option>
+                            <t t-foreach="env.pos.countries" t-as="country" t-key="country.id">
+                                <option t-att-value="country.id"
+                                        t-att-selected="props.partner.country_id ? ((country.id === props.partner.country_id[0]) ? true : undefined) : undefined">
+                                    <t t-esc="country.name" />
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+                   <div class="client-detail">
+                        <span class="label">Tipo de Contribuyente * </span>
+                        <select class="detail client-address-states needsclick" name="l10n_cl_sii_taxpayer_type"
+                                t-on-change="captureChange">
+                            <t t-foreach="props.parameters.taxpayer" t-as="tax" t-key="tax.value">
+                                <option t-att-value="tax.value"
+                                        t-att-selected="props.partner.l10n_cl_sii_taxpayer_type ? ((tax.value === props.partner.l10n_cl_sii_taxpayer_type) ? true : undefined) : undefined">
+                                    <t t-esc="tax.name" />
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+                    <div class="client-detail">
+                        <span class="label">Giro * </span>
+                        <input class="detail client-address-street" name="l10n_cl_activity_description"
+                                                       t-on-change="captureChange" t-att-value="props.partner.l10n_cl_activity_description || ''"
+                                                       placeholder="Giro" />
+                    </div>
             </div>
         </xpath>
     </t>
@@ -82,35 +80,39 @@
    <t t-name="ClientDetailsEdit" t-inherit="point_of_sale.ClientDetailsEdit" t-inherit-mode="extension" owl="1">
         <xpath expr="//div[hasclass('client-details-right')]" position="replace">
             <div class="client-details-right">
-                <div class="client-detail">
-                    <span class="label">Email DTE *</span>
-                    <input class="detail client-email" name="email" type="email"
-                           t-on-change="captureChange2"
-                           t-att-value="props.partner.email || ''" />
-                </div>
-                <div class="client-detail">
-                    <span class="label">Celular *</span>
-                    <input class="detail client-phone" name="mobile" type="tel"
-                           t-on-change="captureChange2"
-                           t-att-value="props.partner.mobile || ''" />
-                </div>
-                <div class="client-detail">
-                    <span class="label">Telefono *</span>
-                    <input class="detail client-phone" name="phone" type="tel"
-                           t-on-change="captureChange2"
-                           t-att-value="props.partner.phone || ''" />
-                </div>
-                <div class="client-detail">
-                    <span class="label">RUT
-                            *
-                    </span>
-                    <input class="detail vat" name="vat" t-on-change="captureChange2"
-                           t-att-value="props.partner.vat || ''" />
-                </div>
-                <div class="client-detail">
-                    <span class="label">Fecha de Nacimiento</span>
-                    <input type="date" name="dob" t-on-change="captureChange2" t-att-value="props.partner.dob || ''"/>
-                </div>
+                    <div class="client-detail">
+                        <span class="label">Email</span>
+                        <input class="detail client-email" name="email" type="email"
+                               t-on-change="captureChange"
+                               t-att-value="props.partner.email || ''" />
+                    </div>
+                    <div class="client-detail">
+                        <span class="label">Email DTE *</span>
+                        <input class="detail client-email" name="l10n_cl_dte_email" type="email"
+                               t-on-change="captureChange"
+                               t-att-value="props.partner.l10n_cl_dte_email || ''" />
+                    </div>
+                    <div class="client-detail">
+                        <span class="label">Teléfono *</span>
+                        <input class="detail client-phone" name="phone" type="tel"
+                               t-on-change="captureChange"
+                               t-att-value="props.partner.phone || ''" />
+                    </div>
+                    <div class="client-detail">
+                        <span class="label">Celular *</span>
+                        <input class="detail client-phone" name="mobile" type="tel"
+                               t-on-change="captureChange"
+                               t-att-value="props.partner.mobile || ''" />
+                    </div>
+                    <div class="client-detail">
+                        <span class="label">Rut *</span>
+                        <input class="detail vat" name="vat" t-on-change="captureChange"
+                               t-att-value="props.partner.vat || ''" />
+                    </div>
+                    <div class="client-detail">
+                        <span class="label">Fecha de Nacimiento *</span>
+                        <input type="date" name="dob" t-on-change="captureChange" t-att-value="props.partner.dob || ''"/>
+                    </div>
             </div>
         </xpath>
     </t>
