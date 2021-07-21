@@ -28,6 +28,9 @@ class ProductTemplate(models.Model):
             products = self.env['sale.order.line'].sudo().search([('product_id', 'in', variants)])
             if len(products):
                 rec.product_used = True
+            products = self.env['stock.inventory.line'].sudo().search([('product_id', 'in', variants)])
+            if len(products):
+                rec.product_used = True
 
     def write(self, values):
         if 'list_price' in values:
