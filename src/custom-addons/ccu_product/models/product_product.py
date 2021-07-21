@@ -23,7 +23,6 @@ class ProductProduct(models.Model):
             products = self.env['stock.inventory.line'].sudo().search([('product_id', '=', rec.id)])
             if len(products):
                 rec.product_used = True
-
     
     def get_available_stock(self):
         return self.virtual_available - self.min_stock
