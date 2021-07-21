@@ -12,6 +12,7 @@
     "website": "https://www.ccu.cl",
     "depends": [
         "product",
+        "account",
     ],
     'data': [
         'data/product_pricelist.xml',

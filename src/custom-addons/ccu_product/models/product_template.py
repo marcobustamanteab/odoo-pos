@@ -4,13 +4,30 @@ from odoo import fields, models
 from datetime import date, datetime
 from calendar import monthrange
 
+
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
-    
-    reference_price = fields.Float(string="Precio de Referencia", digits=(8,1),
-                                     required=False, help="Precio de Mercado del producto")
+
+    reference_price = fields.Float(string="Precio de Referencia", digits=(8, 1),
+                                   required=False, help="Precio de Mercado del producto")
     alcohol_grade = fields.Float("Alcohol Grade")
     alternative_barcode = fields.Char("Alternative Barcode")
+    product_used = fields.Boolean("Product Used", compute="_compute_product_used")
+
+    def _compute_product_used(self):
+        for rec in self:
+            variants = self.env['product.product'].search([('product_tmpl_id', '=', rec.id)]).mapped('id')
+            print(["VARIANTES", variants])
+            products = self.env['account.move.line'].sudo().search([('product_id', 'in', variants)])
+            rec.product_used = False
+            if len(products):
+                rec.product_used = True
+            products = self.env['pos.order.line'].sudo().search([('product_id', 'in', variants)])
+            if len(products):
+                rec.product_used = True
+            products = self.env['sale.order.line'].sudo().search([('product_id', 'in', variants)])
+            if len(products):
+                rec.product_used = True
 
     def write(self, values):
         if 'list_price' in values:
@@ -18,13 +35,13 @@ class ProductTemplate(models.Model):
                 values['is_published'] = False
         res = super(ProductTemplate, self).write(values)
         return res
-    
+
     def _get_limit_date_buy_max(self, item):
         if item.max_qty_options == 'Monthly':
             today = datetime.today()
             last_day_month = monthrange(today.year, today.month)[1]
-            beginning = today.replace(day = 1)
-            end = today.replace(day = last_day_month)
+            beginning = today.replace(day=1)
+            end = today.replace(day=last_day_month)
         elif item.max_qty_options == 'Daily':
             today = datetime.today()
             beginning = datetime(today.year, today.month, today.day)
@@ -37,15 +54,17 @@ class ProductTemplate(models.Model):
     def _calculate_limit_amount_purchase(self, pricelist_items, partner):
         if len(pricelist_items) > 0 and pricelist_items[0].max_quantity_check:
             item = pricelist_items[0]
-            if item.max_qty_options == 'Custom' and not (item.max_qty_init_date <= datetime.today() and datetime.today() <= item.max_qty_end_date):
+            if item.max_qty_options == 'Custom' and not (
+                    item.max_qty_init_date <= datetime.today() and datetime.today() <= item.max_qty_end_date):
                 return {'bought': 0, 'left': 'dont-apply'}
             max_quantity = item.max_quantity
             beginning, end = self._get_limit_date_buy_max(item)
-            orders = partner.sale_order_ids.filtered(lambda x: 
-                x.state in ['sale', 'done'] and x.date_order >= beginning and x.date_order <= end
-            ).ids
+            orders = partner.sale_order_ids.filtered(lambda x:
+                                                     x.state in ['sale',
+                                                                 'done'] and x.date_order >= beginning and x.date_order <= end
+                                                     ).ids
             lines = self.env['sale.order.line'].search([
-                ('order_partner_id', '=', partner.id), 
+                ('order_partner_id', '=', partner.id),
                 ('order_id', 'in', orders),
                 ('product_id', '=', self.product_variant_ids.id)
             ])
@@ -61,4 +80,4 @@ class ProductTemplate(models.Model):
             '|', ('product_id', '=', self.product_variant_ids.id),
             ('product_tmpl_id', '=', self.id)
         ])
-        return self._calculate_limit_amount_purchase(pricelist_items, partner)        
+        return self._calculate_limit_amount_purchase(pricelist_items, partner)
