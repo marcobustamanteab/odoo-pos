@@ -10,6 +10,7 @@ class ProductTemplate(models.Model):
     reference_price = fields.Float(string="Precio de Referencia", digits=(8,1),
                                      required=False, help="Precio de Mercado del producto")
     alcohol_grade = fields.Float("Alcohol Grade")
+    alternative_barcode = fields.Char("Alternative Barcode")
 
     def write(self, values):
         if 'list_price' in values:
