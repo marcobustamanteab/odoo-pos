@@ -22,7 +22,9 @@ odoo.define('ccu_pos.ClientDetailsEdit', function (require) {
                 };
                 this.props.clientePos = this.clientePos;
                 this.props.parameters = this.config();
-                // this.readCustomerExtra(this.props.partner);
+                if(this.props.partner.l10n_cl_sii_taxpayer_type != '' && this.props.partner.l10n_cl_sii_taxpayer_type){
+                    this.props.partner.l10n_cl_sii_taxpayer_type = parseInt(this.props.partner.l10n_cl_sii_taxpayer_type);
+                }
             }
             mounted() {
                 this.env.bus.on('prepare-customer-pos', this, this.saveCustomerPos);
@@ -33,6 +35,10 @@ odoo.define('ccu_pos.ClientDetailsEdit', function (require) {
             config(){
                return {
                     'taxpayer' : [
+                        {
+                            'name' : 'Seleccione Tipo',
+                            'value': 0
+                        },
                         {
                             'name' : 'IVA afecto 1ª categoría',
                             'value': 1
@@ -88,8 +94,21 @@ odoo.define('ccu_pos.ClientDetailsEdit', function (require) {
             }
 
             saveCustomerPos(event) {
-                console.log('holanda');
-                let processedChanges = this.clientePos;
+                let processedChanges = {};
+                for (let [key, value] of Object.entries(this.changes)) {
+                    if (this.intFields.includes(key)) {
+                        processedChanges[key] = parseInt(value) || false;
+                    } else {
+                        processedChanges[key] = value;
+                    }
+                }
+                if ((!this.props.partner.name && !processedChanges.name) ||
+                    processedChanges.name === '' ){
+                    return this.showPopup('ErrorPopup', {
+                      title: _t('A Customer Name Is Required'),
+                    });
+                }
+                processedChanges.id = this.props.partner.id || false;
                 this.trigger('save-customer-pos', { processedChanges } );
             }
             readCustomerExtra(part){
