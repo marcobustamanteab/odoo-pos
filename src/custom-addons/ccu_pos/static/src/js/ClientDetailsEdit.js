@@ -3,6 +3,7 @@ odoo.define('ccu_pos.ClientDetailsEdit', function (require) {
 
     var models = require('point_of_sale.models');
 
+    const { _t } = require('web.core');
     const { useListener } = require('web.custom_hooks');
     const ClientDetailsEdit = require('point_of_sale.ClientDetailsEdit');
     const Registries = require('point_of_sale.Registries');
@@ -111,7 +112,7 @@ odoo.define('ccu_pos.ClientDetailsEdit', function (require) {
                 if ((!this.props.partner.name && !processedChanges.name) ||
                     processedChanges.name === '' ){
                     return this.showPopup('ErrorPopup', {
-                      title: _t('A Customer Name Is Required'),
+                      title: _t('Debe ingresar un nombre del cliente'),
                     });
                 }
                 processedChanges.id = this.props.partner.id || false;
