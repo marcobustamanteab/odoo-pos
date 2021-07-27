@@ -69,29 +69,29 @@ odoo.define('ccu_pos.ClientListScreenValidate', function (require) {
                     // context.l10n_cl_sii_taxpayer_type === null || context.l10n_cl_sii_taxpayer_type === '' || context.l10n_cl_sii_taxpayer_type ? console.log('verificacion saved 10 ') : nameVerified[nameVerified.length] = 'Tipo Contribuyente';
                     // context.l10n_cl_activity_description === null || context.l10n_cl_activity_description === '' || context.l10n_cl_activity_description ? console.log('verificacion saved 11 ') : nameVerified[nameVerified.length] = 'Giro';
 
-                    context.phone ? valueTel ? nameVerified[nameVerified.length] = 'Telefono' : nameVerified[nameVerified.length] = 'Telefono-1' : nameVerified[nameVerified.length] = 'Telefono-1';
-                    context.mobile ? valueCel ? nameVerified[nameVerified.length] = 'Celular' : nameVerified[nameVerified.length] = 'Celular-1' : nameVerified[nameVerified.length] = 'Celular-1';
-                    context.l10n_cl_dte_email ? valueEmail ? nameVerified[nameVerified.length] = 'Email_DTE' : nameVerified[nameVerified.length] = 'Email_DTE-1' :  nameVerified[nameVerified.length] = 'Email_DTE-1';
-                    context.street ? nameVerified[nameVerified.length] = 'Calle' : nameVerified[nameVerified.length] = 'Calle-1';
-                    context.city ? nameVerified[nameVerified.length] = 'Ciudad' : nameVerified[nameVerified.length] = 'Ciudad-1';
-                    context.country_id ? nameVerified[nameVerified.length] = 'Pais' : nameVerified[nameVerified.length] = 'Pais-1';
-                    context.state_id ? nameVerified[nameVerified.length] = 'Comuna' : nameVerified[nameVerified.length] = 'Comuna-1';
-                    context.vat ? valueRut ? nameVerified[nameVerified.length] = 'RUT' : nameVerified[nameVerified.length] = 'RUT-1' : nameVerified[nameVerified.length] = 'RUT-1';
-                    context.dob ? nameVerified[nameVerified.length] = 'Fecha de Nacimiento' : nameVerified[nameVerified.length] = 'Fecha de Nacimiento-1';
-                    context.l10n_cl_sii_taxpayer_type ? nameVerified[nameVerified.length] = 'Tipo Contribuyente' : nameVerified[nameVerified.length] = 'Tipo Contribuyente-1';
-                    context.l10n_cl_activity_description ? nameVerified[nameVerified.length] = 'Giro': nameVerified[nameVerified.length] = 'Giro-1';
+                    context.phone ? valueTel ? nameVerified[nameVerified.length] = 'Telefono' : nameVerified[nameVerified.length] = 'Telefono-Formato' : nameVerified[nameVerified.length] = 'Telefono-Formato';
+                    context.mobile ? valueCel ? nameVerified[nameVerified.length] = 'Celular' : nameVerified[nameVerified.length] = 'Celular-Formato' : nameVerified[nameVerified.length] = 'Celular-Formato';
+                    context.l10n_cl_dte_email ? valueEmail ? nameVerified[nameVerified.length] = 'Email_DTE' : nameVerified[nameVerified.length] = 'Email_DTE-Formato' :  nameVerified[nameVerified.length] = 'Email_DTE-Formato';
+                    context.street ? nameVerified[nameVerified.length] = 'Calle' : nameVerified[nameVerified.length] = 'Calle-Formato';
+                    context.city ? nameVerified[nameVerified.length] = 'Ciudad' : nameVerified[nameVerified.length] = 'Ciudad-Formato';
+                    context.country_id ? nameVerified[nameVerified.length] = 'Pais' : nameVerified[nameVerified.length] = 'Pais-Formato';
+                    context.state_id ? nameVerified[nameVerified.length] = 'Comuna' : nameVerified[nameVerified.length] = 'Comuna-Formato';
+                    context.vat ? valueRut ? nameVerified[nameVerified.length] = 'RUT' : nameVerified[nameVerified.length] = 'RUT-Formato' : nameVerified[nameVerified.length] = 'RUT-Formato';
+                    context.dob ? nameVerified[nameVerified.length] = 'Fecha de Nacimiento' : nameVerified[nameVerified.length] = 'Fecha de Nacimiento-Formato';
+                    context.l10n_cl_sii_taxpayer_type ? nameVerified[nameVerified.length] = 'Tipo Contribuyente' : nameVerified[nameVerified.length] = 'Tipo Contribuyente-Formato';
+                    context.l10n_cl_activity_description ? nameVerified[nameVerified.length] = 'Giro': nameVerified[nameVerified.length] = 'Giro-Formato';
                     }else{
-                        nameVerified[nameVerified.length] = 'Telefono-1';
-                        nameVerified[nameVerified.length] = 'Celular-1';
-                        nameVerified[nameVerified.length] = 'Email_DTE-1';
-                        nameVerified[nameVerified.length] = 'Calle-1';
-                        nameVerified[nameVerified.length] = 'Ciudad-1';
-                        nameVerified[nameVerified.length] = 'Pais-1';
-                        nameVerified[nameVerified.length] = 'Comuna-1';
-                        nameVerified[nameVerified.length] = 'RUT-1';
-                        nameVerified[nameVerified.length] = 'Fecha de Nacimiento-1';
-                        nameVerified[nameVerified.length] = 'Tipo Contribuyente-1';
-                        nameVerified[nameVerified.length] = 'Giro-1';
+                        nameVerified[nameVerified.length] = 'Telefono-Formato';
+                        nameVerified[nameVerified.length] = 'Celular-Formato';
+                        nameVerified[nameVerified.length] = 'Email_DTE-Formato';
+                        nameVerified[nameVerified.length] = 'Calle-Formato';
+                        nameVerified[nameVerified.length] = 'Ciudad-Formato';
+                        nameVerified[nameVerified.length] = 'Pais-Formato';
+                        nameVerified[nameVerified.length] = 'Comuna-Formato';
+                        nameVerified[nameVerified.length] = 'RUT-Formato';
+                        nameVerified[nameVerified.length] = 'Fecha de Nacimiento-Formato';
+                        nameVerified[nameVerified.length] = 'Tipo Contribuyente-Formato';
+                        nameVerified[nameVerified.length] = 'Giro-Formato';
                 }
                 nameVerified.length === 0 ? verified = true : verified = false;
                 return { 'verified' : verified, 'nameVerified' : nameVerified};
@@ -118,9 +118,9 @@ odoo.define('ccu_pos.ClientListScreenValidate', function (require) {
                 console.log('ver rut -> ' + data.vat);
                 if(data != null){
                     // data.phone === null || data.phone === '' || data.phone === undefined ? console.log(1) : (isNaN(parseInt(data.phone)) ? nameVerified[nameVerified.length] = 'Telefono-1' : nameVerified[nameVerified.length] = 'Telefono');
-                    data.phone === null || data.phone === '' || data.phone === undefined ? console.log('verificacion changed 1') : valueTel ? nameVerified[nameVerified.length] = 'Telefono' : nameVerified[nameVerified.length] = 'Telefono-1';
-                    data.mobile === null || data.mobile === '' || data.mobile === undefined ? console.log('verificacion changed 2') : valueCel ? nameVerified[nameVerified.length] = 'Celular' : nameVerified[nameVerified.length] = 'Celular-1';
-                    data.l10n_cl_dte_email === null || data.l10n_cl_dte_email === '' || data.l10n_cl_dte_email === undefined ? console.log('verificacion changed 3') : valueEmail ? nameVerified[nameVerified.length] = 'Email_DTE' : 'Email_DTE-1';
+                    data.phone === null || data.phone === '' || data.phone === undefined ? console.log('verificacion changed 1') : valueTel ? nameVerified[nameVerified.length] = 'Telefono' : nameVerified[nameVerified.length] = 'Telefono-Formato';
+                    data.mobile === null || data.mobile === '' || data.mobile === undefined ? console.log('verificacion changed 2') : valueCel ? nameVerified[nameVerified.length] = 'Celular' : nameVerified[nameVerified.length] = 'Celular-Formato';
+                    data.l10n_cl_dte_email === null || data.l10n_cl_dte_email === '' || data.l10n_cl_dte_email === undefined ? console.log('verificacion changed 3') : valueEmail ? nameVerified[nameVerified.length] = 'Email_DTE' : 'Email_DTE-Formato';
                     data.street === null || data.street === '' || data.street === undefined ? console.log('verificacion changed 4') : nameVerified[nameVerified.length] = 'Calle';
                     data.city === null || data.city === '' || data.city === undefined ? console.log('verificacion changed 5') : nameVerified[nameVerified.length] = 'Ciudad';
                     data.country_id === null || data.country_id === '' || data.country_id === undefined || data.country_id === false? console.log('verificacion changed 6') : nameVerified[nameVerified.length] = 'Pais';
