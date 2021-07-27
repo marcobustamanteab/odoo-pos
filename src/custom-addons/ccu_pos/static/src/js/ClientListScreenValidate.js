@@ -18,7 +18,6 @@ odoo.define('ccu_pos.ClientListScreenValidate', function (require) {
                     'saved_customer' : false,
                     'last_save_customer' : null
                 };
-                // this.verifySavedCustomer();
             }
             clickRefresh(){
                 var domain = [];
@@ -37,9 +36,7 @@ odoo.define('ccu_pos.ClientListScreenValidate', function (require) {
                     }
                 });
                 this.env.pos.partners = partners;
-                // this.env.pos.partners = transp;
                 this.render();
-                // create_from_ui
             }
             get refreshButton(){
                 return { command: 'refresh', text: 'Refrescar Cliente' };
@@ -57,18 +54,6 @@ odoo.define('ccu_pos.ClientListScreenValidate', function (require) {
                     let valueTel = rgTel.test(context.phone);
                     let valueCel = rgTel.test(context.mobile);
                     let valueRut = rgRut.test(context.vat);
-                    // context.phone === null || context.phone === '' || context.phone === false? console.log('verificacion saved 1 ') : valueTel ? nameVerified[nameVerified.length] = 'Telefono' : nameVerified[nameVerified.length] = 'Telefono-1';
-                    // context.mobile === null || context.mobile === '' || context.mobile === false ? console.log('verificacion saved 2 ') : valueCel ? nameVerified[nameVerified.length] = 'Celular' : nameVerified[nameVerified.length] = 'Celular-1';
-                    // context.l10n_cl_dte_email === null || context.l10n_cl_dte_email === '' || context.l10n_cl_dte_email ? console.log('verificacion saved 3 ') : valueEmail ? nameVerified[nameVerified.length] = 'Email_DTE' : nameVerified[nameVerified.length] = 'Email_DTE-1';
-                    // context.street === null || context.street === '' || context.street ? console.log('verificacion saved 4 ') : nameVerified[nameVerified.length] = 'Calle'
-                    // context.city === null || context.city === '' || context.city ? console.log('verificacion saved 5 ') : nameVerified[nameVerified.length] = 'Ciudad';
-                    // context.country_id === null || context.country_id === '' || context.country_id ? console.log('verificacion saved 6 ') : nameVerified[nameVerified.length] = 'Pais';
-                    // context.state_id === null || context.state_id === '' || context.state_id ? console.log('verificacion saved 7 ') : nameVerified[nameVerified.length] = 'Comuna';
-                    // context.vat === null || context.vat === '' || context.vat ? console.log('verificacion saved 8 ') : valueRut ? nameVerified[nameVerified.length] = 'RUT' : nameVerified[nameVerified.length] = 'RUT-1';
-                    // context.dob === null || context.dob === '' || context.dob ? console.log('verificacion saved 9 ') : nameVerified[nameVerified.length] = 'Fecha de Nacimiento';
-                    // context.l10n_cl_sii_taxpayer_type === null || context.l10n_cl_sii_taxpayer_type === '' || context.l10n_cl_sii_taxpayer_type ? console.log('verificacion saved 10 ') : nameVerified[nameVerified.length] = 'Tipo Contribuyente';
-                    // context.l10n_cl_activity_description === null || context.l10n_cl_activity_description === '' || context.l10n_cl_activity_description ? console.log('verificacion saved 11 ') : nameVerified[nameVerified.length] = 'Giro';
-
                     context.phone ? valueTel ? nameVerified[nameVerified.length] = 'Telefono' : nameVerified[nameVerified.length] = 'Telefono-Formato' : nameVerified[nameVerified.length] = 'Telefono-Formato';
                     context.mobile ? valueCel ? nameVerified[nameVerified.length] = 'Celular' : nameVerified[nameVerified.length] = 'Celular-Formato' : nameVerified[nameVerified.length] = 'Celular-Formato';
                     context.l10n_cl_dte_email ? valueEmail ? nameVerified[nameVerified.length] = 'Email_DTE' : nameVerified[nameVerified.length] = 'Email_DTE-Formato' :  nameVerified[nameVerified.length] = 'Email_DTE-Formato';
