@@ -35,8 +35,8 @@
                                     <t t-esc="state.name" />
                                 </option>
                                 <option t-if="props.partner.country_id[0] != state.country_id[0]"
-                                        t-att-value="state.id"
-                                        t-att-selected="props.partner.state_id ? ((state.id === props.partner.state_id[0]) ? true : undefined) : undefined">
+                                        t-att-value="state.id">
+<!--                                        t-att-selected="props.partner.state_id ? ((state.id === props.partner.state_id[0]) ? true : undefined) : undefined">-->
                                     <t t-esc="state.name" />
                                 </option>
                             </t>
@@ -96,13 +96,13 @@
                         <span class="label">Teléfono *</span>
                         <input class="detail client-phone" name="phone" type="tel"
                                t-on-change="captureChange"
-                               t-att-value="props.partner.phone || ''" />
+                               t-att-value="props.partner.phone || ''" maxlength="9"/>
                     </div>
                     <div class="client-detail">
                         <span class="label">Celular *</span>
                         <input class="detail client-phone" name="mobile" type="tel"
                                t-on-change="captureChange"
-                               t-att-value="props.partner.mobile || ''" />
+                               t-att-value="props.partner.mobile || ''" maxlength="9"/>
                     </div>
                     <div class="client-detail">
                         <span class="label">Rut *</span>

@@ -25,6 +25,12 @@ odoo.define('ccu_pos.ClientDetailsEdit', function (require) {
                 if(this.props.partner.l10n_cl_sii_taxpayer_type != '' && this.props.partner.l10n_cl_sii_taxpayer_type){
                     this.props.partner.l10n_cl_sii_taxpayer_type = parseInt(this.props.partner.l10n_cl_sii_taxpayer_type);
                 }
+                let objLength = Object.keys(this.props.partner).length;
+                if(objLength === 2 && this.props.partner.country_id[0] === 46 && this.props.partner.state_id[0] === 1183){
+                    console.log('validacion cliente nuevo ');
+                    this.props.partner.country_id = false;
+                    this.props.partner.state_id = false;
+                }
             }
             mounted() {
                 this.env.bus.on('prepare-customer-pos', this, this.saveCustomerPos);

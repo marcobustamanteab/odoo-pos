@@ -47,12 +47,13 @@ odoo.define('ccu_pos.ClientListScreenValidate', function (require) {
                 let context = this.state.selectedClient;
                 const rgEmail = /[\w._%+-]+@[\w.-]+\.[a-zA-Z]{2,4}/g;
                 const rgTel = /[0-9]{9}/g;
+                const rgCel = /[0-9]{9}/g;
                 const rgRut = /^[0-9]+-[0-9kK]{1}$/g;
 
                 if(context != null){
                     let valueEmail = rgEmail.test(context.l10n_cl_dte_email);
                     let valueTel = rgTel.test(context.phone);
-                    let valueCel = rgTel.test(context.mobile);
+                    let valueCel = rgCel.test(context.mobile);
                     let valueRut = rgRut.test(context.vat);
                     context.phone ? valueTel ? nameVerified[nameVerified.length] = 'Telefono' : nameVerified[nameVerified.length] = 'Telefono-Formato' : nameVerified[nameVerified.length] = 'Telefono-Formato';
                     context.mobile ? valueCel ? nameVerified[nameVerified.length] = 'Celular' : nameVerified[nameVerified.length] = 'Celular-Formato' : nameVerified[nameVerified.length] = 'Celular-Formato';
@@ -113,7 +114,7 @@ odoo.define('ccu_pos.ClientListScreenValidate', function (require) {
                     data.vat === null || data.vat === '' || data.vat === undefined ? console.log('verificacion changed 8') : valueRut ? nameVerified[nameVerified.length] = 'RUT' : nameVerified[nameVerified.length] = 'RUT-1';
                     data.dob === null || data.dob === '' || data.dob === undefined ? console.log('verificacion changed 9') : nameVerified[nameVerified.length] = 'Fecha de Nacimiento';
                     data.l10n_cl_sii_taxpayer_type === null || data.l10n_cl_sii_taxpayer_type === '' || data.l10n_cl_sii_taxpayer_type === undefined ? console.log('verificacion changed 10 ') : nameVerified[nameVerified.length] = 'Tipo Contribuyente';
-                    data.l10n_cl_activity_description === null || data.l10n_cl_activity_description === '' || data.l10n_cl_sii_taxpayer_type === undefined ? console.log('verificacion changed 11') : nameVerified[nameVerified.length] = 'Giro';
+                    data.l10n_cl_activity_description === null || data.l10n_cl_activity_description === '' || data.l10n_cl_activity_description === undefined ? console.log('verificacion changed 11') : nameVerified[nameVerified.length] = 'Giro';
                     }
                 nameVerified.length === 0 ? verified = true : verified = false;
                 return { 'verified' : verified, 'nameVerified' : nameVerified};
