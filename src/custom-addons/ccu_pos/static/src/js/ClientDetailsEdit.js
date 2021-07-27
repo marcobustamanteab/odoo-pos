@@ -7,7 +7,7 @@ odoo.define('ccu_pos.ClientDetailsEdit', function (require) {
     const ClientDetailsEdit = require('point_of_sale.ClientDetailsEdit');
     const Registries = require('point_of_sale.Registries');
 
-    models.load_fields('res.partner',['is_company','l10n_cl_activity_description','gender','dob','age','category','l10n_cl_sii_taxpayer_type']);
+    models.load_fields('res.partner',['is_company','l10n_cl_activity_description','gender','dob','age','category','l10n_cl_sii_taxpayer_type','l10n_cl_dte_email']);
 
     const ClientDetailsEditValidate = ClientDetailsEdit =>
         class extends ClientDetailsEdit {
