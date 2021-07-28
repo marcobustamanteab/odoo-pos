@@ -28,6 +28,7 @@ class AccountMove(models.Model):
         branch_ccu_code = self.invoice_user_id.sale_team_id.branch_ccu_code
 
         pos_order = self.env['pos.order'].search([('name', '=ilike', self.ref)], limit=1)
+        pos_name = pos_order.session_id.config_id.name or ''
         transbak_id = self.env['pos.payment'].search([('pos_order_id', '=', pos_order.id)], limit=1).transaction_id
         text = self.ref or self.name or ''
 
@@ -39,21 +40,41 @@ class AccountMove(models.Model):
                 'User of the movement does not belong to a work team or the team does not have a CCU Center code'
             )
         else:
+            sap_code = self.partner_id.sap_code
+            if not sap_code and self.partner_id:
+                client = self._get_data_client_from_esb(fecha_AAAAMMDD)
+                print(client)
+                if client:
+                    sap_code = self._set_client_sap_code(self.partner_id.id, client['CODE'])
+                else:
+                    # CREAR CLIENTE EN SAP
+                    new_client = self._add_client_to_SAP(fecha_AAAAMMDD, branch_ccu_code)
+                    if new_client:
+                        sap_code = self._set_client_sap_code(self.partner_id.id, new_client['CODE'])
+                    else:
+                        print('ERROR: New Client SAP Error')
+            else:
+                if self.partner_id:
+                    raise ValidationError(
+                        'ERROR in Client Creation of SAP'
+                    )
+                else:
+                    print('Assent without Client')
+
             payload = {
                 "HEADER": {
                     "ID_MENSAJE": sync_uuid,
                     "MENSAJE": "Account Movements from Odoo",
                     "FECHA": fecha_AAAAMMDD,
                     "SOCIEDAD": self.company_id.ccu_business_unit,
-                    "LEGADO": "Odoo",
+                    "LEGADO": "ODOO-POS",
                     "CODIGO_INTERFAZ": "RTR038_Odoo"
                 },
                 "DOCUMENT_POST": {
                     "HEAD": {
-                        "RUTDNI": "",
                         "CENTRO": branch_ccu_code,
                         "FOLIO": self.name,
-                        "CLDOC": self.journal_id.ccu_code, # "IE" tipo de documento
+                        "CLDOC": self.journal_id.ccu_code,
                         "FEDOC": fecha_dcto,
                         "GLOSA": text,
                         "MONTOT": self.amount_total,
@@ -82,15 +103,21 @@ class AccountMove(models.Model):
                 if line.account_id.send_profit_center:
                     profit_center = self.invoice_user_id.sale_team_id.profit_center_code
 
+                MAYOR = "Y" if line.account_id.send_client_sap else 'N'
+
                 payload_lines.append({
                     "ITEMNO": str(i),
-                    "ACCOUNT": line.account_id.ccu_code,
+                    "ACCOUNT": line.account_id.ccu_code or '',
+                    "RUTDNI": line.partner_id.vat or '',
+                    "CODE": line.partner_id.sap_code or '',
+                    "MAYOR": MAYOR,
                     "GLOSA": line.name,
                     "CECO": cost_center,
                     "CEBE": profit_center,
                     "MATERIAL": line.product_id.default_code or '',
                     "CANTIDAD": line.quantity,
-                    "TOTAL": line_amt
+                    "TOTAL": line_amt,
+                    "ASIGGL": pos_name
                 })
 
             # grabo payload y referencia UUID
@@ -104,7 +131,7 @@ class AccountMove(models.Model):
             backend = self.company_id.backend_esb_id
             print(json_object)
             res = backend.api_esb_call("POST", esb_api_endpoint, payload)
-            print(json.dumps(res))
+            print(json.dumps(res, indent=4))
             try:
                 dcto_sap = int(res['mt_response']['respuesta']['documento_sap'])
                 if dcto_sap > 0:
@@ -135,3 +162,131 @@ class AccountMove(models.Model):
             'is_sync': True,
             'sync_reference': message}
         )
+
+    def _set_client_sap_code(self, partner_id, sap_code):
+        vals = {
+            'sap_code': sap_code,
+        }
+        partner = self.env['res.partner'].browse(partner_id)
+        if partner:
+            partner.write(vals)
+            return partner.sap_code
+
+
+    def _get_data_client_from_esb(self, fecha_AAAAMMDD):
+        esb_api_endpoint = "/sap/cliente/consultar"
+
+        payload = {
+            "HEADER": {
+                "ID_MENSAJE": str(uuid.uuid1()),
+                "MENSAJE": "From Odoo POS Client Search",
+                "FECHA": fecha_AAAAMMDD,
+                "SOCIEDAD": self.company_id.ccu_business_unit,
+                "LEGADO": "ODOO-POS",
+                "CODIGO_INTERFAZ": "CREAR_CLIENTE_SAP_PO"
+            },
+            "CLIENTE": {
+                "RUTDNI": self.partner_id.vat,
+                "CENTRO": ""
+            }
+        }
+
+        # invocación al servicio REST
+        backend = self.company_id.backend_esb_id
+        print('BUSCANDO CLIENTE EN SAP...')
+        print(json.dumps(payload, indent=4))
+        res = backend.api_esb_call("POST", esb_api_endpoint, payload)
+        print(json.dumps(res, indent=4))
+        # solo si respuesta tiene datos proceso con la syncronización
+        if res:
+            resp = res['mt_response']['Result']
+            if resp == 'Y':
+                name = res['mt_response']['BP']['BP']['NOMBRE']
+                _logger.info(
+                    'Client exist: ',
+                    name)
+                sap_client = {
+                    'RUT': res['mt_response']['BP']['BP']['RUTDNI'],
+                    'CODE': res['mt_response']['BP']['BP']['CODE']
+                }
+                return sap_client
+            else:
+                print('Client NOT exist')
+                return False
+        else:
+            print('Invalidad ESB response')
+            return False
+
+    def _add_client_to_SAP(self, fecha_AAAAMMDD, branch_ccu_code):
+        esb_api_endpoint = "/sap/cliente/crear"
+
+        FINTR = 1 if self.partner_id.l10n_cl_sii_taxpayer_type == 1 else 2
+        TRATAM = '0005' if self.partner_id.l10n_cl_sii_taxpayer_type == 1 else '0002'
+
+        payload = {
+            "HEADER": {
+                "ID_MENSAJE": str(uuid.uuid1()),
+                "MENSAJE": "From Odoo POS Client Create",
+                "FECHA": fecha_AAAAMMDD,
+                "SOCIEDAD": self.company_id.ccu_business_unit,
+                "LEGADO": "ODOO-POS",
+                "CODIGO_INTERFAZ": "CREAR_CLIENTE_SAP_PO"
+            },
+            "BP": {
+                "FINTR": FINTR,
+                "TRATAM": TRATAM,
+                "NOMBRE": self.partner_id.name,
+                "APELLIDO": "",
+                "RUTDNI": self.partner_id.vat,
+                "CALLE": self.partner_id.street,
+                "CODPOS": "",
+                "COMUNA": self.partner_id.city,
+                "REGION": int(self.partner_id.state_id.code),
+                "PAIS": self.partner_id.country_id.code,
+                "TELEF1": self.partner_id.mobile,
+                "TELEF2": self.partner_id.phone,
+                "EMAIL": self.partner_id.email
+            },
+            "DATOS_VENTA": {
+                "CENTRO": branch_ccu_code,
+                "CONPA": "ZN00",
+            },
+            "DATOS_IMPUESTO": {
+                "MWST": "1",
+                "J1CA": "1",
+                "J2CA": "1",
+                "J3CA": "1",
+                "Z1CA": "1",
+                "Z2CA": "1",
+                "Z3CA": "1",
+            }
+        }
+
+        # invocación al servicio REST
+        backend = self.company_id.backend_esb_id
+        print('CREANDO CLIENTE EN SAP...')
+        print(json.dumps(payload, indent=4))
+        res = backend.api_esb_call("POST", esb_api_endpoint, payload)
+        print(print(json.dumps(res, indent=4)))
+        # solo si respuesta tiene datos proceso con la syncronización
+        if res:
+            resp = res['mt_response']['RESPUESTA']
+            if resp:
+                BUPARTNER = resp['BUPARTNER']
+                if BUPARTNER:
+                    _logger.info(
+                        'Client exist: ',
+                        BUPARTNER)
+                    sap_client = {
+                        'RUT': self.partner_id.vat,
+                        'CODE': BUPARTNER
+                    }
+                    return sap_client
+                else:
+                    return False
+            else:
+                print('Client NOT exist')
+                return False
+        else:
+            print('Invalidad ESB response')
+            return False

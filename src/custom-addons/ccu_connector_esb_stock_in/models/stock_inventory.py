@@ -104,7 +104,7 @@ class Inventory(models.Model):
                         "MENSAJE": "TT09",
                         "FECHA": fecha_AAAAMMDD,
                         "SOCIEDAD": location.company_id.ccu_business_unit,
-                        "LEGADO": "ODOO",
+                        "LEGADO": "ODOO-POS",
                         "CODIGO_INTERFAZ": "ITD009_POS"
                     },
                     "DETAIL": [

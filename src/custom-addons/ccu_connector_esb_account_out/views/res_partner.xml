@@ -6,6 +6,7 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='category_id']" position="after">
                 <field name="cost_center_code"/>
+                <field name="sap_code"/>
             </xpath>
         </field>
     </record>

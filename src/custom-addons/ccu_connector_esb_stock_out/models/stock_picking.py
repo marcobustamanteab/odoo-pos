@@ -54,7 +54,7 @@ class StockPicking(models.Model):
                     "MENSAJE": "Inventory Movements from Odoo",
                     "FECHA": fecha_AAAAMMDD,
                     "SOCIEDAD": self.company_id.ccu_business_unit,
-                    "LEGADO": "ODOO",
+                    "LEGADO": "ODOO-POS",
                     "CODIGO_INTERFAZ": "ITD058_ODOO"
                 },
                 "t_movimiento": {
@@ -64,7 +64,7 @@ class StockPicking(models.Model):
                         "header_txt": "ODOO",
                         "doc_date": doc_date,
                         "pstng_date": fecha_AAAAMMDD, #es fecha contable
-                        "ref_doc_no": id_documento,
+                        "ref_doc_no": 'ORDER N°: ' + self.origin,
                     },
                     "detalle": payload_lines
                 }
@@ -87,7 +87,7 @@ class StockPicking(models.Model):
                         "move_stloc": "0",
                         "batch": "NONE",
                         "entry_qnt": line.qty_done,
-                        "item_text": line.reference,
+                        "item_text": 'ORDER N°: ' + line.picking_id.origin,
                         "move_type": line.move_id.picking_type_id.ccu_code_usage
                     })
 

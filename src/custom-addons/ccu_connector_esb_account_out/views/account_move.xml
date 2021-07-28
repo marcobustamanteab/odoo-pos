@@ -21,7 +21,7 @@
                         type="object"
                         string="Send move to esb"
                         confirm="Are you sure?"
-                        attrs="{'invisible': [('is_sync', '=', True)]}"
+                        attrs="{'invisible': False}"
                         class="oe_highlight" />
             </header>
         </field>
