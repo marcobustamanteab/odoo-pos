@@ -15,6 +15,7 @@
         # "security/ir.model.access.csv",
         #'data/pos.payment.method.csv',
         'views/PosCommonAssets.xml',
+        'views/account_journal.xml',
     ],
     'installable': True,
     'application': True,
