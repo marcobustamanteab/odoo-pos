@@ -5,8 +5,10 @@
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='category_id']" position="after">
-                <field name="cost_center_code"/>
-<!--                <field name="sap_code"/>-->
+                <group>
+                    <field name="cost_center_code"/>
+                    <field name="sap_code"/>
+                </group>
             </xpath>
         </field>
     </record>
