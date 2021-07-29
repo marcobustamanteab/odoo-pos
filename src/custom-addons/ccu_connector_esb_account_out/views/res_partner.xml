@@ -7,7 +7,7 @@
             <xpath expr="//field[@name='category_id']" position="after">
                 <group>
                     <field name="cost_center_code"/>
-<!--                    <field name="sap_code"/>-->
+                    <field name="sap_code"/>
                 </group>
             </xpath>
         </field>
