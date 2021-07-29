@@ -30,6 +30,8 @@ class StockPicking(models.Model):
         backend = self.company_id.backend_esb_id
 
         centro = self.location_id.location_id.ccu_code or self.location_dest_id.location_id.ccu_code
+        cost_center_code = self.location_id.location_id.cost_center_code or self.location_dest_id.location_id.cost_center_code
+
         almacen = self.location_id.ccu_code or self.location_dest_id.ccu_code
 
         # Solo si el almacen de entrada y salida poseen código CCU
@@ -64,7 +66,7 @@ class StockPicking(models.Model):
                         "header_txt": "ODOO",
                         "doc_date": doc_date,
                         "pstng_date": fecha_AAAAMMDD, #es fecha contable
-                        "ref_doc_no": 'ORDER N°: ' + self.origin,
+                        "ref_doc_no": self.origin,
                     },
                     "detalle": payload_lines
                 }
@@ -79,7 +81,7 @@ class StockPicking(models.Model):
                     payload_lines.append({
                         "pos_num": str(i),
                         "hkont": {},
-                        "costcenter": "A50VD20101",
+                        "costcenter": cost_center_code or "",
                         "text": {},
                         "plant": centro,
                         "material": line.product_id.default_code,
@@ -87,7 +89,7 @@ class StockPicking(models.Model):
                         "move_stloc": "0",
                         "batch": "NONE",
                         "entry_qnt": line.qty_done,
-                        "item_text": 'ORDER N°: ' + line.picking_id.origin,
+                        "item_text": line.picking_id.origin,
                         "move_type": line.move_id.picking_type_id.ccu_code_usage
                     })
 
