@@ -16,7 +16,7 @@ class StockPicking(models.Model):
     _inherit = "stock.picking"
 
     def _default_sync_uuid(self):
-        return uuid.uuid1()
+        return uuid.uuid4()
 
     # Campos para recibir confirmación de sincronización
     sync_uuid = fields.Char(string='Unique ID of sync', default=_default_sync_uuid, index=True)
