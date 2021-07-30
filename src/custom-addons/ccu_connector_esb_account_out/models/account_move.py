@@ -1,4 +1,3 @@
-
 from odoo import api, fields, models
 from odoo.exceptions import ValidationError
 import uuid
@@ -20,7 +19,7 @@ class AccountMove(models.Model):
     def esb_send_account_move(self):
         self.ensure_one()
         payload_lines = []
-        sync_uuid = str(uuid.uuid1())
+        sync_uuid = str(uuid.uuid4())
         year, month, day, hour, min = map(int, time.strftime("%Y %m %d %H %M").split())
         fecha_AAAAMMDD = str((year * 10000) + (month * 100) + day)
         year, month, day, hour, min = map(int, self.date.strftime("%Y %m %d %H %M").split())
@@ -178,7 +177,7 @@ class AccountMove(models.Model):
 
         payload = {
             "HEADER": {
-                "ID_MENSAJE": str(uuid.uuid1()),
+                "ID_MENSAJE": str(uuid.uuid4()),
                 "MENSAJE": "From Odoo POS Client Search",
                 "FECHA": fecha_AAAAMMDD,
                 "SOCIEDAD": self.company_id.ccu_business_unit,
@@ -225,7 +224,7 @@ class AccountMove(models.Model):
 
         payload = {
             "HEADER": {
-                "ID_MENSAJE": str(uuid.uuid1()),
+                "ID_MENSAJE": str(uuid.uuid4()),
                 "MENSAJE": "From Odoo POS Client Create",
                 "FECHA": fecha_AAAAMMDD,
                 "SOCIEDAD": self.company_id.ccu_business_unit,
