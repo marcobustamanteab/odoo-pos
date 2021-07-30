@@ -88,7 +88,7 @@ class Inventory(models.Model):
 
     @api.model
     def cron_esb_get_inventory(self):
-        id_mensaje = str(uuid.uuid1())
+        id_mensaje = str(uuid.uuid4())
         year, month, day, hour, min = map(int, time.strftime("%Y %m %d %H %M").split())
         fecha_AAAAMMDD = str((year*10000) + (month*100) + day)
 
