@@ -10,7 +10,7 @@
                 <field name="send_cost_center"/>
                 <field name="send_profit_center"/>
                 <field name="send_client_sap"/>
-                <field name="send_client_sap_code"/>
+                <field name="send_client_sap_default_code"/>
                 <field name="default_sap_code"/>
             </field>
         </field>

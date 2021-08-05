@@ -102,10 +102,10 @@ class AccountMove(models.Model):
                 if line.account_id.send_profit_center:
                     profit_center = self.invoice_user_id.sale_team_id.profit_center_code
 
-                if line.account_id.send_client_sap_code:
-                    sap_code = line.account_id.default_sap_code
+                if line.account_id.send_client_sap_default_code:
+                    CODE = line.account_id.default_sap_code
                 else:
-                    sap_code = line.partner_id.sap_code
+                    CODE = sap_code
 
                 MAYOR = "Y" if line.account_id.send_client_sap else 'N'
 
@@ -113,7 +113,7 @@ class AccountMove(models.Model):
                     "ITEMNO": str(i),
                     "ACCOUNT": line.account_id.ccu_code or '',
                     "RUTDNI": line.partner_id.vat or '',
-                    "CODE": sap_code or '',
+                    "CODE": CODE or '',
                     "MAYOR": MAYOR,
                     "GLOSA": line.name,
                     "CECO": cost_center,
@@ -161,7 +161,7 @@ class AccountMove(models.Model):
 
     def update_sync(self, message='none'):
         txt = str(self.id)
-        print(            'Response from ESB, JOB QUEUE for Account Move: ', txt)
+        print('Response from ESB, JOB QUEUE for Account Move: ', txt)
         self.sudo().write({
             'is_sync': True,
             'sync_reference': message}
