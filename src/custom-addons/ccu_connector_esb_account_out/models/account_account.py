@@ -7,3 +7,5 @@ class AccountAccount(models.Model):
     send_cost_center = fields.Boolean(string="Send Cost Center to SAP", default=False)
     send_profit_center = fields.Boolean(string="Send profit Center to SAP", default=False)
     send_client_sap = fields.Boolean(string="Send Client Code to SAP account movements", default=False)
+    send_client_sap_code = fields.Boolean(string="Send Default Client Code to SAP account movements", default=False)
+    default_sap_code = fields.Char(string='Default SAP Client Code')
