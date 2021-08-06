@@ -20,4 +20,14 @@
               </xpath>
        </t>
 
+       <t t-name="PaymentScreen" t-inherit="point_of_sale.PaymentScreen" t-inherit-mode="extension" owl="1">
+              <xpath expr="//div[@class='button next']" position="replace">
+                    <div class="button next" t-att-class="{ highlight: currentOrder.is_paid() }"
+                          t-on-click="validateOrderTransbank(false)">
+                        <span class="next_text">Validate</span>
+                        <i class="fa fa-angle-double-right fa-fw"></i>
+                    </div>
+              </xpath>
+       </t>
+
 </templates>
