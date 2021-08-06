@@ -57,7 +57,7 @@ odoo.define('ccu_pos.PaymentScreenValidator', function (require) {
 
                 var tbk = this.currentOrder;
                 for(let line of this.paymentLines){
-                    if(line.name === 'Transbank' && line.transaction_id === null || line.transaction_id === 0 || line.transaction_id === ''){
+                    if(line.name === 'Transbank' && line.transaction_id === ''){
                         this.showPopup('ErrorPopup', {
                             title: 'Transbank',
                             body: 'Debe ingresar un ID de Transbank para continuar la transacción',
