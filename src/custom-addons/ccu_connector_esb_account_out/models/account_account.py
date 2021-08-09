@@ -9,3 +9,5 @@ class AccountAccount(models.Model):
     send_client_sap = fields.Boolean(string="Send SAP client code", default=False)
     send_client_sap_default_code = fields.Boolean(string="Send default SAP client Code", default=False)
     default_sap_code = fields.Char(string='Default client code')
+    send_default_cost_center = fields.Boolean(string="Send default cost center code", default=False
+    default_cost_center_code = fields.Char(string='Default cost center code')

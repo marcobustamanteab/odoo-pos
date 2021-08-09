@@ -12,6 +12,8 @@
                 <field name="send_client_sap"/>
                 <field name="send_client_sap_default_code"/>
                 <field name="default_sap_code"/>
+                <field name="send_default_cost_center"/>
+                <field name="default_cost_center_code"/>
             </field>
         </field>
     </record>

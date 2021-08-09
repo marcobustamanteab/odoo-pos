@@ -78,11 +78,14 @@ class AccountMove(models.Model):
                 if line.account_id.send_cost_center:
                     cost_center = line.partner_id.cost_center_code
 
+                if line.account_id.send_default_cost_center and line.account_id.default_cost_center_code:
+                    cost_center = line.account_id.default_cost_center_code
+
                 profit_center = ''
                 if line.account_id.send_profit_center:
                     profit_center = self.invoice_user_id.sale_team_id.profit_center_code
 
-                sap_code = self.partner_id.sap_code
+                sap_code = line.partner_id.sap_code
                 if not sap_code and line.partner_id:
                     client = self._get_data_client_from_esb(line.partner_id.vat, fecha_AAAAMMDD)
                     print(client)
