@@ -27,7 +27,8 @@ class AccountMove(models.Model):
         branch_ccu_code = self.invoice_user_id.sale_team_id.branch_ccu_code
 
         pos_order = self.env['pos.order'].search([('name', '=ilike', self.ref)], limit=1)
-        pos_name = pos_order.session_id.config_id.sequence_id.prefix.strip('/') or 'XXX'
+        pos_prefix = pos_order.session_id.config_id.sequence_id.prefix
+        pos_name = pos_prefix.strip('/') if pos_prefix else 'XXX'
         transbak_id = self.env['pos.payment'].search([('pos_order_id', '=', pos_order.id)], limit=1).transaction_id
         text = self.ref or self.name or ''
 
