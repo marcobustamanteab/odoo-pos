@@ -40,27 +40,6 @@ class AccountMove(models.Model):
                 'User of the movement does not belong to a work team or the team does not have a CCU Center code'
             )
         else:
-            sap_code = self.partner_id.sap_code
-            if not sap_code and self.partner_id:
-                client = self._get_data_client_from_esb(fecha_AAAAMMDD)
-                print(client)
-                if client:
-                    sap_code = self._set_client_sap_code(self.partner_id.id, client['CODE'])
-                else:
-                    # CREAR CLIENTE EN SAP
-                    new_client = self._add_client_to_SAP(fecha_AAAAMMDD, branch_ccu_code)
-                    if new_client:
-                        sap_code = self._set_client_sap_code(self.partner_id.id, new_client['CODE'])
-                    else:
-                        print('ERROR: New Client SAP Error')
-            else:
-                if self.partner_id and not sap_code:
-                    raise ValidationError(
-                        'ERROR in Client Creation of SAP'
-                    )
-                else:
-                    print('Assent without Client')
-
             payload = {
                 "HEADER": {
                     "ID_MENSAJE": sync_uuid,
@@ -102,6 +81,27 @@ class AccountMove(models.Model):
                 profit_center = ''
                 if line.account_id.send_profit_center:
                     profit_center = self.invoice_user_id.sale_team_id.profit_center_code
+
+                sap_code = self.partner_id.sap_code
+                if not sap_code and line.partner_id:
+                    client = self._get_data_client_from_esb(line.partner_id.vat, fecha_AAAAMMDD)
+                    print(client)
+                    if client:
+                        sap_code = self._set_client_sap_code(line.partner_id.id, client['CODE'])
+                    else:
+                        # CREAR CLIENTE EN SAP
+                        new_client = self._add_client_to_SAP(line.partner_id, fecha_AAAAMMDD, branch_ccu_code)
+                        if new_client:
+                            sap_code = self._set_client_sap_code(line.partner_id.id, new_client['CODE'])
+                        else:
+                            print('ERROR: New Client SAP Error')
+                else:
+                    if self.partner_id and not sap_code:
+                        raise ValidationError(
+                            'ERROR in Client Creation of SAP'
+                        )
+                    else:
+                        print('Assent without Client')
 
                 if line.account_id.send_client_sap_default_code:
                     CODE = line.account_id.default_sap_code
@@ -178,7 +178,7 @@ class AccountMove(models.Model):
             return partner.sap_code
 
 
-    def _get_data_client_from_esb(self, fecha_AAAAMMDD):
+    def _get_data_client_from_esb(self, rut, fecha_AAAAMMDD):
         esb_api_endpoint = "/sap/cliente/consultar"
 
         payload = {
@@ -191,7 +191,7 @@ class AccountMove(models.Model):
                 "CODIGO_INTERFAZ": "CREAR_CLIENTE_SAP_PO"
             },
             "CLIENTE": {
-                "RUTDNI": self.partner_id.vat,
+                "RUTDNI": rut,
                 "CENTRO": ""
             }
         }
@@ -222,11 +222,11 @@ class AccountMove(models.Model):
             print('Invalidad ESB response')
             return False
 
-    def _add_client_to_SAP(self, fecha_AAAAMMDD, branch_ccu_code):
+    def _add_client_to_SAP(self, partner, fecha_AAAAMMDD, branch_ccu_code):
         esb_api_endpoint = "/sap/cliente/crear"
 
-        FINTR = 1 if self.partner_id.l10n_cl_sii_taxpayer_type == 1 else 2
-        TRATAM = '0005' if self.partner_id.l10n_cl_sii_taxpayer_type == 1 else '0002'
+        FINTR = 1 if partner.l10n_cl_sii_taxpayer_type == 1 else 2
+        TRATAM = '0005' if partner.l10n_cl_sii_taxpayer_type == 1 else '0002'
 
         payload = {
             "HEADER": {
@@ -240,17 +240,17 @@ class AccountMove(models.Model):
             "BP": {
                 "FINTR": FINTR,
                 "TRATAM": TRATAM,
-                "NOMBRE": self.partner_id.name,
+                "NOMBRE": partner.name,
                 "APELLIDO": "",
-                "RUTDNI": self.partner_id.vat,
-                "CALLE": self.partner_id.street,
+                "RUTDNI": partner.vat,
+                "CALLE": partner.street,
                 "CODPOS": "",
-                "COMUNA": self.partner_id.city,
-                "REGION": int(self.partner_id.state_id.code),
-                "PAIS": self.partner_id.country_id.code,
-                "TELEF1": self.partner_id.mobile,
-                "TELEF2": self.partner_id.phone,
-                "EMAIL": self.partner_id.email
+                "COMUNA": partner.city,
+                "REGION": int(partner.state_id.code),
+                "PAIS": partner.country_id.code,
+                "TELEF1": partner.mobile,
+                "TELEF2": partner.phone,
+                "EMAIL": partner.email
             },
             "DATOS_VENTA": {
                 "CENTRO": branch_ccu_code,
