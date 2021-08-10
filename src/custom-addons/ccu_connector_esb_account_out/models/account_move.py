@@ -27,10 +27,10 @@ class AccountMove(models.Model):
         branch_ccu_code = self.invoice_user_id.sale_team_id.branch_ccu_code
 
         pos_prefix = ''
+        pos_order = self.env['pos.order'].search([('name', '=ilike', self.ref)], limit=1)
         if len(self.pos_order_ids) > 0:
             pos_prefix = self.pos_order_ids[0].session_id.config_id.sequence_id.prefix
         else:
-            pos_order = self.env['pos.order'].search([('name', '=ilike', self.ref)], limit=1)
             pos_prefix = pos_order.session_id.config_id.sequence_id.prefix
 
         pos_name = pos_prefix.strip('/') if pos_prefix else 'XXXX'
