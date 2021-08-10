@@ -16,6 +16,7 @@
         #'data/pos.payment.method.csv',
         'views/PosCommonAssets.xml',
         'views/account_journal.xml',
+        'views/pos_order.xml',
     ],
     'installable': True,
     'application': True,
