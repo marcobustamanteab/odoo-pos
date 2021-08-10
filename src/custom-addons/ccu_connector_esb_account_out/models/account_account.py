@@ -11,3 +11,5 @@ class AccountAccount(models.Model):
     default_sap_code = fields.Char(string='Default client code')
     send_default_cost_center = fields.Boolean(string="Send default cost center code", default=False)
     default_cost_center_code = fields.Char(string='Default cost center code')
+    send_default_profit_center = fields.Boolean(string="Send default profit center code", default=False)
+    default_profit_profit_code = fields.Char(string='Default profit center code')

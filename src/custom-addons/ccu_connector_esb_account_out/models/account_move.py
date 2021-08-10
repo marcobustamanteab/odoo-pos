@@ -26,14 +26,17 @@ class AccountMove(models.Model):
         fecha_dcto = str((year * 10000) + (month * 100) + day)
         branch_ccu_code = self.invoice_user_id.sale_team_id.branch_ccu_code
 
-        pos_order = self.env['pos.order'].search([('name', '=ilike', self.ref)], limit=1)
-        pos_prefix = pos_order.session_id.config_id.sequence_id.prefix
-        pos_name = pos_prefix.strip('/') if pos_prefix else 'XXX'
+        pos_prefix = ''
+        if len(self.pos_order_ids) > 0:
+            pos_prefix = self.pos_order_ids[0].session_id.config_id.sequence_id.prefix
+        else:
+            pos_order = self.env['pos.order'].search([('name', '=ilike', self.ref)], limit=1)
+            pos_prefix = pos_order.session_id.config_id.sequence_id.prefix
+
+        pos_name = pos_prefix.strip('/') if pos_prefix else 'XXXX'
         transbak_id = self.env['pos.payment'].search([('pos_order_id', '=', pos_order.id)], limit=1).transaction_id
         text = self.ref or self.name or ''
 
-        if transbak_id:
-            text += ' - TRANSBANK_ID: ' + transbak_id
 
         if not branch_ccu_code:
             raise ValidationError(
@@ -85,6 +88,9 @@ class AccountMove(models.Model):
                 if line.account_id.send_profit_center:
                     profit_center = self.invoice_user_id.sale_team_id.profit_center_code
 
+                if line.account_id.send_default_profit_center and line.account_id.default_profit_center_code:
+                    profit_center = line.account_id.default_profit_center_code
+
                 sap_code = line.partner_id.sap_code
                 if not sap_code and line.partner_id:
                     client = self._get_data_client_from_esb(line.partner_id.vat, fecha_AAAAMMDD)
@@ -113,13 +119,18 @@ class AccountMove(models.Model):
 
                 MAYOR = "Y" if line.account_id.send_client_sap else 'N'
 
+                if transbak_id:
+                    GLOSA = line.name + 'TBKID: ' + transbak_id
+                else:
+                    GLOSA = line.name
+
                 payload_lines.append({
                     "ITEMNO": str(i),
                     "ACCOUNT": line.account_id.ccu_code or '',
                     "RUTDNI": line.partner_id.vat or '',
                     "CODE": CODE or '',
                     "MAYOR": MAYOR,
-                    "GLOSA": line.name,
+                    "GLOSA": GLOSA,
                     "CECO": cost_center,
                     "CEBE": profit_center,
                     "MATERIAL": line.product_id.default_code or '',
