@@ -7,6 +7,7 @@ import json
 
 _logger = logging.getLogger(__name__)
 
+
 class AccountMove(models.Model):
     _inherit = 'account.move'
 
@@ -15,7 +16,7 @@ class AccountMove(models.Model):
     posted_payload = fields.Text('Posted Payload', readonly=True)
     sync_reference = fields.Char(string='Sync with this text', readonly=True)
 
-#    @job
+    #    @job
     def esb_send_account_move(self):
         self.ensure_one()
         payload_lines = []
@@ -31,12 +32,15 @@ class AccountMove(models.Model):
         if len(self.pos_order_ids) > 0:
             pos_prefix = self.pos_order_ids[0].session_id.config_id.sequence_id.prefix
         else:
-            pos_prefix = pos_order.session_id.config_id.sequence_id.prefix
+            pos_session = self.env['pos.session'].search([('name', '=ilike', self.ref)], limit=1)
+            if pos_session:
+                pos_prefix = pos_session[0].config_id.sequence_id.prefix
+            else:
+                pos_prefix = self.ref
 
         pos_name = pos_prefix.strip('/') if pos_prefix else 'XXXX'
         transbak_id = self.env['pos.payment'].search([('pos_order_id', '=', pos_order.id)], limit=1).transaction_id
         text = self.ref or self.name or ''
-
 
         if not branch_ccu_code:
             raise ValidationError(
@@ -173,7 +177,6 @@ class AccountMove(models.Model):
     def action_send_account_move_to_esb(self):
         self.send_account_move_to_ESB()
 
-
     def update_sync(self, message='none'):
         txt = str(self.id)
         print('Response from ESB, JOB QUEUE for Account Move: ', txt)
@@ -190,7 +193,6 @@ class AccountMove(models.Model):
         if partner:
             partner.write(vals)
             return partner.sap_code
-
 
     def _get_data_client_from_esb(self, rut, fecha_AAAAMMDD):
         esb_api_endpoint = "/sap/cliente/consultar"
