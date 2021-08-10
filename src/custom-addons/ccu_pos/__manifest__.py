@@ -17,6 +17,7 @@
         'views/PosCommonAssets.xml',
         'views/account_journal.xml',
         'views/pos_order.xml',
+        'views/pos_payment.xml',
     ],
     'installable': True,
     'application': True,

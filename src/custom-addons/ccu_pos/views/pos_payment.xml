@@ -1,0 +1,15 @@
+<odoo>
+    <record model="ir.ui.view" id="ccu_pos_view_pos_payment_tree">
+        <field name="name">POS Payment Tree</field>
+        <field name="model">pos.payment</field>
+        <field name="priority">17</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_payment_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='payment_date']" position="before">
+                <field name="sequence_prefix"/>
+                <field name="session_id"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
