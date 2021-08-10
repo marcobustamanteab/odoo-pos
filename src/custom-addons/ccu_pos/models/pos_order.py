@@ -9,7 +9,7 @@ class PosOrder(models.Model):
     _inherit = ['pos.order']
 
     sequence_prefix = fields.Char("Cash Prefix", compute='_compute_sequence_prefix', store=True,
-                                  default=lambda x: x.config_id.prefix.strip(
+                                  default=lambda x: x.config_id.sequence_id.prefix.strip(
                                       '/') if x.config_id.sequence_id.prefix else 'XXXXX')
 
     def _compute_sequence_prefix(self):
