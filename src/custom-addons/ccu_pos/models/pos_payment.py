@@ -5,7 +5,7 @@ class PosPayment(models.Model):
     _description = 'Point of Sale Payment'
     _inherit = ['pos.payment']
 
-    sequence_prefix = fields.Char("Cash Prefix", compute='_compute_sequence_prefix', store=True,
+    sequence_prefix = fields.Char("Cashier Prefix", compute='_compute_sequence_prefix', store=True,
                                   default=lambda x: x.session_id.config_id.sequence_id.prefix.strip(
                                       '/') if x.session_id.config_id.sequence_id.prefix else 'XXXXX')
 

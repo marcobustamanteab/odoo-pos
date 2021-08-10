@@ -5,7 +5,7 @@ class PosOrder(models.Model):
     _description = 'Point of Sale Order'
     _inherit = ['pos.order']
 
-    sequence_prefix = fields.Char("Cash Prefix", compute='_compute_sequence_prefix', store=True,
+    sequence_prefix = fields.Char("Cashier Prefix", compute='_compute_sequence_prefix', store=True,
                                   default=lambda x: x.config_id.sequence_id.prefix.strip(
                                       '/') if x.config_id.sequence_id.prefix else 'XXXXX')
 

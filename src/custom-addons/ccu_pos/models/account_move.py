@@ -11,9 +11,14 @@ class AccountMove(models.Model):
             pos_order = self.pos_order_ids[0]
             prefix = pos_order.session_id.config_id.sequence_id.prefix
             return prefix.strip('/') if prefix else 'XXXXX'
+        else:
+            pos_session = self.env['pos.session'].search([('name','=ilike',self.ref)])
+            if pos_session:
+                prefix = pos_session.config_id.sequence_id.prefix
+                return prefix.strip('/') if prefix else 'XXXXX'
         return "XXXXX"
 
-    pos_sequence_prefix = fields.Char("Cash Prefix", compute='_compute_pos_sequence_prefix', store=True,
+    pos_sequence_prefix = fields.Char("Cashier Prefix", compute='_compute_pos_sequence_prefix', store=True,
                                   default=_default_sequence_prefix)
 
     def _compute_pos_sequence_prefix(self):
@@ -23,4 +28,9 @@ class AccountMove(models.Model):
                 prefix = pos_order.session_id.config_id.sequence_id.prefix
                 rec.pos_sequence_prefix = prefix.strip('/') if prefix else 'XXXXX'
             else:
-                rec.pos_sequence_prefix = "XXXXX"
+                pos_session = rec.env['pos.session'].search([('name', '=ilike', rec.ref)])
+                if pos_session:
+                    prefix = pos_session.config_id.sequence_id.prefix
+                    rec.pos_sequence_prefix = prefix.strip('/') if prefix else 'XXXXX'
+                else:
+                    rec.pos_sequence_prefix = "XXXXX"
