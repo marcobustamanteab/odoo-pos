@@ -1,0 +1,14 @@
+<odoo>
+    <record model="ir.ui.view" id="ccu_pos_view_move_tree">
+        <field name="name">CCU Account Move</field>
+        <field name="model">account.move</field>
+        <field name="priority">17</field>
+        <field name="inherit_id" ref="account.view_move_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='ref']" position="after">
+                <field name="sequence_prefix"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
