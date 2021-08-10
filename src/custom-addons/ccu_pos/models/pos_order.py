@@ -10,8 +10,8 @@ class PosOrder(models.Model):
 
     sequence_prefix = fields.Char("Cash Prefix", compute='_compute_sequence_prefix', store=True,
                                   default=lambda x: x.config_id.prefix.strip(
-                                      '/') if x.config_id.prefix else 'XXXXX')
+                                      '/') if x.config_id.sequence_id.prefix else 'XXXXX')
 
     def _compute_sequence_prefix(self):
         for rec in self:
-            rec.sequence_prefix = rec.config_id.prefix.strip('/') if rec.config_id.prefix else 'XXXXX'
+            rec.sequence_prefix = rec.config_id.sequence_id.prefix.strip('/') if rec.config_id.sequence_id.prefix else 'XXXXX'
