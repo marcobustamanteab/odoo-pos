@@ -63,7 +63,7 @@ class StockPicking(models.Model):
                     "cabecera": {
                         "id_documento": self.name,
                         "username": backend.user,
-                        "header_txt": "ODOO",
+                        "header_txt": self.origin,
                         "doc_date": doc_date,
                         "pstng_date": fecha_AAAAMMDD, #es fecha contable
                         "ref_doc_no": self.origin,
