@@ -18,7 +18,7 @@ class AccountMove(models.Model):
                 return prefix.strip('/') if prefix else 'XXXXX'
         return "XXXXX"
 
-    pos_sequence_prefix = fields.Char("Cashier Prefix", compute='_compute_pos_sequence_prefix', store=True,
+    pos_sequence_prefix = fields.Char("Cashier Prefix", compute='_compute_pos_sequence_prefix', 
                                   default=_default_sequence_prefix)
 
     def _compute_pos_sequence_prefix(self):
