@@ -11,10 +11,10 @@ _logger = logging.getLogger(__name__)
 class AccountMove(models.Model):
     _inherit = 'account.move'
 
-    is_sync = fields.Boolean(string='Is sync with external account system?', default=False, readonly=True)
-    sync_uuid = fields.Char(string='Unique ID of sync', readonly=True, index=True)
+    is_sync = fields.Boolean(string='Is sync with external account system?', default=False, readonly=True, tracking=True)
+    sync_uuid = fields.Char(string='Unique ID of sync', readonly=True, index=True, tracking=True)
     posted_payload = fields.Text('Posted Payload', readonly=True)
-    sync_reference = fields.Char(string='Sync with this text', readonly=True)
+    sync_reference = fields.Char(string='Sync with this text', readonly=True, tracking=True)
 
     #    @job
     def esb_send_account_move(self):

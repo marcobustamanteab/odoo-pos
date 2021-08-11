@@ -19,9 +19,9 @@ class StockPicking(models.Model):
         return uuid.uuid4()
 
     # Campos para recibir confirmación de sincronización
-    sync_uuid = fields.Char(string='Unique ID of sync', default=_default_sync_uuid, index=True)
-    is_sync = fields.Boolean(string='Is sync with external inventory system?', default=False)
-    sync_text = fields.Text(string='Sync with this text', readonly=True)
+    sync_uuid = fields.Char(string='Unique ID of sync', default=_default_sync_uuid, index=True, tracking=True)
+    is_sync = fields.Boolean(string='Is sync with external inventory system?', default=False, tracking=True)
+    sync_text = fields.Text(string='Sync with this text', readonly=True, tracking=True)
 
     def esb_send_stock_out(self):
         self.ensure_one()
