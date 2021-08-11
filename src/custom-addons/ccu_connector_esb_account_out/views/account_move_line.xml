@@ -1,0 +1,59 @@
+<odoo>
+    <record model="ir.ui.view" id="account_move_line_sync_audit_tree">
+        <field name="name">Account Move Line Sync Audit</field>
+        <field name="model">account.move.line</field>
+        <field name="priority">120</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Journal Items" create="false" edit="false" sample="1" decoration-success="is_sync==True"
+                  decoration-danger="is_sync==False">
+                <field name="date" optional="show"/>
+                <field name="company_id" groups="base.group_multi_company" optional="hide"/>
+                <field name="journal_id" options="{&quot;no_open&quot;:True}"/>
+                <field name="move_id" optional="hide"/>
+                <field name="account_id" options="{'no_open': True}" groups="account.group_account_readonly"/>
+                <field name="partner_id" optional="show"/>
+                <field name="statement_id" invisible="1"/>
+                <field name="ref" optional="show"/>
+                <field name="name" optional="show"/>
+                <field name="analytic_account_id" groups="account.group_account_readonly" optional="hide"
+                       attrs="{'readonly':[('parent_state','=','posted')]}"/>
+                <field name="analytic_tag_ids" widget="many2many_tags" groups="analytic.group_analytic_tags"
+                       optional="hide"/>
+                <field name="tax_ids" widget="many2many_tags" width="0.5" optional="hide"/>
+                <field name="debit" sum="Total Debit"/>
+                <field name="credit" sum="Total Credit"/>
+                <field name="amount_currency" groups="base.group_multi_currency" optional="hide"/>
+                <field name="tax_tag_ids" widget="many2many_tags" width="0.5" optional="hide"/>
+                <field name="matching_number" optional="hide"/>
+                <field name="reconcile_model_id" invisible="1"/>
+                <field name="reconciled" invisible="1"/>
+                <field name="date_maturity" optional="hide"/>
+                <field name="currency_id" readonly="1" invisible="1"/>
+                <field name="company_currency_id" invisible="1"/>
+                <field name="parent_state" invisible="1"/>
+                <field name="is_sync" string="Synced."/>
+                <field name="sync_uuid" />
+                <field name="sync_reference" />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="account_move_line_sync_audit_pivot">
+        <field name="name">Account Move Line Sync Audit</field>
+        <field name="model">account.move.line</field>
+        <field name="type">pivot</field>
+        <field name="arch" type="xml">
+            <pivot disable_linking="True" sample="1">
+                <field name="date" interval="month" type="row"/>
+                <field name="date" interval="day" type="row"/>
+                <field name="account_id" type="row"/>
+                <field name="journal_id" type="col"/>
+                <field name="is_sync" type="col"/>
+                <field name="price_total" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+
+</odoo>

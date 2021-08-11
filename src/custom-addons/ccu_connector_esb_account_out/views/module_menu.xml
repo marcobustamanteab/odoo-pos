@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+
+    <menuitem id="sync_audit_menu" name="Auditoría de Sincronización"
+        parent="account.menu_finance_entries"
+        sequence="50"/>
+
+        <menuitem id="account_move_sync_audit_menu" name="Account Move"
+            parent="sync_audit_menu"
+            sequence="10"
+            action="account_move_sync_audit_action"/>
+
+        <menuitem id="account_move_line_sync_audit_menu" name="Account Move Line"
+            parent="sync_audit_menu"
+            sequence="20"
+            action="account_move_line_sync_audit_action"/>
+
+</odoo>

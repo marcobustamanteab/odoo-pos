@@ -11,7 +11,8 @@ _logger = logging.getLogger(__name__)
 class AccountMove(models.Model):
     _inherit = 'account.move'
 
-    is_sync = fields.Boolean(string='Is sync with external account system?', default=False, readonly=True, tracking=True)
+    is_sync = fields.Boolean(string='Is sync with external account system?', default=False, readonly=True,
+                             tracking=True)
     sync_uuid = fields.Char(string='Unique ID of sync', readonly=True, index=True, tracking=True)
     posted_payload = fields.Text('Posted Payload', readonly=True)
     sync_reference = fields.Char(string='Sync with this text', readonly=True, tracking=True)
@@ -311,3 +312,12 @@ class AccountMove(models.Model):
         else:
             print('Invalidad ESB response')
             return False
+
+
+class AccountMoveLine(models.Model):
+    _inherit = 'account.move.line'
+
+    is_sync = fields.Boolean(string='Is sync with external account system?', related='move_id.is_sync', store=True)
+    sync_uuid = fields.Char(string='Unique ID of sync', related='move_id.sync_uuid', store=True)
+    posted_payload = fields.Text('Posted Payload', related='move_id.posted_payload', store=True)
+    sync_reference = fields.Char(string='Sync with this text', related='move_id.sync_reference', store=True)
