@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <odoo>
 
-    <menuitem id="sync_audit_menu" name="Auditoría de Sincronización"
+    <menuitem id="sync_audit_menu" name="Synchronization Audit"
         parent="account.menu_finance_entries"
         sequence="50"/>
 
