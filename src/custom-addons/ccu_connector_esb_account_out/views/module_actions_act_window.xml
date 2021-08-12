@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+    <data>
+        <!-- ACCOUNT MOVE INTEGRATION AUDIT -->
+        <record model="ir.actions.act_window" id="account_move_sync_audit_action">
+            <field name="binding_type">action</field>
+            <field name="context">{}</field>
+            <field eval="[(6, 0, [])]" name="groups_id"/>
+            <field name="help"><![CDATA[Account Move Sync. Audit]]></field>
+            <field name="limit">80</field>
+            <field name="name">Account Move Sync. Audit</field>
+            <field name="res_model">account.move</field>
+            <field name="target">current</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,pivot,form</field>
+            <field name="view_id" ref="account_move_sync_audit_pivot"/>
+        </record>
+        <!-- ACCOUNT MOVE LINE INTEGRATION AUDIT -->
+        <record model="ir.actions.act_window" id="account_move_line_sync_audit_action">
+            <field name="binding_type">action</field>
+            <field name="context">{}</field>
+            <field eval="[(6, 0, [])]" name="groups_id"/>
+            <field name="help"><![CDATA[Account Move Line Sync. Audit]]></field>
+            <field name="limit">80</field>
+            <field name="name">Account Move Line Sync. Audit</field>
+            <field name="res_model">account.move.line</field>
+            <field name="target">current</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,pivot,form</field>
+            <field name="view_id" ref="account_move_line_sync_audit_tree"/>
+        </record>
+    </data>
+</odoo>

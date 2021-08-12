@@ -1,13 +1,13 @@
 from odoo import api, fields, models, _
 
-class PosOrder(models.Model):
-    _name = 'pos.order'
-    _description = 'Point of Sale Order'
-    _inherit = ['pos.order']
+class PosPayment(models.Model):
+    _name = 'pos.payment'
+    _description = 'Point of Sale Payment'
+    _inherit = ['pos.payment']
 
     sequence_prefix = fields.Char("Cashier Prefix", compute='_compute_sequence_prefix', store=True,
-                                  default=lambda x: x.config_id.sequence_id.prefix.strip(
-                                      '/') if x.config_id.sequence_id.prefix else 'XXXXX')
+                                  default=lambda x: x.session_id.config_id.sequence_id.prefix.strip(
+                                      '/') if x.session_id.config_id.sequence_id.prefix else 'XXXXX')
 
     def _compute_sequence_prefix(self):
         for rec in self:

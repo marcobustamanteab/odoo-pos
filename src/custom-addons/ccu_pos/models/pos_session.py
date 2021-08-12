@@ -220,3 +220,12 @@ class PosSession(models.Model):
 
         data.update({'invoice_receivable_lines': invoice_receivable_lines})
         return data
+
+    def _get_split_receivable_vals(self, payment, amount, amount_converted):
+        partial_vals = {
+            'account_id': payment.payment_method_id.receivable_account_id.id,
+            'move_id': self.move_id.id,
+            'partner_id': self.env["res.partner"]._find_accounting_partner(payment.partner_id).id,
+            'name': '%s - %s - %s' % (self.name, payment.payment_method_id.name, payment.transaction_id),
+        }
+        return self._debit_amounts(partial_vals, amount, amount_converted)

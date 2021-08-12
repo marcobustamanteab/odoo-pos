@@ -11,6 +11,7 @@
             </field>
         </field>
     </record>
+
     <record model="ir.ui.view" id="ccu_view_account_move_send_button_form">
         <field name="name">account.move send to ESB button</field>
         <field name="model">account.move</field>
@@ -22,8 +23,49 @@
                         string="Send move to esb"
                         confirm="Are you sure?"
                         attrs="{'invisible': False}"
-                        class="oe_highlight" />
+                        class="oe_highlight"/>
             </header>
         </field>
     </record>
+
+    <record model="ir.ui.view" id="account_move_sync_audit_tree">
+        <field name="name">Account Move Sync Audit</field>
+        <field name="model">account.move</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Journal Entries" sample="1" create="false" edit="false" decoration-success="is_sync==True"
+                  decoration-danger="is_sync==False">
+                <field name="date"/>
+                <field name="name"/>
+                <field name="partner_id" optional="hidden"/>
+                <field name="ref" optional="show"/>
+                <field name="journal_id"/>
+                <field name="company_id" groups="base.group_multi_company" optional="hidden"/>
+                <field name="amount_total_signed" sum="Total Amount" string="Total" decoration-bf="1"/>
+                <field name="is_sync" string="Synced."/>
+                <field name="sync_uuid"/>
+                <field name="sync_reference"/>
+                <field name="state" widget="badge" decoration-info="state == 'draft'"
+                       decoration-success="state == 'posted'" optional="hidden"/>
+                <field name="currency_id" optional="hidden"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="account_move_sync_audit_pivot">
+        <field name="name">Account Move Sync Audit</field>
+        <field name="model">account.move</field>
+        <field name="type">pivot</field>
+        <field name="arch" type="xml">
+            <pivot disable_linking="True" sample="1">
+                <field name="date" interval="month" type="row"/>
+                <field name="date" interval="day" type="row"/>
+                <field name="journal_id" type="col"/>
+                <field name="is_sync" type="col"/>
+                <field name="amount_total_signed" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+
 </odoo>
