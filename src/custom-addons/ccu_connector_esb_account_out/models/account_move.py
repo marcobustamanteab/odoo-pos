@@ -16,6 +16,7 @@ class AccountMove(models.Model):
     sync_uuid = fields.Char(string='Unique ID of sync', readonly=True, index=True, tracking=True)
     posted_payload = fields.Text('Posted Payload', readonly=True)
     sync_reference = fields.Char(string='Sync with this text', readonly=True, tracking=True)
+    response_payload = fields.Text('Response Payload', readonly=True)
 
     #    @job
     def esb_send_account_move(self):
@@ -146,6 +147,8 @@ class AccountMove(models.Model):
 
             # grabo payload y referencia UUID
             json_object = json.dumps(payload, indent=4)
+            print(json_object)
+
             self.write({
                 'posted_payload': json_object,
                 'sync_uuid': sync_uuid}
@@ -153,7 +156,7 @@ class AccountMove(models.Model):
 
             esb_api_endpoint = '/sap/contabilidad/asiento/crear'
             backend = self.company_id.backend_esb_id
-            print(json_object)
+
             res = backend.api_esb_call("POST", esb_api_endpoint, payload)
             print(json.dumps(res, indent=4))
             try:
@@ -161,8 +164,14 @@ class AccountMove(models.Model):
                 if dcto_sap > 0:
                     self.write({
                         'is_sync': True,
-                        'sync_reference': str(dcto_sap)}
+                        'sync_reference': str(dcto_sap),
+                        'response_payload': json.dumps(res, indent=4)}
                     )
+                else:
+                    json_object = json.dumps(payload, indent=4)
+                    json_object_response = json.dumps(res, indent=4)
+                    msg = "SAP response with error\n input data:\n" + json_object + "\nOUTPUT:\n" + json_object_response
+                    raise ValidationError(msg)
             except KeyError:
                 json_object = json.dumps(payload, indent=4)
                 json_object_response = json.dumps(res, indent=4)

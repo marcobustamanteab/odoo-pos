@@ -15,17 +15,17 @@ _logger = logging.getLogger(__name__)
 class StockPicking(models.Model):
     _inherit = "stock.picking"
 
-    def _default_sync_uuid(self):
-        return uuid.uuid4()
-
     # Campos para recibir confirmación de sincronización
-    sync_uuid = fields.Char(string='Unique ID of sync', default=_default_sync_uuid, index=True, tracking=True)
+    sync_uuid = fields.Char(string='Unique ID of sync', readonly=True, index=True, tracking=True)
     is_sync = fields.Boolean(string='Is sync with external inventory system?', default=False, tracking=True)
     sync_text = fields.Text(string='Sync with this text', readonly=True, tracking=True)
+    posted_payload = fields.Text('Posted Payload', readonly=True)
+    response_payload = fields.Text('Response Payload', readonly=True)
 
     def esb_send_stock_out(self):
         self.ensure_one()
         payload_lines = []
+        sync_uuid = str(uuid.uuid4())
         esb_api_endpoint = "/sap/inventario/movimiento/crear"
         backend = self.company_id.backend_esb_id
 
@@ -52,7 +52,7 @@ class StockPicking(models.Model):
 
             payload = {
                 "HEADER": {
-                    "ID_MENSAJE": self.sync_uuid,
+                    "ID_MENSAJE": sync_uuid,
                     "MENSAJE": "Inventory Movements from Odoo",
                     "FECHA": fecha_AAAAMMDD,
                     "SOCIEDAD": self.company_id.ccu_business_unit,
@@ -94,15 +94,29 @@ class StockPicking(models.Model):
                     })
 
             if len(payload_lines) >= 1:
-                print(payload)
+                json_object = json.dumps(payload, indent=4)
+                print(json_object)
+
+                self.write({
+                    'posted_payload': json_object,
+                    'sync_uuid': sync_uuid}
+                )
                 res = backend.api_esb_call("POST", esb_api_endpoint, payload)
-                print(res)
-                status = res['mt_response']['HEADER']['MENSAJE']
-                if 'Recibido OK' not in status:
+                print(json.dumps(res, indent=4))
+
+                dcto_sap = int(res['mt_response']['HEADER']['reference'])
+                if dcto_sap > 0:
+                    self.write({
+                        'is_sync': True,
+                        'sync_text': str(dcto_sap),
+                        'response_payload': json.dumps(res, indent=4)}
+                    )
+                else:
                     json_object = json.dumps(payload, indent=4)
                     json_object_response = json.dumps(res, indent=4)
                     msg = "SAP response with error\n input data:\n" + json_object + "\nOUTPUT:\n" + json_object_response
                     raise ValidationError(msg)
+
 
     @api.model
     def send_picking_to_ESB(self):
