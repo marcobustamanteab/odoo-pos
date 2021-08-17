@@ -6,10 +6,9 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='category_id']" position="after">
                 <field name="sap_code"/>
+            </xpath>
+            <xpath expr="//field[@name='category_id']" position="after">
                 <field name="cost_center_code"/>
-                <field name="use_generic_sap_client"/>
-                <field name="generic_sap_code"/>
-                <field name="generic_RUT"/>
             </xpath>
         </field>
     </record>
