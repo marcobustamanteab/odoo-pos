@@ -98,6 +98,12 @@ class AccountMove(models.Model):
                     profit_center = line.account_id.default_profit_center_code
 
                 sap_code = line.partner_id.sap_code
+
+                if line.partner_id.use_generic_sap_client:
+                    sap_code = line.partner_id.generic_sap_code
+                    vat = line.partner_id.generic_RUT
+                else:
+                    vat = line.partner_id.vat
                 if not sap_code and line.partner_id:
                     client = self._get_data_client_from_esb(line.partner_id.vat, fecha_AAAAMMDD)
                     print(client)
@@ -133,7 +139,7 @@ class AccountMove(models.Model):
                 payload_lines.append({
                     "ITEMNO": str(i),
                     "ACCOUNT": line.account_id.ccu_code or '',
-                    "RUTDNI": line.partner_id.vat or '',
+                    "RUTDNI": vat or '',
                     "CODE": CODE or '',
                     "MAYOR": MAYOR,
                     "GLOSA": GLOSA,
