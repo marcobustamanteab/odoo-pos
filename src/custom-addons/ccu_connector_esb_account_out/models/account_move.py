@@ -84,8 +84,11 @@ class AccountMove(models.Model):
                 line_amt = (line.debit - line.credit)
 
                 cost_center = ''
+                # Si partner de la linea posee
+                partner = line.partner_id if not self.partner_id.parent_id else self.partner_id if self.partner_id.parent_id.id == line.partner_id.id else line.partner_id
+
                 if line.account_id.send_cost_center:
-                    cost_center = line.partner_id.cost_center_code
+                    cost_center = partner.cost_center_code
 
                 if line.account_id.send_default_cost_center and line.account_id.default_cost_center_code:
                     cost_center = line.account_id.default_cost_center_code
@@ -97,27 +100,28 @@ class AccountMove(models.Model):
                 if line.account_id.send_default_profit_center and line.account_id.default_profit_center_code:
                     profit_center = line.account_id.default_profit_center_code
 
-                sap_code = line.partner_id.sap_code
+                sap_code = partner.sap_code
 
-                if line.partner_id.use_generic_sap_client:
-                    sap_code = line.partner_id.generic_sap_code
-                    vat = line.partner_id.generic_RUT
+                if partner.use_generic_sap_client:
+                    sap_code = partner.generic_sap_code
+                    vat = partner.generic_RUT
                 else:
-                    vat = line.partner_id.vat
-                if not sap_code and line.partner_id:
-                    client = self._get_data_client_from_esb(line.partner_id.vat, fecha_AAAAMMDD)
+                    vat = partner.vat
+
+                if not sap_code and partner:
+                    client = self._get_data_client_from_esb(partner.vat, fecha_AAAAMMDD)
                     print(client)
                     if client:
-                        sap_code = self._set_client_sap_code(line.partner_id.id, client['CODE'])
+                        sap_code = self._set_client_sap_code(partner.id, client['CODE'])
                     else:
                         # CREAR CLIENTE EN SAP
-                        new_client = self._add_client_to_SAP(line.partner_id, fecha_AAAAMMDD, branch_ccu_code)
+                        new_client = self._add_client_to_SAP(partner, fecha_AAAAMMDD, branch_ccu_code)
                         if new_client:
-                            sap_code = self._set_client_sap_code(line.partner_id.id, new_client['CODE'])
+                            sap_code = self._set_client_sap_code(partner.id, new_client['CODE'])
                         else:
                             print('ERROR: New Client SAP Error')
                 else:
-                    if self.partner_id and not sap_code:
+                    if partner and not sap_code:
                         raise ValidationError(
                             'ERROR in Client Creation of SAP'
                         )
@@ -131,10 +135,7 @@ class AccountMove(models.Model):
 
                 MAYOR = "Y" if line.account_id.send_client_sap else 'N'
 
-                if transbak_id:
-                    GLOSA = line.name + 'TBKID: ' + transbak_id
-                else:
-                    GLOSA = line.name
+                GLOSA = line.name
 
                 payload_lines.append({
                     "ITEMNO": str(i),
