@@ -309,17 +309,16 @@ class AccountMove(models.Model):
         if res:
             resp = res['mt_response']['RESPUESTA']
             if resp:
-                BUPARTNER = resp['BUPARTNER']
+                BUPARTNER = resp.get('BUPARTNER','')
                 if BUPARTNER:
-                    _logger.info(
-                        'Client exist: ',
-                        BUPARTNER)
+                    _logger.info('Client exist: ',BUPARTNER)
                     sap_client = {
                         'RUT': self.partner_id.vat,
                         'CODE': BUPARTNER
                     }
                     return sap_client
                 else:
+                    print('Client ID NOT found')
                     return False
             else:
                 print('Client NOT exist')
