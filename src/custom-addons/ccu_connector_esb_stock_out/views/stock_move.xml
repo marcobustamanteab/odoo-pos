@@ -17,6 +17,7 @@
                 <field name="is_sync"/>
                 <field name="sync_uuid"/>
                 <field name="sync_text"/>
+                <field name="state" optional="hide" />
             </tree>
         </field>
     </record>
