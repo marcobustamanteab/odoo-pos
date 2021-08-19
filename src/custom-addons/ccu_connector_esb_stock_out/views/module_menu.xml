@@ -13,6 +13,6 @@
     <menuitem id="stock_move_sync_audit_menu" name="Stock Move"
               parent="stock_sync_audit_menu"
               sequence="20"
-              action="stock_move_sync_audit_tree"/>
+              action="stock_move_sync_audit_action"/>
 
 </odoo>
