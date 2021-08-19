@@ -11,8 +11,8 @@
               action="stock_picking_sync_audit_action"/>
 
     <menuitem id="stock_move_sync_audit_menu" name="Stock Move"
-              parent="sync_audit_menu"
+              parent="stock_sync_audit_menu"
               sequence="20"
-              action="stock_move_sync_audit_action"/>
+              action="stock_move_sync_audit_tree"/>
 
 </odoo>
