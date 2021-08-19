@@ -2,17 +2,17 @@
 <odoo>
 
     <menuitem id="stock_sync_audit_menu" name="Synchronization Audit"
-        parent="stock.menu_stock_warehouse_mgmt"
-        sequence="150"/>
+              parent="stock.menu_stock_warehouse_mgmt"
+              sequence="150"/>
 
-        <menuitem id="stock_picking_sync_audit_menu" name="Stock Picking"
-            parent="stock_sync_audit_menu"
-            sequence="10"
-            action="stock_picking_sync_audit_action"/>
+    <menuitem id="stock_picking_sync_audit_menu" name="Stock Picking"
+              parent="stock_sync_audit_menu"
+              sequence="10"
+              action="stock_picking_sync_audit_action"/>
 
-<!--        <menuitem id="stock_move_sync_audit_menu" name="Stock Move"-->
-<!--            parent="sync_audit_menu"-->
-<!--            sequence="20"-->
-<!--            action="stock_move_sync_audit_action"/>-->
+    <menuitem id="stock_move_sync_audit_menu" name="Stock Move"
+              parent="sync_audit_menu"
+              sequence="20"
+              action="stock_move_sync_audit_action"/>
 
 </odoo>
