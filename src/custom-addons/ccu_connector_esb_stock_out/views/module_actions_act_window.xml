@@ -16,18 +16,18 @@
             <field name="view_id" ref="stock_picking_sync_audit_pivot"/>
         </record>
         <!-- STOCK MOVE LINE INTEGRATION AUDIT -->
-<!--        <record model="ir.actions.act_window" id="stock_move_sync_audit_action">-->
-<!--            <field name="binding_type">action</field>-->
-<!--            <field name="context">{}</field>-->
-<!--            <field eval="[(6, 0, [])]" name="groups_id"/>-->
-<!--            <field name="help"><![CDATA[Stock Move Sync. Audit]]></field>-->
-<!--            <field name="limit">80</field>-->
-<!--            <field name="name">Stock Move Sync. Audit</field>-->
-<!--            <field name="res_model">stock.move</field>-->
-<!--            <field name="target">current</field>-->
-<!--            <field name="type">ir.actions.act_window</field>-->
-<!--            <field name="view_mode">tree,pivot,form</field>-->
-<!--            <field name="view_id" ref="stock_move_sync_audit_tree"/>-->
-<!--        </record>-->
+        <record model="ir.actions.act_window" id="stock_move_sync_audit_action">
+            <field name="binding_type">action</field>
+            <field name="context">{}</field>
+            <field eval="[(6, 0, [])]" name="groups_id"/>
+            <field name="help"><![CDATA[Stock Move Sync. Audit]]></field>
+            <field name="limit">80</field>
+            <field name="name">Stock Move Sync. Audit</field>
+            <field name="res_model">stock.move</field>
+            <field name="target">current</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,pivot,form</field>
+            <field name="view_id" ref="stock_move_sync_audit_tree"/>
+        </record>
     </data>
 </odoo>

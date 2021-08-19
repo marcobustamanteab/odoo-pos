@@ -27,6 +27,7 @@
         "views/stock_picking_view.xml",
         "views/stock_picking_type_view.xml",
         "views/product_view.xml",
+        "views/stock_move.xml",
         "views/module_actions_act_window.xml",
         "views/module_menu.xml",
     ],
