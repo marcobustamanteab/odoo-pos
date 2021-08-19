@@ -6,19 +6,33 @@
         <field name="priority">15</field>
         <field name="type">tree</field>
         <field name="arch" type="xml">
-            <tree string="Stock Move" sample="1" create="false" edit="false" decoration-success="is_sync == True" decoration-danger="is_sync == False">
-                <field name="date" />
-                <field name="picking_type_id" />
-                <field name="location_id" />
-                <field name="location_dest_id" />
+            <tree string="Stock Move" sample="1" create="false" edit="false" decoration-success="is_sync == True"
+                  decoration-danger="is_sync == False">
+                <field name="date"/>
+                <field name="picking_type_id"/>
+                <field name="location_id"/>
+                <field name="location_dest_id"/>
                 <field name="product_id"/>
-                <field name="name" />
-                <field name="quantity_done" />
+                <field name="name"/>
+                <field name="quantity_done"/>
                 <field name="is_sync"/>
                 <field name="sync_uuid"/>
                 <field name="sync_text"/>
-                <field name="state" optional="hide" />
+                <field name="state" optional="hide"/>
             </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="stock_move_sync_audit_pivot">
+        <field name="name">Stock Move Sync Audit</field>
+        <field name="model">stock.move</field>
+        <field name="type">pivot</field>
+        <field name="arch" type="xml">
+            <pivot disable_linking="True" sample="1">
+                <field name="product_id" type="row"/>
+                <field name="picking_type_id" type="col"/>
+                <field name="is_sync" type="col"/>
+            </pivot>
         </field>
     </record>
 
