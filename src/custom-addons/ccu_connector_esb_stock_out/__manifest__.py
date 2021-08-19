@@ -23,6 +23,8 @@
     "data": [
         "data/jobs.xml",
         "data/automated_actions.xml",
+        "views/module_actions_act_window.xml",
+        "views/module_menu.xml",
         "views/stock_location_view.xml",
         "views/stock_picking_view.xml",
         "views/stock_picking_type_view.xml",
