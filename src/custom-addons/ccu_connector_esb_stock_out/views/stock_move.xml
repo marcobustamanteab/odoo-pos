@@ -7,7 +7,7 @@
         <field name="type">tree</field>
         <field name="arch" type="xml">
             <tree string="Stock Move" sample="1" create="false" edit="false" decoration-success="is_sync == True" decoration-danger="is_sync == False">
-                <field name="date_done" />
+                <field name="date" />
                 <field name="picking_type_id" />
                 <field name="location_id" />
                 <field name="location_dest_id" />
