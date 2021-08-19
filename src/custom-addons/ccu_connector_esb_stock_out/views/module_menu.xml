@@ -3,7 +3,7 @@
 
     <menuitem id="stock_sync_audit_menu" name="Synchronization Audit"
         parent="stock.menu_stock_warehouse_mgmt"
-        sequence="50"/>
+        sequence="150"/>
 
         <menuitem id="stock_picking_sync_audit_menu" name="Stock Picking"
             parent="stock_sync_audit_menu"
