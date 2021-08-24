@@ -43,11 +43,6 @@ msgid "Company"
 msgstr "Empresa"
 
 #. module: ccu_dte_client
-#: model:ir.ui.menu,name:ccu_dte_client.dte_client_config_menu_entry
-msgid "Config"
-msgstr "Configuración"
-
-#. module: ccu_dte_client
 #: model:ir.model.fields,field_description:ccu_dte_client.field_dte_client_config__create_uid
 msgid "Created by"
 msgstr "Creado por"

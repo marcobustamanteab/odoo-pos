@@ -6,8 +6,8 @@
             <field name="binding_type">action</field>
             <field name="context">{}</field>
             <field eval="[(6, 0, [])]" name="groups_id"/>
-            <field name="help"><![CDATA[DTE Client Config]]></field>
-            <field name="name">DTE Client Config</field>
+            <field name="help"><![CDATA[DTE Client Configuration]]></field>
+            <field name="name">DTE Client Configuration</field>
             <field name="limit">80</field>
             <field name="res_model">dte.client.config</field>
             <field name="target">current</field>

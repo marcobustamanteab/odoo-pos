@@ -1,0 +1,15 @@
+<odoo>
+    <record model="ir.ui.view" id="ccu_account_account_move_form_view">
+        <field name="name">CCU Account Move</field>
+        <field name="model">account.move</field>
+        <field name="priority">17</field>
+        <field name="inherit_id" ref="ccu_base.account_move_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='ccu_customization']" position="inside">
+                <group name="group_account" string="Account">
+                    <field name="refund_type"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

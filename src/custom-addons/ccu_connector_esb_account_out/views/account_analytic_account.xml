@@ -3,11 +3,13 @@
     <record id="view_analytic_account_form" model="ir.ui.view">
         <field name="name">account.analytic.account form add sync field</field>
         <field name="model">account.analytic.account</field>
-        <field name="inherit_id" ref="analytic.view_account_analytic_account_form"/>
+        <field name="inherit_id" ref="ccu_base.view_account_analytic_account_form"/>
         <field name="arch" type="xml">
-            <field name="partner_id" position="after">
-                <field name="ccu_code"/>
-            </field>
+            <xpath expr="//page[@name='ccu_customization']" position="inside">
+                <group name="group_esb" string="ESB Integration" >
+                    <field name="ccu_code"/>
+                </group>
+            </xpath>
         </field>
     </record>
 

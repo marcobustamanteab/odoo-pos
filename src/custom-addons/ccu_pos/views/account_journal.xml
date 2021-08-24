@@ -3,14 +3,12 @@
         <field name="name">POS Account Journal</field>
         <field name="model">account.journal</field>
         <field name="priority">17</field>
-        <field name="inherit_id" ref="account.view_account_journal_form"/>
+        <field name="inherit_id" ref="ccu_base.view_account_journal_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//page[@name='advanced_settings']" position="after">
-                <page string="CCU Customization" name="ccu_customization">
-                    <group>
-                        <field name="split_payments"/>
-                    </group>
-                </page>
+            <xpath expr="//page[@name='ccu_customization']" position="inside">
+                <group name="group_pos" string="POS">
+                    <field name="split_payments"/>
+                </group>
             </xpath>
         </field>
     </record>

@@ -18,7 +18,9 @@
     'version': '0.20210630.1401',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'account_accountant'],
+    'depends': ['base',
+                'ccu_base',
+                'account_accountant'],
 
     # always loaded
     'data': [

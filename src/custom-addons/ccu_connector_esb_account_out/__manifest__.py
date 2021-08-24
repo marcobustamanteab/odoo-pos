@@ -6,6 +6,7 @@
     "summary": "Send Odoo accounting entries to the bus.",
     "depends": [
         "base",
+        "ccu_base",
         "queue_job",
         "connector",
         "base_rest",

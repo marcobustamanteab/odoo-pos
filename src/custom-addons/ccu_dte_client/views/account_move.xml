@@ -3,20 +3,18 @@
         <field name="name">CCU DTE Client Account Move</field>
         <field name="model">account.move</field>
         <field name="priority">17</field>
-        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="inherit_id" ref="ccu_base.account_move_form_view"/>
         <field name="arch" type="xml">
-            <xpath expr="//page[@name='other_info']" position="after">
-                <page string="CCU Customization" name="ccu_customization">
-                    <group>
-                        <field name="dte_send_status"/>
-                        <field name="dte_send_error"/>
-                        <button name="action_perform_send_dte" type="object" string="Perform Send"
-                                class="btn btn-primary"
-                                attrs="{'invisible':[('dte_send_status','in',('sent','accepted'))]}"/>
-                        <field name="posted_before"/>
-                        <field name="move_type"/>
-                    </group>
-                </page>
+            <xpath expr="//page[@name='ccu_customization']" position="inside">
+                <group name="group_dte_client" string="DTE Client">
+                    <field name="dte_send_status"/>
+                    <field name="dte_send_error"/>
+                    <button name="action_perform_send_dte" type="object" string="Perform Send"
+                            class="btn btn-primary"
+                            attrs="{'invisible':[('dte_send_status','in',('sent','accepted'))]}"/>
+                    <field name="posted_before"/>
+                    <field name="move_type"/>
+                </group>
             </xpath>
         </field>
     </record>
