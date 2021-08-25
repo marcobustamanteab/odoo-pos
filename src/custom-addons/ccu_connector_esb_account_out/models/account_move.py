@@ -148,7 +148,8 @@ class AccountMove(models.Model):
                     "MATERIAL": line.product_id.default_code or '',
                     "CANTIDAD": line.quantity,
                     "TOTAL": line_amt,
-                    "ALLOCNBR": "%s - %s" %(line.move_id.pos_session_id.name, line.pos_order_id.name or '')
+                    "ALLOCNBR": "%s - %s" %(line.move_id.pos_session_id.name, line.pos_order_id.name or ''),
+                    "REF_KEY_1": line.name,
                 })
 
             # grabo payload y referencia UUID
