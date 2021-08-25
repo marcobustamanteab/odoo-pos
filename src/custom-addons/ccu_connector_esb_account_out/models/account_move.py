@@ -148,7 +148,7 @@ class AccountMove(models.Model):
                     "MATERIAL": line.product_id.default_code or '',
                     "CANTIDAD": line.quantity,
                     "TOTAL": line_amt,
-                    "ASING": pos_name
+                    "ALLOCNBR": "%s - %s" %(line.move_id.pos_session_id.name, line.pos_order_id.name or '')
                 })
 
             # grabo payload y referencia UUID
