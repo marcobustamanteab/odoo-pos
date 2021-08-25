@@ -1,0 +1,18 @@
+<odoo>
+    <record model="ir.ui.view" id="view_bank_statement_form">
+        <field name="name">CCU Bank Statement</field>
+        <field name="model">account.bank.statement</field>
+        <field name="priority">17</field>
+        <field name="inherit_id" ref="account.view_bank_statement_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field name="pos_session_id"/>
+            </xpath>
+            <xpath expr="//field[@name='line_ids']/tree/field[@name='payment_ref']" position="after">
+                <field name="pos_order_id"/>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

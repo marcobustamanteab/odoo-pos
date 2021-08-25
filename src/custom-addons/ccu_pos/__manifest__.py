@@ -23,6 +23,7 @@
         'views/pos_order.xml',
         'views/pos_payment.xml',
         'views/account_move.xml',
+        'views/account_bank_statement.xml',
     ],
     'installable': True,
     'application': True,

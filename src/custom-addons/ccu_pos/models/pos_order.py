@@ -13,3 +13,9 @@ class PosOrder(models.Model):
         for rec in self:
             prefix = rec.session_id.config_id.sequence_id.prefix
             rec.sequence_prefix = prefix.strip('/') if prefix else 'XXXXX'
+
+    def _prepare_invoice_vals(self):
+        vals = super(PosOrder, self)._prepare_invoice_vals()
+        vals['pos_order_id'] = self.id
+        vals['pos_session_id'] = self.session_id.id
+        return vals

@@ -20,6 +20,8 @@ class AccountMove(models.Model):
 
     pos_sequence_prefix = fields.Char("Cashier Prefix", compute='_compute_pos_sequence_prefix', store=True,
                                   default=_default_sequence_prefix)
+    pos_order_id = fields.Many2one('pos.order', string="Origin POS Order ID")
+    pos_session_id = fields.Many2one('pos.session', string="Origin POS Session ID")
 
     def _compute_pos_sequence_prefix(self):
         for rec in self:
@@ -34,3 +36,8 @@ class AccountMove(models.Model):
                     rec.pos_sequence_prefix = prefix.strip('/') if prefix else 'XXXX5'
                 else:
                     rec.pos_sequence_prefix = "XXXX6"
+
+class AccountMoveLine(models.Model):
+    _inherit = 'account.move.line'
+
+    pos_order_id = fields.Many2one('pos.order', string="Origin POS Order ID")

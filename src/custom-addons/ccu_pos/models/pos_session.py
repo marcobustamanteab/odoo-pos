@@ -163,16 +163,17 @@ class PosSession(models.Model):
             - reconciling cash receivable lines, invoice receivable lines and stock output lines
         """
         journal = self.config_id.journal_id
+        print(["POS_JOURNAL_ID", journal.name])
         # Passing default_journal_id for the calculation of default currency of account move
         # See _get_default_currency in the account/account_move.py.
         account_move = self.env['account.move'].with_context(default_journal_id=journal.id).create({
             'journal_id': journal.id,
             'date': fields.Date.context_today(self),
             'ref': self.name,
+            'pos_session_id': self.id,
         })
         self.write({'move_id': account_move.id})
 
-        print(["SPLIT_PAYMENTS", journal.split_payments])
         data = {}
         if journal.split_payments:
             data = self._accumulate_amounts_custom(data)
@@ -188,6 +189,7 @@ class PosSession(models.Model):
         data = self._create_balancing_line(data)
 
         if account_move.line_ids:
+            print(["ACCOUNT_MOVE", account_move.name])
             account_move._post()
 
         data = self._reconcile_account_move_lines(data)
@@ -210,7 +212,6 @@ class PosSession(models.Model):
             invoice_vals['name'] = self.env['res.partner'].browse(partner_id).mapped('name')[0] or invoice_vals.get(
                 'name')
             invoice_receivable_vals[receivable_account_id_and_partner_id].append(invoice_vals)
-        print(["invoice_receivable_vals", invoice_receivable_vals])
         for receivable_account_id_and_partner_id, vals in invoice_receivable_vals.items():
             receivable_account_id = receivable_account_id_and_partner_id[0]
             partner_id = receivable_account_id_and_partner_id[1]
@@ -226,6 +227,65 @@ class PosSession(models.Model):
             'account_id': payment.payment_method_id.receivable_account_id.id,
             'move_id': self.move_id.id,
             'partner_id': self.env["res.partner"]._find_accounting_partner(payment.partner_id).id,
-            'name': '%s - %s - %s' % (self.name, payment.payment_method_id.name, payment.transaction_id),
+            'pos_order_id': payment.pos_order_id.id,
+            'name': '%s - %s - %s - %s' % (self.name, payment.pos_order_id.name, payment.payment_method_id.name, payment.transaction_id),
         }
         return self._debit_amounts(partial_vals, amount, amount_converted)
+
+    def _create_cash_statement_lines_and_cash_move_lines(self, data):
+        # Create the split and combine cash statement lines and account move lines.
+        # Keep the reference by statement for reconciliation.
+        # `split_cash_statement_lines` maps `statement` -> split cash statement lines
+        # `combine_cash_statement_lines` maps `statement` -> combine cash statement lines
+        # `split_cash_receivable_lines` maps `statement` -> split cash receivable lines
+        # `combine_cash_receivable_lines` maps `statement` -> combine cash receivable lines
+        MoveLine = data.get('MoveLine')
+        split_receivables_cash = data.get('split_receivables_cash')
+        combine_receivables_cash = data.get('combine_receivables_cash')
+
+        statements_by_journal_id = {statement.journal_id.id: statement for statement in self.statement_ids}
+        # handle split cash payments
+        split_cash_statement_line_vals = defaultdict(list)
+        split_cash_receivable_vals = defaultdict(list)
+        for payment, amounts in split_receivables_cash.items():
+            statement = statements_by_journal_id[payment.payment_method_id.cash_journal_id.id]
+            split_cash_statement_line_vals[statement].append(self._get_statement_line_vals_custom(statement, payment, amounts['amount'], payment.payment_date))
+            split_cash_receivable_vals[statement].append(self._get_split_receivable_vals(payment, amounts['amount'], amounts['amount_converted']))
+        # handle combine cash payments
+        combine_cash_statement_line_vals = defaultdict(list)
+        combine_cash_receivable_vals = defaultdict(list)
+        for payment_method, amounts in combine_receivables_cash.items():
+            if not float_is_zero(amounts['amount'] , precision_rounding=self.currency_id.rounding):
+                statement = statements_by_journal_id[payment_method.cash_journal_id.id]
+                combine_cash_statement_line_vals[statement].append(self._get_statement_line_vals(statement, payment_method.receivable_account_id, amounts['amount']))
+                combine_cash_receivable_vals[statement].append(self._get_combine_receivable_vals(payment_method, amounts['amount'], amounts['amount_converted']))
+        # create the statement lines and account move lines
+        BankStatementLine = self.env['account.bank.statement.line']
+        split_cash_statement_lines = {}
+        combine_cash_statement_lines = {}
+        split_cash_receivable_lines = {}
+        combine_cash_receivable_lines = {}
+        for statement in self.statement_ids:
+            split_cash_statement_lines[statement] = BankStatementLine.create(split_cash_statement_line_vals[statement])
+            combine_cash_statement_lines[statement] = BankStatementLine.create(combine_cash_statement_line_vals[statement])
+            split_cash_receivable_lines[statement] = MoveLine.create(split_cash_receivable_vals[statement])
+            combine_cash_receivable_lines[statement] = MoveLine.create(combine_cash_receivable_vals[statement])
+
+        data.update(
+            {'split_cash_statement_lines':    split_cash_statement_lines,
+             'combine_cash_statement_lines':  combine_cash_statement_lines,
+             'split_cash_receivable_lines':   split_cash_receivable_lines,
+             'combine_cash_receivable_lines': combine_cash_receivable_lines
+             })
+        return data
+
+    def _get_statement_line_vals_custom(self, statement, payment, amount, date=False):
+        return {
+            'date': fields.Date.context_today(self, timestamp=date),
+            'amount': amount,
+            'payment_ref': self.name,
+            'pos_order_id': payment.pos_order_id.id,
+            'statement_id': statement.id,
+            'journal_id': statement.journal_id.id,
+            'counterpart_account_id': payment.payment_method_id.receivable_account_id.id,
+        }
