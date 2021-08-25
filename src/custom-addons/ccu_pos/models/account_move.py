@@ -25,6 +25,9 @@ class AccountMove(models.Model):
 
     def _compute_pos_sequence_prefix(self):
         for rec in self:
+            pos_session = rec.env['pos.session'].search([('name', '=ilike', rec.ref)], limit=1)
+            if pos_session:
+                rec.pos_session_id = pos_session[0].id
             print(["RESETING", rec.name])
             if rec.pos_session_id:
                 prefix = rec.pos_session_id.config_id.sequence_id.prefix
