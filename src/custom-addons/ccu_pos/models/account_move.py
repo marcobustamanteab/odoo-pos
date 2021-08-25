@@ -25,6 +25,10 @@ class AccountMove(models.Model):
 
     def _compute_pos_sequence_prefix(self):
         for rec in self:
+            pos_order = rec.env['pos.order'].search([('name', '=ilike', rec.payment_reference)], limit=1)
+            if pos_order:
+                rec.pos_order_id = pos_order[0].id
+                rec.pos_session_id = pos_order[0].session_id.id
             pos_session = rec.env['pos.session'].search([('name', '=ilike', rec.ref)], limit=1)
             if pos_session:
                 rec.pos_session_id = pos_session[0].id
