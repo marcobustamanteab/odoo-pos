@@ -189,7 +189,6 @@ class PosSession(models.Model):
         data = self._create_balancing_line(data)
 
         if account_move.line_ids:
-            print(["ACCOUNT_MOVE", account_move.name])
             account_move._post()
 
         data = self._reconcile_account_move_lines(data)

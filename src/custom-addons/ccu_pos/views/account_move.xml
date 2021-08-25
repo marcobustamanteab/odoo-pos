@@ -28,6 +28,9 @@
             <xpath expr="//field[@name='line_ids']/tree/field[@name='name']" position="after">
                 <field name="pos_order_id"/>
             </xpath>
+            <xpath expr="//header" position="inside">
+                <button name="reset_cashier_prefix" type="object" invisible="1" string="Reset Prefix" class="btn btn-primary"/>
+            </xpath>
         </field>
     </record>
 

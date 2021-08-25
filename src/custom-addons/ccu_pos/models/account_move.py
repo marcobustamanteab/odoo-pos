@@ -18,24 +18,38 @@ class AccountMove(models.Model):
                 return prefix.strip('/') if prefix else 'XXXX2'
         return "XXXX3"
 
-    pos_sequence_prefix = fields.Char("Cashier Prefix", compute='_compute_pos_sequence_prefix', store=True,
-                                  default=_default_sequence_prefix)
+    pos_sequence_prefix = fields.Char("Cashier Prefix", compute='_compute_pos_sequence_prefix', store=True)
+    # pos_sequence_prefix = fields.Char("Cashier Prefix")
     pos_order_id = fields.Many2one('pos.order', string="Origin POS Order ID")
     pos_session_id = fields.Many2one('pos.session', string="Origin POS Session ID")
 
     def _compute_pos_sequence_prefix(self):
         for rec in self:
-            if len(rec.pos_order_ids) > 0:
-                pos_order = rec.pos_order_ids[0]
-                prefix = pos_order.session_id.config_id.sequence_id.prefix
+            print(["RESETING", rec.name])
+            if rec.pos_session_id:
+                prefix = rec.pos_session_id.config_id.sequence_id.prefix
                 rec.pos_sequence_prefix = prefix.strip('/') if prefix else 'XXXX4'
             else:
-                pos_session = rec.env['pos.session'].search([('name', '=ilike', rec.ref)])
-                if pos_session:
-                    prefix = pos_session.config_id.sequence_id.prefix
-                    rec.pos_sequence_prefix = prefix.strip('/') if prefix else 'XXXX5'
+                if len(rec.pos_order_ids) > 0:
+                    pos_order = rec.pos_order_ids[0]
+                    prefix = pos_order.session_id.config_id.sequence_id.prefix
+                    rec.pos_sequence_prefix = prefix.strip('/') if prefix else 'XXXX4'
                 else:
-                    rec.pos_sequence_prefix = "XXXX6"
+                    pos_session = rec.env['pos.session'].search([('name', '=ilike', rec.ref)])
+                    if pos_session:
+                        prefix = pos_session.config_id.sequence_id.prefix
+                        rec.pos_sequence_prefix = prefix.strip('/') if prefix else 'XXXX5'
+                    else:
+                        rec.pos_sequence_prefix = "XXXX6"
+                        acc_bank_state_line = rec.env['account.bank.statement.line'].search([('move_id','=',rec.id)], limit=1)
+                        if acc_bank_state_line:
+                            prefix = acc_bank_state_line[0].statement_id.pos_session_id.config_id.sequence_id.prefix
+                            rec.pos_sequence_prefix = prefix.strip('/') if prefix else 'XXXX7'
+
+    def reset_cashier_prefix(self):
+        moves = self.env['account.move'].search([])
+        moves._compute_pos_sequence_prefix()
+
 
 class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'

@@ -1,0 +1,14 @@
+<odoo>
+    <record model="ir.ui.view" id="view_account_move_reversal">
+        <field name="name">CCU Account Move Reversal</field>
+        <field name="model">account.move.reversal</field>
+        <field name="priority">17</field>
+        <field name="inherit_id" ref="account.view_account_move_reversal"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date_mode']" position="after">
+                <field name="refund_type"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -21,6 +21,7 @@
         # 'data/product_pricelist.xml',
         # 'data/user_confirmation_email.xml',
         'views/account_move.xml',
+        'wizards/account_move_reversal_view.xml',
     ],
     "application": True,
 }
