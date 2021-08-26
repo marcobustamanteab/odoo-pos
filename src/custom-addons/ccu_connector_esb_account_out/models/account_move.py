@@ -49,8 +49,10 @@ class AccountMove(models.Model):
                     print('Assent without Client')
 
     def _post(self, soft=True):
-        res = super(AccountMove, self)._post(soft)
-        self.esb_send_account_move()
+        res = None
+        for rec in self:
+            res = super(AccountMove, rec)._post(soft)
+            rec.esb_send_account_move()
         return res
 
     # @job
