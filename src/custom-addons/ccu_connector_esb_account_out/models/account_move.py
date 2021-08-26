@@ -191,7 +191,7 @@ class AccountMove(models.Model):
                             alloc_nbr = self.pos_session_id.name
             ref_key_1 = line.ref
             if "Reversa" in ref_key_1:
-                ref_key_1 = alloc_nbr
+                ref_key_1 = self.name
             payload_lines.append({
                 "ITEMNO": str(i),
                 "ACCOUNT": line.account_id.ccu_code or '',
