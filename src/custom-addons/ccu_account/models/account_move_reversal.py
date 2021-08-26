@@ -17,19 +17,19 @@ class AccountMoveReversal(models.TransientModel):
         ], default='refund', required=True
     )
 
-    def reverse_moves(self):
-        res = self.reverse_moves()
-        if self.refund_type == 'return':
-            self.reverse_stock_picking()
-        return res
+    # def reverse_moves(self):
+    #     res = self.reverse_moves()
+    #     if self.refund_type == 'return':
+    #         self.reverse_stock_picking()
+    #     return res
 
-    def reverse_stock_picking(self):
-        for move in self.move_ids:
-            stock_picking = self.env['stock.picking'].search(
-                [
-                    ('pos_order_id','=',move.pos_order_id.id),
-                    ('picking_type_id.code','=','outgoing'),
-                ]
-            )
+    # def reverse_stock_picking(self):
+    #     for move in self.move_ids:
+    #         stock_picking = self.env['stock.picking'].search(
+    #             [
+    #                 ('pos_order_id','=',move.pos_order_id.id),
+    #                 ('picking_type_id.code','=','outgoing'),
+    #             ]
+    #         )
 
 
