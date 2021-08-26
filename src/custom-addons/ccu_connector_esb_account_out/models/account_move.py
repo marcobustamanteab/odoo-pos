@@ -1,14 +1,13 @@
 import datetime
 
-from odoo import api, fields, models
-from odoo.exceptions import ValidationError
 import uuid
-import time
 import logging
 import json
+from odoo import api, fields, models, _
+from odoo.exceptions import RedirectWarning, UserError, ValidationError, AccessError
+from odoo.tools.misc import formatLang, format_date, get_lang
 
 _logger = logging.getLogger(__name__)
-
 
 class AccountMove(models.Model):
     _inherit = 'account.move'
@@ -50,7 +49,16 @@ class AccountMove(models.Model):
 
     def _post(self, soft=True):
         res = None
-        for rec in self:
+        if soft:
+            future_moves = self.filtered(lambda move: move.date > fields.Date.context_today(self))
+            future_moves.auto_post = True
+            for move in future_moves:
+                msg = _('This move will be posted at the accounting date: %(date)s', date=format_date(self.env, move.date))
+                move.message_post(body=msg)
+            to_post = self - future_moves
+        else:
+            to_post = self
+        for rec in to_post:
             res = super(AccountMove, rec)._post(soft)
             rec.esb_send_account_move()
         return res
