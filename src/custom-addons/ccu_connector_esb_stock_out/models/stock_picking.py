@@ -22,6 +22,11 @@ class StockPicking(models.Model):
     posted_payload = fields.Text('Posted Payload', readonly=True)
     response_payload = fields.Text('Response Payload', readonly=True)
 
+    def action_confirm(self):
+        res = super(StockPicking, self).action_confirm()
+        self.esb_send_stock_out()
+        return res
+
     def esb_send_stock_out(self):
         self.ensure_one()
         payload_lines = []

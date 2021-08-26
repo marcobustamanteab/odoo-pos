@@ -48,6 +48,11 @@ class AccountMove(models.Model):
                 else:
                     print('Assent without Client')
 
+    def _post(self, soft=True):
+        res = super(AccountMove, self)._post(soft)
+        self.esb_send_account_move()
+        return res
+
     # @job
     def esb_send_account_move(self):
         self.ensure_one()
@@ -137,11 +142,12 @@ class AccountMove(models.Model):
             profit_center = line.account_id.default_profit_center_code if (
                         line.account_id.send_default_profit_center and line.account_id.default_profit_center_code) else profit_center
 
-            sap_code = line.partner_id.sap_code
-            vat = line.partner_id.vat
-            if line.partner_id.use_generic_sap_client:
-                sap_code = line.partner_id.generic_sap_code
-                vat = line.partner_id.generic_RUT
+            partner = line.partner_id or self.partner_id
+            sap_code = partner.sap_code
+            vat = partner.vat
+            if partner.use_generic_sap_client:
+                sap_code = partner.generic_sap_code
+                vat = partner.generic_RUT
             if line.account_id.send_client_sap_default_code:
                 sap_code = line.account_id.default_sap_code
                 # TODO: and what about 'vat' ?
