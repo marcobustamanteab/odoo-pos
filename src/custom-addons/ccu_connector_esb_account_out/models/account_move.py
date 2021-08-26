@@ -17,9 +17,9 @@ class AccountMove(models.Model):
                              tracking=True)
     sync_uuid = fields.Char(string='Unique ID of sync', readonly=True, index=True, tracking=True,
                             default=lambda self: str(uuid.uuid4()))
-    posted_payload = fields.Text('Posted Payload', readonly=True)
-    sync_reference = fields.Char(string='Sync with this text', readonly=True, tracking=True)
-    response_payload = fields.Text('Response Payload', readonly=True)
+    posted_payload = fields.Text('Posted Payload', readonly=True, copy=False)
+    sync_reference = fields.Char(string='Sync with this text', readonly=True, tracking=True, copy=False)
+    response_payload = fields.Text('Response Payload', readonly=True, copy=False)
 
     def prepare_partner_sap_codes(self):
         plist = []
