@@ -48,18 +48,8 @@ class AccountMove(models.Model):
                     print('Assent without Client')
 
     def _post(self, soft=True):
-        res = None
-        if soft:
-            future_moves = self.filtered(lambda move: move.date > fields.Date.context_today(self))
-            future_moves.auto_post = True
-            for move in future_moves:
-                msg = _('This move will be posted at the accounting date: %(date)s', date=format_date(self.env, move.date))
-                move.message_post(body=msg)
-            to_post = self - future_moves
-        else:
-            to_post = self
-        for rec in to_post:
-            res = super(AccountMove, rec)._post(soft)
+        res = super(AccountMove, self)._post(soft)
+        for rec in self:
             rec.esb_send_account_move()
         return res
 

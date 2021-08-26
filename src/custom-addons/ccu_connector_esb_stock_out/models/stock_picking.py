@@ -23,8 +23,8 @@ class StockPicking(models.Model):
     response_payload = fields.Text('Response Payload', readonly=True)
 
     def action_confirm(self):
+        res = super(StockPicking, self).action_confirm()
         for rec in self:
-            res = super(StockPicking, rec).action_confirm()
             rec.esb_send_stock_out()
         return res
 
