@@ -6,10 +6,34 @@
         <field name="arch" type="xml">
             <xpath expr="//page[@name='ccu_customization']" position="inside">
                 <group name="group_esb" string="ESB Connector">
-                    <field name="is_sync"/>
-                    <field name="sync_uuid"/>
-                    <field name="sync_reference"/>
+                    <notebook>
+                        <page name="page_esb_general" string="General">
+                            <group>
+                                <field name="is_sync"/>
+                                <field name="sync_uuid"/>
+                                <field name="sync_reference"/>
+                            </group>
+                        </page>
+                        <page name="page_payload_response" string="Payload &amp; Response">
+                            <group>
+                                <field name="posted_payload"/>
+                                <field name="response_payload"/>
+                            </group>
+                        </page>
+                    </notebook>
                 </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_move_form">
+        <field name="name">CCU Account Move</field>
+        <field name="model">account.move</field>
+        <field name="priority">17</field>
+        <field name="inherit_id" ref="ccu_base.account_move_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='line_ids']/tree/field[@name='name']" position="after">
+                <field name="reference_key_1"/>
             </xpath>
         </field>
     </record>

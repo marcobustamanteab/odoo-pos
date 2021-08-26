@@ -3,6 +3,7 @@ from odoo import fields, models
 
 class AccountAccount(models.Model):
     _inherit = "account.account"
+
     ccu_code = fields.Char(string='SAP Account Number')
     send_cost_center = fields.Boolean(string="Send cost center", default=False)
     send_profit_center = fields.Boolean(string="Send profit center", default=False)
@@ -13,3 +14,5 @@ class AccountAccount(models.Model):
     default_cost_center_code = fields.Char(string='Default cost center code')
     send_default_profit_center = fields.Boolean(string="Send default profit center code", default=False)
     default_profit_profit_code = fields.Char(string='Default profit center code')
+    send_blank_allocation = fields.Boolean(string="Send Blank Allocation")
+    send_fixed_text = fields.Char(string="Fixed Text")
