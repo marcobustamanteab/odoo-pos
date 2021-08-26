@@ -203,7 +203,7 @@ class AccountMove(models.Model):
                 "CANTIDAD": line.quantity,
                 "TOTAL": line_amt,
                 "ALLOCNBR": alloc_nbr if not line.account_id.send_blank_allocation else '',
-                "REF_KEY_1": line.ref,
+                "REF_KEY_1": line.ref or '',
             })
             # TODO: No enviar ALLOCNBR cuando se tiene check en la cuenta - Transferencia Bancaria
             # TODO: Agregar descripción específica en el campo GLOSA configurarlo en la cuenta
