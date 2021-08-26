@@ -189,7 +189,9 @@ class AccountMove(models.Model):
                     else:
                         if self.pos_session_id:
                             alloc_nbr = self.pos_session_id.name
-
+            ref_key_1 = line.ref
+            if "Reversa" in ref_key_1:
+                ref_key_1 = alloc_nbr
             payload_lines.append({
                 "ITEMNO": str(i),
                 "ACCOUNT": line.account_id.ccu_code or '',
@@ -203,7 +205,7 @@ class AccountMove(models.Model):
                 "CANTIDAD": line.quantity,
                 "TOTAL": line_amt,
                 "ALLOCNBR": alloc_nbr if not line.account_id.send_blank_allocation else '',
-                "REF_KEY_1": line.ref or '',
+                "REF_KEY_1": ref_key_1 or '',
             })
             # TODO: No enviar ALLOCNBR cuando se tiene check en la cuenta - Transferencia Bancaria
             # TODO: Agregar descripción específica en el campo GLOSA configurarlo en la cuenta
