@@ -228,7 +228,7 @@ class PosSession(models.Model):
             'move_id': self.move_id.id,
             'partner_id': self.env["res.partner"]._find_accounting_partner(payment.partner_id).id,
             'pos_order_id': payment.pos_order_id.id,
-            'name': '%s - %s - %s - %s' % (self.name, payment.pos_order_id.name, payment.payment_method_id.name, payment.transaction_id),
+            'name': '%s%s' % (payment.payment_method_id.name, " - %s" %(payment.transaction_id) if payment.transaction_id else ''),
         }
         return self._debit_amounts(partial_vals, amount, amount_converted)
 
