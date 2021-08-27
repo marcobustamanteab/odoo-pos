@@ -12,7 +12,7 @@
                             <group>
                                 <field name="is_sync"/>
                                 <field name="sync_uuid"/>
-                                <field name="sync_reference"/>
+                                <field name="sync_text"/>
                             </group>
                         </page>
                         <page name="page_payload_response" string="Payload &amp; Response">
