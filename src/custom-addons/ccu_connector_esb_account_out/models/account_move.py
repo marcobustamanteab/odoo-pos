@@ -151,7 +151,7 @@ class AccountMove(models.Model):
                 "RUTDNI": vat or '',
                 "CODE": sap_code or '',
                 "MAYOR": special_major,
-                "GLOSA": line.fixed_text or line.name or '',
+                "GLOSA": line.fixed_text.name or line.name or '',
                 "CECO": cost_center,
                 "CEBE": profit_center,
                 "MATERIAL": line.product_id.default_code or '',
