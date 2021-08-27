@@ -13,9 +13,9 @@ _logger = logging.getLogger(__name__)
 class AccountMove(models.Model):
     _inherit = 'account.move'
 
-    is_sync = fields.Boolean(string='Synchronize', default=False, readonly=True,
+    is_sync = fields.Boolean(string='Synchronize', default=False, readonly=True, copy=False,
                              tracking=True)
-    sync_uuid = fields.Char(string='Sync. UUID', readonly=True, index=True, tracking=True,
+    sync_uuid = fields.Char(string='Sync. UUID', readonly=True, index=True, tracking=True, copy=False,
                             default=lambda self: str(uuid.uuid4()))
     posted_payload = fields.Text('Posted Payload', readonly=True, copy=False)
     sync_reference = fields.Char(string='Sync. Text', readonly=True, tracking=True, copy=False)
@@ -151,7 +151,7 @@ class AccountMove(models.Model):
                 "RUTDNI": vat or '',
                 "CODE": sap_code or '',
                 "MAYOR": special_major,
-                "GLOSA": line.account_id.send_fixed_text or line.name or '',
+                "GLOSA": line.fixed_text or line.name or '',
                 "CECO": cost_center,
                 "CEBE": profit_center,
                 "MATERIAL": line.product_id.default_code or '',
@@ -354,3 +354,4 @@ class AccountMoveLine(models.Model):
     posted_payload = fields.Text('Posted Payload', related='move_id.posted_payload', store=True)
     sync_reference = fields.Char(string='Sync with this text', related='move_id.sync_reference', store=True)
     reference_key_1 = fields.Char(string="Referencia 1")
+    fixed_text = fields.Many2one('account.move.line.fixed.text', string="Fixed Text")

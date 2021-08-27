@@ -20,8 +20,8 @@ class AccountMove(models.Model):
 
     pos_sequence_prefix = fields.Char("Cashier Prefix", compute='_compute_pos_sequence_prefix', store=True)
     # pos_sequence_prefix = fields.Char("Cashier Prefix")
-    pos_order_id = fields.Many2one('pos.order', string="Origin POS Order ID")
-    pos_session_id = fields.Many2one('pos.session', string="Origin POS Session ID")
+    pos_order_id = fields.Many2one('pos.order', string="POS Order")
+    pos_session_id = fields.Many2one('pos.session', string="POS Session")
 
     def _compute_pos_sequence_prefix(self):
         for rec in self:
@@ -61,4 +61,4 @@ class AccountMove(models.Model):
 class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
 
-    pos_order_id = fields.Many2one('pos.order', string="Origin POS Order ID")
+    pos_order_id = fields.Many2one('pos.order', string="POS Order")

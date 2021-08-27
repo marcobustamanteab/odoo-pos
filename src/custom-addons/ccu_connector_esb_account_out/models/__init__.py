@@ -6,3 +6,4 @@ from . import account_move
 from . import crm_team
 from . import res_company
 from . import res_partner
+from . import account_move_line_fixed_text

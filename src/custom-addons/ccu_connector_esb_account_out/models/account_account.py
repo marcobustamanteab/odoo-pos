@@ -15,4 +15,4 @@ class AccountAccount(models.Model):
     send_default_profit_center = fields.Boolean(string="Send default profit center code", default=False)
     default_profit_profit_code = fields.Char(string='Default profit center code')
     send_blank_allocation = fields.Boolean(string="Send Blank Allocation")
-    send_fixed_text = fields.Char(string="Fixed Text")
+    # send_fixed_text = fields.Char(string="Fixed Text")

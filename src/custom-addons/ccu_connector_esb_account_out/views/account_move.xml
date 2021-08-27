@@ -33,6 +33,7 @@
         <field name="inherit_id" ref="ccu_base.account_move_form_view"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='line_ids']/tree/field[@name='name']" position="after">
+                <field name="fixed_text"/>
                 <field name="reference_key_1"/>
             </xpath>
         </field>
