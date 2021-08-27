@@ -143,7 +143,7 @@ class AccountMove(models.Model):
                         if self.pos_session_id:
                             alloc_nbr = self.pos_session_id.name
             ref_key_1 = line.ref
-            if "Reversa" in ref_key_1:
+            if ref_key_1 and "Reversa" in str(ref_key_1):
                 ref_key_1 = self.name
             payload_lines.append({
                 "ITEMNO": str(i),
