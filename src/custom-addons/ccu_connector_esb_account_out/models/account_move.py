@@ -31,6 +31,7 @@ class AccountMove(models.Model):
 
         for pid in plist:
             partner = self.env['res.partner'].browse(pid)
+            sap_code = ''
             if not partner.generic_sap_code:
                 client = self._get_data_client_from_esb(partner.vat, send_date)
                 if client:
