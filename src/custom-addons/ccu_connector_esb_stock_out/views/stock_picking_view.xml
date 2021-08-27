@@ -7,9 +7,21 @@
         <field name="arch" type="xml">
             <xpath expr="//page[@name='ccu_customization']" position="inside">
                 <group name="group_esv" string="ESB Connection">
-                    <field name="sync_uuid"/>
-                    <field name="is_sync"/>
-                    <field name="sync_text"/>
+                    <notebook>
+                        <page name="page_esb_general" string="General">
+                            <group>
+                                <field name="is_sync"/>
+                                <field name="sync_uuid"/>
+                                <field name="sync_reference"/>
+                            </group>
+                        </page>
+                        <page name="page_payload_response" string="Payload &amp; Response">
+                            <group>
+                                <field name="posted_payload"/>
+                                <field name="response_payload"/>
+                            </group>
+                        </page>
+                    </notebook>
                 </group>
             </xpath>
         </field>
