@@ -23,8 +23,8 @@ class StockPicking(models.Model):
     posted_payload = fields.Text('Posted Payload', readonly=True)
     response_payload = fields.Text('Response Payload', readonly=True)
 
-    def action_confirm(self):
-        res = super(StockPicking, self).action_confirm()
+    def _action_done(self):
+        res = super(StockPicking, self)._action_done()
         for rec in self:
             if not rec.sync_uuid:
                 rec.write({'sync_uuid': str(uuid.uuid4())})
