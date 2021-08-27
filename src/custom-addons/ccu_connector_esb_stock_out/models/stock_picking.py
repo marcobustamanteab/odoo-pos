@@ -18,7 +18,7 @@ class StockPicking(models.Model):
     _inherit = "stock.picking"
 
     # Campos para recibir confirmación de sincronización
-    sync_uuid = fields.Char(string='Sync. UUID', readonly=True, index=True, tracking=True,copy=False,
+    sync_uuid = fields.Char(string='Sync. UUID', index=True, tracking=True,copy=False,
                             default=lambda self: str(uuid.uuid4()))
     is_sync = fields.Boolean(string='Synchronize', default=False, tracking=True,copy=False,)
     sync_text = fields.Text(string='Sync. Text', readonly=True, tracking=True,copy=False,)
@@ -75,11 +75,11 @@ class StockPicking(models.Model):
                 "t_movimiento": {
                     "cabecera": {
                         "id_documento": self.name,
+                        "ref_doc_no": self.name,
                         "username": backend.user,
                         "header_txt": self.origin,
                         "doc_date": doc_date,
                         "pstng_date": fecha_AAAAMMDD,  # es fecha contable
-                        "ref_doc_no": self.name,
                     },
                     "detalle": payload_lines
                 }
