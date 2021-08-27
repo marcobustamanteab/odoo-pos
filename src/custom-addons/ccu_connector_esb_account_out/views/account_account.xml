@@ -8,15 +8,25 @@
             <xpath expr="//page[@name='ccu_customization']" position="inside">
                 <group name="group_esb" string="ESB Integration">
                     <field name="ccu_code"/>
-                    <field name="send_cost_center"/>
-                    <field name="send_profit_center"/>
-                    <field name="send_client_sap"/>
-                    <field name="send_client_sap_default_code"/>
-                    <field name="default_sap_code"/>
-                    <field name="send_default_cost_center"/>
-                    <field name="default_cost_center_code"/>
-                    <field name="send_default_profit_center"/>
-                    <field name="default_profit_profit_code"/>
+                    <group name="group_alloc_and_text" string="Account">
+                        <field name="send_blank_allocation"/>
+                        <field name="send_fixed_text"/>
+                    </group>
+                    <group name="group_client" string="Client">
+                        <field name="send_client_sap"/>
+                        <field name="send_client_sap_default_code"/>
+                        <field name="default_sap_code"/>
+                    </group>
+                    <group name="group_cost_center" string="Cost Center">
+                        <field name="send_cost_center"/>
+                        <field name="send_default_cost_center"/>
+                        <field name="default_cost_center_code"/>
+                    </group>
+                    <group name="group_profit_center" string="Profit Center">
+                        <field name="send_profit_center"/>
+                        <field name="send_default_profit_center"/>
+                        <field name="default_profit_profit_code"/>
+                    </group>
                 </group>
             </xpath>
         </field>

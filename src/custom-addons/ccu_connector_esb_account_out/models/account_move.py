@@ -65,30 +65,9 @@ class AccountMove(models.Model):
         self.prepare_partner_sap_codes()
 
         payload_lines = []
-        # sync_uuid = self.sync_uuid
-        # sync_uuid = str(uuid.uuid4())
-        # year, month, day, hour, min = map(int, time.strftime("%Y %m %d %H %M").split())
-        # fecha_AAAAMMDD = str((year * 10000) + (month * 100) + day)
-        # year, month, day, hour, min = map(int, self.date.strftime("%Y %m %d %H %M").split())
-        # fecha_dcto = str((year * 10000) + (month * 100) + day)
         branch_ccu_code = self.invoice_user_id.sale_team_id.branch_ccu_code
         send_date = datetime.datetime.now().strftime("%Y%m%d")
         document_date = self.date.strftime("%Y%m%d")
-
-        # pos_prefix = ''
-        # pos_order = self.env['pos.order'].search([('name', '=ilike', self.ref)], limit=1)
-        # if len(self.pos_order_ids) > 0:
-        #     pos_prefix = self.pos_order_ids[0].session_id.config_id.sequence_id.prefix
-        # else:
-        #     pos_session = self.env['pos.session'].search([('name', '=ilike', self.ref)], limit=1)
-        #     if pos_session:
-        #         pos_prefix = pos_session[0].config_id.sequence_id.prefix
-        #     else:
-        #         pos_prefix = self.ref
-
-        # pos_name = pos_prefix.strip('/') if pos_prefix else 'XXXX'
-        # transbak_id = self.env['pos.payment'].search([('pos_order_id', '=', pos_order.id)], limit=1).transaction_id
-        # text = self.ref or self.name or ''
 
         if not branch_ccu_code:
             raise ValidationError(
@@ -122,24 +101,11 @@ class AccountMove(models.Model):
         for line in self.line_ids:
             i = i + 1
 
-            # cost_center = ''
-            # if line.account_id.send_cost_center:
-            #     cost_center = line.partner_id.cost_center_code
-            # if line.account_id.send_default_cost_center and line.account_id.default_cost_center_code:
-            #     cost_center = line.account_id.default_cost_center_code
-
             # Jerarquía de Centro de Costos, primero el PARTNER luego la CUENTA
             cost_center = line.partner_id.cost_center_code if (
                     line.account_id.send_cost_center and line.partner_id.cost_center_code) else ''
             cost_center = line.account_id.default_cost_center_code if (
                     line.account_id.send_default_cost_center and line.account_id.default_cost_center_code) else cost_center
-
-            # profit_center = ''
-            # if line.account_id.send_profit_center:
-            #     profit_center = self.invoice_user_id.sale_team_id.profit_center_code
-            #
-            # if line.account_id.send_default_profit_center and line.account_id.default_profit_center_code:
-            #     profit_center = line.account_id.default_profit_center_code
 
             # Jerarquía de Centro de Beneficios, primero el PARTNER luego la CUENTA
             profit_center = self.invoice_user_id.sale_team_id.profit_center_code if (
@@ -155,31 +121,7 @@ class AccountMove(models.Model):
                 vat = partner.generic_RUT
             if line.account_id.send_client_sap_default_code:
                 sap_code = line.account_id.default_sap_code
-                # TODO: and what about 'vat' ?
 
-            # else:
-            #     sap_code = sap_code
-
-            # else:
-            #     vat = line.partner_id.vat
-            # if not sap_code and line.partner_id:
-            #     client = self._get_data_client_from_esb(line.partner_id.vat, send_date)
-            #     if client:
-            #         sap_code = self._set_client_sap_code(line.partner_id.id, client['CODE'])
-            #     else:
-            #        # CREAR CLIENTE EN SAP
-            #         new_client = self._add_client_to_SAP(line.partner_id, send_date, branch_ccu_code)
-            #         if new_client:
-            #             sap_code = self._set_client_sap_code(line.partner_id.id, new_client['CODE'])
-            #         else:
-            #             print('ERROR: New Client SAP Error')
-            # else:
-            #     if self.partner_id and not sap_code:
-            #         raise ValidationError(
-            #             'ERROR in Client Creation of SAP'
-            #         )
-            #     else:
-            #         print('Assent without Client')
             if self.partner_id and not sap_code:
                 raise ValidationError('ERROR in Client Creation of SAP')
             else:
