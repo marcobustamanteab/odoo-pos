@@ -16,24 +16,28 @@ class StockPicking(models.Model):
     _inherit = "stock.picking"
 
     # Campos para recibir confirmación de sincronización
-    sync_uuid = fields.Char(string='Unique ID of sync', readonly=True, index=True, tracking=True)
-    is_sync = fields.Boolean(string='Is sync with external inventory system?', default=False, tracking=True)
-    sync_text = fields.Text(string='Sync with this text', readonly=True, tracking=True)
+    sync_uuid = fields.Char(string='Sync. UUID', readonly=True, index=True, tracking=True,
+                            default=lambda self: str(uuid.uuid4()))
+    is_sync = fields.Boolean(string='Synchronize', default=False, tracking=True)
+    sync_text = fields.Text(string='Sync. Text', readonly=True, tracking=True)
     posted_payload = fields.Text('Posted Payload', readonly=True)
     response_payload = fields.Text('Response Payload', readonly=True)
 
     def action_confirm(self):
         res = super(StockPicking, self).action_confirm()
         for rec in self:
+            if not rec.sync_uuid:
+                rec.write({'sync_uuid': str(uuid.uuid4())})
             rec.esb_send_stock_out()
         return res
 
     def esb_send_stock_out(self):
         self.ensure_one()
         payload_lines = []
-        sync_uuid = str(uuid.uuid4())
         esb_api_endpoint = "/sap/inventario/movimiento/crear"
         backend = self.company_id.backend_esb_id
+        if not self.sync_uuid:
+            self.write({'sync_uuid': str(uuid.uuid4())})
 
         centro = self.location_id.location_id.ccu_code or self.location_dest_id.location_id.ccu_code
         cost_center_code = self.location_id.location_id.cost_center_code or self.location_dest_id.location_id.cost_center_code
@@ -51,14 +55,15 @@ class StockPicking(models.Model):
             id_documento = self.pos_order_id.account_move.name or ''
 
             if self.pos_order_id.account_move.date:
-                year, month, day, hour, min = map(int, self.pos_order_id.account_move.date.strftime("%Y %m %d %H %M").split())
+                year, month, day, hour, min = map(int, self.pos_order_id.account_move.date.strftime(
+                    "%Y %m %d %H %M").split())
                 doc_date = str((year * 10000) + (month * 100) + day)
             else:
                 doc_date = ''
 
             payload = {
                 "HEADER": {
-                    "ID_MENSAJE": sync_uuid,
+                    "ID_MENSAJE": self.sync_uuid,
                     "MENSAJE": "Inventory Movements from Odoo",
                     "FECHA": fecha_AAAAMMDD,
                     "SOCIEDAD": self.company_id.ccu_business_unit,
@@ -71,14 +76,13 @@ class StockPicking(models.Model):
                         "username": backend.user,
                         "header_txt": self.origin,
                         "doc_date": doc_date,
-                        "pstng_date": fecha_AAAAMMDD, #es fecha contable
+                        "pstng_date": fecha_AAAAMMDD,  # es fecha contable
                         "ref_doc_no": self.origin,
                     },
                     "detalle": payload_lines
                 }
             }
-            #code_deptm = warehouse_id.analytic_account_id.code or self.company_id.esb_default_analytic_id.code
-
+            # code_deptm = warehouse_id.analytic_account_id.code or self.company_id.esb_default_analytic_id.code
 
             i = 0
             for line in self.move_line_ids:
@@ -91,7 +95,7 @@ class StockPicking(models.Model):
                         "text": {},
                         "plant": centro,
                         "material": line.product_id.default_code,
-                        "stge_loc": almacen,    # Almacen SAP/ubicación Odoo
+                        "stge_loc": almacen,  # Almacen SAP/ubicación Odoo
                         "move_stloc": "0",
                         "batch": "NONE",
                         "entry_qnt": line.qty_done,
@@ -104,11 +108,9 @@ class StockPicking(models.Model):
                 print(json_object)
 
                 self.write({
-                    'posted_payload': json_object,
-                    'sync_uuid': sync_uuid}
+                    'posted_payload': json_object}
                 )
                 res = backend.api_esb_call("POST", esb_api_endpoint, payload)
-                print(json.dumps(res, indent=4))
 
                 dcto_sap = int(res['mt_response']['HEADER']['reference'])
                 if dcto_sap > 0:
@@ -123,7 +125,6 @@ class StockPicking(models.Model):
                     msg = "SAP response with error\n input data:\n" + json_object + "\nOUTPUT:\n" + json_object_response
                     raise ValidationError(msg)
 
-
     @api.model
     def send_picking_to_ESB(self):
         if self.picking_type_id.ccu_sync:
@@ -133,7 +134,7 @@ class StockPicking(models.Model):
         self.send_picking_to_ESB()
 
     def update_sync(self, status='NO OK', message='none'):
-        #picking = self.env['stock.picking'].browse(picking_put_request.stock_picking_id)
+        # picking = self.env['stock.picking'].browse(picking_put_request.stock_picking_id)
         if 'NO OK' in status:
             self.sudo().write({
                 'is_sync': False,

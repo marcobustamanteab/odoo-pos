@@ -14,6 +14,7 @@
         "ccu_connector_esb",
         "stock",
         "ccu_stock",
+        "ccu_base",
         "base_automation",
         "account",
 

@@ -13,6 +13,7 @@
     "depends": [
         "base",
         "account",
+        "stock",
         "ccu_mail",
     ],
     'data': [
@@ -26,6 +27,7 @@
         'views/account_journal.xml',
         'views/account_account.xml',
         'views/analytic_account.xml',
+        'views/stock_picking.xml',
     ],
     "application": True,
     "sequence": 0,

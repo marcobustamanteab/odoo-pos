@@ -9,15 +9,16 @@ from odoo.tools.misc import formatLang, format_date, get_lang
 
 _logger = logging.getLogger(__name__)
 
+
 class AccountMove(models.Model):
     _inherit = 'account.move'
 
-    is_sync = fields.Boolean(string='Is sync with external account system?', default=False, readonly=True,
+    is_sync = fields.Boolean(string='Synchronize', default=False, readonly=True,
                              tracking=True)
-    sync_uuid = fields.Char(string='Unique ID of sync', readonly=True, index=True, tracking=True,
+    sync_uuid = fields.Char(string='Sync. UUID', readonly=True, index=True, tracking=True,
                             default=lambda self: str(uuid.uuid4()))
     posted_payload = fields.Text('Posted Payload', readonly=True, copy=False)
-    sync_reference = fields.Char(string='Sync with this text', readonly=True, tracking=True, copy=False)
+    sync_reference = fields.Char(string='Sync. Text', readonly=True, tracking=True, copy=False)
     response_payload = fields.Text('Response Payload', readonly=True, copy=False)
 
     def prepare_partner_sap_codes(self):
@@ -56,6 +57,9 @@ class AccountMove(models.Model):
     # @job
     def esb_send_account_move(self):
         self.ensure_one()
+        if not self.sync_uuid:
+            print(["UUID", uuid.uuid4()])
+            self.write({'sync_uuid': str(uuid.uuid4())})
 
         self.prepare_partner_sap_codes()
 
@@ -125,9 +129,9 @@ class AccountMove(models.Model):
 
             # Jerarquía de Centro de Costos, primero el PARTNER luego la CUENTA
             cost_center = line.partner_id.cost_center_code if (
-                        line.account_id.send_cost_center and line.partner_id.cost_center_code) else ''
+                    line.account_id.send_cost_center and line.partner_id.cost_center_code) else ''
             cost_center = line.account_id.default_cost_center_code if (
-                        line.account_id.send_default_cost_center and line.account_id.default_cost_center_code) else cost_center
+                    line.account_id.send_default_cost_center and line.account_id.default_cost_center_code) else cost_center
 
             # profit_center = ''
             # if line.account_id.send_profit_center:
@@ -138,9 +142,9 @@ class AccountMove(models.Model):
 
             # Jerarquía de Centro de Beneficios, primero el PARTNER luego la CUENTA
             profit_center = self.invoice_user_id.sale_team_id.profit_center_code if (
-                        line.account_id.send_profit_center and self.invoice_user_id.sale_team_id.profit_center_code) else ''
+                    line.account_id.send_profit_center and self.invoice_user_id.sale_team_id.profit_center_code) else ''
             profit_center = line.account_id.default_profit_center_code if (
-                        line.account_id.send_default_profit_center and line.account_id.default_profit_center_code) else profit_center
+                    line.account_id.send_default_profit_center and line.account_id.default_profit_center_code) else profit_center
 
             partner = line.partner_id or self.partner_id
             sap_code = partner.sap_code

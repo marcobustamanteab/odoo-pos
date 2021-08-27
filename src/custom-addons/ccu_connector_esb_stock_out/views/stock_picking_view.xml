@@ -1,15 +1,17 @@
 <odoo>
 
-    <record id="view_picking_esb_out_form" model="ir.ui.view">
+    <record id="view_picking_form" model="ir.ui.view">
         <field name="name">Stock Picking</field>
         <field name="model">stock.picking</field>
-        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="inherit_id" ref="ccu_base.view_picking_form"/>
         <field name="arch" type="xml">
-            <field name="location_id" position="after">
-                <field name="sync_uuid"/>
-                <field name="is_sync"/>
-                <field name="sync_text"/>
-            </field>
+            <xpath expr="//page[@name='ccu_customization']" position="inside">
+                <group name="group_esv" string="ESB Connection">
+                    <field name="sync_uuid"/>
+                    <field name="is_sync"/>
+                    <field name="sync_text"/>
+                </group>
+            </xpath>
         </field>
     </record>
 
