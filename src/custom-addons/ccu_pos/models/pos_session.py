@@ -55,7 +55,7 @@ class PosSession(models.Model):
 
             if order.is_invoiced:
                 # Combine invoice receivable lines # MSP: Split by partner_id
-                key = (order.partner_id.property_account_receivable_id.id,order.partner_id.id)
+                key = (order.partner_id.property_account_receivable_id.id,order.partner_id.id,order.id)
                 if self.config_id.cash_rounding:
                     invoice_receivables[key] = self._update_amounts(invoice_receivables[key], {'amount': order.amount_paid}, order.date_order)
                 else:
@@ -202,18 +202,19 @@ class PosSession(models.Model):
 
         invoice_receivable_vals = defaultdict(list)
         invoice_receivable_lines = {}
-        for receivable_account_id_and_partner_id, amounts in invoice_receivables.items():
-            receivable_account_id = receivable_account_id_and_partner_id[0]
-            partner_id = receivable_account_id_and_partner_id[1]
+        for receivable_account_id_partner_id_order_id, amounts in invoice_receivables.items():
+            receivable_account_id = receivable_account_id_partner_id_order_id[0]
+            partner_id = receivable_account_id_partner_id_order_id[1]
+            order_id = receivable_account_id_partner_id_order_id[2]
             invoice_vals = self._get_invoice_receivable_vals(receivable_account_id, amounts['amount'],
                                                              amounts['amount_converted'])
             invoice_vals['partner_id'] = partner_id
+            invoice_vals['pos_order_id'] = order_id
             invoice_vals['name'] = self.env['res.partner'].browse(partner_id).mapped('name')[0] or invoice_vals.get(
                 'name')
-            invoice_receivable_vals[receivable_account_id_and_partner_id].append(invoice_vals)
-        for receivable_account_id_and_partner_id, vals in invoice_receivable_vals.items():
-            receivable_account_id = receivable_account_id_and_partner_id[0]
-            partner_id = receivable_account_id_and_partner_id[1]
+            invoice_receivable_vals[receivable_account_id_partner_id_order_id].append(invoice_vals)
+        for receivable_account_id_partner_id_order_id, vals in invoice_receivable_vals.items():
+            receivable_account_id = receivable_account_id_partner_id_order_id[0]
             receivable_line = MoveLine.create(vals)
             if (not receivable_line.reconciled):
                 invoice_receivable_lines[receivable_account_id] = receivable_line
