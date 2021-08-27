@@ -142,7 +142,7 @@ class AccountMove(models.Model):
                     else:
                         if self.pos_session_id:
                             alloc_nbr = self.pos_session_id.name
-            ref_key_1 = line.ref
+            ref_key_1 = line.reference_key_1 or ''
             if ref_key_1 and "Reversa" in str(ref_key_1):
                 ref_key_1 = self.name
             payload_lines.append({
@@ -151,7 +151,7 @@ class AccountMove(models.Model):
                 "RUTDNI": vat or '',
                 "CODE": sap_code or '',
                 "MAYOR": special_major,
-                "GLOSA": line.account_id.send_fixed_text or line.name,
+                "GLOSA": line.account_id.send_fixed_text or line.name or '',
                 "CECO": cost_center,
                 "CEBE": profit_center,
                 "MATERIAL": line.product_id.default_code or '',
