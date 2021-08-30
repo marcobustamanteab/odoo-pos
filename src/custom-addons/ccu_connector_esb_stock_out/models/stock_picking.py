@@ -120,6 +120,8 @@ class StockPicking(models.Model):
                 )
                 res = backend.api_esb_call("POST", esb_api_endpoint, payload)
 
+                _logger.info(["RES_FROM_SAP", json.dumps(res, indent=4)])
+
                 dcto_sap = int(res['mt_response']['HEADER']['reference'])
                 if dcto_sap > 0:
                     self.write({
