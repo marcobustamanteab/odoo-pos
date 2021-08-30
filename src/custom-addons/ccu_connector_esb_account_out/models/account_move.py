@@ -148,10 +148,9 @@ class AccountMove(models.Model):
                 for related in self.l10n_cl_reference_ids:
                     inv = self.env['account.move'].search(
                         [
-                            ('l10n_latam_document_number', '=', related.origin_doc_number),
                             ('l10n_latam_document_type_id.code', '=', related.l10n_cl_reference_doc_type_selection),
                         ]
-                    )
+                    ).filtered(lambda x:x.l10n_latam_document_number == related.origin_doc_number)
                     _logger.info(["INV_LIST", inv])
                     ref_key_1 = ",".join([x.name for x in inv])
             payload_lines.append({
