@@ -58,6 +58,8 @@ class AccountMove(models.Model):
     # @job
     def esb_send_account_move(self):
         self.ensure_one()
+        if self.is_sync:
+            return
         if not self.sync_uuid:
             print(["UUID", uuid.uuid4()])
             self.write({'sync_uuid': str(uuid.uuid4())})

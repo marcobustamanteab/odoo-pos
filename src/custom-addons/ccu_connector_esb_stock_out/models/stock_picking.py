@@ -35,6 +35,8 @@ class StockPicking(models.Model):
 
     def esb_send_stock_out(self):
         self.ensure_one()
+        if self.is_sync:
+            return
         payload_lines = []
         esb_api_endpoint = "/sap/inventario/movimiento/crear"
         backend = self.company_id.backend_esb_id
