@@ -12,7 +12,6 @@ class AccountDebitNote(models.TransientModel):
         res.update({'copy_lines':True})
         for a, b, move_id in res.get('move_ids', []):
             move = self.env['account.move'].browse(move_id)
-            print(["MOVE_TYPE", move.move_type])
             if move.move_type == 'out_invoice':
                 res.update({'l10n_cl_edi_reference_doc_code': '3'})
             elif move.move_type == 'out_refund':

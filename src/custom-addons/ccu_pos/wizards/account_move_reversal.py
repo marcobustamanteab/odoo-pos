@@ -16,7 +16,6 @@ class AccountMoveReversal(models.TransientModel):
             ], limit=1
         )
         if journals:
-            print(["DEFAULT_GET_", journals.id])
             res.update({'journal_id':journals.id})
         return res
 
