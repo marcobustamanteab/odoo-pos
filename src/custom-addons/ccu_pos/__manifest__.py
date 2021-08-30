@@ -13,7 +13,8 @@
     "depends": [
         "point_of_sale",
         "ccu_base",
-        "l10n_cl"
+        "l10n_cl",
+        "l10n_cl_edi",
     ],
     'data': [
         # "security/ir.model.access.csv",
@@ -25,6 +26,8 @@
         'views/account_move.xml',
         'views/account_bank_statement.xml',
         'views/stock_picking.xml',
+        "wizards/account_move_reversal.xml",
+        "wizards/account_move_debit_note_view.xml",
     ],
     'installable': True,
     'application': True,
