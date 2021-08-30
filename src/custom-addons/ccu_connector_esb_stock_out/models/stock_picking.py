@@ -27,9 +27,11 @@ class StockPicking(models.Model):
 
     def _action_done(self):
         res = super(StockPicking, self)._action_done()
+        _logger.info(["ACTION_DONE"])
         for rec in self:
             if not rec.sync_uuid:
                 rec.write({'sync_uuid': str(uuid.uuid4())})
+            _logger.info(["esb_send_stock_out"])
             rec.esb_send_stock_out()
         return res
 
@@ -111,6 +113,7 @@ class StockPicking(models.Model):
             if len(payload_lines) >= 1:
                 json_object = json.dumps(payload, indent=4)
                 print(json_object)
+                _logger.info(["JSON_RESPONSE", json_object])
 
                 self.write({
                     'posted_payload': json_object}
