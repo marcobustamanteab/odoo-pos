@@ -102,6 +102,7 @@ class StockPicking(models.Model):
                         "stge_loc": almacen,  # Almacen SAP/ubicación Odoo
                         "move_stloc": "0",
                         "batch": "NONE",
+                        "ALLOCNBR": line.picking_id.origin,
                         "entry_qnt": line.qty_done,
                         "item_text": line.picking_id.origin,
                         "move_type": line.move_id.picking_type_id.ccu_code_usage
