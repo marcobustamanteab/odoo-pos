@@ -143,8 +143,16 @@ class AccountMove(models.Model):
                         if self.pos_session_id:
                             alloc_nbr = self.pos_session_id.name
             ref_key_1 = line.reference_key_1 or ''
-            if ref_key_1 and "Reversa" in str(ref_key_1):
-                ref_key_1 = self.name
+            if self.move_type == 'out_refund' or (self.move_type == 'out_invoice' and self.l10n_latam_document_type_id.code == '56'):
+                # if ref_key_1 and "Reversa" in str(ref_key_1):
+                for related in self.l10n_cl_reference_ids:
+                    inv = self.env['account.move'].search(
+                        [
+                            ('l10n_latam_document_number', '=', related.origin_doc_number),
+                            ('l10n_latam_document_type_id.code', '=', related.l10n_cl_reference_doc_type_selection),
+                        ]
+                    )
+                    ref_key_1 = ",".join([x.name for x in inv])
             payload_lines.append({
                 "ITEMNO": str(i),
                 "ACCOUNT": line.account_id.ccu_code or '',
