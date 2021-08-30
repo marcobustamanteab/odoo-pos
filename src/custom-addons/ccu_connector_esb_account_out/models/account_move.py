@@ -52,7 +52,7 @@ class AccountMove(models.Model):
     def _post(self, soft=True):
         res = super(AccountMove, self)._post(soft)
         for rec in self:
-            rec.esb_send_account_move()
+            rec.with_delay(channel='root.account').esb_send_account_move()
         return res
 
     # @job

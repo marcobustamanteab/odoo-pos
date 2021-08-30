@@ -32,7 +32,8 @@ class StockPicking(models.Model):
             if not rec.sync_uuid:
                 rec.write({'sync_uuid': str(uuid.uuid4())})
             _logger.info(["esb_send_stock_out"])
-            rec.esb_send_stock_out()
+            rec.with_delay(channel='root.inventory').esb_send_stock_out()
+
         return res
 
     def esb_send_stock_out(self):
