@@ -152,6 +152,7 @@ class AccountMove(models.Model):
                             ('l10n_latam_document_type_id.code', '=', related.l10n_cl_reference_doc_type_selection),
                         ]
                     )
+                    _logger.info(["INV_LIST", inv])
                     ref_key_1 = ",".join([x.name for x in inv])
             payload_lines.append({
                 "ITEMNO": str(i),
