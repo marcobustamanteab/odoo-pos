@@ -1,8 +1,7 @@
 <odoo>
-    <record model="ir.ui.view" id="ccu_dte_client_account_journal_form_view">
+    <record id="view_account_journal_form" model="ir.ui.view">
         <field name="name">CCU DTE Client Account Journal</field>
         <field name="model">account.journal</field>
-        <field name="priority">17</field>
         <field name="inherit_id" ref="ccu_base.view_account_journal_form"/>
         <field name="arch" type="xml">
             <xpath expr="//page[@name='ccu_customization']" position="inside">
@@ -13,10 +12,9 @@
         </field>
     </record>
 
-    <record id="ccu_dte_client.view_account_journal_tree" model="ir.ui.view">
+    <record id="view_account_journal_tree" model="ir.ui.view">
         <field name="name">CCU DTE Client Account Journal</field>
         <field name="model">account.journal</field>
-        <field name="priority">17</field>
         <field name="inherit_id" ref="account.view_account_journal_tree"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='journal_group_ids']" position="after">

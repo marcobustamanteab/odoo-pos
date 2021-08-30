@@ -1,0 +1,15 @@
+<odoo>
+    <record model="ir.ui.view" id="pos_payment_method_view_form">
+        <field name="name">CCU Account Move</field>
+        <field name="model">pos.payment.method</field>
+        <field name="priority">17</field>
+        <field name="inherit_id" ref="point_of_sale.pos_payment_method_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_id']" position="after">
+                <group name="group_pos" string="POS">
+                    <field name="max_payment_amount"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

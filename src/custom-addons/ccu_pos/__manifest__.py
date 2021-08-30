@@ -25,6 +25,7 @@
         'views/account_move.xml',
         'views/account_bank_statement.xml',
         'views/stock_picking.xml',
+        'views/pos_payment_method.xml',
     ],
     'installable': True,
     'application': True,
