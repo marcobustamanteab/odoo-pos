@@ -19,11 +19,11 @@ class AccountMoveReversal(models.TransientModel):
             res.update({'journal_id':journals.id})
         return res
 
-    def reverse_moves(self):
-        if self.l10n_cl_edi_reference_doc_code == "2":
-            raise UserError("Código de Referencia SII 2 no disponible")
-        return super(AccountMoveReversal, self.with_context(
-            default_l10n_cl_edi_reference_doc_code=self.l10n_cl_edi_reference_doc_code,
-            default_l10n_cl_original_text=self.l10n_cl_original_text,
-            default_l10n_cl_corrected_text=self.l10n_cl_corrected_text
-        )).reverse_moves()
+    # def reverse_moves(self):
+    #     if self.l10n_cl_edi_reference_doc_code == "2":
+    #         raise UserError("Código de Referencia SII 2 no disponible")
+    #     return super(AccountMoveReversal, self.with_context(
+    #         default_l10n_cl_edi_reference_doc_code=self.l10n_cl_edi_reference_doc_code,
+    #         default_l10n_cl_original_text=self.l10n_cl_original_text,
+    #         default_l10n_cl_corrected_text=self.l10n_cl_corrected_text
+    #     )).reverse_moves()
