@@ -17,7 +17,6 @@ class ProductTemplate(models.Model):
     def _compute_product_used(self):
         for rec in self:
             variants = self.env['product.product'].search([('product_tmpl_id', '=', rec.id)]).mapped('id')
-            print(["VARIANTES", variants])
             products = self.env['account.move.line'].sudo().search([('product_id', 'in', variants)])
             rec.product_used = False
             if len(products):
@@ -32,12 +31,13 @@ class ProductTemplate(models.Model):
             if len(products):
                 rec.product_used = True
 
-    def write(self, values):
-        if 'list_price' in values:
-            if int(values.get('list_price')) == 0:
-                values['is_published'] = False
-        res = super(ProductTemplate, self).write(values)
-        return res
+    # TODO: Sacar integración con ECommerce
+    # def write(self, values):
+    #     if 'list_price' in values:
+    #         if int(values.get('list_price')) == 0:
+    #             values['is_published'] = False
+    #     res = super(ProductTemplate, self).write(values)
+    #     return res
 
     def _get_limit_date_buy_max(self, item):
         if item.max_qty_options == 'Monthly':
