@@ -63,8 +63,8 @@ class AccountMove(models.Model):
                 },
                 "INVOICE": {
                     "company_id": "CL91041000-8",
-                    "date_invoice": "%s" % (move.invoice_date or fields.Date.context_today(move)),
-                    "date_due": "%s" %(move.invoice_date_due),
+                    "date_invoice": "%s" % (move.invoice_date),
+                    "date_due": "%s" %(move.invoice_date_due or move.invoice_date),
                     "partner_id": "CL%s" % (move.partner_id.vat),
                     "type": "out_invoice",
                     "name": move.name,
