@@ -11,4 +11,18 @@
         </field>
     </record>
 
+    <record id="view_pos_pos_form" model="ir.ui.view">
+        <field name="name">CCU POS Order Form</field>
+        <field name="model">pos.order</field>
+        <field name="priority">17</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="reset_cashier_prefix" type="object" invisible="0" string="Reset Prefix"
+                        class="btn btn-primary"/>
+            </xpath>
+        </field>
+    </record>
+
+
 </odoo>
