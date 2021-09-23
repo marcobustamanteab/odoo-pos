@@ -38,6 +38,10 @@ class StockPicking(models.Model):
         payload_lines = []
         esb_api_endpoint = "/sap/inventario/movimiento/crear"
         backend = self.company_id.backend_esb_id
+        if not backend.active:
+            _logger.warning("ESB Synchronizatino Service DISABLED")
+            return
+
         if not self.sync_uuid:
             self.write({'sync_uuid': str(uuid.uuid4())})
 
