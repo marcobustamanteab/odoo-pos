@@ -1,0 +1,19 @@
+<odoo>
+    <record id="view_account_move_reversal" model="ir.ui.view">
+        <field name="name">account.move.reversal.form</field>
+        <field name="model">account.move.reversal</field>
+        <field name="inherit_id" ref="l10n_cl_edi.view_account_move_reversal"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='l10n_cl_edi_reference_doc_code']" position="replace">
+                <field name="l10n_cl_edi_reference_doc_code"/>
+            </xpath>
+            <xpath expr="//field[@name='date_mode']" position="replace">
+                <field name="date_mode" readonly="1" force_save="1"/>
+            </xpath>
+            <xpath expr="//field[@name='date']" position="replace">
+                <field name="date" readonly="1" force_save="1"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

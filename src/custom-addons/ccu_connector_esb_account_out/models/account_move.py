@@ -52,12 +52,14 @@ class AccountMove(models.Model):
     def _post(self, soft=True):
         res = super(AccountMove, self)._post(soft)
         for rec in self:
-            rec.esb_send_account_move()
+            rec.with_delay(channel='root.account').esb_send_account_move()
         return res
 
     # @job
     def esb_send_account_move(self):
         self.ensure_one()
+        if self.is_sync:
+            return
         if not self.sync_uuid:
             print(["UUID", uuid.uuid4()])
             self.write({'sync_uuid': str(uuid.uuid4())})
@@ -148,16 +150,24 @@ class AccountMove(models.Model):
                         if self.pos_session_id:
                             alloc_nbr = self.pos_session_id.name
             ref_key_1 = line.reference_key_1 or ''
+            ref_key_3 = ""
+            # TODO: Enviar Texto de Referencia de SII
+            #   1 - Anulacion
+            #   2 - Corrige Texto
+            #   3 - Corrige Monto
+
             if self.move_type == 'out_refund' or (self.move_type == 'out_invoice' and self.l10n_latam_document_type_id.code == '56'):
+                ref_key_table = {"1":"Anula documento", "2":"Corrige Texto", "3":"Corrige Monto"}
                 # if ref_key_1 and "Reversa" in str(ref_key_1):
                 for related in self.l10n_cl_reference_ids:
                     inv = self.env['account.move'].search(
                         [
-                            ('l10n_latam_document_number', '=', related.origin_doc_number),
                             ('l10n_latam_document_type_id.code', '=', related.l10n_cl_reference_doc_type_selection),
                         ]
-                    )
+                    ).filtered(lambda x:x.l10n_latam_document_number == related.origin_doc_number)
+                    _logger.info(["INV_LIST", inv])
                     ref_key_1 = ",".join([x.name for x in inv])
+                    ref_key_3 = ref_key_table.get(related.reference_doc_code, "")
             payload_lines.append({
                 "ITEMNO": str(i),
                 "ACCOUNT": line.account_id.ccu_code or '',
@@ -172,6 +182,7 @@ class AccountMove(models.Model):
                 "TOTAL": line_amt,
                 "ALLOCNBR": alloc_nbr if not line.account_id.send_blank_allocation else '',
                 "REF_KEY_1": ref_key_1 or '',
+                "REF_KEY_3": ref_key_3 or '',
             })
             # TODO: No enviar ALLOCNBR cuando se tiene check en la cuenta - Transferencia Bancaria
             # TODO: Agregar descripción específica en el campo GLOSA configurarlo en la cuenta

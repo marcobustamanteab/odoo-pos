@@ -63,8 +63,8 @@ class AccountMove(models.Model):
                 },
                 "INVOICE": {
                     "company_id": "CL91041000-8",
-                    "date_invoice": "%s" % (move.invoice_date or fields.Date.context_today(move)),
-                    "date_due": "%s" %(move.invoice_date_due),
+                    "date_invoice": "%s" % (move.invoice_date),
+                    "date_due": "%s" %(move.invoice_date_due or move.invoice_date),
                     "partner_id": "CL%s" % (move.partner_id.vat),
                     "type": "out_invoice",
                     "name": move.name,
@@ -152,7 +152,7 @@ class AccountMove(models.Model):
                 print(response.status_code)
                 response_json = json.loads(response.content.decode())
                 print([type(response_json), response_json])
-                result = json.loads(response_json.get("result", {}))
+                result = json.loads(response_json.get("result", "{}"))
                 print([type(result), result])
                 error_code = result.get("ErrorCode", "")
                 error_description = result.get("ErrorDescription", "")

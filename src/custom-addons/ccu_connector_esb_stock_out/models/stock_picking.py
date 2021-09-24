@@ -27,14 +27,19 @@ class StockPicking(models.Model):
 
     def _action_done(self):
         res = super(StockPicking, self)._action_done()
+        _logger.info(["ACTION_DONE"])
         for rec in self:
             if not rec.sync_uuid:
                 rec.write({'sync_uuid': str(uuid.uuid4())})
-            rec.esb_send_stock_out()
+            _logger.info(["esb_send_stock_out"])
+            rec.with_delay(channel='root.inventory').esb_send_stock_out()
+
         return res
 
     def esb_send_stock_out(self):
         self.ensure_one()
+        if self.is_sync:
+            return
         payload_lines = []
         esb_api_endpoint = "/sap/inventario/movimiento/crear"
         backend = self.company_id.backend_esb_id
@@ -104,6 +109,7 @@ class StockPicking(models.Model):
                         "stge_loc": almacen,  # Almacen SAP/ubicación Odoo
                         "move_stloc": "0",
                         "batch": "NONE",
+                        "ALLOCNBR": self.pos_order_id.name or self.name or '',
                         "entry_qnt": line.qty_done,
                         "item_text": line.picking_id.origin,
                         "move_type": line.move_id.picking_type_id.ccu_code_usage
@@ -112,11 +118,14 @@ class StockPicking(models.Model):
             if len(payload_lines) >= 1:
                 json_object = json.dumps(payload, indent=4)
                 print(json_object)
+                _logger.info(["JSON_RESPONSE", json_object])
 
                 self.write({
                     'posted_payload': json_object}
                 )
                 res = backend.api_esb_call("POST", esb_api_endpoint, payload)
+
+                _logger.info(["RES_FROM_SAP", json.dumps(res, indent=4)])
 
                 dcto_sap = int(res['mt_response']['HEADER']['reference'])
                 if dcto_sap > 0:

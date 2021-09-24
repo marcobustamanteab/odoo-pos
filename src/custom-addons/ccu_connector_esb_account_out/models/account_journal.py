@@ -7,6 +7,7 @@ class AccountJournal(models.Model):
 
     ccu_code = fields.Char(string='CCU Code')
     ccu_sync = fields.Boolean(string="Syncs with ESB", default=False)
+    default_latam_document_type_id = fields.Many2one('l10n_latam.document.type', string="Default Document Type")
 
     # @api.constrains('ccu_sync', 'sequence_id')
     # def _check_sequence_size(self):
