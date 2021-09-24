@@ -28,6 +28,7 @@
         'views/stock_picking.xml',
         "wizards/account_move_reversal.xml",
         "wizards/account_move_debit_note_view.xml",
+        'views/pos_payment_method.xml',
     ],
     'installable': True,
     'application': True,

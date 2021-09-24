@@ -64,6 +64,11 @@ class AccountMove(models.Model):
             print(["UUID", uuid.uuid4()])
             self.write({'sync_uuid': str(uuid.uuid4())})
 
+        backend = self.company_id.backend_esb_id
+        if not backend.active:
+            _logger.warning("ESB Synchronizatino Service DISABLED")
+            return
+
         self.prepare_partner_sap_codes()
 
         payload_lines = []
@@ -198,7 +203,6 @@ class AccountMove(models.Model):
         self.write({'posted_payload': json_object})
 
         esb_api_endpoint = '/sap/contabilidad/asiento/crear'
-        backend = self.company_id.backend_esb_id
 
         res = backend.api_esb_call("POST", esb_api_endpoint, payload)
         # print(json.dumps(res, indent=4))
