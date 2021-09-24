@@ -1,5 +1,6 @@
 from odoo import api, fields, models, _
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
+
 
 class PosPayment(models.Model):
     _name = 'pos.payment'
@@ -20,6 +21,7 @@ class PosPayment(models.Model):
         amount = vals.get("amount")
         method = self.env['pos.payment.method'].browse(vals.get('payment_method_id'))
         if method.max_payment_amount and amount > method.max_payment_amount:
-            raise UserError("Max Payment Allowed %s")
+            raise ValidationError("Payment Method: %s\nMax. Amount Allowed %s" % (
+            method.name, method.max_payment_amount))
         res = super(PosPayment, self).create(vals)
         return res
