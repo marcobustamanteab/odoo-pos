@@ -12,7 +12,7 @@ class AccountMove(models.Model):
             prefix = pos_order.session_id.config_id.sequence_id.prefix
             return prefix.strip('/') if prefix else 'XXXX1'
         else:
-            pos_session = self.env['pos.session'].search([('name','=ilike',self.ref)])
+            pos_session = self.env['pos.session'].search([('name', '=ilike', self.ref)])
             if pos_session:
                 prefix = pos_session.config_id.sequence_id.prefix
                 return prefix.strip('/') if prefix else 'XXXX2'
@@ -25,33 +25,29 @@ class AccountMove(models.Model):
 
     def _compute_pos_sequence_prefix(self):
         for rec in self:
-            pos_order = rec.env['pos.order'].search([('name', '=ilike', rec.payment_reference)], limit=1)
-            if pos_order:
-                rec.pos_order_id = pos_order[0].id
-                rec.pos_session_id = pos_order[0].session_id.id
-            pos_session = rec.env['pos.session'].search([('name', '=ilike', rec.ref)], limit=1)
-            if pos_session:
-                rec.pos_session_id = pos_session[0].id
+            rec.pos_sequence_prefix = ''
             print(["RESETING", rec.name])
-            if rec.pos_session_id:
-                prefix = rec.pos_session_id.config_id.sequence_id.prefix
-                rec.pos_sequence_prefix = prefix.strip('/') if prefix else 'XXXX4'
+            if self.pos_order_id:
+                rec.pos_sequence_prefix = self.pos_order_id.session_id.config_id.sequence_id.prefix.strip('/')
             else:
+                if self.pos_session_id:
+                    rec.pos_sequence_prefix = self.pos_session_id.config_id.sequence_id.prefix.strip('/')
+            if not rec.pos_sequence_prefix:
+                pos_order = rec.env['pos.order'].search([('name', '=ilike', rec.payment_reference)], limit=1)
+                if pos_order:
+                    rec.pos_order_id = pos_order[0].id
+                    rec.pos_session_id = pos_order[0].session_id.id
+                pos_session = rec.env['pos.session'].search([('name', '=ilike', rec.ref)], limit=1)
+                if pos_session:
+                    rec.pos_session_id = pos_session[0].id
+            if not rec.pos_sequence_prefix:
                 if len(rec.pos_order_ids) > 0:
                     pos_order = rec.pos_order_ids[0]
-                    prefix = pos_order.session_id.config_id.sequence_id.prefix
-                    rec.pos_sequence_prefix = prefix.strip('/') if prefix else 'XXXX4'
-                else:
-                    pos_session = rec.env['pos.session'].search([('name', '=ilike', rec.ref)])
-                    if pos_session:
-                        prefix = pos_session.config_id.sequence_id.prefix
-                        rec.pos_sequence_prefix = prefix.strip('/') if prefix else 'XXXX5'
-                    else:
-                        rec.pos_sequence_prefix = "XXXX6"
-                        acc_bank_state_line = rec.env['account.bank.statement.line'].search([('move_id','=',rec.id)], limit=1)
-                        if acc_bank_state_line:
-                            prefix = acc_bank_state_line[0].statement_id.pos_session_id.config_id.sequence_id.prefix
-                            rec.pos_sequence_prefix = prefix.strip('/') if prefix else 'XXXX7'
+                    if pos_order:
+                        rec.pos_order_id = pos_order[0].id
+                        rec.pos_session_id = pos_order[0].session_id.id
+            if rec.pos_order_id or rec.pos_session_id:
+                rec._compute_pos_sequence_prefix()
 
     def reset_cashier_prefix(self):
         moves = self.env['account.move'].search([])

@@ -1,5 +1,4 @@
 <odoo>
-
     <record id="view_account_journal_esb_form" model="ir.ui.view">
         <field name="name">account.journal.esb.form</field>
         <field name="model">account.journal</field>
@@ -7,8 +6,9 @@
         <field name="arch" type="xml">
             <xpath expr="//page[@name='ccu_customization']" position="inside">
                 <group name="group_esb" string="ESB Connector">
-                <field name="ccu_code"/>
-                <field name="ccu_sync"/>
+                    <field name="ccu_code"/>
+                    <field name="ccu_sync"/>
+                    <field name="default_latam_document_type_id"/>
                 </group>
             </xpath>
         </field>

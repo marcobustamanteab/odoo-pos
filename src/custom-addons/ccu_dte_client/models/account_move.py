@@ -152,7 +152,7 @@ class AccountMove(models.Model):
                 print(response.status_code)
                 response_json = json.loads(response.content.decode())
                 print([type(response_json), response_json])
-                result = json.loads(response_json.get("result", {}))
+                result = json.loads(response_json.get("result", "{}"))
                 print([type(result), result])
                 error_code = result.get("ErrorCode", "")
                 error_description = result.get("ErrorDescription", "")
