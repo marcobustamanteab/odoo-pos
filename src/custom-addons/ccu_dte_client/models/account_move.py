@@ -79,6 +79,8 @@ class AccountMove(models.Model):
                     "name": move.partner_id.name,
                     "vat": "CL%s" % (move.partner_id.vat),
                     "street": move.partner_id.street,
+                    "city": move.partner_id.city,
+                    "state_id": "%s%s" %(move.partner_id.state_id.country_id.code, move.partner_id.state_id.code),
                     "activity_description": move.partner_id.l10n_cl_activity_description,
                     "mobile": move.partner_id.mobile,
                     "email": move.partner_id.l10n_cl_dte_email or move.partner_id.email or '',
