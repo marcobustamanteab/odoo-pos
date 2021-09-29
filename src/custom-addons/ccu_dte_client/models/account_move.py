@@ -59,13 +59,13 @@ class AccountMove(models.Model):
             journal_id = journal_dict.get(move.l10n_latam_document_type_id.code, "XXX")
             dte_to_send = {
                 "CLIENT": {
-                    "client-vat-company": "CL%s" % (move.company_id.vat)
+                    "client-vat-company": "%s%s" % (move.company_id.country_id.code,move.company_id.vat)
                 },
                 "INVOICE": {
-                    "company_id": "CL91041000-8",
-                    "date_invoice": "%s" % (move.invoice_date),
-                    "date_due": "%s" %(move.invoice_date_due or move.invoice_date),
-                    "partner_id": "CL%s" % (move.partner_id.vat),
+                    "company_id": "%s%s" %(move.company_id.country_id.code,move.company_id.vat),
+                    "date_invoice": "%s" % (move.invoice_date or fields.Date.context_today(move)),
+                    "date_due": "%s" %(move.invoice_date_due),
+                    "partner_id": "%s%s" % (move.partner_id.country_id.code, move.partner_id.vat),
                     "type": "out_invoice",
                     "name": move.name,
                     "number": move.name,
