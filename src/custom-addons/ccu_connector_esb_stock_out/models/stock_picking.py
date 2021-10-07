@@ -127,7 +127,7 @@ class StockPicking(models.Model):
 
                 _logger.info(["RES_FROM_SAP", json.dumps(res, indent=4)])
 
-                dcto_sap = int(res['mt_response']['HEADER']['reference'])
+                dcto_sap = int(res['mt_response']['HEADER'].get('reference', 0))
                 if dcto_sap > 0:
                     self.write({
                         'is_sync': True,
