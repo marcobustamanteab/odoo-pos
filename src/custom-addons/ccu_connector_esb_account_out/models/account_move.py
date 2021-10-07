@@ -44,7 +44,7 @@ class AccountMove(models.Model):
                     else:
                         print('ERROR: New Client SAP Error')
             else:
-                if self.partner_id and not sap_code:
+                if self.partner_id and not partner.generic_sap_code:
                     raise ValidationError('ERROR in Client Creation of SAP')
                 else:
                     print('Assent without Client')
