@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "CCU DTE Client",
+    'name': "CCU Services",
 
-    'summary': """DTE Client for CCU Companies""",
+    'summary': """CCU Services""",
 
     'description': """
-        Provide the DTE Client Layout to integrate with Xerox or another DTE external Provider
-    """,
+        Provide Services to all CCU Odoo implementations""",
 
     'author': "Martin Salcedo Pacheco",
     'website': "http://www.msalcedo.com",
@@ -15,28 +14,22 @@
     # Check https://github.com/odoo/odoo/blob/12.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
     'category': 'customizations',
-    'version': '0.20210630.1401',
+    'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base',
-                'account',
-                'ccu_base',
-                'ccu_services',
-                'account_accountant'],
+    'depends': ['base'],
 
     # always loaded
     'data': [
         'entries/module_actions_act_window.xml',
         'entries/module_menu.xml',
         'security/ir.model.access.csv',
-        'views/dte_client_config.xml',
-        'views/account_move.xml',
-        'views/account_journal.xml',
-        'views/account_tax.xml',
+        'wizards/account_invoice_export_attachment.xml',
     ],
     # only loaded in demonstration mode
-    'demo': [
-    ],
+    # 'demo': [
+    #     'demo/demo.xml',
+    # ],
     'installable': True,
     'application': True,
 }

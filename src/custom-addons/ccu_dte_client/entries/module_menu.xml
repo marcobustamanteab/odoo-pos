@@ -1,9 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <odoo>
 
+    <menuitem id="dte_client_menu_entry" name="DTE Client Configuration"
+              parent="ccu_services.ccu_services_services_menu"
+              />
+
     <menuitem id="dte_client_config_menu_entry" name="DTE Client Configuration"
-              parent="account.menu_finance_configuration"
-              sequence="4"
+              parent="dte_client_menu_entry"
               action="dte_client_config_action"/>
 
 </odoo>

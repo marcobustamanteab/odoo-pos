@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+
+    <menuitem id="ccu_services_module"
+              name="CCU Services"
+              web_icon="ccu_services,static/icon.png"/>
+
+    <menuitem id="ccu_services_services_menu"
+              name="Services"
+              parent="ccu_services_module"/>
+
+        <menuitem id="ccu_services_configuration"
+              name="Configuration"
+              parent="ccu_services_module"/>
+
+    <!--    <menuitem id="ccu_services_routines"-->
+    <!--              name="Routines"-->
+    <!--              parent="ccu_services_module"/>-->
+
+    <!--    <menuitem id="account_invoice_export_attachment_action"-->
+    <!--              name="Account Invoice Export Attachment"-->
+    <!--              action="account_invoice_export_attachment_action"-->
+    <!--              parent="ccu_services_routines"/>-->
+
+</odoo>
