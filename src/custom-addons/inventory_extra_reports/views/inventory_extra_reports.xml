@@ -33,7 +33,6 @@
     <record model="ir.actions.act_window" id="inventory_extra_reports_excel_view_wizard">
         <field name="name">Inventory Moviments Check Report</field>
         <field name="res_model">inventory.extra.reports.excel</field>
-        <field name="view_type">form</field>
         <field name="view_mode">form</field>
         <field name="view_id" ref="inventory_extra_reports_excel_view" />
         <field name="target">new</field>
@@ -50,6 +49,10 @@
         <field name="target">new</field>
     </record>
 
-    <menuitem id="cuadratura_inventario_report_menu" name="Reporte Cuadratura Inventario PS" parent="account.menu_finance_reports" action="cuadratura_inventario_wizard" sequence="1"/>
+    <menuitem id="cuadratura_inventario_report_menu"
+              name="Reporte Cuadratura Inventario PS"
+              parent="l10n_cl.account_reports_cl_statements_menu"
+              action="cuadratura_inventario_wizard"
+              sequence="50"/>
 </odoo>
 

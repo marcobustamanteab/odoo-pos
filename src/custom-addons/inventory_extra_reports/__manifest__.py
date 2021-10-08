@@ -20,17 +20,14 @@
 
     # any module necessary for this one to work correctly
     'depends': [
-        'ccu_connector_esb',
         'ccu_connector_esb_stock_out',
         'stock',
-        'manantial_partner',
-        'manantial_sale_type',
     ],
 
 
 # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
+        'security/ir.model.access.csv',
         'views/inventory_extra_reports.xml',
         'reports/sales_inventory_transactions_report.xml',
     ],

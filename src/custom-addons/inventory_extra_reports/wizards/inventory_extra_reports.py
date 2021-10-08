@@ -19,25 +19,16 @@ class InventoryExtraReports(models.TransientModel):
             'form': self.read()[0]
         }
 
-        self.env.cr.execute("""select A.BUIN, A.code_peoplesoft, A.sentido, A.origen, sum(qty_sum)
+        self.env.cr.execute("""select A.BUIN, A.default_code, A.sentido, sum(qty_sum)
                 from (
                 select (case when b.ccu_code is null then c.ccu_code else b.ccu_code end) as BUIN
-                , f.code_peoplesoft
+                , f.default_code
                 , j.ccu_code_usage as SENTIDO
-                , (case when j.ccu_code_usage = 'EX' then
-                     (case when l.no_charge_accounting then g.outgoing_code_no_charge
-                     when i.client_type = 'RELACIONADA' then g.outgoing_code_related
-                     when i.client_type = 'FILIAL' THEN g.outgoing_code_subsidiary
-                     else g.outgoing_code end)
-                  else (case when i.client_type = 'RELACIONADA' then g.incoming_code_related
-                       when i.client_type = 'FILIAL' THEN g.incoming_code_subsidiary
-                       else g.incoming_code end)
-                  end) as ORIGEN
+                , j.ccu_code_usage as ORIGEN
                 , sum(d.qty_done) as qty_sum
                 from stock_picking a
                 left join stock_picking_type j on j.id = a.picking_type_id
                 left join sale_order k on k.id = a.sale_id
-                left join sale_order_type l on l.id = k.type_id
                 left join stock_location b on b.id = a.location_id
                 left join stock_location c on c.id = a.location_dest_id
                 left join stock_move_line d on d.picking_id = a.id
@@ -50,34 +41,25 @@ class InventoryExtraReports(models.TransientModel):
                 "' and (b.company_id = " +str(self.company.id) + " or c.company_id = "+ str(self.company.id) +")"
                 """ and (b.ccu_code is not null or c.ccu_code is not null)
                  and f.type = 'product'
-                group by b.ccu_code, c.ccu_code, f.code_peoplesoft, a.location_id, i.client_type, g.incoming_code, g.incoming_code_related, g.incoming_code_subsidiary
-                   , g.outgoing_code, g.outgoing_code_related, g.outgoing_code_subsidiary, j.ccu_code_usage, l.no_charge_accounting, g.outgoing_code_no_charge
+                group by b.ccu_code, c.ccu_code, f.default_code, a.location_id, g.incoming_code, g.incoming_code_related, g.incoming_code_subsidiary
+                   , g.outgoing_code, g.outgoing_code_related, g.outgoing_code_subsidiary, j.ccu_code_usage, g.outgoing_code_no_charge
                 ) A
-                group by A.BUIN, A.code_peoplesoft, A.sentido, A.origen
+                group by A.BUIN, A.default_code, A.sentido
                 order by 1, 2, 4""")
 
         odoo_results = self.env.cr.fetchall()
 
         #en vez de consultar en PS, replico query anterior y agrego filtro is_sync = True
-        self.env.cr.execute("""select A.BUIN, A.code_peoplesoft, A.sentido, A.origen, sum(qty_sum)
+        self.env.cr.execute("""select A.BUIN, A.default_code, A.sentido, sum(qty_sum)
                 from (
                 select (case when b.ccu_code is null then c.ccu_code else b.ccu_code end) as BUIN
-                , f.code_peoplesoft
+                , f.default_code
                 , j.ccu_code_usage as SENTIDO
-                , (case when j.ccu_code_usage = 'EX' then
-                     (case when l.no_charge_accounting then g.outgoing_code_no_charge
-                     when i.client_type = 'RELACIONADA' then g.outgoing_code_related
-                     when i.client_type = 'FILIAL' THEN g.outgoing_code_subsidiary
-                     else g.outgoing_code end)
-                  else (case when i.client_type = 'RELACIONADA' then g.incoming_code_related
-                       when i.client_type = 'FILIAL' THEN g.incoming_code_subsidiary
-                       else g.incoming_code end)
-                  end) as ORIGEN
+                , j.ccu_code_usage as ORIGEN
                 , sum(d.qty_done) as qty_sum
                 from stock_picking a
                 left join stock_picking_type j on j.id = a.picking_type_id
                 left join sale_order k on k.id = a.sale_id
-                left join sale_order_type l on l.id = k.type_id
                 left join stock_location b on b.id = a.location_id
                 left join stock_location c on c.id = a.location_dest_id
                 left join stock_move_line d on d.picking_id = a.id
@@ -90,10 +72,10 @@ class InventoryExtraReports(models.TransientModel):
                 "' and (b.company_id = " +str(self.company.id) + " or c.company_id = "+ str(self.company.id) +")"
                 """ and (b.ccu_code is not null or c.ccu_code is not null)
                  and f.type = 'product' and a.is_sync = true
-                group by b.ccu_code, c.ccu_code, f.code_peoplesoft, a.location_id, i.client_type, g.incoming_code, g.incoming_code_related, g.incoming_code_subsidiary
-                   , g.outgoing_code, g.outgoing_code_related, g.outgoing_code_subsidiary, j.ccu_code_usage, l.no_charge_accounting, g.outgoing_code_no_charge
+                group by b.ccu_code, c.ccu_code, f.default_code, a.location_id, g.incoming_code, g.incoming_code_related, g.incoming_code_subsidiary
+                   , g.outgoing_code, g.outgoing_code_related, g.outgoing_code_subsidiary, j.ccu_code_usage, g.outgoing_code_no_charge
                 ) A
-                group by A.BUIN, A.code_peoplesoft, A.sentido, A.origen
+                group by A.BUIN, A.default_code, A.sentido
                 order by 1, 2, 4""")
 
         SAP_results = self.env.cr.fetchall()
@@ -125,7 +107,7 @@ class InventoryExtraReports(models.TransientModel):
             if line[1] in var_dict_ps:
                 product_name = var_dict_ps[str(line[1])]
             else:
-                product_name = self.env['product.template'].search([('code_peoplesoft', '=', line[1])], limit=1).name
+                product_name = self.env['product.template'].search([('default_code', '=', line[1])], limit=1).name
 
             if line[1] is None:
                 product_name = ''
@@ -141,10 +123,9 @@ class InventoryExtraReports(models.TransientModel):
                 'INV_ITEM_ID': line[1],
                 'NAME': product_name,
                 'SENTIDO': line[2],
-                'ORIGEN': line[3],
-                'ODOO_TOTAL_QTY': line[4],
+                'ODOO_TOTAL_QTY': line[3],
                 'PS_TOTAL_QTY': total_ps,
-                'DIFF': str(int(line[4]) - int(total_ps))
+                'DIFF': str(int(line[3]) - int(total_ps))
             }
             temp.append(vals)
         # if len(resp.json()['Entries']['Entry']) > 0:
@@ -166,7 +147,7 @@ class InventoryExtraReports(models.TransientModel):
 
         data['rows'] = temp
         data['now'] = datetime.now()
-        data['reporte'] = "Reporte Cuadratura Transacciones de Inventario por Ventas PS"
+        data['reporte'] = "Reporte Cuadratura Transacciones de Inventario por Ventas SAP"
 
         if (self.read()[0]['tipo_doc'] == 'xlsx'):
             return self.report_to_xlsx(data)

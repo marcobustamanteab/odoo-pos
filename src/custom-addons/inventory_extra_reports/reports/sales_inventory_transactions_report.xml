@@ -40,7 +40,6 @@
                           <th style="text-align:left;" ><strong>PRODUCTO</strong></th>
                           <th style="text-align:left;" ><strong>NOMBRE</strong></th>
                           <th style="text-align:left;" ><strong>SENTIDO</strong></th>
-                          <th style="text-align:left;" ><strong>ORIGEN</strong></th>
                           <th style="text-align:left;" ><strong>ODOO</strong></th>
                           <th style="text-align:left;" ><strong>RECEPCIONADO POR SAP</strong></th>
                           <th style="text-align:left;" ><strong>DIFF</strong></th>
@@ -54,7 +53,6 @@
                               <td><span t-esc="o['INV_ITEM_ID']"/></td>
                               <td><span t-esc="o['NAME']"/></td>
                               <td><span t-esc="o['SENTIDO']"/></td>
-                              <td><span t-esc="o['ORIGEN']"/></td>
                               <td><span t-esc="'{:,d}'.format(o['ODOO_TOTAL_QTY'])"/></td>
                               <td><span t-esc="o['PS_TOTAL_QTY']"/></td>
                               <td><span t-esc="o['DIFF']"/></td>
