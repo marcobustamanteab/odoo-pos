@@ -123,7 +123,8 @@ class AccountingExtraReports(models.TransientModel):
             'DIFF': str(int(total_odoo) - int(total_ps)),
             'TRN_PND': total_trn
         }
-        temp.append(vals)
+        # Elimino totales, evaluar si se requiere
+        #temp.append(vals)
         data['empresa'] = self.company.name
         data['rows'] = temp
         data['now'] = datetime.now()

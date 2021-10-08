@@ -115,8 +115,8 @@ class InventoryExtraReports(models.TransientModel):
 
             if len(SAP_results)>0:
                 for reg in SAP_results:
-                    if reg[0] == line[0] and reg[1] == line[1] and reg[2] == line[2] and reg[3] == line[3]:
-                        total_ps = reg[4]
+                    if reg[0] == line[0] and reg[1] == line[1] and reg[2] == line[2]:
+                        total_ps = reg[3]
 
             vals = {
                 'BU': line[0],

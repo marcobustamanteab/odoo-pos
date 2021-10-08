@@ -60,6 +60,23 @@
                       </t>
                   </tbody>
                 </table>
+                                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <table style="width: 100%">
+                    <tr>
+                        <td colspan="2" style="border-top: 1px solid black; text-align: center;"><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]> Analista Contable <![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]></td>
+                        <td><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]></td>
+                        <td><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]></td>
+                        <td><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]></td>
+                        <td><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]></td>
+                        <td><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]></td>
+                        <td colspan="2" style="border-top: 1px solid black; text-align: center;"><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]> Jefe de Contabilidad <![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]></td>
+                    </tr>
+                </table>
             </t>
          </t>
     </template>
