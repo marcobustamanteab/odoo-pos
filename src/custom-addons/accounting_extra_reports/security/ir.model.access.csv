@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_account_report_system,"Interfaz General Contabilidad System",model_accounting_extra_reports,base.group_system,1,1,1,1
+access_account_report_user,"Interfaz General Contabilidad  User",model_accounting_extra_reports,base.group_user,1,1,1,0
+access_account_report_system,"Interfaz General Contabilidad Account Mananger",model_accounting_extra_reports,account.group_account_manager,1,1,1,1
+access_account_report_excel_system,"Interfaz General en Excel Contabilidad System",model_accounting_extra_reports_excel,base.group_system,1,1,1,1
+access_account_report_excel_user,"Interfaz General en Excel Contabilidad  User",model_accounting_extra_reports_excel,base.group_user,1,1,1,0
+access_account_report_excel_system,"Interfaz General en Excel Contabilidad Account Mananger",model_accounting_extra_reports_excel,account.group_account_manager,1,1,1,1
+

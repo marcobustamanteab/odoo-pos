@@ -1,0 +1,55 @@
+<odoo>
+    <record model="ir.ui.view" id="cuadratura_inventario_form">
+        <field name="name">cuadratura.inventario.wizard</field>
+        <field name="model">inventory.extra.reports</field>
+        <field name="arch" type="xml">
+            <form string="Parametros Reporte">
+                <group>
+                    <field name="company"/>
+                    <field name="fecha_beg"/>
+                    <field name="fecha_end"/>
+                    <field name="tipo_doc"/>
+                </group>
+                <footer>
+                    <button name="load_inventory_report" string="Reporte" type="object" class="btn-primary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="inventory_extra_reports_excel_view" model="ir.ui.view">
+        <field name="name">inventory.extra.reports.excel.form</field>
+        <field name="model">inventory.extra.reports.excel</field>
+        <field name="arch" type="xml">
+            <form string="Excel Report file" version="7.0">
+                <group>
+                    <field name="excel_file" readonly="1" filename="file_name"/>
+                    <field name="file_name" invisible="1"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="inventory_extra_reports_excel_view_wizard">
+        <field name="name">Inventory Moviments Check Report</field>
+        <field name="res_model">inventory.extra.reports.excel</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="inventory_extra_reports_excel_view" />
+        <field name="target">new</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="cuadratura_inventario_wizard">
+        <field name="name">Wizard Cuadratura Movimientos de Inventario PS</field>
+        <field name="res_model">inventory.extra.reports</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="cuadratura_inventario_form"/>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">No hay datos para mostrar</p>
+        </field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="cuadratura_inventario_report_menu" name="Reporte Cuadratura Inventario PS" parent="account.menu_finance_reports" action="cuadratura_inventario_wizard" sequence="1"/>
+</odoo>
+
