@@ -111,7 +111,7 @@ class StockPicking(models.Model):
                         "batch": "NONE",
                         "ALLOCNBR": self.pos_order_id.name or self.name or '',
                         "entry_qnt": line.qty_done,
-                        "item_text": "RF:" + line.picking_id.origin, # No eliminar prefijo, SAP busca sociedad gl en primeros 5 campos
+                        "item_text": "RF:" + line.picking_id.origin, # No eliminar prefijo, SAP busca sociedad gl en primeros 5 caracteres
                         "move_type": line.move_id.picking_type_id.ccu_code_usage
                     })
 
