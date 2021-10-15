@@ -97,40 +97,39 @@ class Inventory(models.Model):
                                                           ('ccu_code', '!=', False)])
         if location_rec:
             for location in location_rec:
-                if location.location_id.ccu_code == '6302':
-                    esb_api_endpoint = "/sap/inventario/stock/consultar"
+                esb_api_endpoint = "/sap/inventario/stock/consultar"
 
-                    payload = {
-                        "HEADER": {
-                            "ID_MENSAJE": id_mensaje,
-                            "MENSAJE": "TT09",
-                            "FECHA": fecha_AAAAMMDD,
-                            "SOCIEDAD": location.company_id.ccu_business_unit,
-                            "LEGADO": "ODOO-POS",
-                            "CODIGO_INTERFAZ": "ITD009_POS"
-                        },
-                        "DETAIL": [
-                            {
-                                "Centro": location.location_id.ccu_code,
-                                "Almacen": location.ccu_code,
-                                "Material": ""
-                            }
-                        ]
-                    }
+                payload = {
+                    "HEADER": {
+                        "ID_MENSAJE": id_mensaje,
+                        "MENSAJE": "TT09",
+                        "FECHA": fecha_AAAAMMDD,
+                        "SOCIEDAD": location.company_id.ccu_business_unit,
+                        "LEGADO": "ODOO-POS",
+                        "CODIGO_INTERFAZ": "ITD009_POS"
+                    },
+                    "DETAIL": [
+                        {
+                            "Centro": location.location_id.ccu_code,
+                            "Almacen": location.ccu_code,
+                            "Material": ""
+                        }
+                    ]
+                }
 
-                    # invocación al servicio REST
-                    backend = location.company_id.backend_esb_id  # Parámetro con objeto Backend configurado con servidor WSO2
+                # invocación al servicio REST
+                backend = location.company_id.backend_esb_id  # Parámetro con objeto Backend configurado con servidor WSO2
 
-                    res = backend.api_esb_call("POST", esb_api_endpoint, payload)
-                    # solo si respuesta tiene datos proceso con la syncronización
-                    if res:
-                        values = res.get('mt_response', {}).get('DETAIL', {})
-                        if values:
-                            _logger.info(
-                                'Sending stock update to JOB QUEUE for location: %s' % location.name)
-                            self.with_delay(channel='root.inventory').esb_import_inventory(location, values)
-                        else:
-                            print('Not data y SAP response')
+                res = backend.api_esb_call("POST", esb_api_endpoint, payload)
+                # solo si respuesta tiene datos proceso con la syncronización
+                if res:
+                    values = res.get('mt_response', {}).get('DETAIL', {})
+                    if values:
+                        _logger.info(
+                            'Sending stock update to JOB QUEUE for location: %s' % location.name)
+                        self.with_delay(channel='root.inventory').esb_import_inventory(location, values)
                     else:
-                        print('Invalidad ESB response')
+                        print('Not data y SAP response')
+                else:
+                    print('Invalidad ESB response')
 
