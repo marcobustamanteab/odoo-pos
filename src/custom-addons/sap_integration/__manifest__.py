@@ -11,6 +11,8 @@
         "ccu_connector_esb_account_out",
         "ccu_connector_esb_stock_in",
         "ccu_connector_esb_stock_out",
+        "inventory_extra_reports",
+        "accounting_extra_reports",
         "connector_acp",
         "ccu_stock",
     ],

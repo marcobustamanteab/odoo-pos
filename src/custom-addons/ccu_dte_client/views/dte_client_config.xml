@@ -4,9 +4,11 @@
         <field name="model">dte.client.config</field>
         <field name="type">tree</field>
         <field name="arch" type="xml">
-            <tree string="DTE Service Config">
+            <tree string="DTE Client Configuration">
                 <field name="name"/>
                 <field name="server_base_url"/>
+                <field name="enabled" widget="boolean_toggle"/>
+                <field name="pass_error" widget="boolean_toggle"/>
             </tree>
         </field>
     </record>
@@ -23,7 +25,7 @@
             <form>
                 <header>
                 </header>
-                <sheet string="DTE Client Config">
+                <sheet string="DTE Client Configuration">
                     <div class="oe_title">
                         <h1>
                             <field name="name"/>
@@ -32,7 +34,8 @@
                     <group>
                         <field name="company_id"/>
                         <field name="server_base_url"/>
-                        <field name="pass_error"/>
+                        <field name="enabled" widget="boolean_toggle"/>
+                        <field name="pass_error" widget="boolean_toggle"/>
                     </group>
                 </sheet>
             </form>

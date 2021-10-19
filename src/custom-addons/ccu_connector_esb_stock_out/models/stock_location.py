@@ -8,3 +8,4 @@ class StockLocation(models.Model):
     _inherit = "stock.location"
 
     ccu_code = fields.Char(string='CCU Code')
+    cost_center_code = fields.Char(string='Cost Center Code')

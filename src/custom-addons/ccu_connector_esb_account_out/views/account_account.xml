@@ -3,13 +3,31 @@
     <record id="view_account_form" model="ir.ui.view">
         <field name="name">account.account form add sync field</field>
         <field name="model">account.account</field>
-        <field name="inherit_id" ref="account.view_account_form"/>
+        <field name="inherit_id" ref="ccu_base.view_account_form"/>
         <field name="arch" type="xml">
-            <field name="user_type_id" position="after">
-                <field name="ccu_code"/>
-                <field name="send_cost_center"/>
-                <field name="send_profit_center"/>
-            </field>
+            <xpath expr="//page[@name='ccu_customization']" position="inside">
+                <group name="group_esb" string="ESB Integration">
+                    <field name="ccu_code"/>
+                    <group name="group_alloc_and_text" string="Account">
+                        <field name="send_blank_allocation"/>
+                    </group>
+                    <group name="group_client" string="Client">
+                        <field name="send_client_sap"/>
+                        <field name="send_client_sap_default_code"/>
+                        <field name="default_sap_code"/>
+                    </group>
+                    <group name="group_cost_center" string="Cost Center">
+                        <field name="send_cost_center"/>
+                        <field name="send_default_cost_center"/>
+                        <field name="default_cost_center_code"/>
+                    </group>
+                    <group name="group_profit_center" string="Profit Center">
+                        <field name="send_profit_center"/>
+                        <field name="send_default_profit_center"/>
+                        <field name="default_profit_profit_code"/>
+                    </group>
+                </group>
+            </xpath>
         </field>
     </record>
 

@@ -1,3 +1,11 @@
 docker-compose.yml
 logs
 .idea/
+
+*.pyc
+
+connector/
+
+queue/
+
+rest-framework/

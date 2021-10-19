@@ -8,6 +8,7 @@
             <field name="comment" position="before">
                 <group>
                     <field name="ccu_code" />
+                    <field name="cost_center_code" />
                 </group>
             </field>
         </field>

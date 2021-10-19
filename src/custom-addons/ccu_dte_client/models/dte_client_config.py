@@ -7,8 +7,9 @@ class DTEClientConfir(models.Model):
 
     name = fields.Char(string="Name")
     company_id = fields.Many2one("res.company", string="Company")
-    server_base_url = fields.Char("Base Server URL")
+    server_base_url = fields.Char("Base Server URL", required=True)
     pass_error = fields.Boolean("Pass Errors")
+    enabled = fields.Boolean("Enabled")
 
     @api.onchange('company_id')
     def _onchange_cid_mode(self):

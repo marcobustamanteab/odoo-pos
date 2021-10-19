@@ -1,0 +1,176 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* ccu_dte_client
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0+e-20210308\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-08-11 21:56+0000\n"
+"PO-Revision-Date: 2021-08-11 21:56+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: ccu_dte_client
+#: model:ir.model.fields.selection,name:ccu_dte_client.selection__account_move__dte_send_status__accepted
+msgid "Accepted"
+msgstr "Aceptado"
+
+#. module: ccu_dte_client
+#: model:ir.model,name:ccu_dte_client.model_account_move
+msgid "Account Move or Invoice"
+msgstr "Asiento o Factura"
+
+#. module: ccu_dte_client
+#: model:ir.model.fields,field_description:ccu_dte_client.field_dte_client_config__server_base_url
+msgid "Base Server URL"
+msgstr "URL Base Servidor"
+
+#. module: ccu_dte_client
+#: model_terms:ir.ui.view,arch_db:ccu_dte_client.ccu_dte_client_account_journal_form_view
+#: model_terms:ir.ui.view,arch_db:ccu_dte_client.ccu_dte_client_account_move_form_view
+#: model_terms:ir.ui.view,arch_db:ccu_dte_client.view_dte_service_account_tax_form
+msgid "CCU Customization"
+msgstr "Personalización CCU"
+
+#. module: ccu_dte_client
+#: model:ir.model.fields,field_description:ccu_dte_client.field_dte_client_config__company_id
+msgid "Company"
+msgstr "Empresa"
+
+#. module: ccu_dte_client
+#: model:ir.model.fields,field_description:ccu_dte_client.field_dte_client_config__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: ccu_dte_client
+#: model:ir.model.fields,field_description:ccu_dte_client.field_dte_client_config__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: ccu_dte_client
+#: model:ir.ui.menu,name:ccu_dte_client.dte_client_menu_entry
+msgid "DTE Client"
+msgstr "Cliente DTE"
+
+#. module: ccu_dte_client
+#: model:ir.actions.act_window,name:ccu_dte_client.dte_client_config_action
+#: model_terms:ir.actions.act_window,help:ccu_dte_client.dte_client_config_action
+#: model_terms:ir.ui.view,arch_db:ccu_dte_client.dte_client_config_form
+#: model:ir.model,name:ccu_dte_client.model_dte_client_config
+msgid "DTE Client Config"
+msgstr "Config. Cliente DTE"
+
+#. module: ccu_dte_client
+#: model:ir.model.fields,field_description:ccu_dte_client.field_account_bank_statement_import_journal_creation__dte_service_code
+#: model:ir.model.fields,field_description:ccu_dte_client.field_account_journal__dte_service_code
+#: model:ir.model.fields,field_description:ccu_dte_client.field_account_tax__dte_service_code
+msgid "DTE Service Code"
+msgstr "Código Servicio DTE"
+
+#. module: ccu_dte_client
+#: model_terms:ir.ui.view,arch_db:ccu_dte_client.dte_client_config_tree
+msgid "DTE Service Config"
+msgstr "Config. Servicio DTE"
+
+#. module: ccu_dte_client
+#: model:ir.model.fields,field_description:ccu_dte_client.field_account_bank_statement_line__dte_send_status
+#: model:ir.model.fields,field_description:ccu_dte_client.field_account_move__dte_send_status
+#: model:ir.model.fields,field_description:ccu_dte_client.field_account_payment__dte_send_status
+msgid "DTE Status"
+msgstr "Estado DTE"
+
+#. module: ccu_dte_client
+#: model:ir.model.fields,field_description:ccu_dte_client.field_account_journal__display_name
+#: model:ir.model.fields,field_description:ccu_dte_client.field_account_move__display_name
+#: model:ir.model.fields,field_description:ccu_dte_client.field_account_tax__display_name
+#: model:ir.model.fields,field_description:ccu_dte_client.field_dte_client_config__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: ccu_dte_client
+#: model:ir.model.fields,field_description:ccu_dte_client.field_dte_client_config__enabled
+msgid "Enabled"
+msgstr "Habilitado"
+
+#. module: ccu_dte_client
+#: model:ir.model.fields.selection,name:ccu_dte_client.selection__account_move__dte_send_status__error
+msgid "Error"
+msgstr "Error"
+
+#. module: ccu_dte_client
+#: model:ir.model.fields,field_description:ccu_dte_client.field_account_journal__id
+#: model:ir.model.fields,field_description:ccu_dte_client.field_account_move__id
+#: model:ir.model.fields,field_description:ccu_dte_client.field_account_tax__id
+#: model:ir.model.fields,field_description:ccu_dte_client.field_dte_client_config__id
+msgid "ID"
+msgstr "ID (identificación)"
+
+#. module: ccu_dte_client
+#: model:ir.model.fields.selection,name:ccu_dte_client.selection__account_move__dte_send_status__queue
+msgid "In Queue"
+msgstr "En Cola"
+
+#. module: ccu_dte_client
+#: model:ir.model,name:ccu_dte_client.model_account_journal
+msgid "Journal"
+msgstr "Diario"
+
+#. module: ccu_dte_client
+#: model:ir.model.fields,field_description:ccu_dte_client.field_account_journal____last_update
+#: model:ir.model.fields,field_description:ccu_dte_client.field_account_move____last_update
+#: model:ir.model.fields,field_description:ccu_dte_client.field_account_tax____last_update
+#: model:ir.model.fields,field_description:ccu_dte_client.field_dte_client_config____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: ccu_dte_client
+#: model:ir.model.fields,field_description:ccu_dte_client.field_dte_client_config__write_uid
+msgid "Last Updated by"
+msgstr "Ultima Modificación por"
+
+#. module: ccu_dte_client
+#: model:ir.model.fields,field_description:ccu_dte_client.field_dte_client_config__write_date
+msgid "Last Updated on"
+msgstr "Última Modificación por"
+
+#. module: ccu_dte_client
+#: model:ir.model.fields,field_description:ccu_dte_client.field_dte_client_config__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: ccu_dte_client
+#: model:ir.model.fields,field_description:ccu_dte_client.field_dte_client_config__pass_error
+msgid "Pass Errors"
+msgstr "Ignorar Errores"
+
+#. module: ccu_dte_client
+#: model:ir.model.fields.selection,name:ccu_dte_client.selection__account_move__dte_send_status__pending
+msgid "Pending"
+msgstr "Pendiente"
+
+#. module: ccu_dte_client
+#: model_terms:ir.ui.view,arch_db:ccu_dte_client.ccu_dte_client_account_move_form_view
+msgid "Perform Send"
+msgstr "Ejecutar Envio"
+
+#. module: ccu_dte_client
+#: model:ir.model.fields,field_description:ccu_dte_client.field_account_bank_statement_line__dte_send_error
+#: model:ir.model.fields,field_description:ccu_dte_client.field_account_move__dte_send_error
+#: model:ir.model.fields,field_description:ccu_dte_client.field_account_payment__dte_send_error
+msgid "Send Errors"
+msgstr "Enviar Errores"
+
+#. module: ccu_dte_client
+#: model:ir.model.fields.selection,name:ccu_dte_client.selection__account_move__dte_send_status__sent
+msgid "Sent"
+msgstr "Enviado"
+
+#. module: ccu_dte_client
+#: model:ir.model,name:ccu_dte_client.model_account_tax
+msgid "Tax"
+msgstr "Impuestos"

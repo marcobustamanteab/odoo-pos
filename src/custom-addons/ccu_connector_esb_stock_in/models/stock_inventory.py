@@ -17,20 +17,11 @@ class Inventory(models.Model):
         product_ids = []
         now = fields.Datetime.context_timestamp(
             self.env.user, fields.Datetime.now())
-        inventory_value = {
-            'name': ('ERP Inventory Adjustment %s' % fields.Datetime.to_string(now)),
-            'date': fields.Date.today(),
-            'location_ids': [location.id],
-            'state': 'confirm',
-            'company_id': location.company_id.id,
-            'line_ids': inventory_lines,
-        }
 
         # crea diccionario con campos de la respuesta del servicio REST
-        values_dict = {
-            line['Material']: line['Stock']
-            for line in values}
+        values_dict = {str(line['Material']): line['Stock'] for line in values}
 
+        print(['VALUES_DICT:', values_dict])
         products = self.env['product.product'].search([
             ('default_code', '!=', False),
             ('type', '=', 'product'),
@@ -53,6 +44,7 @@ class Inventory(models.Model):
                     _logger.warning(msg)
                     product.message_post(body=msg)
             else:
+                print(['PRODUCT_ODOO', product.default_code, 'CANTIDAD EN ODOO: ', product.qty_available, 'CANTIDAD EN SAP:', product_qty,])
                 if product_qty == product.qty_available:
                     _logger.debug(
                         "Product %s %s quantity %d unchanged, skipping.",
@@ -81,6 +73,15 @@ class Inventory(models.Model):
         _logger.info(
             "Adjusted inventory for %d Odoo products",
             len(inventory_lines))
+        inventory_value = {
+            'name': ('ERP Inventory Adjustment %s' % fields.Datetime.to_string(now)),
+            'date': fields.Date.today(),
+            'location_ids': [location.id],
+            'state': 'confirm',
+            'company_id': location.company_id.id,
+            'line_ids': inventory_lines,
+        }
+        print(['INVENTARIO:'])
         print(inventory_value)
         inventory_rec = self.create(inventory_value)
         inventory_rec.action_validate()
@@ -88,7 +89,7 @@ class Inventory(models.Model):
 
     @api.model
     def cron_esb_get_inventory(self):
-        id_mensaje = str(uuid.uuid1())
+        id_mensaje = str(uuid.uuid4())
         year, month, day, hour, min = map(int, time.strftime("%Y %m %d %H %M").split())
         fecha_AAAAMMDD = str((year*10000) + (month*100) + day)
 
@@ -104,7 +105,7 @@ class Inventory(models.Model):
                         "MENSAJE": "TT09",
                         "FECHA": fecha_AAAAMMDD,
                         "SOCIEDAD": location.company_id.ccu_business_unit,
-                        "LEGADO": "ODOO",
+                        "LEGADO": "ODOO-POS",
                         "CODIGO_INTERFAZ": "ITD009_POS"
                     },
                     "DETAIL": [
@@ -125,8 +126,7 @@ class Inventory(models.Model):
                     values = res.get('mt_response', {}).get('DETAIL', {})
                     if values:
                         _logger.info(
-                            'Sending stock update to JOB QUEUE for location: ',
-                        location.name)
+                            'Sending stock update to JOB QUEUE for location: %s' % location.name)
                         self.with_delay(channel='root.inventory').esb_import_inventory(location, values)
                     else:
                         print('Not data y SAP response')

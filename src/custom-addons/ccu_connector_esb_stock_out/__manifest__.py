@@ -14,6 +14,7 @@
         "ccu_connector_esb",
         "stock",
         "ccu_stock",
+        "ccu_base",
         "base_automation",
         "account",
 
@@ -27,6 +28,9 @@
         "views/stock_picking_view.xml",
         "views/stock_picking_type_view.xml",
         "views/product_view.xml",
+        "views/stock_move.xml",
+        "views/module_actions_act_window.xml",
+        "views/module_menu.xml",
     ],
     "development_status": "Beta",
     "maintainers": ["dclaver"],

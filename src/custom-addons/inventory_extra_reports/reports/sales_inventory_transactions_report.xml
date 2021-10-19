@@ -1,0 +1,83 @@
+<odoo>
+    <report id="cuadratura_inventario_report"
+            string="Reporte de Movimientos de Inventario por Ventas (Costos)"
+            model="inventory.extra.reports"
+            report_type="qweb-html"
+            name="inventory_extra_reports.cuadratura_inventario_template"
+            file="inventory_extra_reports.cuadratura_inventario_template"/>
+
+
+    <template id="cuadratura_inventario_template">
+         <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+               <div class="col-md-12">
+                 <div style="border-bottom: 2px solid black">
+                     <div class="col-md-3">
+                       <!--<img t-if="o.empresa.logo" t-att-src="'data:image/png;base64,%s' % o.empresa.logo.decode('ascii')" class="pull-left" style="width:200px"/>-->
+                       <!-- <field name="o.company_id.logo" widget="image" class="oe_avatar"/> -->
+                       <!-- <img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' %o.company_id.logo" style="max-width: 200px; max-height: 150px;"/> -->
+                     </div>
+                     <div>
+                         <h4 class="text-center">Informe Cuadratura Inventario Odoo - SAP</h4>
+                         <div class="text-right">
+                             <h7 class="text-xs-right">Fecha desde:<span t-esc="form['fecha_beg']"/></h7>
+                             <br/>
+                             <h7 class="text-xs-right">Fecha hasta:<span t-esc="form['fecha_end']"/></h7>
+                         </div>
+                         <br/>
+                         <div class="text-right">
+                             <h7 class="text-xs-right">Fecha generación reporte:<span t-esc="now"/></h7>
+                         </div>
+                     </div>
+                 </div>
+               </div>
+           <br/>
+           <br/>
+                <table class="table table-bordered table-striped table-sm" style="width: 100%">
+                  <thead>
+                      <tr>
+                          <th style="text-align:left;" ><strong>BU</strong></th>
+                          <th style="text-align:left;" ><strong>PRODUCTO</strong></th>
+                          <th style="text-align:left;" ><strong>NOMBRE</strong></th>
+                          <th style="text-align:left;" ><strong>SENTIDO</strong></th>
+                          <th style="text-align:left;" ><strong>ODOO</strong></th>
+                          <th style="text-align:left;" ><strong>RECEPCIONADO POR SAP</strong></th>
+                          <th style="text-align:left;" ><strong>DIFF</strong></th>
+                      </tr>
+                  </thead>
+
+                  <tbody>
+                      <t t-foreach="rows" t-as="o">
+                          <tr>
+                              <td><span t-esc="o['BU']"/></td>
+                              <td><span t-esc="o['INV_ITEM_ID']"/></td>
+                              <td><span t-esc="o['NAME']"/></td>
+                              <td><span t-esc="o['SENTIDO']"/></td>
+                              <td><span t-esc="'{:,d}'.format(o['ODOO_TOTAL_QTY'])"/></td>
+                              <td><span t-esc="o['PS_TOTAL_QTY']"/></td>
+                              <td><span t-esc="o['DIFF']"/></td>
+                          </tr>
+                      </t>
+                  </tbody>
+                </table>
+                                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <table style="width: 100%">
+                    <tr>
+                        <td colspan="2" style="border-top: 1px solid black; text-align: center;"><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]> Analista Contable <![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]></td>
+                        <td><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]></td>
+                        <td><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]></td>
+                        <td><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]></td>
+                        <td><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]></td>
+                        <td><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]></td>
+                        <td colspan="2" style="border-top: 1px solid black; text-align: center;"><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]> Jefe de Contabilidad <![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]></td>
+                    </tr>
+                </table>
+            </t>
+         </t>
+    </template>
+</odoo>

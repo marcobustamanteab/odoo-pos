@@ -2,8 +2,8 @@
 <odoo>
 
     <menuitem id="fiscal_office_menu_entry" name="Fiscal Office"
-              parent="account_accountant.menu_accounting"
-              sequence="30"
+              parent="account.menu_finance_configuration"
+              sequence="4"
     />
 
         <menuitem id="fiscal_dte_service_provider_menu_entry" name="Fiscal DTE Service Provider"

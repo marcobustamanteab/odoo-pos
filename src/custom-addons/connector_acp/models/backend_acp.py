@@ -17,7 +17,7 @@ class BackendAcp(models.Model):
     password = fields.Char(string="Password",)
     active = fields.Boolean(string="Active", default=True)
     prod_environment = fields.Boolean(
-        "Environment",
+        "Production Environment",
         help="Set to True if your credentials are certified for production.")
     status = fields.Selection(
         (("unconfirmed", "Unconfirmed"), ("confirmed", "Confirmed")),

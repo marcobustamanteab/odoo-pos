@@ -2,13 +2,109 @@
     <record id="ccu_view_account_move_form" model="ir.ui.view">
         <field name="name">account.move form add sync field</field>
         <field name="model">account.move</field>
-        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="inherit_id" ref="ccu_base.account_move_form_view"/>
         <field name="arch" type="xml">
-            <field name="ref" position="after">
-                <field name="is_sync"/>
-                <field name="sync_uuid"/>
-                <field name="sync_reference"/>
-            </field>
+            <xpath expr="//page[@name='ccu_customization']" position="inside">
+                <group name="group_esb" string="ESB Connector">
+                    <notebook>
+                        <page name="page_esb_general" string="General">
+                            <group>
+                                <field name="is_sync"/>
+                                <field name="sync_uuid"/>
+                                <field name="sync_reference"/>
+                            </group>
+                        </page>
+                        <page name="page_payload_response" string="Payload &amp; Response">
+                            <group>
+                                <field name="posted_payload"/>
+                                <field name="response_payload"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </group>
+            </xpath>
         </field>
     </record>
+
+    <record model="ir.ui.view" id="view_move_form">
+        <field name="name">CCU Account Move</field>
+        <field name="model">account.move</field>
+        <field name="priority">17</field>
+        <field name="inherit_id" ref="ccu_base.account_move_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='line_ids']/tree/field[@name='name']" position="after">
+                <field name="fixed_text"/>
+                <field name="reference_key_1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="l10n_cl_edi_view_invoice_form">
+        <field name="name">CCU Account Move</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="l10n_cl_edi.view_invoice_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='l10n_cl_reference_ids']/tree/field[@name='origin_doc_number']"
+                   position="before">
+                <field name="move_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="ccu_view_account_move_send_button_form">
+        <field name="name">account.move send to ESB button</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <header>
+                <button name="action_send_account_move_to_esb"
+                        type="object"
+                        string="Send move to esb"
+                        confirm="Are you sure?"
+                        attrs="{'invisible': False}"
+                        class="oe_highlight"/>
+            </header>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="account_move_sync_audit_tree">
+        <field name="name">Account Move Sync Audit</field>
+        <field name="model">account.move</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Journal Entries" sample="1" create="false" edit="false" decoration-success="is_sync==True"
+                  decoration-danger="is_sync==False">
+                <field name="date"/>
+                <field name="name"/>
+                <field name="partner_id" optional="hidden"/>
+                <field name="ref" optional="show"/>
+                <field name="journal_id"/>
+                <field name="company_id" groups="base.group_multi_company" optional="hidden"/>
+                <field name="amount_total_signed" sum="Total Amount" string="Total" decoration-bf="1"/>
+                <field name="is_sync" string="Synced."/>
+                <field name="sync_uuid"/>
+                <field name="sync_reference"/>
+                <field name="state" widget="badge" decoration-info="state == 'draft'"
+                       decoration-success="state == 'posted'" optional="hidden"/>
+                <field name="currency_id" optional="hidden"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="account_move_sync_audit_pivot">
+        <field name="name">Account Move Sync Audit</field>
+        <field name="model">account.move</field>
+        <field name="type">pivot</field>
+        <field name="arch" type="xml">
+            <pivot disable_linking="True" sample="1">
+                <field name="date" interval="month" type="row"/>
+                <field name="date" interval="day" type="row"/>
+                <field name="journal_id" type="col"/>
+                <field name="is_sync" type="col"/>
+                <field name="amount_total_signed" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+
 </odoo>

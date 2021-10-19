@@ -12,6 +12,8 @@
     "website": "https://www.ccu.cl",
     "depends": [
         "base",
+        "account",
+        "stock",
         "ccu_mail",
     ],
     'data': [
@@ -21,6 +23,11 @@
         # 'data/product_pricelist.xml',
         # 'data/user_confirmation_email.xml',
         'views/res_partner.xml',
+        'views/account_move.xml',
+        'views/account_journal.xml',
+        'views/account_account.xml',
+        'views/analytic_account.xml',
+        'views/stock_picking.xml',
     ],
     "application": True,
     "sequence": 0,

@@ -1,0 +1,17 @@
+<odoo>
+    <record model="ir.ui.view" id="view_picking_form">
+        <field name="name">CCU Stock Picking</field>
+        <field name="model">stock.picking</field>
+        <field name="priority">17</field>
+        <field name="inherit_id" ref="ccu_base.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='ccu_customization']" position="inside">
+                <group name="group_pos" string="POS">
+                    <field name="pos_order_id"/>
+                    <field name="pos_session_id"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

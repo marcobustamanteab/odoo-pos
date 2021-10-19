@@ -5,3 +5,4 @@ from . import (
     stock_picking_type,
     product,
 )
+from . import stock_move

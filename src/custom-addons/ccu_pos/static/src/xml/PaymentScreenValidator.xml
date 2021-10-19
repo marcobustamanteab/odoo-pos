@@ -2,32 +2,32 @@
 <templates id="template" xml:space="preserve">
 
        <t t-name="PaymentScreen" t-inherit="point_of_sale.PaymentScreen" t-inherit-mode="extension" owl="1">
-        <xpath expr="//div[hasclass('top-content')]" position="replace">
-            <div class="top-content">
-                ejemplo
-            <t t-if="getTransactionName().includes('Transbank')">
-                <div class="button back"
-                      t-on-click="showScreen('ProductScreen')">
-                    <i class="fa fa-angle-double-left fa-fw"></i>
-                    <span class="back_text">Back1</span>
-                </div>
-                <div class="top-content-center"><h1>Payment</h1></div>
-                <div class="button nextww" t-att-class="{ highlight: currentOrder.is_paid() }"
-                      t-on-click="validateOrderTransbank(false)">
-                    <span class="next_text">Validate1</span>
-                    <i class="fa fa-angle-double-right fa-fw"></i>
-                </div>
-            </t>
-            </div>
-        </xpath>
-<!--     <t t-name="PaymentScreen" t-inherit="point_of_sale.PaymentScreen" t-inherit-mode="extension" owl="1">-->
-<!--        <xpath expr="//div[hasclass('button next')]" position="replace">-->
-<!--            <div class="button next" t-att-class="{ highlight: currentOrder.is_paid() }"-->
-<!--                  t-on-click="validateOrderTransbank(false)">-->
-<!--                <span class="next_text">Validate</span>-->
-<!--                <i class="fa fa-angle-double-right fa-fw"></i>-->
-<!--            </div>-->
-<!--        </xpath>-->
-    </t>
+              <xpath expr="//div[@class='payment-controls']" position="replace">
+                  <div class="payment-controls">
+                      <div t-if="env.pos.config.module_account" class="button js_invoice"
+                          t-att-class="{ highlight: currentOrder.is_to_invoice() }">
+                          <i class="fa fa-file-text-o" /> Invoice
+                      </div>
+                      <div t-if="env.pos.config.tip_product_id" class="button js_tip"
+                          t-on-click="addTip">
+                          <i class="fa fa-heart" /> Tip
+                      </div>
+                      <div t-if="env.pos.config.iface_cashdrawer" class="button js_cashdrawer"
+                          t-on-click="openCashbox">
+                          <i class="fa fa-archive" /> Open Cashbox
+                      </div>
+                  </div>
+              </xpath>
+       </t>
+
+       <t t-name="PaymentScreen" t-inherit="point_of_sale.PaymentScreen" t-inherit-mode="extension" owl="1">
+              <xpath expr="//div[@class='button next']" position="replace">
+                    <div class="button next" t-att-class="{ highlight: currentOrder.is_paid() }"
+                          t-on-click="validateOrderTransbank(false)">
+                        <span class="next_text">Validate</span>
+                        <i class="fa fa-angle-double-right fa-fw"></i>
+                    </div>
+              </xpath>
+       </t>
 
 </templates>

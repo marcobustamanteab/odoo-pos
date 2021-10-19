@@ -4,18 +4,21 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0+e\n"
+"Project-Id-Version: Odoo Server 14.0+e-20210427\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-08 16:00+0000\n"
-"PO-Revision-Date: 2020-09-08 17:02-0300\n"
-"Last-Translator: Nelson Ramírez  <nramirez@konos.cl>\n"
+"POT-Creation-Date: 2021-08-25 20:16+0000\n"
+"PO-Revision-Date: 2021-08-25 20:16+0000\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"Language: es\n"
-"X-Generator: Poedit 2.3\n"
+
+#. module: ccu_connector_esb_stock_out
+#: model_terms:ir.ui.view,arch_db:ccu_connector_esb_stock_out.ccu_view_picking_move_send_button_form
+msgid "Are you sure?"
+msgstr ""
 
 #. module: ccu_connector_esb_stock_out
 #: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_stock_location__ccu_code
@@ -23,19 +26,18 @@ msgid "CCU Code"
 msgstr "Código CCU"
 
 #. module: ccu_connector_esb_stock_out
-#: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_stock_picking_type__ccu_code_controlled
-msgid "ERP Origin Controlled Party"
+#: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_stock_location__cost_center_code
+msgid "Cost Center Code"
 msgstr ""
 
 #. module: ccu_connector_esb_stock_out
-#: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_stock_picking_type__ccu_code_participated
-msgid "ERP Origin Participated Party"
-msgstr ""
-
-#. module: ccu_connector_esb_stock_out
-#: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_stock_picking_type__ccu_code
-msgid "ERP Origin Third-Party"
-msgstr ""
+#: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_product_category__display_name
+#: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_stock_location__display_name
+#: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_stock_move__display_name
+#: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_stock_picking__display_name
+#: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_stock_picking_type__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
 
 #. module: ccu_connector_esb_stock_out
 #: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_stock_picking_type__ccu_code_usage
@@ -43,9 +45,47 @@ msgid "ERP Usage Code"
 msgstr ""
 
 #. module: ccu_connector_esb_stock_out
+#: model_terms:ir.ui.view,arch_db:ccu_connector_esb_stock_out.stock_picking_sync_audit_tree
+msgid "From"
+msgstr ""
+
+#. module: ccu_connector_esb_stock_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_product_category__id
+#: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_stock_location__id
+#: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_stock_move__id
+#: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_stock_picking__id
+#: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_stock_picking_type__id
+msgid "ID"
+msgstr "ID (identificación)"
+
+#. module: ccu_connector_esb_stock_out
 #: model:ir.model,name:ccu_connector_esb_stock_out.model_stock_location
 msgid "Inventory Locations"
-msgstr "Localización de Inventarios"
+msgstr "Ubicaciones de inventario"
+
+#. module: ccu_connector_esb_stock_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_stock_move__is_sync
+msgid "Is sync with external account system?"
+msgstr ""
+
+#. module: ccu_connector_esb_stock_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_stock_picking__is_sync
+msgid "Is sync with external inventory system?"
+msgstr ""
+
+#. module: ccu_connector_esb_stock_out
+#: model_terms:ir.ui.view,arch_db:ccu_connector_esb_stock_out.stock_picking_sync_audit_tree
+msgid "Journal Entries"
+msgstr ""
+
+#. module: ccu_connector_esb_stock_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_product_category____last_update
+#: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_stock_location____last_update
+#: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_stock_move____last_update
+#: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_stock_picking____last_update
+#: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_stock_picking_type____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
 
 #. module: ccu_connector_esb_stock_out
 #: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_product_category__incoming_code_no_charge
@@ -70,7 +110,13 @@ msgstr "Origen Info Salida"
 #. module: ccu_connector_esb_stock_out
 #: model:ir.model,name:ccu_connector_esb_stock_out.model_stock_picking_type
 msgid "Picking Type"
-msgstr "Tipo de Picking"
+msgstr "Tipo de albarán"
+
+#. module: ccu_connector_esb_stock_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_stock_move__posted_payload
+#: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_stock_picking__posted_payload
+msgid "Posted Payload"
+msgstr ""
 
 #. module: ccu_connector_esb_stock_out
 #: model:ir.model,name:ccu_connector_esb_stock_out.model_product_category
@@ -86,6 +132,40 @@ msgstr "Código Entrada Relacionada"
 #: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_product_category__outgoing_code_related
 msgid "Related Party Out Code"
 msgstr "Código Salida Relacionada"
+
+#. module: ccu_connector_esb_stock_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_stock_picking__response_payload
+msgid "Response Payload"
+msgstr ""
+
+#. module: ccu_connector_esb_stock_out
+#: model_terms:ir.ui.view,arch_db:ccu_connector_esb_stock_out.ccu_view_picking_move_send_button_form
+msgid "Send picking move to esb"
+msgstr ""
+
+#. module: ccu_connector_esb_stock_out
+#: model:ir.model,name:ccu_connector_esb_stock_out.model_stock_move
+#: model:ir.ui.menu,name:ccu_connector_esb_stock_out.stock_move_sync_audit_menu
+#: model_terms:ir.ui.view,arch_db:ccu_connector_esb_stock_out.stock_move_sync_audit_tree
+msgid "Stock Move"
+msgstr "Moviemiento de stock"
+
+#. module: ccu_connector_esb_stock_out
+#: model:ir.actions.act_window,name:ccu_connector_esb_stock_out.stock_move_sync_audit_action
+#: model_terms:ir.actions.act_window,help:ccu_connector_esb_stock_out.stock_move_sync_audit_action
+msgid "Stock Move Sync. Audit"
+msgstr "Auditoria de Mov. de Stock"
+
+#. module: ccu_connector_esb_stock_out
+#: model:ir.ui.menu,name:ccu_connector_esb_stock_out.stock_picking_sync_audit_menu
+msgid "Stock Picking"
+msgstr ""
+
+#. module: ccu_connector_esb_stock_out
+#: model:ir.actions.act_window,name:ccu_connector_esb_stock_out.stock_picking_sync_audit_action
+#: model_terms:ir.actions.act_window,help:ccu_connector_esb_stock_out.stock_picking_sync_audit_action
+msgid "Stock Picking Sync. Audit"
+msgstr "Auditoria de Lineas Mov. de Stock"
 
 #. module: ccu_connector_esb_stock_out
 #: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_product_category__incoming_code_subsidiary
@@ -113,6 +193,17 @@ msgid "Sync with ESB"
 msgstr ""
 
 #. module: ccu_connector_esb_stock_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_stock_move__sync_text
+#: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_stock_picking__sync_text
+msgid "Sync with this text"
+msgstr ""
+
+#. module: ccu_connector_esb_stock_out
+#: model:ir.ui.menu,name:ccu_connector_esb_stock_out.stock_sync_audit_menu
+msgid "Synchronization Audit"
+msgstr "Auditoría de Sincronización"
+
+#. module: ccu_connector_esb_stock_out
 #: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_product_category__incoming_code
 msgid "Third-Party In Code"
 msgstr "Código Entrada Terceros"
@@ -123,6 +214,23 @@ msgid "Third-Party Out Code"
 msgstr "Código Salida Terceros"
 
 #. module: ccu_connector_esb_stock_out
+#: model_terms:ir.ui.view,arch_db:ccu_connector_esb_stock_out.stock_picking_sync_audit_tree
+msgid "To"
+msgstr ""
+
+#. module: ccu_connector_esb_stock_out
 #: model:ir.model,name:ccu_connector_esb_stock_out.model_stock_picking
 msgid "Transfer"
-msgstr "Transferir"
+msgstr "Albarán"
+
+#. module: ccu_connector_esb_stock_out
+#: model:base.automation,name:ccu_connector_esb_stock_out.esb_post_picking_trigger
+#: model:ir.actions.server,name:ccu_connector_esb_stock_out.esb_post_picking_trigger_ir_actions_server
+msgid "Trigger post picking to SAP"
+msgstr ""
+
+#. module: ccu_connector_esb_stock_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_stock_move__sync_uuid
+#: model:ir.model.fields,field_description:ccu_connector_esb_stock_out.field_stock_picking__sync_uuid
+msgid "Unique ID of sync"
+msgstr "ID Único de Sinc."

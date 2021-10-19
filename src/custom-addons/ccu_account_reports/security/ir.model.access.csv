@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+ccu_account_reports.access_account_report_system,"Sales Report System",ccu_account_reports.model_wizard_export_account_invoice,base.group_system,1,1,1,1
+ccu_account_reports.access_account_report_user,"Sales Report User",ccu_account_reports.model_wizard_export_account_invoice,base.group_user,1,1,1,0
+ccu_account_reports.access_account_invoice_excel_system,"Sales Report Excel System",ccu_account_reports.model_account_invoice_excel,base.group_system,1,1,1,1
+ccu_account_reports.access_account_invoice_excel_system,"Sales Report Execl User",ccu_account_reports.model_account_invoice_excel,base.group_user,1,1,1,0

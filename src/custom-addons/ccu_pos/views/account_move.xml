@@ -1,0 +1,37 @@
+<odoo>
+    <record model="ir.ui.view" id="ccu_pos_view_move_tree">
+        <field name="name">CCU Account Move</field>
+        <field name="model">account.move</field>
+        <field name="priority">17</field>
+        <field name="inherit_id" ref="account.view_move_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='ref']" position="after">
+                <field name="pos_sequence_prefix"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_move_form">
+        <field name="name">CCU Account Move</field>
+        <field name="model">account.move</field>
+        <field name="priority">17</field>
+        <field name="inherit_id" ref="ccu_base.account_move_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='ccu_customization']" position="inside">
+                <group name="group_pos" string="POS">
+                    <field name="pos_sequence_prefix"/>
+                    <field name="pos_order_id"/>
+                    <field name="pos_session_id"/>
+                    <field name="pos_order_ids"/>
+                </group>
+            </xpath>
+            <xpath expr="//field[@name='line_ids']/tree/field[@name='name']" position="after">
+                <field name="pos_order_id"/>
+            </xpath>
+            <xpath expr="//header" position="inside">
+                <button name="reset_cashier_prefix" type="object" invisible="0" string="Reset Prefix" class="btn btn-primary"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

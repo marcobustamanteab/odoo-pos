@@ -42,10 +42,10 @@
                         <i class="fa fa-undo"></i>
                     </t>
                 </div>
-                <div t-on-click="trigger('click-refresh')" class="button next" t-if="!state.detailIsShown">
-                        <i class="fa fa-refresh"/>
-                        <span> <t t-esc="refreshButton.text" /></span>
-                </div>
+<!--                <div t-on-click="trigger('click-refresh')" class="button next" t-if="!state.detailIsShown">-->
+<!--                        <i class="fa fa-refresh"/>-->
+<!--                        <span> <t t-esc="refreshButton.text" /></span>-->
+<!--                </div>-->
                 <div t-if="!state.detailIsShown" class="searchbox-client top-content-center">
                     <input placeholder="Search Customers" size="1" t-on-keyup="updateClientList" />
                     <span class="search-clear-client"></span>

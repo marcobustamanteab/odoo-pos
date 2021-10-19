@@ -5,7 +5,7 @@
         <field name="state">code</field>
         <field name="code">for record in records:
     record.send_picking_to_ESB()</field>
-        <field name="active">True</field>
+        <field name="active">False</field>
         <field name="trigger">on_create</field>
         <field name="filter_domain">[]</field>
     </record>

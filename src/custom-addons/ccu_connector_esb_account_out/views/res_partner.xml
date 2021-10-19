@@ -1,0 +1,16 @@
+<odoo>
+    <record id="ccu_connector_esb_account_out_view_partner_form" model="ir.ui.view">
+        <field name="name">ccu_connector_esb_account_out.account.account form add sync field</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='category_id']" position="after">
+                <field name="sap_code"/>
+                <field name="cost_center_code"/>
+                <field name="use_generic_sap_client"/>
+                <field name="generic_sap_code"/>
+                <field name="generic_RUT"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,20 @@
+<odoo>
+    <data>
+
+        <record id="account_invoice_export_attachment" model="ir.ui.view">
+            <field name="name">account.invoice.export.attachment.wizard</field>
+            <field name="model">account.invoice.export.attachment</field>
+            <field name="arch" type="xml">
+                <form string="Export Attachment">
+                    <group>
+                    </group>
+                    <footer>
+                        <button string='Export' name="action_export_attachment" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -8,3 +8,4 @@ from . import fiscal_dte_service_provider
 from . import fiscal_dte_log
 from . import fiscal_dte_printing_config
 from . import fiscal_dte_config_settings
+from . import res_partner

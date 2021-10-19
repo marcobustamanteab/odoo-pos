@@ -1,0 +1,60 @@
+<odoo>
+    <record model="ir.ui.view" id="cuadratura_asientos_form">
+        <field name="name">cuadratura.asientos.wizard</field>
+        <field name="model">accounting.extra.reports</field>
+        <field name="arch" type="xml">
+            <form string="Parametros Reporte">
+                <group>
+                    <field name="company"/>
+                    <field name="fecha_beg"/>
+                    <field name="fecha_end"/>
+                    <field name="tipo_doc"/>
+                </group>
+                <footer>
+                    <button name="cargar_reporte_asientos" string="Reporte" type="object" class="btn-primary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="accounting_extra_reports_excel_view" model="ir.ui.view">
+        <field name="name">accounting.extra.reports.excel.form</field>
+        <field name="model">accounting.extra.reports.excel</field>
+        <field name="arch" type="xml">
+            <form string="Excel Report file" version="7.0">
+                <group>
+                    <field name="excel_file" readonly="1" filename="file_name"/>
+                    <field name="file_name" invisible="1"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="cuadratura_asientos_wizard">
+        <field name="name">Wizard Interfaz General Odoo - PS</field>
+        <field name="res_model">accounting.extra.reports</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="cuadratura_asientos_form"/>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">No hay datos para mostrar</p>
+        </field>
+        <field name="target">new</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="accounting_extra_reports_excel_view_wizard">
+        <field name="name">Account Check Report</field>
+        <field name="res_model">accounting.extra.reports.excel</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="accounting_extra_reports_excel_view" />
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="wizard_accounting_extra_report_menu"
+              name="Reporte Interfaz General"
+              parent="l10n_cl.account_reports_cl_statements_menu"
+              action="cuadratura_asientos_wizard"
+              sequence="40"
+              groups="account.group_account_manager"/>
+
+</odoo>
+

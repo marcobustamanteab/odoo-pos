@@ -4,23 +4,158 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0+e\n"
+"Project-Id-Version: Odoo Server 14.0+e-20210427\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-19 21:41+0000\n"
-"PO-Revision-Date: 2020-03-19 18:39-0300\n"
-"Last-Translator: Nelson Ramírez  <nramirez@konos.cl>\n"
+"POT-Creation-Date: 2021-08-25 20:15+0000\n"
+"PO-Revision-Date: 2021-08-25 20:15+0000\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Language: es_CL\n"
-"X-Generator: Poedit 2.3\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
 
 #. module: ccu_connector_esb_account_out
+#: model:ir.model,name:ccu_connector_esb_account_out.model_account_account
+msgid "Account"
+msgstr "Cuenta"
+
+#. module: ccu_connector_esb_account_out
+#: model:ir.ui.menu,name:ccu_connector_esb_account_out.account_move_sync_audit_menu
+msgid "Account Move"
+msgstr "Asientos Contables"
+
+#. module: ccu_connector_esb_account_out
+#: model:ir.ui.menu,name:ccu_connector_esb_account_out.account_move_line_sync_audit_menu
+msgid "Account Move Line"
+msgstr "Apuntes Contables"
+
+#. module: ccu_connector_esb_account_out
+#: model:ir.actions.act_window,name:ccu_connector_esb_account_out.account_move_line_sync_audit_action
+#: model_terms:ir.actions.act_window,help:ccu_connector_esb_account_out.account_move_line_sync_audit_action
+msgid "Account Move Line Sync. Audit"
+msgstr "Auditoría de Sinc. Apuntes Contables"
+
+#. module: ccu_connector_esb_account_out
+#: model:ir.actions.act_window,name:ccu_connector_esb_account_out.account_move_sync_audit_action
+#: model_terms:ir.actions.act_window,help:ccu_connector_esb_account_out.account_move_sync_audit_action
+msgid "Account Move Sync. Audit"
+msgstr "Auditoría de Sinc. Asientos Contables"
+
+#. module: ccu_connector_esb_account_out
+#: model:ir.model,name:ccu_connector_esb_account_out.model_account_move
+msgid "Account Move or Invoice"
+msgstr ""
+
+#. module: ccu_connector_esb_account_out
+#: model:ir.model,name:ccu_connector_esb_account_out.model_account_analytic_account
+msgid "Analytic Account"
+msgstr "Cuenta analítica"
+
+#. module: ccu_connector_esb_account_out
+#: model_terms:ir.ui.view,arch_db:ccu_connector_esb_account_out.ccu_view_account_move_send_button_form
+msgid "Are you sure?"
+msgstr "¿Está Seguro?"
+
+#. module: ccu_connector_esb_account_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_crm_team__branch_ccu_code
+msgid "Branch CCU Code"
+msgstr "Código Sucursal CCU"
+
+#. module: ccu_connector_esb_account_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_analytic_account__ccu_code
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_bank_statement_import_journal_creation__ccu_code
 #: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_journal__ccu_code
 msgid "CCU Code"
 msgstr "Código CCU"
+
+#. module: ccu_connector_esb_account_out
+#: model:ir.model,name:ccu_connector_esb_account_out.model_res_company
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: ccu_connector_esb_account_out
+#: model:ir.model,name:ccu_connector_esb_account_out.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: ccu_connector_esb_account_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_res_company__cost_center_code
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_res_partner__cost_center_code
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_res_users__cost_center_code
+msgid "Cost Center Code"
+msgstr "Código Centro de Costo"
+
+#. module: ccu_connector_esb_account_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_account__default_sap_code
+msgid "Default client code"
+msgstr "Código Cliente por Defecto"
+
+#. module: ccu_connector_esb_account_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_account__default_cost_center_code
+msgid "Default cost center code"
+msgstr "Código Centro de Costo por Defecto"
+
+#. module: ccu_connector_esb_account_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_account__default_profit_profit_code
+msgid "Default profit center code"
+msgstr "Código Centro de Beneficios por Defecto"
+
+#. module: ccu_connector_esb_account_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_account__display_name
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_analytic_account__display_name
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_journal__display_name
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_move__display_name
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_move_line__display_name
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_crm_team__display_name
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_res_company__display_name
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_res_partner__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: ccu_connector_esb_account_out
+#: model_terms:ir.ui.view,arch_db:ccu_connector_esb_account_out.ccu_view_account_move_form
+#: model_terms:ir.ui.view,arch_db:ccu_connector_esb_account_out.view_account_journal_esb_form
+msgid "ESB Connector"
+msgstr ""
+
+#. module: ccu_connector_esb_account_out
+#: model_terms:ir.ui.view,arch_db:ccu_connector_esb_account_out.view_account_form
+#: model_terms:ir.ui.view,arch_db:ccu_connector_esb_account_out.view_analytic_account_form
+msgid "ESB Integration"
+msgstr ""
+
+#. module: ccu_connector_esb_account_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_res_partner__generic_sap_code
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_res_users__generic_sap_code
+msgid "Generic SAP Code"
+msgstr ""
+
+#. module: ccu_connector_esb_account_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_res_partner__generic_RUT
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_res_users__generic_RUT
+msgid "Generic SAP RUT"
+msgstr ""
+
+#. module: ccu_connector_esb_account_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_account__id
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_analytic_account__id
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_journal__id
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_move__id
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_move_line__id
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_crm_team__id
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_res_company__id
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_res_partner__id
+msgid "ID"
+msgstr "ID (identificación)"
+
+#. module: ccu_connector_esb_account_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_bank_statement_line__is_sync
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_move__is_sync
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_move_line__is_sync
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_payment__is_sync
+msgid "Is sync with external account system?"
+msgstr "Sincronizado"
 
 #. module: ccu_connector_esb_account_out
 #: model:ir.model,name:ccu_connector_esb_account_out.model_account_journal
@@ -28,11 +163,165 @@ msgid "Journal"
 msgstr "Diario"
 
 #. module: ccu_connector_esb_account_out
-#: model:ir.model,name:ccu_connector_esb_account_out.model_account_move
+#: model_terms:ir.ui.view,arch_db:ccu_connector_esb_account_out.account_move_sync_audit_tree
 msgid "Journal Entries"
-msgstr "Asientos contables"
+msgstr "Entradas Contables"
 
 #. module: ccu_connector_esb_account_out
+#: model:ir.model,name:ccu_connector_esb_account_out.model_account_move_line
+msgid "Journal Item"
+msgstr "Apunte contable"
+
+#. module: ccu_connector_esb_account_out
+#: model_terms:ir.ui.view,arch_db:ccu_connector_esb_account_out.account_move_line_sync_audit_tree
+msgid "Journal Items"
+msgstr "Lineas de Diario"
+
+#. module: ccu_connector_esb_account_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_account____last_update
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_analytic_account____last_update
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_journal____last_update
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_move____last_update
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_move_line____last_update
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_crm_team____last_update
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_res_company____last_update
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_res_partner____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: ccu_connector_esb_account_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_bank_statement_line__posted_payload
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_move__posted_payload
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_move_line__posted_payload
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_payment__posted_payload
+msgid "Posted Payload"
+msgstr "Datos Publicados"
+
+#. module: ccu_connector_esb_account_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_crm_team__profit_center_code
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_res_company__profit_center_code
+msgid "Profit Center Code"
+msgstr "Código Centro de Beneficio"
+
+#. module: ccu_connector_esb_account_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_bank_statement_line__response_payload
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_move__response_payload
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_payment__response_payload
+msgid "Response Payload"
+msgstr ""
+
+#. module: ccu_connector_esb_account_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_account__ccu_code
+msgid "SAP Account Number"
+msgstr "Número Cuenta SAP"
+
+#. module: ccu_connector_esb_account_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_res_partner__sap_code
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_res_users__sap_code
+msgid "SAP Client Code"
+msgstr "Código Cliente SAP"
+
+#. module: ccu_connector_esb_account_out
+#: model:ir.model,name:ccu_connector_esb_account_out.model_crm_team
+msgid "Sales Team"
+msgstr "Equipo de ventas"
+
+#. module: ccu_connector_esb_account_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_account__send_client_sap
+msgid "Send SAP client code"
+msgstr "Enviar Código Cliente SAP"
+
+#. module: ccu_connector_esb_account_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_account__send_cost_center
+msgid "Send cost center"
+msgstr "Enviar Centro de Costos"
+
+#. module: ccu_connector_esb_account_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_account__send_client_sap_default_code
+msgid "Send default SAP client Code"
+msgstr "Cliente SAP por Defecto"
+
+#. module: ccu_connector_esb_account_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_account__send_default_cost_center
+msgid "Send default cost center code"
+msgstr "Centro de Costo por Defecto"
+
+#. module: ccu_connector_esb_account_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_account__send_default_profit_center
+msgid "Send default profit center code"
+msgstr "Centro de Beneficios por Defecto"
+
+#. module: ccu_connector_esb_account_out
+#: model_terms:ir.ui.view,arch_db:ccu_connector_esb_account_out.ccu_view_account_move_send_button_form
+msgid "Send move to esb"
+msgstr "Enviar Registro a ESB"
+
+#. module: ccu_connector_esb_account_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_account__send_profit_center
+msgid "Send profit center"
+msgstr "Enviar Centro de Beneficio"
+
+#. module: ccu_connector_esb_account_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_bank_statement_line__sync_reference
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_move__sync_reference
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_move_line__sync_reference
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_payment__sync_reference
+msgid "Sync with this text"
+msgstr "Sinc. ID"
+
+#. module: ccu_connector_esb_account_out
+#: model_terms:ir.ui.view,arch_db:ccu_connector_esb_account_out.account_move_line_sync_audit_tree
+#: model_terms:ir.ui.view,arch_db:ccu_connector_esb_account_out.account_move_sync_audit_tree
+msgid "Synced."
+msgstr "Sincronizado"
+
+#. module: ccu_connector_esb_account_out
+#: model:ir.ui.menu,name:ccu_connector_esb_account_out.sync_audit_menu
+msgid "Synchronization Audit"
+msgstr "Auditoría de Sincronización"
+
+#. module: ccu_connector_esb_account_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_bank_statement_import_journal_creation__ccu_sync
 #: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_journal__ccu_sync
 msgid "Syncs with ESB"
 msgstr "Sincroniza con ESB"
+
+#. module: ccu_connector_esb_account_out
+#: model_terms:ir.ui.view,arch_db:ccu_connector_esb_account_out.account_move_sync_audit_tree
+msgid "Total"
+msgstr ""
+
+#. module: ccu_connector_esb_account_out
+#: model_terms:ir.ui.view,arch_db:ccu_connector_esb_account_out.account_move_sync_audit_tree
+msgid "Total Amount"
+msgstr "Monto Total"
+
+#. module: ccu_connector_esb_account_out
+#: model_terms:ir.ui.view,arch_db:ccu_connector_esb_account_out.account_move_line_sync_audit_tree
+msgid "Total Credit"
+msgstr "Total Haber"
+
+#. module: ccu_connector_esb_account_out
+#: model_terms:ir.ui.view,arch_db:ccu_connector_esb_account_out.account_move_line_sync_audit_tree
+msgid "Total Debit"
+msgstr "Total Debe"
+
+#. module: ccu_connector_esb_account_out
+#: model:base.automation,name:ccu_connector_esb_account_out.esb_post_account_move_trigger
+#: model:ir.actions.server,name:ccu_connector_esb_account_out.esb_post_account_move_trigger_ir_actions_server
+msgid "Trigger post account move to SAP"
+msgstr "Disparar Asiento Publicado a SAP"
+
+#. module: ccu_connector_esb_account_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_bank_statement_line__sync_uuid
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_move__sync_uuid
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_move_line__sync_uuid
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_payment__sync_uuid
+msgid "Unique ID of sync"
+msgstr "ID Único de Sinc."
+
+#. module: ccu_connector_esb_account_out
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_res_partner__use_generic_sap_client
+#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_res_users__use_generic_sap_client
+msgid "Use generic SAP Client"
+msgstr ""

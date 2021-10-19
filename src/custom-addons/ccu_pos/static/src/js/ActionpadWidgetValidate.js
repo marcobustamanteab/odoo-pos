@@ -2,13 +2,29 @@ odoo.define('ccu_pos.ActionpadWidgetValidate', function (require) {
     "use strict";
 
     const { useListener } = require('web.custom_hooks');
-    const PosComponent = require('point_of_sale.PosComponent');
+    const ActionpadWidget = require('point_of_sale.ActionpadWidget');
     const Registries = require('point_of_sale.Registries');
 
-    class ActionpadWidgetValidate extends PosComponent {
+    const ActionpadWidgetValidate = ActionpadWidget =>
+        class extends ActionpadWidget {
             constructor() {
                 super(...arguments);
                 useListener('click-pay-validate', this.clickPayValidate);
+                this.clienteGenerico();
+            }
+            clienteGenerico(){
+                // if(this.currentOrder != null){
+                    let part = this.env.pos.partners;
+                    let cust = null;
+                    for(var i = 0; i < part.length; i++){
+                        if(part[i].name === 'Cliente Boleta'){
+                            console.log(part[i].name);
+                            cust = part[i];
+                        }
+                    }
+                    this.props.client = cust;
+                    this.render();
+                // }
             }
             clickPayValidate(){
                 if(this.props.partner === null){
@@ -29,10 +45,9 @@ odoo.define('ccu_pos.ActionpadWidgetValidate', function (require) {
 
             }
         }
-    ActionpadWidgetValidate.template = 'ActionpadWidgetValidate';
 
-    Registries.Component.add(ActionpadWidgetValidate);
+    Registries.Component.extend(ActionpadWidget, ActionpadWidgetValidate);
 
-    return ActionpadWidgetValidate;
+    return ActionpadWidget;
 
 });
