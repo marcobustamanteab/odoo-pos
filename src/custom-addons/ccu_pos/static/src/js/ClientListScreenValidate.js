@@ -103,7 +103,7 @@ odoo.define('ccu_pos.ClientListScreenValidate', function (require) {
                 console.log('ver mail -> ' + data.l10n_cl_dte_email);
                 console.log('ver rut -> ' + data.vat);
                 if(data != null){
-                    // data.phone === null || data.phone === '' || data.phone === undefined ? console.log(1) : (isNaN(parseInt(data.phone)) ? nameVerified[nameVerified.length] = 'Telefono-1' : nameVerified[nameVerified.length] = 'Telefono');
+                    // data.phone === null || data.phone === '' || data.phone === undefined ? console.log('verificacion changed 1') : valueTel ? nameVerified[nameVerified.length] = 'Telefono' : nameVerified[nameVerified.length] = 'Telefono-Formato';
                     data.phone === null || data.phone === '' || data.phone === undefined ? console.log('verificacion changed 1') : valueTel ? nameVerified[nameVerified.length] = 'Telefono' : nameVerified[nameVerified.length] = 'Telefono-Formato';
                     data.mobile === null || data.mobile === '' || data.mobile === undefined ? console.log('verificacion changed 2') : valueCel ? nameVerified[nameVerified.length] = 'Celular' : nameVerified[nameVerified.length] = 'Celular-Formato';
                     data.l10n_cl_dte_email === null || data.l10n_cl_dte_email === '' || data.l10n_cl_dte_email === undefined ? console.log('verificacion changed 3') : valueEmail ? nameVerified[nameVerified.length] = 'Email_DTE' : 'Email_DTE-Formato';
@@ -191,22 +191,14 @@ odoo.define('ccu_pos.ClientListScreenValidate', function (require) {
                             console.log('logb -> ' + logb);
                             if (a[0] === b[0]) {
                                 if( a.length === 1 ){
-                        //             compare = 'PE';
-                        //             console.log('presente con error en -> ' + chan);
-                        //         }else{
                                     compare = 'SD';
-                                    // element = a[]
-                                    console.log('aloja');
+                                    console.log('sin dato');
                                 }
                             }
                         });
-                        // if(compare === 'PS') {
-                        //     compare = 'SD';
-                        // }else{
-                        //     compare = 'SD';
-                        // }
                     }
-                    compare === 'SD' ? '' : unifiedResponse[unifiedResponse.length] = element;
+                    // compare === 'SD' ? '' : unifiedResponse[unifiedResponse.length] = element;taxpayer
+                    b === 'Formato' ? '' : compare === 'SD' ? '' : unifiedResponse[unifiedResponse.length] = ' ' + b[0];
                     console.log('elem -> ' + unifiedResponse[unifiedResponse.length - 1]);
                 });
                 return unifiedResponse;
