@@ -51,12 +51,13 @@ class AccountMove(models.Model):
             if not config.enabled:
                 _logger.info("DTE Synchronization Disabled")
                 return
-            journal_dict = {}
-            journal_dict['39'] = "BEL"
-            journal_dict['33'] = "FAC"
-            journal_dict['56'] = "N/D"
-            journal_dict['61'] = "N/C"
-            journal_id = journal_dict.get(move.l10n_latam_document_type_id.code, "XXX")
+            # journal_dict = {}
+            # journal_dict['39'] = "BEL"
+            # journal_dict['33'] = "FAC"
+            # journal_dict['56'] = "N/D"
+            # journal_dict['61'] = "N/C"
+            # journal_id = journal_dict.get(move.l10n_latam_document_type_id.code, "XXX")
+            journal_id = move.l10n_latam_document_type_id.doc_code_prefix or "XXX"
             dte_to_send = {
                 "CLIENT": {
                     "client-vat-company": "%s%s" % (move.company_id.country_id.code,move.company_id.vat)
@@ -114,7 +115,7 @@ class AccountMove(models.Model):
                 pvals["ref_etd"] = product_id_code or '000000'
                 pvals["description"] = invoice_line.product_id.description
                 dte_to_send["PRODUCT"].append(pvals)
-            if move.l10n_latam_document_type_id.code == '61':
+            if move.l10n_latam_document_type_id.internal_type in ('debit_note','credit_note') :
                 for ref in move.l10n_cl_reference_ids:
                     rvals = {}
                     rvals["name"] = ref.origin_doc_number
