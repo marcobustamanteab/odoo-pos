@@ -125,9 +125,12 @@ class AccountMove(models.Model):
             vat = partner.vat
             if partner.use_generic_sap_client:
                 sap_code = partner.generic_sap_code
-                vat = partner.generic_RUT
+                vat = partner.generic_RUT or vat
             if line.account_id.send_client_sap_default_code:
                 sap_code = line.account_id.default_sap_code
+
+            #Utilizamos ref 2 para enviar el RUT cuando esto se indique en la cuenta.
+            ref_key_2 = vat if line.account_id.send_rut else ''
 
             if self.partner_id and not sap_code:
                 raise ValidationError('ERROR in Client Creation of SAP')
@@ -182,6 +185,7 @@ class AccountMove(models.Model):
                 "TOTAL": line_amt,
                 "ALLOCNBR": alloc_nbr if not line.account_id.send_blank_allocation else '',
                 "REF_KEY_1": ref_key_1 or '',
+                "REF_KEY_2": ref_key_2 or '',
                 "REF_KEY_3": ref_key_3 or '',
             })
             # TODO: No enviar ALLOCNBR cuando se tiene check en la cuenta - Transferencia Bancaria
