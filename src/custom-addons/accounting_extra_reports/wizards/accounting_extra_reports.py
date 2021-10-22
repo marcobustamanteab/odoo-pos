@@ -35,6 +35,7 @@ class AccountingExtraReports(models.TransientModel):
 
         move_lines = self.env['account.move.line'].read_group(
             [
+                ('company_id.id', '=', self.company.id),
                 ('date', '>=', str(self.read()[0]['fecha_beg'])),
                 ('journal_id', 'in', journals_sync.ids),
                 ('date', '<=', str(self.read()[0]['fecha_end']))
@@ -45,6 +46,7 @@ class AccountingExtraReports(models.TransientModel):
 
         move_lines_in_sap = self.env['account.move.line'].read_group(
             [
+                ('company_id.id', '=', self.company.id),
                 ('move_id.is_sync', '=', True),
                 ('date', '>=', str(self.read()[0]['fecha_beg'])),
                 ('journal_id', 'in', journals_sync.ids),
@@ -55,6 +57,7 @@ class AccountingExtraReports(models.TransientModel):
         )
         move_lines_not_in_sap = self.env['account.move.line'].read_group(
             [
+                ('company_id.id', '=', self.company.id),
                 ('move_id.is_sync', '=', False),
                 ('date', '>=', str(self.read()[0]['fecha_beg'])),
                 ('journal_id', 'in', journals_sync.ids),
@@ -101,7 +104,7 @@ class AccountingExtraReports(models.TransientModel):
                         odoo_pnd = pnd['balance']
                         break
             vals = {
-                'UEN': 'EM81B',
+                'UEN': self.company.name,
                 'ACCOUNT': ac_odoo.ccu_code,
                 'NAME': ac_odoo.name,
                 'ODOO_AMOUNT': ac['balance'],
@@ -109,6 +112,7 @@ class AccountingExtraReports(models.TransientModel):
                 'DIFF': str(int(ac['balance'])-int(ps_amount)),
                 'TRN_PND': odoo_pnd
             }
+
             total_ps = total_ps + int(ps_amount)
             total_odoo = total_odoo + int(ac['balance'])
             total_trn = total_trn + int(odoo_pnd)

@@ -119,7 +119,7 @@ class InventoryExtraReports(models.TransientModel):
                         total_ps = reg[3]
 
             vals = {
-                'BU': line[0],
+                'BU': self.company.name,
                 'INV_ITEM_ID': line[1],
                 'NAME': product_name,
                 'SENTIDO': line[2],

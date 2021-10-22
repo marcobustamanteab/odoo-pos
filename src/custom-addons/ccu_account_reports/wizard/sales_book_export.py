@@ -25,7 +25,7 @@ _logger = logging.getLogger(__name__)
 class account_move_excel_wizard_form(models.TransientModel):
     _name ='wizard.export.account.invoice'
 
-
+    company = fields.Many2one('res.company', string = "Compañía")
     date_to = fields.Date('Date To', required=True, default=lambda self: str(datetime.now()))
     date_from = fields.Date('Fecha Inicial', required=True, default=lambda self: time.strftime('%Y-%m-01'))
 
@@ -65,6 +65,7 @@ class account_move_excel_wizard_form(models.TransientModel):
 
         account_invoice_obj = self.env['account.move'].search(
             [
+                ('company_id.id', '=', self.company.id),
                 ('invoice_date', '>=', self.date_from),
                 ('invoice_date', '<=', self.date_to),
                 ('move_type', 'in', ['out_invoice', 'out_refund']),
@@ -143,10 +144,11 @@ class account_move_excel_wizard_form(models.TransientModel):
                 worksheet.write(n, 4, rec.invoice_date, formato_fecha)
                 #TODO cambiar name por solo numeros
                 worksheet.write(n, 5, rec.name, style)
-                rut, dv = rec.partner_id.vat.split('-')
+                rut, dv = rec.partner_id.vat.split('-') if not rec.partner_id.use_generic_sap_client else rec.partner_id.generic_RUT.split('-')
                 worksheet.write(n, 6, rut, style)
                 worksheet.write(n, 7, dv, style)
-                worksheet.write(n, 8, rec.partner_id.sap_code or '', style)
+                sap_code = rec.partner_id.sap_code if not rec.partner_id.use_generic_sap_client else rec.partner_id.generic_sap_code or ''
+                worksheet.write(n, 8, sap_code or '', style)
                 worksheet.write(n, 9, rec.partner_id.name or '', style)
                 fs_name = ''
                 # for line in rec.fsm_order_ids:
@@ -155,16 +157,17 @@ class account_move_excel_wizard_form(models.TransientModel):
                 worksheet.write(n, 10, fs_name or '', style)
                 #PENDIENTE
                 warehouse = '123'
-                #warehouse = rec.branch_id.distribution_center or 0
+                warehouse = rec.team_id.branch_ccu_code or 0
                 #if rec.origin:
                 #    sale = self.env['sale.order'].search([('name', '=', rec.origin.split(',')[1].lstrip())])
                 #    if sale:
                 #        warehouse = sale.warehouse_id[:1]
                 worksheet.write(n, 11, warehouse, style)
-                worksheet.write(n, 12, rec.user_id.name or '', style)
+                worksheet.write(n, 12, '', style)
                 # PENDIENTE
                 #worksheet.write(n, 13, rec.partner_id.branch_id.commercial_office or "0", style)
-                worksheet.write(n, 13, "0", style)
+                oficina = rec.pos_order_id.sequence_prefix or ''
+                worksheet.write(n, 13, oficina, style)
                 worksheet.write(n, 14, "ODOO", style)
                 worksheet.write(n, 15, rec.amount_untaxed, style)
 
