@@ -312,8 +312,9 @@ class WizardExportCsv(models.TransientModel):
                                  #104
                                  "S",
                                  #105
-                                 invoice.team_id.branch_ccu_code or 0,
+                                 "0",
                                  ]
+                # invoice.team_id.branch_ccu_code or
                 writer.writerow([str(l) for l in line_invoice])
         if self.env.context.get('remote_folder') == 1:
             return self.show_view(u'Libro enviado a Truck')
