@@ -84,7 +84,7 @@ class WizardExportCsv(models.TransientModel):
             writer = csv.writer(output, delimiter=self.delimiter[self.delimiter_field_option], quotechar=self.quotechar[self.delimiter_option], quoting=csv.QUOTE_NONE)
         # sales_journal = self.env['account.journal'].search([('name', '=', 'Ventas'),], limit=1)
         #invoice_recs = self.env['account.invoice'].search([('date_invoice','>=',self.date_from), ('date_invoice','<=',self.date_to),('journal_id','=',sales_journal.id),  ('state' ,'not in',['canceled','draft'])])
-        invoice_recs = self.env['account.move'].search(
+        invoice_recs = self.env['account.move'].sudo().search(
             [
                 ('company_id.id', '=', self.company.id),
                 ('invoice_date', '>=', self.date_from),
@@ -312,9 +312,8 @@ class WizardExportCsv(models.TransientModel):
                                  #104
                                  "S",
                                  #105
-                                 "0",
+                                 invoice.team_id.branch_ccu_code or "0",
                                  ]
-                # invoice.team_id.branch_ccu_code or
                 writer.writerow([str(l) for l in line_invoice])
         if self.env.context.get('remote_folder') == 1:
             return self.show_view(u'Libro enviado a Truck')
