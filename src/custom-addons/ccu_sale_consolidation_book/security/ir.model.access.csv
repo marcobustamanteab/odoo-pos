@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+wizard_export_csv_books.access_account_report_system,"Sales Truck Report System",ccu_sale_consolidation_book.model_wizard_export_csv_books,base.group_system,1,1,1,1
+wizard_export_csv_books.access_account_report_user,"Sales Truck  Report User",ccu_sale_consolidation_book.model_wizard_export_csv_books,base.group_user,1,1,1,0
+wizard_export_csv_books.access_account_invoice_excel_system,"Sales Truck  Report Excel System",ccu_sale_consolidation_book.model_wizard_export_csv_books,base.group_system,1,1,1,1
+wizard_export_csv_books.access_account_invoice_excel_system,"Sales Truck  Report Execl User",ccu_sale_consolidation_book.model_wizard_export_csv_books,base.group_user,1,1,1,0
