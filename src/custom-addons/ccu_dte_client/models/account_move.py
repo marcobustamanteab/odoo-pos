@@ -42,11 +42,14 @@ class AccountMove(models.Model):
                 ]
             )
             if move.move_type not in ['out_invoice', 'out_refund']:
+                _logger.warning("MOVE TYPE not out_invoice or out_refund")
                 continue
             if not move.state == 'posted':
+                _logger.warning("MOVE TYPE not posted")
                 continue
             if not config:
                 msg = "DTE Client Configuration Missing: Company (%s)" % (move.company_id.name)
+                _logger.warning(msg)
                 raise UserError(msg)
             if not config.enabled:
                 _logger.info("DTE Synchronization Disabled")
