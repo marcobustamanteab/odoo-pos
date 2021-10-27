@@ -7,6 +7,7 @@
             <field name="arch" type="xml">
                 <form string="Sale Book">
                     <group colspan="2">
+                        <field name="company" />
                         <field name="date_from" />
                         <field name="date_to"/>   
                     </group>

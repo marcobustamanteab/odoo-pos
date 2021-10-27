@@ -130,7 +130,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <strong>DIRECCION FACTURA:</strong>
+                                <strong>DIRECCION:</strong>
                             </td>
                             <td>
                                 <span t-field="doc.partner_id.street"/>-
@@ -193,7 +193,7 @@
                            cellspacing="0">
                         <tr style="font-weight: bold;
                     background-color:#e6e6e6; ">
-                            <td style="border-right:1px solid black; border-bottom:1px solid black;">FECHA FACTURA</td>
+                            <td style="border-right:1px solid black; border-bottom:1px solid black;">FECHA</td>
                             <td style="border-right:1px solid black; border-bottom:1px solid black;">LUGAR EMISIÓN</td>
                             <td style="border-right:1px solid black; border-bottom:1px solid black;">NUM. PED.</td>
                             <td style="border-right:1px solid black; border-bottom:1px solid black;">DEP.</td>
@@ -367,7 +367,7 @@
                                 <td style="border-right:1px solid black;" colspan="7" width="80%"/>
                                 <td style="border-right:1px solid black;">IVA 19%</td>
                             </t>
-                            <td>TOTAL FACTURA</td>
+                            <td>TOTAL</td>
                         </tr>
                         <t t-foreach="docs_extra" t-as="docx">
                             <tr>
