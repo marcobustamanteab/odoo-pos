@@ -21,9 +21,11 @@ class AccountMove(models.Model):
     sync_reference = fields.Char(string='Sync. Text', readonly=True, tracking=True, copy=False)
     response_payload = fields.Text('Response Payload', readonly=True, copy=False)
 
-    def prepare_partner_sap_codes(self):
+    def prepare_partner_sap_codes(self, backend):
         plist = []
         for line in self.line_ids:
+            if not line.account_id.send_client_sap:
+                continue
             if line.partner_id.id not in plist:
                 plist.append(line.partner_id.id)
         send_date = datetime.datetime.now().strftime("%Y%m%d")
@@ -32,22 +34,25 @@ class AccountMove(models.Model):
         for pid in plist:
             partner = self.env['res.partner'].browse(pid)
             sap_code = ''
-            if not partner.generic_sap_code:
+            if not partner.sap_code:
                 client = self._get_data_client_from_esb(partner.vat, send_date)
                 if client:
                     sap_code = self._set_client_sap_code(partner.id, client['CODE'])
                 else:
                     # CREAR CLIENTE EN SAP
-                    new_client = self._add_client_to_SAP(partner, send_date, branch_ccu_code)
-                    if new_client:
-                        sap_code = self._set_client_sap_code(partner.id, new_client['CODE'])
+                    if backend.send_partner_to_esb:
+                        new_client = self._add_client_to_SAP(partner, send_date, branch_ccu_code)
+                        if new_client:
+                            sap_code = self._set_client_sap_code(partner.id, new_client['CODE'])
+                        else:
+                            print('ERROR: New Client SAP Error')
                     else:
-                        print('ERROR: New Client SAP Error')
-            else:
-                if self.partner_id and not partner.generic_sap_code:
-                    raise ValidationError('ERROR in Client Creation of SAP')
-                else:
-                    print('Assent without Client')
+                        _logger.info("Partner Creation DISABLED")
+            # else:
+            #     if self.partner_id and not partner.sap_code:
+            #         raise ValidationError('ERROR in Client Creation of SAP')
+            #     else:
+            #         print('Assent without Client')
 
     def _post(self, soft=True):
         res = super(AccountMove, self)._post(soft)
@@ -66,10 +71,11 @@ class AccountMove(models.Model):
 
         backend = self.company_id.backend_esb_id
         if not backend.active:
-            _logger.warning("ESB Synchronizatino Service DISABLED")
+            _logger.info("ESB Synchornization Service DISABLED")
             return
 
-        self.prepare_partner_sap_codes()
+        self.prepare_partner_sap_codes(backend)
+
 
         payload_lines = []
         branch_ccu_code = self.invoice_user_id.sale_team_id.branch_ccu_code
@@ -132,10 +138,8 @@ class AccountMove(models.Model):
             #Utilizamos ref 2 para enviar el RUT cuando esto se indique en la cuenta.
             ref_key_2 = vat if line.account_id.send_rut else ''
 
-            if self.partner_id and not sap_code:
-                raise ValidationError('ERROR in Client Creation of SAP')
-            else:
-                print('Assent without Client')
+            if line.account_id.send_client_sap and line.partner_id and not sap_code:
+                raise ValidationError('Partner has no SAP Code')
 
             special_major = "Y" if line.account_id.send_client_sap else 'N'
             line_amt = (line.debit - line.credit)

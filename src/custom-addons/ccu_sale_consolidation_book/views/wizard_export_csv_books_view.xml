@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<record model="ir.ui.view" id="wizard_export_csv_books_form_view">
+		<field name="name">wizard.export.csv.books.form</field>
+		<field name="model">wizard.export.csv.books</field>
+		<field name="arch" type="xml">
+			<form string="Truck Consolidation Files">
+				<group>
+					<group>
+						<field name="company"/>
+						<field name="date_from" />
+						<field name="delimiter_option" />
+						<field name="file_data" filename="file_name" readonly="1" />
+						<field name="file_name" invisible="1" />
+					</group>
+					<group>
+						<field name="date_to" />
+						<field name="delimiter_field_option" />
+					</group>
+				</group>
+				<footer>
+					<div class="oe_left">
+						<button string="Generar reporte" name="action_generate_csv"
+							type="object" class="oe_highlight" />
+						<button string="Enviar a Truck" name="action_generate_csv"
+							type="object" class="oe_link" context="{'remote_folder':1}" />
+						<button string="Cerrar" special="cancel" type="object"
+							 class="oe_link" />
+					</div>
+				</footer>
+			</form>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="action_wizard_export_csv_books_tree_view">
+		<field name="name">Truck Consolidation</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">wizard.export.csv.books</field>
+		<field name="view_mode">tree,form</field>
+		<field name="view_id" ref="wizard_export_csv_books_form_view" />
+		<field name="target">new</field>
+	</record>
+
+	<menuitem
+            id="wizard_report_sale_book_menu"
+            name="Libro de Ventas TRUCK"
+            sequence="30"
+            parent="l10n_cl.account_reports_cl_statements_menu"
+            groups="account.group_account_manager"
+            action="action_wizard_export_csv_books_tree_view"/>
+</odoo>
