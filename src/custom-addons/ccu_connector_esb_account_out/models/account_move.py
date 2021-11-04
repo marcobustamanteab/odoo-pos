@@ -138,10 +138,8 @@ class AccountMove(models.Model):
             #Utilizamos ref 2 para enviar el RUT cuando esto se indique en la cuenta.
             ref_key_2 = vat if line.account_id.send_rut else ''
 
-            if self.partner_id and not sap_code:
-                raise ValidationError('ERROR in Client Creation of SAP')
-            else:
-                print('Assent without Client')
+            if line.account_id.send_client_sap and line.partner_id and not sap_code:
+                raise ValidationError('Partner has no SAP Code')
 
             special_major = "Y" if line.account_id.send_client_sap else 'N'
             line_amt = (line.debit - line.credit)
