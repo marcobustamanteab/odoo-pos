@@ -24,6 +24,8 @@ class AccountMove(models.Model):
     def prepare_partner_sap_codes(self):
         plist = []
         for line in self.line_ids:
+            if not line.account_id.send_client_sap:
+                continue
             if line.partner_id.id not in plist:
                 plist.append(line.partner_id.id)
         send_date = datetime.datetime.now().strftime("%Y%m%d")
