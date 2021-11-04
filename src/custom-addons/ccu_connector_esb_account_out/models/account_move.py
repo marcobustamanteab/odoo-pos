@@ -21,7 +21,7 @@ class AccountMove(models.Model):
     sync_reference = fields.Char(string='Sync. Text', readonly=True, tracking=True, copy=False)
     response_payload = fields.Text('Response Payload', readonly=True, copy=False)
 
-    def prepare_partner_sap_codes(self):
+    def prepare_partner_sap_codes(self, backend):
         plist = []
         for line in self.line_ids:
             if not line.account_id.send_client_sap:
@@ -40,11 +40,14 @@ class AccountMove(models.Model):
                     sap_code = self._set_client_sap_code(partner.id, client['CODE'])
                 else:
                     # CREAR CLIENTE EN SAP
-                    new_client = self._add_client_to_SAP(partner, send_date, branch_ccu_code)
-                    if new_client:
-                        sap_code = self._set_client_sap_code(partner.id, new_client['CODE'])
+                    if backend.send_partner_to_esb:
+                        new_client = self._add_client_to_SAP(partner, send_date, branch_ccu_code)
+                        if new_client:
+                            sap_code = self._set_client_sap_code(partner.id, new_client['CODE'])
+                        else:
+                            print('ERROR: New Client SAP Error')
                     else:
-                        print('ERROR: New Client SAP Error')
+                        _logger.info("Partner Creation DISABLED")
             else:
                 if self.partner_id and not partner.generic_sap_code:
                     raise ValidationError('ERROR in Client Creation of SAP')
@@ -71,10 +74,7 @@ class AccountMove(models.Model):
             _logger.info("ESB Synchornization Service DISABLED")
             return
 
-        if backend.send_partner_to_esb:
-            self.prepare_partner_sap_codes()
-        else:
-            _logger.info("Partner Synchornization DISABLED")
+        self.prepare_partner_sap_codes(backend)
 
 
         payload_lines = []
