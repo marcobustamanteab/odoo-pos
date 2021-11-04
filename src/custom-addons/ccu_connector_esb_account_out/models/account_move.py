@@ -48,11 +48,11 @@ class AccountMove(models.Model):
                             print('ERROR: New Client SAP Error')
                     else:
                         _logger.info("Partner Creation DISABLED")
-            else:
-                if self.partner_id and not partner.generic_sap_code:
-                    raise ValidationError('ERROR in Client Creation of SAP')
-                else:
-                    print('Assent without Client')
+            # else:
+            #     if self.partner_id and not partner.sap_code:
+            #         raise ValidationError('ERROR in Client Creation of SAP')
+            #     else:
+            #         print('Assent without Client')
 
     def _post(self, soft=True):
         res = super(AccountMove, self)._post(soft)
