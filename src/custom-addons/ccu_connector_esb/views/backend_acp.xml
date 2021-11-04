@@ -19,6 +19,9 @@
                 <field name="client_id" attrs="{'invisible': [('connection_type', '!=', 'esb')]}"/>
                 <field name="client_secret" password="True" attrs="{'invisible': [('connection_type', '!=', 'esb')]}"/>
             </field>
+            <xpath expr="//field[@name='auto_sign']" position="after">
+                <field name="send_partner_to_esb"/>
+            </xpath>
         </field>
     </record>
 

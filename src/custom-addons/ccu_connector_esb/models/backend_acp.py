@@ -31,6 +31,7 @@ class BackendAcp(models.Model):
     esb_auth_grant_type = fields.Char(
         'ESB Auth grant_type',
         default='client_credentials')
+    send_partner_to_esb = fields.Boolean("Send Partner to ESB")
 
     def _build_url(self, endpoint):
         """

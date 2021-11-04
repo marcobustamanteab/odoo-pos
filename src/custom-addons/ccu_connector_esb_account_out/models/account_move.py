@@ -66,10 +66,14 @@ class AccountMove(models.Model):
 
         backend = self.company_id.backend_esb_id
         if not backend.active:
-            _logger.warning("ESB Synchronizatino Service DISABLED")
+            _logger.info("ESB Synchornization Service DISABLED")
             return
 
-        self.prepare_partner_sap_codes()
+        if backend.send_partner_to_esb:
+            self.prepare_partner_sap_codes()
+        else:
+            _logger.info("Partner Synchornization DISABLED")
+
 
         payload_lines = []
         branch_ccu_code = self.invoice_user_id.sale_team_id.branch_ccu_code
