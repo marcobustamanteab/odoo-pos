@@ -19,6 +19,7 @@ services:
     volumes:
       - ../filestore:{{ odoo.data_dir }}
       - ./logs:/var/log/odoo
+      - /lv_truck:/lv_truck
     {%- if env != 'DEV' and env != 'QA' and env != 'PROD' %}
       - ./config:/etc/odoo
       - ./src/custom-addons:/mnt/extra-addons/custom-addons
