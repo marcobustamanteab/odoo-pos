@@ -97,8 +97,6 @@ class WizardExportCsv(models.TransientModel):
             if invoice.l10n_latam_document_type_id.code and  invoice.name:
                 tax_19 = 0
                 tax_iaba = 0
-                sii_imp_ADD_code = False
-                sii_imp_ADD_base = False
 
                 config = self.env['fiscal.dte.printing.config'].search([('company_id', '=', invoice.company_id.id)],
                                                                        limit=1)
@@ -106,8 +104,12 @@ class WizardExportCsv(models.TransientModel):
 
                 for tax_group in invoice.amount_by_group:
                     group_id = tax_group[6]
+                    sii_imp_ADD_code = False
+                    sii_imp_ADD_base = False
                     if group_id == config.tax_6_id.id:
                         tax_19 += tax_group[1]
+                        sii_imp_ADD_code = False
+                        sii_imp_ADD_base = False
                     else:
                         tax_iaba += tax_group[1]
                         imp = self.env['account.tax'].search([('tax_group_id', '=', group_id)], limit=1)
@@ -117,7 +119,7 @@ class WizardExportCsv(models.TransientModel):
                 if sii_imp_ADD_code:
                     imp_add_code = str(sii_imp_ADD_code)
                     imp_ADD_base = str(round(sii_imp_ADD_base, 1))
-                    imp_ADD_value = str(round(tax_iaba, 1))
+                    imp_ADD_value = str(int(tax_iaba))
                 else:
                     imp_add_code = ''
                     imp_ADD_base = ''
