@@ -53,7 +53,7 @@ class WizardExportCsv(models.TransientModel):
     #@api.multi
     def show_view(self, name):
         search_ids = self.env['wizard.export.csv.books'].search([])
-        last_id = search_ids and max(search_ids)        
+        last_id = self #search_ids and max(search_ids)
         return {
             'name': name,
             'context': self._context,
