@@ -99,7 +99,6 @@ class WizardExportCsv(models.TransientModel):
 
                 config = self.env['fiscal.dte.printing.config'].search([('company_id', '=', invoice.company_id.id)],
                                                                        limit=1)
-                print(['invoice.amount_by_group', invoice.amount_by_group])
 
                 for tax_group in invoice.amount_by_group:
                     group_id = tax_group[6]
