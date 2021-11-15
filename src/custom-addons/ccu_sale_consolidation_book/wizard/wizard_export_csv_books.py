@@ -69,7 +69,7 @@ class WizardExportCsv(models.TransientModel):
     # @api.multi
     def action_generate_csv(self):
         file_name = "DTE_LVDE_%s_%s%s_01.txt" % (
-        self.env.user.company_id.vat[:-2], self.date_from.strftime('%Y'), self.date_from.strftime('%m'))
+        self.company.vat[:-2], self.date_from.strftime('%Y'), self.date_from.strftime('%m'))
         folder_path = "/lv_truck/"
 
         if self.env.context.get('remote_folder') == 1:
