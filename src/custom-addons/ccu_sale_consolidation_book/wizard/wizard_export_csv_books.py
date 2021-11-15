@@ -68,9 +68,8 @@ class WizardExportCsv(models.TransientModel):
     
     # @api.multi
     def action_generate_csv(self):
-        file_name = "DTE_LVDE_%s_%s%s_%s.txt" % (
-        self.env.user.company_id.vat[:-2], self.date_from.strftime('%Y'), self.date_from.strftime('%m'),
-        self.date_from.strftime('%d'))
+        file_name = "DTE_LVDE_%s_%s%s_01.txt" % (
+        self.env.user.company_id.vat[:-2], self.date_from.strftime('%Y'), self.date_from.strftime('%m'))
         folder_path = "/lv_truck/"
 
         if self.env.context.get('remote_folder') == 1:
@@ -112,7 +111,10 @@ class WizardExportCsv(models.TransientModel):
                         sii_imp_ADD_base = False
                     else:
                         tax_iaba += tax_group[1]
-                        imp = self.env['account.tax'].search([('tax_group_id', '=', group_id)], limit=1)
+                        imp = self.env['account.tax'].search([
+                            ('company_id.id', '=', self.company.id),
+                            ('tax_group_id', '=', group_id),
+                        ], limit=1)
                         sii_imp_ADD_code = imp.l10n_cl_sii_code
                         sii_imp_ADD_base = imp.amount
 
@@ -125,7 +127,7 @@ class WizardExportCsv(models.TransientModel):
                     imp_ADD_base = ''
                     imp_ADD_value = ''
 
-
+                id_sap = invoice.sync_reference or '0'
 
                 line_invoice = [
                                  #Descripción
@@ -329,10 +331,11 @@ class WizardExportCsv(models.TransientModel):
                                  "",
                                  #104
                                  "",
-                                 "0",
-                                 #104
-                                 "S",
                                  #105
+                                 id_sap,
+                                 #106
+                                 "S",
+                                 #107
                                  invoice.team_id.branch_ccu_code or "0",
                                  ]
                 writer.writerow([str(l) for l in line_invoice])
