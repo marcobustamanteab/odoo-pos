@@ -19,7 +19,9 @@
     'depends': ['l10n_cl_edi',
                 'account',
                 'product',
-                'point_of_sale'],
+                'point_of_sale',
+                'l10n_latam_invoice_document',
+                ],
     # always loaded
     'data': [
         'data/paper_format.xml',
@@ -36,6 +38,7 @@
         'views/res_config_settings_view.xml',
         'views/fiscal_dte_service_provider.xml',
         'views/fiscal_dte_config_settings.xml',
+        'views/l10n_latam_document_type.xml',
         'template/dte_template.xml',
 
     ],
