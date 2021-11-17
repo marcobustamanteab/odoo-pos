@@ -53,7 +53,7 @@ class WizardExportCsv(models.TransientModel):
     #@api.multi
     def show_view(self, name):
         search_ids = self.env['wizard.export.csv.books'].search([])
-        last_id = search_ids and max(search_ids)        
+        last_id = self #search_ids and max(search_ids)
         return {
             'name': name,
             'context': self._context,
@@ -68,9 +68,8 @@ class WizardExportCsv(models.TransientModel):
     
     # @api.multi
     def action_generate_csv(self):
-        file_name = "DTE_LVDE_%s_%s%s_%s.txt" % (
-        self.env.user.company_id.vat[:-2], self.date_from.strftime('%Y'), self.date_from.strftime('%m'),
-        self.date_from.strftime('%d'))
+        file_name = "DTE_LVDE_%s_%s%s_01.txt" % (
+        self.company.vat[:-2], self.date_from.strftime('%Y'), self.date_from.strftime('%m'))
         folder_path = "/lv_truck/"
 
         if self.env.context.get('remote_folder') == 1:
@@ -100,12 +99,35 @@ class WizardExportCsv(models.TransientModel):
 
                 config = self.env['fiscal.dte.printing.config'].search([('company_id', '=', invoice.company_id.id)],
                                                                        limit=1)
+
                 for tax_group in invoice.amount_by_group:
                     group_id = tax_group[6]
+                    sii_imp_ADD_code = False
+                    sii_imp_ADD_base = False
                     if group_id == config.tax_6_id.id:
                         tax_19 += tax_group[1]
+                        sii_imp_ADD_code = False
+                        sii_imp_ADD_base = False
                     else:
                         tax_iaba += tax_group[1]
+                        imp = self.env['account.tax'].search([
+                            ('company_id.id', '=', self.company.id),
+                            ('tax_group_id', '=', group_id),
+                        ], limit=1)
+                        sii_imp_ADD_code = imp.l10n_cl_sii_code
+                        sii_imp_ADD_base = imp.amount
+
+                if sii_imp_ADD_code:
+                    imp_add_code = str(sii_imp_ADD_code)
+                    imp_ADD_base = str(round(sii_imp_ADD_base, 1))
+                    imp_ADD_value = str(int(tax_iaba))
+                else:
+                    imp_add_code = ''
+                    imp_ADD_base = ''
+                    imp_ADD_value = ''
+
+                id_sap = invoice.sync_reference or '0'
+
                 line_invoice = [
                                  #Descripción
                                  invoice.l10n_latam_document_type_id.code or '',
@@ -137,7 +159,7 @@ class WizardExportCsv(models.TransientModel):
                                  int(invoice.amount_untaxed),
                                  int(tax_19),
                                  #19
-                                 int(tax_iaba),
+                                 "",
                                  #20
                                  "",
                                  #21
@@ -161,11 +183,11 @@ class WizardExportCsv(models.TransientModel):
                                  #30
                                  "",
                                  #31
-                                 "",
+                                 imp_add_code,
                                  #32
-                                 "",
+                                 imp_ADD_base,
                                  #33
-                                 "",
+                                 imp_ADD_value,
                                  #34
                                  "",
                                  #35
@@ -308,10 +330,11 @@ class WizardExportCsv(models.TransientModel):
                                  "",
                                  #104
                                  "",
-                                 "0",
-                                 #104
-                                 "S",
                                  #105
+                                 id_sap,
+                                 #106
+                                 "S",
+                                 #107
                                  invoice.team_id.branch_ccu_code or "0",
                                  ]
                 writer.writerow([str(l) for l in line_invoice])
