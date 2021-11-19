@@ -19,6 +19,7 @@
                      </div>
                      <div>
                          <h4 class="text-center">Informe Cuadratura Inventario Odoo - SAP</h4>
+                         <h5 class="text-center"><span t-esc="form['company'][1]"/></h5>
                          <div class="text-right">
                              <h7 class="text-xs-right">Fecha desde:<span t-esc="form['fecha_beg']"/></h7>
                              <br/>
@@ -39,7 +40,7 @@
                           <th style="text-align:left;" ><strong>BU</strong></th>
                           <th style="text-align:left;" ><strong>PRODUCTO</strong></th>
                           <th style="text-align:left;" ><strong>NOMBRE</strong></th>
-                          <th style="text-align:left;" ><strong>SENTIDO</strong></th>
+                          <th style="text-align:left;" ><strong>SAP CLASS</strong></th>
                           <th style="text-align:left;" ><strong>ODOO</strong></th>
                           <th style="text-align:left;" ><strong>RECEPCIONADO POR SAP</strong></th>
                           <th style="text-align:left;" ><strong>DIFF</strong></th>
