@@ -21,29 +21,33 @@ class InventoryExtraReports(models.TransientModel):
 
         self.env.cr.execute("""select A.BUIN, A.default_code, A.sentido, sum(qty_sum)
                 from (
-                select (case when b.ccu_code is null then c.ccu_code else b.ccu_code end) as BUIN
-                , f.default_code
-                , j.ccu_code_usage as SENTIDO
-                , j.ccu_code_usage as ORIGEN
-                , sum(d.qty_done) as qty_sum
-                from stock_picking a
-                left join stock_picking_type j on j.id = a.picking_type_id
-                left join sale_order k on k.id = a.sale_id
-                left join stock_location b on b.id = a.location_id
-                left join stock_location c on c.id = a.location_dest_id
-                left join stock_move_line d on d.picking_id = a.id
-                left join product_product e on e.id = d.product_id
-                left join product_template f on f.id = product_tmpl_id
-                left join product_category g on g.id = f.categ_id
-                left join res_partner h on h.id = a.partner_id
-                left join res_partner i on i.id = h.commercial_partner_id
-                where date(a.date_done) between '""" + str(self.read()[0]['fecha_beg'])+ "' and '" +  str(self.read()[0]['fecha_end'])+
-                "' and (b.company_id = " +str(self.company.id) + " or c.company_id = "+ str(self.company.id) +")"
-                """ and (b.ccu_code is not null or c.ccu_code is not null)
-                 and f.type = 'product'
-                group by b.ccu_code, c.ccu_code, f.default_code, a.location_id, g.incoming_code, g.incoming_code_related, g.incoming_code_subsidiary
-                   , g.outgoing_code, g.outgoing_code_related, g.outgoing_code_subsidiary, j.ccu_code_usage, g.outgoing_code_no_charge
+                 select (case when b2.ccu_code is null then c2.ccu_code else b2.ccu_code end) as BUIN
+                 , f.default_code
+                 , j.ccu_code_usage as SENTIDO
+                 , j.ccu_code_usage as ORIGEN
+                 , sum(d.qty_done) as qty_sum
+                 from stock_picking a
+                  left join stock_picking_type j on j.id = a.picking_type_id
+                  left join sale_order k on k.id = a.sale_id
+                  left join stock_location b on b.id = a.location_id
+                  left join stock_location b2 on b2.id = b.location_id
+                  left join stock_location c on c.id = a.location_dest_id
+                  left join stock_location c2 on c2.id = c.location_id
+                  left join stock_move_line d on d.picking_id = a.id
+                  left join product_product e on e.id = d.product_id
+                  left join product_template f on f.id = product_tmpl_id
+                  left join product_category g on g.id = f.categ_id
+                  left join res_partner h on h.id = a.partner_id
+                  left join res_partner i on i.id = h.commercial_partner_id
+                 where date(a.date_done) between '""" + str(self.read()[0]['fecha_beg']) + "' and '" +  str(self.read()[0]['fecha_end'])+
+                "' and (b.company_id = " +str(self.company.id) + " or c.company_id = "+ str(self.company.id) +")" 
+                 """ 
+                 and (b2.ccu_code is not null or c2.ccu_code is not null)
+                 and f.type = 'product' and a.is_sync = true
+                 group by b2.ccu_code, c2.ccu_code, f.default_code, a.location_id, g.incoming_code, g.incoming_code_related, g.incoming_code_subsidiary
+                  , g.outgoing_code, g.outgoing_code_related, g.outgoing_code_subsidiary, j.ccu_code_usage, g.outgoing_code_no_charge
                 ) A
+                where A.BUIN is not null
                 group by A.BUIN, A.default_code, A.sentido
                 order by 1, 2, 4""")
 
@@ -52,29 +56,33 @@ class InventoryExtraReports(models.TransientModel):
         #en vez de consultar en PS, replico query anterior y agrego filtro is_sync = True
         self.env.cr.execute("""select A.BUIN, A.default_code, A.sentido, sum(qty_sum)
                 from (
-                select (case when b.ccu_code is null then c.ccu_code else b.ccu_code end) as BUIN
-                , f.default_code
-                , j.ccu_code_usage as SENTIDO
-                , j.ccu_code_usage as ORIGEN
-                , sum(d.qty_done) as qty_sum
-                from stock_picking a
-                left join stock_picking_type j on j.id = a.picking_type_id
-                left join sale_order k on k.id = a.sale_id
-                left join stock_location b on b.id = a.location_id
-                left join stock_location c on c.id = a.location_dest_id
-                left join stock_move_line d on d.picking_id = a.id
-                left join product_product e on e.id = d.product_id
-                left join product_template f on f.id = product_tmpl_id
-                left join product_category g on g.id = f.categ_id
-                left join res_partner h on h.id = a.partner_id
-                left join res_partner i on i.id = h.commercial_partner_id
-                where date(a.date_done) between '""" + str(self.read()[0]['fecha_beg'])+ "' and '" +  str(self.read()[0]['fecha_end'])+
-                "' and (b.company_id = " +str(self.company.id) + " or c.company_id = "+ str(self.company.id) +")"
-                """ and (b.ccu_code is not null or c.ccu_code is not null)
-                 and f.type = 'product' and a.is_sync = true
-                group by b.ccu_code, c.ccu_code, f.default_code, a.location_id, g.incoming_code, g.incoming_code_related, g.incoming_code_subsidiary
-                   , g.outgoing_code, g.outgoing_code_related, g.outgoing_code_subsidiary, j.ccu_code_usage, g.outgoing_code_no_charge
+                 select (case when b2.ccu_code is null then c2.ccu_code else b2.ccu_code end) as BUIN
+                 , f.default_code
+                 , j.ccu_code_usage as SENTIDO
+                 , j.ccu_code_usage as ORIGEN
+                 , sum(d.qty_done) as qty_sum
+                 from stock_picking a
+                  left join stock_picking_type j on j.id = a.picking_type_id
+                  left join sale_order k on k.id = a.sale_id
+                  left join stock_location b on b.id = a.location_id
+                  left join stock_location b2 on b2.id = b.location_id
+                  left join stock_location c on c.id = a.location_dest_id
+                  left join stock_location c2 on c2.id = c.location_id
+                  left join stock_move_line d on d.picking_id = a.id
+                  left join product_product e on e.id = d.product_id
+                  left join product_template f on f.id = product_tmpl_id
+                  left join product_category g on g.id = f.categ_id
+                  left join res_partner h on h.id = a.partner_id
+                  left join res_partner i on i.id = h.commercial_partner_id
+                 where date(a.date_done) between '""" + str(self.read()[0]['fecha_beg']) + "' and '" +  str(self.read()[0]['fecha_end'])+
+                "' and (b.company_id = " +str(self.company.id) + " or c.company_id = "+ str(self.company.id) +")" 
+                 """ 
+                 and (b2.ccu_code is not null or c2.ccu_code is not null)
+                 and f.type = 'product'
+                 group by b2.ccu_code, c2.ccu_code, f.default_code, a.location_id, g.incoming_code, g.incoming_code_related, g.incoming_code_subsidiary
+                  , g.outgoing_code, g.outgoing_code_related, g.outgoing_code_subsidiary, j.ccu_code_usage, g.outgoing_code_no_charge
                 ) A
+                where A.BUIN is not null
                 group by A.BUIN, A.default_code, A.sentido
                 order by 1, 2, 4""")
 
@@ -119,7 +127,7 @@ class InventoryExtraReports(models.TransientModel):
                         total_ps = reg[3]
 
             vals = {
-                'BU': self.company.name,
+                'BU': line[0],
                 'INV_ITEM_ID': line[1],
                 'NAME': product_name,
                 'SENTIDO': line[2],
