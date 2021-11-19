@@ -334,6 +334,8 @@ class WizardExportCsv(models.TransientModel):
                                  id_sap,
                                  #106
                                  "S",
+                                 # 107
+                                 invoice.company_id.ccu_business_unit[2:] or "0",
                                  #107
                                  invoice.team_id.branch_ccu_code or "0",
                                  ]

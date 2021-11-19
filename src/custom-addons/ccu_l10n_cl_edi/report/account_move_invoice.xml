@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <data noupdate="1">
+    <data >
         <template id="ccu_l10n_cl_edi.report_account_move_invoice_page">
             <!--        <div class="header">-->
             <!--            <div>-->
@@ -316,16 +316,16 @@
                                         <span t-esc='"{:,.0f}".format(row.price_total)'/>
                                     </td>
                                     <td style="text-align:right;">
-                                    <span t-esc='"{:,.2f}".format(row.price_total / row.quantity)'/>
-                                </td>
+                                        <span t-esc='"{:,.2f}".format(row.price_total / row.quantity)'/>
+                                    </td>
                                 </t>
                                 <t t-else="">
                                     <td style="border-right:solid 1px black;; text-align:right;">
                                         <span t-esc='"{:,.0f}".format(row.price_subtotal)'/>
                                     </td>
                                     <td style="text-align:right;">
-                                    <span t-esc='"{:,.2f}".format(row.price_subtotal / row.quantity)'/>
-                                </td>
+                                        <span t-esc='"{:,.2f}".format(row.price_subtotal / row.quantity)'/>
+                                    </td>
                                 </t>
 
                             </tr>
@@ -445,28 +445,32 @@
                             <td style="text-align:right; " width="*">
                                 <t t-foreach="docs_extra" t-as="docx_id">
                                     <t t-if="doc.id == docx_id">
-                                        <table cellspacing="0" cellpadding="0" style="font-size:8px; ">
-                                            <tr>
-                                                <td>
-                                                    <img t-att-src="image_data_uri(docs_extra.get(docx_id,{}).get('pdf417'))"
-                                                         height="120px" width="auto"/>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="white-space: nowrap; text-align:center; ">Timbre Electrónico
-                                                    SII
-                                                    - Res.
-                                                    <span t-field="doc.company_id.l10n_cl_dte_resolution_number"/>
-                                                    de
-                                                    <span t-field="doc.company_id.l10n_cl_dte_resolution_date"/>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="white-space: nowrap; text-align:center;">Verifique documento:
-                                                    www.sii.cl
-                                                </td>
-                                            </tr>
-                                        </table>
+                                        <t t-if="doc.l10n_latam_document_type_id.print_pdf417">
+                                            <table cellspacing="0" cellpadding="0" style="font-size:8px; ">
+                                                <tr>
+                                                    <td>
+                                                        <img t-att-src="image_data_uri(docs_extra.get(docx_id,{}).get('pdf417'))"
+                                                             height="120px" width="auto"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="white-space: nowrap; text-align:center; ">Timbre
+                                                        Electrónico
+                                                        SII
+                                                        - Res.
+                                                        <span t-field="doc.company_id.l10n_cl_dte_resolution_number"/>
+                                                        de
+                                                        <span t-field="doc.company_id.l10n_cl_dte_resolution_date"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="white-space: nowrap; text-align:center;">Verifique
+                                                        documento:
+                                                        www.sii.cl
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </t>
                                     </t>
                                 </t>
                             </td>
