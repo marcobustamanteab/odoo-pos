@@ -37,10 +37,10 @@
                 <table class="table table-bordered table-striped table-sm" style="width: 100%">
                   <thead>
                       <tr>
-                          <th style="text-align:left;" ><strong>BU</strong></th>
+                          <th style="text-align:left;" ><strong>CENTRO</strong></th>
                           <th style="text-align:left;" ><strong>PRODUCTO</strong></th>
                           <th style="text-align:left;" ><strong>NOMBRE</strong></th>
-                          <th style="text-align:left;" ><strong>SAP CLASS</strong></th>
+                          <th style="text-align:left;" ><strong>TIPO MOV. SAP</strong></th>
                           <th style="text-align:left;" ><strong>ODOO</strong></th>
                           <th style="text-align:left;" ><strong>RECEPCIONADO POR SAP</strong></th>
                           <th style="text-align:left;" ><strong>DIFF</strong></th>
