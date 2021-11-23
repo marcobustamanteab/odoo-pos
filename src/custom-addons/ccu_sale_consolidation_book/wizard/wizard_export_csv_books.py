@@ -374,7 +374,7 @@ class WizardExportCsv(models.TransientModel):
                                  # 107
                                  invoice.company_id.ccu_business_unit[2:] or "0",
                                  #107
-                                 invoice.team_id.branch_ccu_code or "0",
+                                 invoice.pos_session_id.config_id.picking_type_id.default_location_src_id.location_id.ccu_code or invoice.team_id.branch_ccu_code or "0",
                                  ]
                 writer.writerow([str(l) for l in line_invoice])
         if self.env.context.get('remote_folder') == 1:
