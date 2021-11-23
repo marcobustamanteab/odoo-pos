@@ -43,7 +43,7 @@ class InventoryExtraReports(models.TransientModel):
                 "' and (b.company_id = " +str(self.company.id) + " or c.company_id = "+ str(self.company.id) +")" 
                  """ 
                  and (b2.ccu_code is not null or c2.ccu_code is not null)
-                 and f.type = 'product' and a.is_sync = true
+                 and f.type = 'product'
                  group by b2.ccu_code, c2.ccu_code, f.default_code, a.location_id, g.incoming_code, g.incoming_code_related, g.incoming_code_subsidiary
                   , g.outgoing_code, g.outgoing_code_related, g.outgoing_code_subsidiary, j.ccu_code_usage, g.outgoing_code_no_charge
                 ) A
@@ -78,7 +78,7 @@ class InventoryExtraReports(models.TransientModel):
                 "' and (b.company_id = " +str(self.company.id) + " or c.company_id = "+ str(self.company.id) +")" 
                  """ 
                  and (b2.ccu_code is not null or c2.ccu_code is not null)
-                 and f.type = 'product'
+                 and f.type = 'product' and a.is_sync = true
                  group by b2.ccu_code, c2.ccu_code, f.default_code, a.location_id, g.incoming_code, g.incoming_code_related, g.incoming_code_subsidiary
                   , g.outgoing_code, g.outgoing_code_related, g.outgoing_code_subsidiary, j.ccu_code_usage, g.outgoing_code_no_charge
                 ) A
