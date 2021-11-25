@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record model="ir.ui.view" id="wizard_export_etd_document_form_detail_view">
+            <field name="name">wizard.export.etd.document.form.detail</field>
+            <field name="model">wizard.export.etd.document.detail</field>
+            <field name="arch" type="xml">
+                <form string="Invoicing Sale Book">
+                    <group colspan="2">
+                        <field name="date_from" />
+                        <field name="date_to"/>   
+                    </group>
+                    <footer>
+                        <div class="oe_left">
+                            <button string="Report" name="etd_document_excel"
+                                type="object"  class="oe_highlight" />
+                            <button string="Close" special="cancel" type="object"
+                                 class="oe_link" />
+                        </div>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_export_etd_document_wizard_detail" model="ir.actions.act_window">
+            <field name="name">Libro de Ventas de Facturación Detallada</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wizard.export.etd.document.detail</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem 
+            id="wizard_report_etd_document_book_menu" 
+            name="Libro de Ventas Detallado de Facturación"
+            sequence="50"
+            parent="l10n_cl.account_reports_cl_statements_menu"
+            action="action_export_etd_document_wizard_detail"/>
+
+</odoo>
+
