@@ -99,7 +99,9 @@ class WizardExportCsv(models.TransientModel):
 
                 config = self.env['fiscal.dte.printing.config'].search([('company_id', '=', invoice.company_id.id)],
                                                                        limit=1)
-
+                print('TAX_GROUP')
+                print(invoice.amount_by_group)
+                imp_adds = []
                 for tax_group in invoice.amount_by_group:
                     group_id = tax_group[6]
                     sii_imp_ADD_code = False
@@ -114,17 +116,52 @@ class WizardExportCsv(models.TransientModel):
                             ('company_id.id', '=', self.company.id),
                             ('tax_group_id', '=', group_id),
                         ], limit=1)
-                        sii_imp_ADD_code = imp.l10n_cl_sii_code
-                        sii_imp_ADD_base = imp.amount
 
-                if sii_imp_ADD_code:
-                    imp_add_code = str(sii_imp_ADD_code)
-                    imp_ADD_base = str(round(sii_imp_ADD_base, 1))
-                    imp_ADD_value = str(int(tax_iaba))
-                else:
-                    imp_add_code = ''
-                    imp_ADD_base = ''
-                    imp_ADD_value = ''
+                        imp_adds.append({
+                            'code': imp.l10n_cl_sii_code,
+                            'base': imp.amount,
+                            'amount': tax_iaba,
+                        })
+                impadd1_code = False
+                impadd1_base = False
+                impadd1_amnt = False
+                impadd2_code = False
+                impadd2_base = False
+                impadd2_amnt = False
+                impadd3_code = False
+                impadd3_base = False
+                impadd3_amnt = False
+                impadd4_code = False
+                impadd4_base = False
+                impadd4_amnt = False
+                impadd5_code = False
+                impadd5_base = False
+                impadd5_amnt = False
+                for i in range(len(imp_adds)):
+                    if i == 0:
+                        impadd1_code = imp_adds[i]['code']
+                        impadd1_base = imp_adds[i]['base']
+                        impadd1_amnt = imp_adds[i]['amount']
+                    elif i == 1:
+                        impadd2_code = imp_adds[i]['code']
+                        impadd2_base = imp_adds[i]['base']
+                        impadd2_amnt = imp_adds[i]['amount']
+                    elif i == 2:
+                        impadd3_code = imp_adds[i]['code']
+                        impadd3_base = imp_adds[i]['base']
+                        impadd3_amnt = imp_adds[i]['amount']
+                    elif i == 3:
+                        impadd3_code = imp_adds[i]['code']
+                        impadd3_base = imp_adds[i]['base']
+                        impadd3_amnt = imp_adds[i]['amount']
+                    elif i == 4:
+                        impadd4_code = imp_adds[i]['code']
+                        impadd4_base = imp_adds[i]['base']
+                        impadd4_amnt = imp_adds[i]['amount']
+                    elif i == 5:
+                        impadd5_code = imp_adds[i]['code']
+                        impadd5_base = imp_adds[i]['base']
+                        impadd5_amnt = imp_adds[i]['amount']
 
                 id_sap = invoice.sync_reference or '0'
 
@@ -183,35 +220,35 @@ class WizardExportCsv(models.TransientModel):
                                  #30
                                  "",
                                  #31
-                                 imp_add_code,
+                                 impadd1_code or '',
                                  #32
-                                 imp_ADD_base,
+                                 impadd1_base or '',
                                  #33
-                                 imp_ADD_value,
+                                 impadd1_amnt or '',
                                  #34
-                                 "",
+                                 impadd2_code or '',
                                  #35
-                                 "",
+                                 impadd2_base or '',
                                  #36
-                                 "",
+                                 impadd2_amnt or '',
                                  #37
-                                 "",
+                                 impadd3_code or '',
                                  #38
-                                 "",
+                                 impadd3_base or '',
                                  #39
-                                 "",
+                                 impadd3_amnt or '',
                                  #40
-                                 "",
+                                 impadd4_code or '',
                                  #41
-                                 "",
+                                 impadd4_base or '',
                                  #42
-                                 "",
+                                 impadd4_amnt or '',
                                  #43
-                                 "",
+                                 impadd5_code or '',
                                  #44
-                                 "",
+                                 impadd5_base or '',
                                  #45
-                                 "",
+                                 impadd5_amnt or '',
                                  #46
                                  "",
                                  #47
@@ -337,7 +374,7 @@ class WizardExportCsv(models.TransientModel):
                                  # 107
                                  invoice.company_id.ccu_business_unit[2:] or "0",
                                  #107
-                                 invoice.team_id.branch_ccu_code or "0",
+                                 invoice.pos_session_id.config_id.picking_type_id.default_location_src_id.location_id.ccu_code or invoice.team_id.branch_ccu_code or "0",
                                  ]
                 writer.writerow([str(l) for l in line_invoice])
         if self.env.context.get('remote_folder') == 1:
