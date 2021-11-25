@@ -158,7 +158,7 @@ class AccountMove(models.Model):
             if line.account_id.force_rut_allocnbr:
                 alloc_nbr = vat
 
-            invoice_number = self.env['account.move'].search([('pos_order_id.id', '=', line.pos_order_id.id)]) if line.pos_order_id else ''
+            invoice_number = self.env['account.move'].search([('pos_order_id.id', '=', line.pos_order_id.id)]).name if line.pos_order_id else ''
 
             # Utilizamos ref 2 para enviar el RUT cuando esto se indique en la cuenta.
             ref_key_1 = line.reference_key_1 or ''
