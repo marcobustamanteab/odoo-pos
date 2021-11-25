@@ -30,6 +30,28 @@
             <field name="target">new</field>
         </record>
 
+        <record id="view_etd_document_excel" model="ir.ui.view">
+            <field name="name">etd.document.excel.form</field>
+            <field name="model">etd.document.excel</field>
+            <field name="arch" type="xml">
+                <form string="Excel Report file lolñll" version="7.0">
+                    <group>
+                        <field name="excel_file" readonly="1" filename="file_name"/>
+                        <field name="file_name" invisible="1"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_wizard_export_etd_document_tree_view">
+            <field name="name">Libro de Ventas de Facturación Detallado</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">etd.document.excel</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_etd_document_excel" />
+            <field name="target">new</field>
+        </record>
+
         <menuitem 
             id="wizard_report_etd_document_book_menu" 
             name="Libro de Ventas Detallado de Facturación"

@@ -235,28 +235,6 @@ class etd_account_excel_wizard_form(models.TransientModel):
                 worksheet.write(n, 41, rec.journal_id.id or '', style)
                 worksheet.write(n, 42, rec.team_id.create_uid.name or '', style)
                 worksheet.write(n, 43, rec.team_id.create_uid.name or '', style)
-
-
-
-
-                # totals = 0
-                # for line in rec.invoice_line_ids:
-                #     if line.price_tax == 0:
-                #         totals = totals + line.price_subtotal
-                # worksheet.write(n, 15, totals, style)
-                # worksheet.write(n, 16, rec.amount_untaxed, style)
-                # worksheet.write(n, 17, rec.amount_tax, style)
-                # totals = 0
-                # for line in rec.invoice_line_ids:
-                #     if line.price_tax == 0:
-                #         totals = totals + line.price_subtotal
-                # worksheet.write(n, 18, rec.amount_total, style)
-                # worksheet.write(n, 19, rec.user_id.name, style)
-                #worksheet.write(n, 20, rec.company_id.backend_acp_id.xerox_company_code, style)
-                # worksheet.write(n, 20, warehouse, style)
-                # worksheet.write(n, 21, "", style)
-
-                #worksheet.write(n, 22, rec.date_sign, formato_fecha)
                 n = n+1
 
         fp = io.BytesIO()
