@@ -155,7 +155,7 @@ class AccountMove(models.Model):
                             alloc_nbr = self.pos_session_id.name
 
             #Nuevo check: fuerza RUT en allocnbr
-            if line.account_id.force_rut_alocnbr:
+            if line.account_id.force_rut_allocnbr:
                 alloc_nbr = vat
 
             invoice_number = self.env['account.move'].search('pos_order_id', '=', line.pos_order_id) if line.pos_order_id else ''
