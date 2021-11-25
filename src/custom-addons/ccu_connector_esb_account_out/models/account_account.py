@@ -16,4 +16,5 @@ class AccountAccount(models.Model):
     default_profit_profit_code = fields.Char(string='Default profit center code')
     send_blank_allocation = fields.Boolean(string="Send Blank Allocation")
     send_rut = fields.Boolean(string="Send RUT")
+    force_rut_allocnbr = fields.Boolean(string="Force RUT on Allocnbr")
     # send_fixed_text = fields.Char(string="Fixed Text")
