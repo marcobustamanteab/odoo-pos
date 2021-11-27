@@ -23,6 +23,7 @@ class PosOrder(models.Model):
         vals = super(PosOrder, self)._prepare_invoice_vals()
         vals['pos_order_id'] = self.id
         vals['pos_session_id'] = self.session_id.id
+        vals['printer_code'] = self.session_id.config_id.printer_code or ''
         return vals
 
     def reset_cashier_prefix(self):

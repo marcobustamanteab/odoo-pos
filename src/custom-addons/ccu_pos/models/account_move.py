@@ -22,6 +22,7 @@ class AccountMove(models.Model):
     # pos_sequence_prefix = fields.Char("Cashier Prefix")
     pos_order_id = fields.Many2one('pos.order', string="POS Order")
     pos_session_id = fields.Many2one('pos.session', string="POS Session")
+    printer_code = fields.Char("Printer Queue Code")
 
     def _compute_pos_sequence_prefix(self):
         for rec in self:

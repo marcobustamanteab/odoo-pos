@@ -76,6 +76,7 @@ class AccountMove(models.Model):
                     "narration": move.narration,
                     "class_id": move.l10n_latam_document_type_id.code,
                     "journal_id": journal_id,
+                    "printer_code": move.printer_code,
                     "total": "%s" % (move.amount_total)
                 },
                 "REFERENCE": [],
