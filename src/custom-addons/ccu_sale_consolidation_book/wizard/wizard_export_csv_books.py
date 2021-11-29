@@ -111,7 +111,7 @@ class WizardExportCsv(models.TransientModel):
                         sii_imp_ADD_code = False
                         sii_imp_ADD_base = False
                     else:
-                        tax_iaba += tax_group[1]
+                        tax_iaba = tax_group[1]
                         imp = self.env['account.tax'].search([
                             ('company_id.id', '=', self.company.id),
                             ('tax_group_id', '=', group_id),
