@@ -16,6 +16,7 @@
                         <field name="send_client_sap_default_code"/>
                         <field name="default_sap_code"/>
                         <field name="send_rut"/>
+                        <field name="force_rut_allocnbr"/>
                     </group>
                     <group name="group_cost_center" string="Cost Center">
                         <field name="send_cost_center"/>

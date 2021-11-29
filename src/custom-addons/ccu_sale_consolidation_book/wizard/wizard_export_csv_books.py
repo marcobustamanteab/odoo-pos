@@ -102,16 +102,16 @@ class WizardExportCsv(models.TransientModel):
                 print('TAX_GROUP')
                 print(invoice.amount_by_group)
                 imp_adds = []
+                tax_19 = 0
+                tax_iaba = 0
                 for tax_group in invoice.amount_by_group:
                     group_id = tax_group[6]
                     sii_imp_ADD_code = False
                     sii_imp_ADD_base = False
                     if group_id == config.tax_6_id.id:
-                        tax_19 += tax_group[1]
-                        sii_imp_ADD_code = False
-                        sii_imp_ADD_base = False
+                        tax_19 = tax_group[1]
                     else:
-                        tax_iaba += tax_group[1]
+                        tax_iaba = tax_group[1]
                         imp = self.env['account.tax'].search([
                             ('company_id.id', '=', self.company.id),
                             ('tax_group_id', '=', group_id),

@@ -135,9 +135,6 @@ class AccountMove(models.Model):
             if line.account_id.send_client_sap_default_code:
                 sap_code = line.account_id.default_sap_code
 
-            #Utilizamos ref 2 para enviar el RUT cuando esto se indique en la cuenta.
-            ref_key_2 = vat if line.account_id.send_rut else ''
-
             if line.account_id.send_client_sap and line.partner_id and not sap_code:
                 raise ValidationError('Partner has no SAP Code')
 
@@ -156,8 +153,24 @@ class AccountMove(models.Model):
                     else:
                         if self.pos_session_id:
                             alloc_nbr = self.pos_session_id.name
+
+
+            invoice_number = self.env['account.move'].search([('pos_order_id.id', '=', line.pos_order_id.id)]).name if line.pos_order_id else ''
+
+            # Utilizamos ref 2 para enviar el RUT cuando esto se indique en la cuenta.
             ref_key_1 = line.reference_key_1 or ''
-            ref_key_3 = ""
+            ref_key_2 = vat if line.account_id.send_rut else ''
+            ref_key_3 = invoice_number
+            
+            #Nuevo check: fuerza RUT en allocnbr
+            if line.account_id.send_rut:
+                ref_key_2 = vat
+                #Nuevo check: fuerza RUT en allocnbr
+                
+            if line.account_id.force_rut_allocnbr:
+                # Para controlar que no se pierda la información que antes iba en allocnbr, la traspasamos REF2
+                ref_key_2 = alloc_nbr
+                alloc_nbr = vat
             # TODO: Enviar Texto de Referencia de SII
             #   1 - Anulacion
             #   2 - Corrige Texto
@@ -192,7 +205,6 @@ class AccountMove(models.Model):
                 "REF_KEY_2": ref_key_2 or '',
                 "REF_KEY_3": ref_key_3 or '',
             })
-            # TODO: No enviar ALLOCNBR cuando se tiene check en la cuenta - Transferencia Bancaria
             # TODO: Agregar descripción específica en el campo GLOSA configurarlo en la cuenta
             # TODO: REF_KEY_1 - Deposito - Nro. de Colilla
             #                   Transferencia Bancaria - RUT

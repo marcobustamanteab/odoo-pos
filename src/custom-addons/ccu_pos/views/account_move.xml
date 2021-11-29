@@ -19,7 +19,7 @@
         <field name="arch" type="xml">
             <xpath expr="//page[@name='ccu_customization']" position="inside">
                 <group name="group_pos" string="POS">
-                    <field name="pos_sequence_prefix"/>
+                    <field name="printer_code"/>
                     <field name="pos_order_id"/>
                     <field name="pos_session_id"/>
                     <field name="pos_order_ids"/>
