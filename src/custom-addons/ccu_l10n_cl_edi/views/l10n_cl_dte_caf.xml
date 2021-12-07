@@ -9,6 +9,10 @@
                 <field name="remain_qty"/>
                 <field name="remain_percent"/>
             </xpath>
+            <xpath expr="//field[@name='filename']" position="before">
+                <field name="sequence" widget="handle"/>
+            </xpath>
+
         </field>
     </record>
 </odoo>

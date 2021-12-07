@@ -10,3 +10,4 @@ from . import fiscal_dte_printing_config
 from . import fiscal_dte_config_settings
 from . import res_partner
 from . import l10n_latam_document_type
+from . import sequence_mixin
