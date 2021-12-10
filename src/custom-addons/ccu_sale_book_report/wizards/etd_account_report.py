@@ -9,7 +9,7 @@
 from odoo.tools.misc import str2bool, xlwt
 from xlsxwriter.workbook import Workbook
 import base64
-import re,sys
+import json
 import io
 from odoo import api, fields, models
 from odoo.exceptions import ValidationError
@@ -187,7 +187,8 @@ class etd_account_excel_wizard_form(models.TransientModel):
                 worksheet.write(n, 9, rec.team_id.create_uid.name or '', style)
                 worksheet.write(n, 10, rec.type_name or '', style)
                 worksheet.write(n, 11, rec.partner_id_vat or '', style)
-                worksheet.write(n, 12, '', style)
+                worksheet.write(n, 12, rec.sync_reference or '', style)
+                # worksheet.write(n, 12, '', style)
                 worksheet.write(n, 13, rec.partner_id.id or '', style)
                 worksheet.write(n, 14, rec.partner_id.name or '', style)
                 worksheet.write(n, 15, rec.partner_id.name or '', style)
@@ -222,12 +223,16 @@ class etd_account_excel_wizard_form(models.TransientModel):
                 worksheet.write(n, 28, line.discount or '', style)
                 worksheet.write(n, 29, line.price_total or '', style)
                 worksheet.write(n, 30, line.price_total or '', style)
-                worksheet.write(n, 31, '', style)
-                worksheet.write(n, 32,  '', style)
-                worksheet.write(n, 33, '', style)
+                worksheet.write(n, 31, rec.partner_id.property_account_receivable_id.code or '', style)
+                worksheet.write(n, 32, rec.partner_id.property_account_receivable_id.name or '', style)
+                worksheet.write(n, 33, 'N/A, esto es SAP', style)
                 worksheet.write(n, 34, rec.journal_id.default_account_id.code or '', style)
                 worksheet.write(n, 35, rec.journal_id.default_account_id.name or '', style)
-                worksheet.write(n, 36, rec.journal_id.default_account_id.name or '', style)
+                worksheet.write(n, 36, 'N/A, esto es SAP', style)
+
+                json_txt = json.loads(line.posted_payload)
+                print(line.posted_payload)
+
                 worksheet.write(n, 37, rec.journal_id.default_account_id.name or '', style)
                 worksheet.write(n, 38, rec.currency_id.name or '', style)
                 worksheet.write(n, 39, rec.l10n_cl_claim_description or '', style)
