@@ -188,7 +188,6 @@ class etd_account_excel_wizard_form(models.TransientModel):
                 worksheet.write(n, 10, rec.type_name or '', style)
                 worksheet.write(n, 11, rec.partner_id_vat or '', style)
                 worksheet.write(n, 12, rec.sync_reference or '', style)
-                # worksheet.write(n, 12, '', style)
                 worksheet.write(n, 13, rec.partner_id.id or '', style)
                 worksheet.write(n, 14, rec.partner_id.name or '', style)
                 worksheet.write(n, 15, rec.partner_id.name or '', style)
@@ -231,7 +230,7 @@ class etd_account_excel_wizard_form(models.TransientModel):
                 worksheet.write(n, 36, 'N/A, esto es SAP', style)
 
                 # json_txt = json.loads(line.posted_payload)
-                print(line.posted_payload)
+                print('line.posted_payload -> ' + line.posted_payload)
 
                 worksheet.write(n, 37, rec.journal_id.default_account_id.name or '', style)
                 worksheet.write(n, 38, rec.currency_id.name or '', style)
