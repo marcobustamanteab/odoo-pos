@@ -230,7 +230,7 @@ class etd_account_excel_wizard_form(models.TransientModel):
                 worksheet.write(n, 36, 'N/A, esto es SAP', style)
 
                 # json_txt = json.loads(line.posted_payload)
-                print('line.posted_payload -> ' + str(line.posted_payload))
+                _logger.info('line.posted_payload -> ' + str(line.posted_payload))
 
                 worksheet.write(n, 37, rec.journal_id.default_account_id.name or '', style)
                 worksheet.write(n, 38, rec.currency_id.name or '', style)
