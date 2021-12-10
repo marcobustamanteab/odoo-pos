@@ -197,8 +197,8 @@ class etd_account_excel_wizard_form(models.TransientModel):
                 worksheet.write(n, 19, '', style)
                 worksheet.write(n, 20, '', style)
 
-                for taxx in line.tax_ids:
-                    print(taxx)
+                # for taxx in line.tax_ids:
+                #     print(taxx)
 
                 # worksheet.write(n, 21, line.tax_ids[1].amount or '', style)
                 worksheet.write(n, 21, '', style)
@@ -206,8 +206,8 @@ class etd_account_excel_wizard_form(models.TransientModel):
                 iaba = ''
                 iva = ''
                 if line.tax_ids:
-                    ll = len(line.tax_ids)
-                    if ll == 1:
+                    largo = len(line.tax_ids)
+                    if largo == 1:
                         iaba = ''
                     else:
                         iaba = line.tax_ids[1].amount
@@ -230,9 +230,14 @@ class etd_account_excel_wizard_form(models.TransientModel):
                 worksheet.write(n, 36, 'N/A, esto es SAP', style)
 
                 # json_txt = json.loads(line.posted_payload)
-                _logger.info('line.posted_payload -> ' + str(line.posted_payload))
+                # _logger.info('line.posted_payload -> ' + str(line.posted_payload))
+                cebe = ''
+                if line.posted_payload is not False:
+                    for iter in line.posted_payload['DOCUMENT_POST']['ASSENT']:
+                        if iter == line.product_id.code:
+                            cebe = iter['CEBE']
 
-                worksheet.write(n, 37, rec.journal_id.default_account_id.name or '', style)
+                worksheet.write(n, 37, cebe or '', style)
                 worksheet.write(n, 38, rec.currency_id.name or '', style)
                 worksheet.write(n, 39, rec.l10n_cl_claim_description or '', style)
                 worksheet.write(n, 40, rec.journal_id.create_date or '', style)
