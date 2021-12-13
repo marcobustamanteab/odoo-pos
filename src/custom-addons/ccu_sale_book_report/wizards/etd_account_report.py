@@ -230,7 +230,7 @@ class etd_account_excel_wizard_form(models.TransientModel):
                 worksheet.write(n, 36, 'N/A, esto es SAP', style)
 
                 # json_txt = json.loads(line.posted_payload)
-                _logger.info('line.posted_payload -> ' + assent['DOCUMENT_POST']['ASSENT'])
+                # _logger.info('line.posted_payload -> ' + assent['DOCUMENT_POST']['ASSENT'])
                 cebe = ''
                 if line.posted_payload is not False:
                     assent = line.posted_payload
