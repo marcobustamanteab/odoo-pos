@@ -1,5 +1,5 @@
 from odoo import models
-
+from odoo.exceptions import UserError
 
 class SequenceMixin(models.AbstractModel):
     """Mechanism used to have an editable sequence number.
@@ -37,16 +37,26 @@ class SequenceMixin(models.AbstractModel):
             # print("IS_INVOICE")
             caf_sequence = self.env['l10n_cl.dte.caf'].search(
                 [
-                    ('remain_qty', '>', '0'),
+                    # ('remain_qty', '>', '0'),
                     ('l10n_latam_document_type_id', '=', self.l10n_latam_document_type_id.id),
-                ], order='sequence', limit=1
+                ], order='sequence'
             )
+            caf_exists = False
             if caf_sequence:
-                if caf_sequence.last_used_number == 0:
-                    format_values['seq'] = caf_sequence.start_nb
-                else:
-                    format_values['seq'] = caf_sequence.last_used_number + 1
+                for caf in caf_sequence:
+                    print(["CAF_ENABLED", caf.remain_qty, caf.start_nb, caf.final_nb])
+                    if caf.remain_qty == 0:
+                        continue
+                    # print(["CAF", caf_sequence.last_used_number, caf_sequence.remain_qty])
+                    if caf.last_used_number == 0:
+                        format_values['seq'] = caf.start_nb
+                    else:
+                        format_values['seq'] = caf.last_used_number + 1
+                    caf_exists = True
+                    break
                 # print(["CAF DISPONIBLE", caf_sequence[0].last_used_number])
         # print(["FORMAT VALUES", format_values])
+        if not caf_exists:
+            raise UserError("No hay CAF disponibles")
         self[self._sequence_field] = format.format(**format_values)
         self._compute_split_sequence()
