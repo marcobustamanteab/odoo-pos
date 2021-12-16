@@ -128,7 +128,8 @@ class AccountMove(models.Model):
                     rvals["motive"] = ref.reason
                     rvals["date"] = str(ref.date)
                     dte_to_send["REFERENCE"].append(rvals)
-            print(dte_to_send)
+            # print(dte_to_send)
+            _logger.info("SENDING DTE to DTE Service: %s" %(dte_to_send))
             payload = json.dumps(dte_to_send)
             http_pool = urllib3.PoolManager()
             header = {}
@@ -137,7 +138,7 @@ class AccountMove(models.Model):
             # header["Body"] = payload
             url = config.server_base_url.strip("/") + "/boleta.electronica.envio"
             # url = config.server_base_url.strip("/") + "/boleta.electronica.semilla"
-            print(["URL", url])
+            _logger.info(["URL", url])
             try:
                 response = requests.request("POST", url, headers=header, data=payload)
             except Exception as errstr:
@@ -154,13 +155,13 @@ class AccountMove(models.Model):
             # response = http_pool.request("GET", url, headers=header)
             # try:
             if True and response:
-                print(dir(response))
-                print(response.content)
-                print(response.status_code)
+                _logger.info(dir(response))
+                _logger.info(response.content)
+                _logger.info(response.status_code)
                 response_json = json.loads(response.content.decode())
-                print([type(response_json), response_json])
+                _logger.info([type(response_json), response_json])
                 result = json.loads(response_json.get("result", "{}"))
-                print([type(result), result])
+                _logger.info([type(result), result])
                 error_code = result.get("ErrorCode", "")
                 error_description = result.get("ErrorDescription", "")
                 if error_code:
@@ -168,7 +169,7 @@ class AccountMove(models.Model):
                     if not config.pass_error:
                         raise UserError("DTE Service Error: %s - %s" % (error_code, error_description))
                 if response and response.status_code != '200':
-                    print(response.raise_for_status())
+                    _logger.info(response.raise_for_status())
                     move.dte_send_status = "sent"
                     move.dte_send_error = ""
 
