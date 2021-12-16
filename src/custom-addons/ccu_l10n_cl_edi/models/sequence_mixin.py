@@ -38,6 +38,7 @@ class SequenceMixin(models.AbstractModel):
             caf_sequence = self.env['l10n_cl.dte.caf'].search(
                 [
                     # ('remain_qty', '>', '0'),
+                    ('company_id', '=', self.company_id.id),
                     ('l10n_latam_document_type_id', '=', self.l10n_latam_document_type_id.id),
                 ], order='sequence'
             )
