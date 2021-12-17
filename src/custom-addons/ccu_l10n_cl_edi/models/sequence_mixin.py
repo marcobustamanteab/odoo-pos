@@ -33,6 +33,7 @@ class SequenceMixin(models.AbstractModel):
             format_values['month'] = self[self._sequence_date_field].month
         format_values['seq'] = format_values['seq'] + 1
         # OVERRIDE STANDARD NUMBER BECAUSE HAVE TO USE CAF'S RANGES
+        caf_exists = True
         if self._name == 'account.move' and self.move_type in ('out_invoice', 'out_refund'):
             # print("IS_INVOICE")
             caf_sequence = self.env['l10n_cl.dte.caf'].search(
