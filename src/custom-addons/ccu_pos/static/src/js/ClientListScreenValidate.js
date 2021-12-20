@@ -59,9 +59,7 @@ odoo.define('ccu_pos.ClientListScreenValidate', function (require) {
                     context.mobile ? valueCel ? nameVerified[nameVerified.length] = 'Celular' : nameVerified[nameVerified.length] = 'Celular-Formato' : nameVerified[nameVerified.length] = 'Celular-Formato';
                     context.l10n_cl_dte_email ? valueEmail ? nameVerified[nameVerified.length] = 'Email_DTE' : nameVerified[nameVerified.length] = 'Email_DTE-Formato' :  nameVerified[nameVerified.length] = 'Email_DTE-Formato';
                     context.street ? nameVerified[nameVerified.length] = 'Calle' : nameVerified[nameVerified.length] = 'Calle-Formato';
-                    context.city ? nameVerified[nameVerified.length] = 'Ciudad' : nameVerified[nameVerified.length] = 'Ciudad-Formato';
-                    context.country_id ? nameVerified[nameVerified.length] = 'Pais' : nameVerified[nameVerified.length] = 'Pais-Formato';
-                    context.state_id ? nameVerified[nameVerified.length] = 'Comuna' : nameVerified[nameVerified.length] = 'Comuna-Formato';
+                    context.city_id ? nameVerified[nameVerified.length] = 'Comuna' : nameVerified[nameVerified.length] = 'Comuna-Formato';
                     context.vat ? valueRut ? nameVerified[nameVerified.length] = 'RUT' : nameVerified[nameVerified.length] = 'RUT-Formato' : nameVerified[nameVerified.length] = 'RUT-Formato';
                     context.dob ? nameVerified[nameVerified.length] = 'Fecha de Nacimiento' : nameVerified[nameVerified.length] = 'Fecha de Nacimiento-Formato';
                     context.l10n_cl_sii_taxpayer_type ? nameVerified[nameVerified.length] = 'Tipo Contribuyente' : nameVerified[nameVerified.length] = 'Tipo Contribuyente-Formato';
@@ -71,8 +69,6 @@ odoo.define('ccu_pos.ClientListScreenValidate', function (require) {
                         nameVerified[nameVerified.length] = 'Celular-Formato';
                         nameVerified[nameVerified.length] = 'Email_DTE-Formato';
                         nameVerified[nameVerified.length] = 'Calle-Formato';
-                        nameVerified[nameVerified.length] = 'Ciudad-Formato';
-                        nameVerified[nameVerified.length] = 'Pais-Formato';
                         nameVerified[nameVerified.length] = 'Comuna-Formato';
                         nameVerified[nameVerified.length] = 'RUT-Formato';
                         nameVerified[nameVerified.length] = 'Fecha de Nacimiento-Formato';
@@ -91,6 +87,7 @@ odoo.define('ccu_pos.ClientListScreenValidate', function (require) {
                 const rgRut = /^[0-9]+-[0-9kK]{1}$/g;
                 let valueTel = rgTel.test(data.phone);
                 let valueCel = rgCel.test(data.mobile);
+                data.vat = data.vat.toUpperCase().replace('.','');
                 let valueRut = rgRut.test(data.vat);
                 let valueEmail = rgEmail.test(data.l10n_cl_dte_email);
                 console.log('parse -> ' + !isNaN(parseInt(data.phone)));
@@ -108,9 +105,7 @@ odoo.define('ccu_pos.ClientListScreenValidate', function (require) {
                     data.mobile === null || data.mobile === '' || data.mobile === undefined ? console.log('verificacion changed 2') : valueCel ? nameVerified[nameVerified.length] = 'Celular' : nameVerified[nameVerified.length] = 'Celular-Formato';
                     data.l10n_cl_dte_email === null || data.l10n_cl_dte_email === '' || data.l10n_cl_dte_email === undefined ? console.log('verificacion changed 3') : valueEmail ? nameVerified[nameVerified.length] = 'Email_DTE' : 'Email_DTE-Formato';
                     data.street === null || data.street === '' || data.street === undefined ? console.log('verificacion changed 4') : nameVerified[nameVerified.length] = 'Calle';
-                    data.city === null || data.city === '' || data.city === undefined ? console.log('verificacion changed 5') : nameVerified[nameVerified.length] = 'Ciudad';
-                    data.country_id === null || data.country_id === '' || data.country_id === undefined || data.country_id === false? console.log('verificacion changed 6') : nameVerified[nameVerified.length] = 'Pais';
-                    data.state_id === null || data.state_id === '' || data.state_id === undefined || data.state_id === false ? console.log('verificacion changed 7') : nameVerified[nameVerified.length] = 'Comuna';
+                    data.city_id === null || data.city_id === '' || data.city_id === undefined || data.city_id === false ? console.log('verificacion changed 7') : nameVerified[nameVerified.length] = 'Comuna';
                     data.vat === null || data.vat === '' || data.vat === undefined ? console.log('verificacion changed 8') : valueRut ? nameVerified[nameVerified.length] = 'RUT' : nameVerified[nameVerified.length] = 'RUT-1';
                     data.dob === null || data.dob === '' || data.dob === undefined ? console.log('verificacion changed 9') : nameVerified[nameVerified.length] = 'Fecha de Nacimiento';
                     data.l10n_cl_sii_taxpayer_type === null || data.l10n_cl_sii_taxpayer_type === '' || data.l10n_cl_sii_taxpayer_type === undefined ? console.log('verificacion changed 10 ') : nameVerified[nameVerified.length] = 'Tipo Contribuyente';
@@ -135,6 +130,11 @@ odoo.define('ccu_pos.ClientListScreenValidate', function (require) {
                                 method: 'create_from_ui',
                                 args: [event.detail.processedChanges],
                             });
+                            await this.rpc({
+                                    model: 'res.partner',
+                                    method: 'onchange_city_id',
+                                    args: [partnerId],
+                                });
                             await this.env.pos.load_new_partners();
                             this.state.selectedClient = this.env.pos.db.get_partner_by_id(partnerId);
                             this.state.detailIsShown = false;

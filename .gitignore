@@ -3,7 +3,7 @@ logs
 .idea/
 
 *.pyc
-
+.DS_Store
 connector/
 
 queue/
