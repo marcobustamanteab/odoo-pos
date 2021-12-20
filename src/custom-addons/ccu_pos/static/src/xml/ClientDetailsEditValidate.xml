@@ -11,64 +11,45 @@
    <t t-name="ClientDetailsEdit" t-inherit="point_of_sale.ClientDetailsEdit" t-inherit-mode="extension" owl="1">
         <xpath expr="//div[hasclass('client-details-left')]" position="replace">
             <div class="client-details-left">
+                  <div class="client-detail">
+                       <span class="label">Tipo </span>
+                       <select class="detail client-address-states needsclick" name="l10n_cl_sii_taxpayer_type"
+                               t-on-change="captureChange">
+                           <t t-foreach="props.parameters.taxpayer" t-as="tax" t-key="tax.value">
+                               <option t-att-value="tax.value"
+                                       t-att-selected="props.partner.l10n_cl_sii_taxpayer_type ? ((tax.value === props.partner.l10n_cl_sii_taxpayer_type) ? true : undefined) : undefined">
+                                   <t t-esc="tax.name" />
+                               </option>
+                           </t>
+                       </select>
+                   </div>
+                   <div class="client-detail">
+                       <span class="label">RUT</span>
+                       <input class="detail vat" name="vat" t-on-change="captureChange"
+                              t-att-value="props.partner.vat || ''" />
+                   </div>
                     <div class="client-detail">
-                        <span class="label">Calle *</span>
+                        <span class="label">Calle</span>
                         <input class="detail client-address-street" name="street"
                                t-on-change="captureChange" t-att-value="props.partner.street || ''"
                                placeholder="Street" />
                     </div>
                     <div class="client-detail">
-                        <span class="label">Ciudad *</span>
-                        <input class="detail client-address-city" name="city"
-                               t-on-change="captureChange" t-att-value="props.partner.city || ''"
-                               placeholder="City" />
-                    </div>
-                    <div class="client-detail">
-                        <span class="label">Comuna *</span>
-                        <select class="detail client-address-states needsclick" name="state_id"
-                                t-on-change="captureChange">
-                            <option value="">None</option>
-                            <t t-foreach="env.pos.states" t-as="state" t-key="state.id">
-                                <option t-if="props.partner.country_id[0] == state.country_id[0]"
-                                        t-att-value="state.id"
-                                        t-att-selected="props.partner.state_id ? ((state.id === props.partner.state_id[0]) ? true : undefined) : undefined">
-                                    <t t-esc="state.name" />
-                                </option>
-                                <option t-if="props.partner.country_id[0] != state.country_id[0]"
-                                        t-att-value="state.id">
-<!--                                        t-att-selected="props.partner.state_id ? ((state.id === props.partner.state_id[0]) ? true : undefined) : undefined">-->
-                                    <t t-esc="state.name" />
+                        <span class="label">Comuna</span>
+                        <select class="detail client-address-states needsclick" name="city_id"
+                                    t-on-change="captureChange">
+                            <option value="">Ninguna</option>
+                            <t t-foreach="env.pos.cities" t-as="city" t-key="city.id">
+                                <option t-if="props.partner.country_id[0] == city.country_id[0]"
+                                            t-att-value="city.id"
+                                            t-att-selected="props.partner.city_id ? ((city.id === props.partner.city_id[0]) ? true : undefined) : undefined">
+                                    <t t-esc="city.name" />
                                 </option>
                             </t>
                         </select>
                     </div>
                     <div class="client-detail">
-                        <span class="label">País *</span>
-                        <select class="detail client-address-country needsclick" name="country_id"
-                                t-on-change="captureChange">
-                            <option value="">None</option>
-                            <t t-foreach="env.pos.countries" t-as="country" t-key="country.id">
-                                <option t-att-value="country.id"
-                                        t-att-selected="props.partner.country_id ? ((country.id === props.partner.country_id[0]) ? true : undefined) : undefined">
-                                    <t t-esc="country.name" />
-                                </option>
-                            </t>
-                        </select>
-                    </div>
-                   <div class="client-detail">
-                        <span class="label">Tipo de Contribuyente * </span>
-                        <select class="detail client-address-states needsclick" name="l10n_cl_sii_taxpayer_type"
-                                t-on-change="captureChange">
-                            <t t-foreach="props.parameters.taxpayer" t-as="tax" t-key="tax.value">
-                                <option t-att-value="tax.value"
-                                        t-att-selected="props.partner.l10n_cl_sii_taxpayer_type ? ((tax.value === props.partner.l10n_cl_sii_taxpayer_type) ? true : undefined) : undefined">
-                                    <t t-esc="tax.name" />
-                                </option>
-                            </t>
-                        </select>
-                    </div>
-                    <div class="client-detail">
-                        <span class="label">Giro * </span>
+                        <span class="label">Giro </span>
                         <input class="detail client-address-street" name="l10n_cl_activity_description"
                                                        t-on-change="captureChange" t-att-value="props.partner.l10n_cl_activity_description || ''"
                                                        placeholder="Giro" />
@@ -87,30 +68,26 @@
                                t-att-value="props.partner.email || ''" />
                     </div>
                     <div class="client-detail">
-                        <span class="label">Email DTE *</span>
+                        <span class="label">DTE</span>
                         <input class="detail client-email" name="l10n_cl_dte_email" type="email"
                                t-on-change="captureChange"
-                               t-att-value="props.partner.l10n_cl_dte_email || ''" />
+                               t-att-value="props.partner.l10n_cl_dte_email || ''"
+                               placeholder="Correo DTE"/>
                     </div>
                     <div class="client-detail">
-                        <span class="label">Teléfono *</span>
+                        <span class="label">Teléfono</span>
                         <input class="detail client-phone" name="phone" type="tel"
                                t-on-change="captureChange"
                                t-att-value="props.partner.phone || ''" maxlength="9"/>
                     </div>
                     <div class="client-detail">
-                        <span class="label">Celular *</span>
+                        <span class="label">Celular</span>
                         <input class="detail client-phone" name="mobile" type="tel"
                                t-on-change="captureChange"
                                t-att-value="props.partner.mobile || ''" maxlength="9"/>
                     </div>
                     <div class="client-detail">
-                        <span class="label">Rut *</span>
-                        <input class="detail vat" name="vat" t-on-change="captureChange"
-                               t-att-value="props.partner.vat || ''" />
-                    </div>
-                    <div class="client-detail">
-                        <span class="label">Fecha de Nacimiento *</span>
+                        <span class="label">Nacimiento</span>
                         <input type="date" name="dob" t-on-change="captureChange" t-att-value="props.partner.dob || ''"/>
                     </div>
             </div>
