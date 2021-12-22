@@ -24,7 +24,6 @@ class PosOrder(models.Model):
         vals['pos_order_id'] = self.id
         vals['pos_session_id'] = self.session_id.id
         vals['printer_code'] = self.session_id.config_id.printer_code or ''
-        self.partner_id.commercial_partner_id.l10n_latam_identification_type_id = self.env.ref('l10n_latam_base.it_vat').id
         return vals
 
     def reset_cashier_prefix(self):

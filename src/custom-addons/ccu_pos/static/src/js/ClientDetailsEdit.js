@@ -2,7 +2,7 @@ odoo.define('ccu_pos.ClientDetailsEdit', function (require) {
     "use strict";
 
     var models = require('point_of_sale.models');
-
+    var PosModelSuper = models.PosModel;
     const { _t } = require('web.core');
     const { useListener } = require('web.custom_hooks');
     const ClientDetailsEdit = require('point_of_sale.ClientDetailsEdit');
@@ -18,6 +18,16 @@ odoo.define('ccu_pos.ClientDetailsEdit', function (require) {
             }
         },
     ]);
+
+    models.PosModel = models.PosModel.extend({
+            initialize: function(session, attributes) {
+                var res = PosModelSuper.prototype.initialize.apply(this, arguments);
+                this.l10n_cl_sii_taxpayer_types = [{'code': '3', 'name': _t('Boleta')}, {'code': '1', 'name': _t('Factura')} ];
+                return res;
+            },
+
+
+        });
 
     const ClientDetailsEditValidate = ClientDetailsEdit =>
         class extends ClientDetailsEdit {

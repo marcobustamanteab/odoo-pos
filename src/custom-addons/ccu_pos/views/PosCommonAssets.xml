@@ -11,6 +11,7 @@
             <script type="text/javascript" src="/ccu_pos/static/src/js/PaymentScreenStatusTransbank.js"></script>
             <script type="text/javascript" src="/ccu_pos/static/src/js/PaymentScreenValidator.js"></script>
             <script type="text/javascript" src="/ccu_pos/static/src/js/ActionpadWidgetValidate.js"></script>
+            <script type="text/javascript" src="/ccu_pos/static/src/js/GetCustomer.js"/>
         </xpath>
     </template>
 </odoo>
