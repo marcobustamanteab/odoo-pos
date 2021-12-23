@@ -242,7 +242,7 @@ class etd_account_excel_wizard_form(models.TransientModel):
                 if line.posted_payload is not False:
                     assent = line.posted_payload
                     _logger.info('line.posted_payload -> ' + assent)
-                    _logger.info('type line.posted_payload -> ' + type(line.posted_payload))
+                    _logger.info('type line.posted_payload -> ' + str(type(line.posted_payload)))
                     assent_tmp = assent['DOCUMENT_POST']['ASSENT']
                     _logger.info('largo -> ' + len(assent_tmp))
                     for iter in assent_tmp:
