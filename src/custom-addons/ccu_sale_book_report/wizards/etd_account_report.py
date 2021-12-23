@@ -240,8 +240,8 @@ class etd_account_excel_wizard_form(models.TransientModel):
                 # _logger.info('line.posted_payload -> ' + assent['DOCUMENT_POST']['ASSENT'])
                 cebe = ''
                 if line.posted_payload is not False:
-                    assent = line.posted_payload
-                    _logger.info('line.posted_payload -> ' + assent)
+                    assent = json.load(line.posted_payload)
+                    _logger.info('line.posted_payload -> ' + line.posted_payload)
                     assent_tmp = assent['DOCUMENT_POST']['ASSENT']
                     _logger.info('largo -> ' + len(assent_tmp))
                     for iter in assent_tmp:
