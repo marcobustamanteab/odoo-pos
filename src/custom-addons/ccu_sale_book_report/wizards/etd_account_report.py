@@ -237,18 +237,112 @@ class etd_account_excel_wizard_form(models.TransientModel):
                 worksheet.write(n, 35, rec.journal_id.default_account_id.name or '', style)
                 worksheet.write(n, 36, '', style)
 
+                xx = {
+                    "HEADER": {
+                        "ID_MENSAJE": "957d6752-87af-4355-8dff-93523f06e89a",
+                        "MENSAJE": "Account Movements from Odoo",
+                        "FECHA": "20211215",
+                        "SOCIEDAD": "A050",
+                        "LEGADO": "ODOO-POS",
+                        "CODIGO_INTERFAZ": "RTR038_Odoo"
+                    },
+                    "DOCUMENT_POST": {
+                        "HEAD": {
+                            "CENTRO": "5033",
+                            "FOLIO": "N/C 017025",
+                            "CLDOC": "OV",
+                            "FEDOC": "20211215",
+                            "GLOSA": "Reversa de: FAC 082300, Prueba NC Xerox",
+                            "MONTOT": 60181.0,
+                            "MONEDA": "CLP"
+                        },
+                        "ASSENT": [
+                            {
+                                "ITEMNO": "1",
+                                "ACCOUNT": "2102010000",
+                                "RUTDNI": "77287954-7",
+                                "CODE": "",
+                                "MAYOR": "N",
+                                "GLOSA": "A050 IVA Venta",
+                                "CECO": "",
+                                "CEBE": "",
+                                "MATERIAL": "",
+                                "CANTIDAD": 1.0,
+                                "TOTAL": 8197.0,
+                                "ALLOCNBR": "",
+                                "REF_KEY_1": "FAC 082300",
+                                "REF_KEY_2": "",
+                                "REF_KEY_3": "Corrige Monto"
+                            },
+                            {
+                                "ITEMNO": "2",
+                                "ACCOUNT": "1103030035",
+                                "RUTDNI": "77287954-7",
+                                "CODE": "",
+                                "MAYOR": "N",
+                                "GLOSA": "",
+                                "CECO": "",
+                                "CEBE": "",
+                                "MATERIAL": "",
+                                "CANTIDAD": 1.0,
+                                "TOTAL": -60181.0,
+                                "ALLOCNBR": "",
+                                "REF_KEY_1": "FAC 082300",
+                                "REF_KEY_2": "",
+                                "REF_KEY_3": "Corrige Monto"
+                            },
+                            {
+                                "ITEMNO": "3",
+                                "ACCOUNT": "2102010043",
+                                "RUTDNI": "77287954-7",
+                                "CODE": "",
+                                "MAYOR": "N",
+                                "GLOSA": "A050 IABA Vino Venta",
+                                "CECO": "",
+                                "CEBE": "",
+                                "MATERIAL": "",
+                                "CANTIDAD": 1.0,
+                                "TOTAL": 8844.0,
+                                "ALLOCNBR": "",
+                                "REF_KEY_1": "FAC 082300",
+                                "REF_KEY_2": "",
+                                "REF_KEY_3": "Corrige Monto"
+                            },
+                            {
+                                "ITEMNO": "4",
+                                "ACCOUNT": "3000400000",
+                                "RUTDNI": "77287954-7",
+                                "CODE": "",
+                                "MAYOR": "N",
+                                "GLOSA": "[VPTU0245] C MOLINA-CS VNR750-CO",
+                                "CECO": "",
+                                "CEBE": "A50VD10204",
+                                "MATERIAL": "VPTU0245",
+                                "CANTIDAD": 6.0,
+                                "TOTAL": 43140.0,
+                                "ALLOCNBR": "",
+                                "REF_KEY_1": "FAC 082300",
+                                "REF_KEY_2": "",
+                                "REF_KEY_3": "Corrige Monto"
+                            }
+                        ]
+                    }
+                }
+
                 # _logger.info('line.posted_payload -> ' + assent['DOCUMENT_POST']['ASSENT'])
                 cebe = ''
                 if line.posted_payload is not False:
                     assent = line.posted_payload
                     _logger.info('line.posted_payload -> ' + assent)
-                    _logger.info('type line.posted_payload -> ' + str(type(line.posted_payload)))
+                    _logger.info(type(line.posted_payload))
                     assent_tmp = assent['DOCUMENT_POST']['ASSENT']
-                    _logger.info('largo -> ' + len(assent_tmp))
+                    _logger.info('largo -> ' + str(len(assent_tmp)))
                     for iter in assent_tmp:
                         if iter == line.product_id.code:
                             _logger.info('CEBE' + iter['CEBE'])
                             cebe = iter['CEBE']
+
+                # []['MATERIAL']
 
                 worksheet.write(n, 37, cebe or '', style)
                 worksheet.write(n, 38, rec.currency_id.name or '', style)
