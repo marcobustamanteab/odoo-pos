@@ -242,7 +242,9 @@ class etd_account_excel_wizard_form(models.TransientModel):
                 if line.posted_payload is not False:
                     assent = line.posted_payload
                     _logger.info('line.posted_payload -> ' + assent)
-                    for iter in assent['DOCUMENT_POST']['ASSENT']:
+                    assent_tmp = assent['DOCUMENT_POST']['ASSENT']
+                    _logger.info('largo -> ' + len(assent_tmp))
+                    for iter in assent_tmp:
                         if iter == line.product_id.code:
                             _logger.info('CEBE' + iter['CEBE'])
                             cebe = iter['CEBE']
