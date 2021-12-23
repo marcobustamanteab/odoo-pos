@@ -214,13 +214,19 @@ class etd_account_excel_wizard_form(models.TransientModel):
                         iaba = line.tax_ids[1].amount
                     iva = line.tax_ids[0].amount
 
+                total_imp = round(line.price_total - line.price_subtotal, 0)
+                total_imp_tasa = iaba + iva
+
+                iaba_amount = round((total_imp * iaba) / total_imp_tasa, 0)
+                iva_amount = round((total_imp * iva) / total_imp_tasa, 0)
+
                 worksheet.write(n, 21, iaba, style)
                 worksheet.write(n, 22, line.quantity or '', style)
                 worksheet.write(n, 23, line.product_id.uom_name or '', style)
                 worksheet.write(n, 24, line.price_unit or '', style)
                 worksheet.write(n, 25, line.price_subtotal or '', style)
-                worksheet.write(n, 26, iaba, style)
-                worksheet.write(n, 27, iva, style)
+                worksheet.write(n, 26, iaba_amount, style)
+                worksheet.write(n, 27, iva_amount, style)
                 worksheet.write(n, 28, line.discount or '', style)
                 # worksheet.write(n, 29, line.price_total or '', style)
                 worksheet.write(n, 30, line.price_total or '', style)
@@ -231,74 +237,6 @@ class etd_account_excel_wizard_form(models.TransientModel):
                 worksheet.write(n, 35, rec.journal_id.default_account_id.name or '', style)
                 worksheet.write(n, 36, '', style)
 
-#                 json_txt = {
-#     "HEADER": {
-#         "ID_MENSAJE": "54bd684b-6e14-4604-bff2-ca9a81b70585",
-#         "MENSAJE": "Account Movements from Odoo",
-#         "FECHA": "20210830",
-#         "SOCIEDAD": "A050",
-#         "LEGADO": "ODOO-POS",
-#         "CODIGO_INTERFAZ": "RTR038_Odoo"
-#     },
-#     "DOCUMENT_POST": {
-#         "HEAD": {
-#             "CENTRO": "5051",
-#             "FOLIO": "N/C 017010",
-#             "CLDOC": "OV",
-#             "FEDOC": "20210830",
-#             "GLOSA": "Reversa de: FAC 082272, Prueba de NC",
-#             "MONTOT": 53550.0,
-#             "MONEDA": "CLP"
-#         },
-#         "ASSENT": [
-#             {
-#                 "ITEMNO": "1",
-#                 "ACCOUNT": "3000400000",
-#                 "RUTDNI": "76391794-0",
-#                 "CODE": "0001011877",
-#                 "MAYOR": "N",
-#                 "GLOSA": "[029558] TAPON ESPUMANTE",
-#                 "CECO": "",
-#                 "CEBE": "A50VD10203",
-#                 "MATERIAL": "029558",
-#                 "CANTIDAD": 45000.0,
-#                 "TOTAL": 45000.0,
-#                 "ALLOCNBR": "BIT01/0146",
-#                 "REF_KEY_1": "FAC 082272"
-#             },
-#             {
-#                 "ITEMNO": "2",
-#                 "ACCOUNT": "2102010000",
-#                 "RUTDNI": "76391794-0",
-#                 "CODE": "0001011877",
-#                 "MAYOR": "N",
-#                 "GLOSA": "IVA 19% Venta",
-#                 "CECO": "",
-#                 "CEBE": "",
-#                 "MATERIAL": "",
-#                 "CANTIDAD": 1.0,
-#                 "TOTAL": 8550.0,
-#                 "ALLOCNBR": "BIT01/0146",
-#                 "REF_KEY_1": "FAC 082272"
-#             },
-#             {
-#                 "ITEMNO": "3",
-#                 "ACCOUNT": "1103010004",
-#                 "RUTDNI": "76391794-0",
-#                 "CODE": "0001011877",
-#                 "MAYOR": "Y",
-#                 "GLOSA": "",
-#                 "CECO": "",
-#                 "CEBE": "",
-#                 "MATERIAL": "",
-#                 "CANTIDAD": 1.0,
-#                 "TOTAL": -53550.0,
-#                 "ALLOCNBR": "BIT01/0146",
-#                 "REF_KEY_1": "FAC 082272"
-#             }
-#         ]
-#     }
-# }
                 # _logger.info('line.posted_payload -> ' + assent['DOCUMENT_POST']['ASSENT'])
                 cebe = ''
                 if line.posted_payload is not False:
@@ -315,7 +253,7 @@ class etd_account_excel_wizard_form(models.TransientModel):
                 worksheet.write(n, 40, rec.journal_id.create_date or '', style)
                 worksheet.write(n, 41, line.sync_reference or '', style)
                 worksheet.write(n, 42, rec.team_id.create_uid.name or '', style)
-                worksheet.write(n, 43, rec.team_id.create_uid.name or '', style)
+                worksheet.write(n, 43, '', style)
                 n = n+1
 
         fp = io.BytesIO()
