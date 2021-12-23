@@ -58,13 +58,14 @@ class etd_account_excel_wizard_form(models.TransientModel):
         
         #Se buscan los picking en estado distinto a cancelado, fecha hoy u antes, y de salida
         #('date_invoice','>=',self.date_from), ('date_invoice','<=',self.date_to),  ('state' ,'not in',['canceled','draft'])
-        sales_journal = self.env['account.journal'].search(
+        sales_journal = self.env['account.journal'].sudo().search(
             [('name', '=', 'Ventas')],
             limit=1)
-        etd_document_obj = self.env['account.move'].search([
+        etd_document_obj = self.env['account.move'].sudo().search([
             ('date', '>=', self.date_from),
             ('date', '<=', self.date_to),
             ('state', 'not in', ['canceled', 'draft']),
+            ('move_type', 'in', ['out_invoice', 'in_invoice', 'out_refund', 'in_refund']),
         ])
         # ('journal_id', '<=', sales_journal.id), is_sync
 
@@ -81,21 +82,21 @@ class etd_account_excel_wizard_form(models.TransientModel):
         worksheet.col(4).width = 5000
         #DATE
         worksheet.col(5).width = 7000
-        worksheet.col(6).width = 3000
-        worksheet.col(7).width = 3000
+        # worksheet.col(6).width = 3000
+        # worksheet.col(7).width = 3000
         worksheet.col(8).width = 3000
         worksheet.col(9).width = 3000
         worksheet.col(10).width = 2000
         worksheet.col(11).width = 8000
-        worksheet.col(12).width = 3000
-        worksheet.col(13).width = 3000
+        # worksheet.col(12).width = 3000
+        # worksheet.col(13).width = 3000
         worksheet.col(14).width = 3000
         worksheet.col(15).width = 3000
         worksheet.col(16).width = 3000
         worksheet.col(17).width = 3000
         worksheet.col(18).width = 3000
-        worksheet.col(19).width = 3000
-        worksheet.col(20).width = 3000
+        # worksheet.col(19).width = 3000
+        # worksheet.col(20).width = 3000
         worksheet.col(21).width = 3000
         worksheet.col(22).width = 3000
         worksheet.col(22).width = 3000
@@ -105,7 +106,7 @@ class etd_account_excel_wizard_form(models.TransientModel):
         worksheet.col(26).width = 3002
         worksheet.col(27).width = 3002
         worksheet.col(28).width = 3003
-        worksheet.col(29).width = 3003
+        # worksheet.col(29).width = 3003
         worksheet.col(30).width = 3004
         worksheet.col(31).width = 3004
         worksheet.col(32).width = 3005
@@ -129,21 +130,21 @@ class etd_account_excel_wizard_form(models.TransientModel):
         worksheet.write(n-1, 3, 'FOLIO LEGAL',  style1)
         worksheet.write(n-1, 4, 'CONDICION_DE_PAGO',  style1)
         worksheet.write(n-1, 5, 'NUMERO DE PEDIDO DE VENTA',  style1)
-        worksheet.write(n-1, 6, 'FOLIO REFENCIA  EN  EL  CASO  DE NOTAS DE CREDITO  Y  DEBITO',  style1)
-        worksheet.write(n-1, 7, 'DESCR_DTE',  style1)
+        # worksheet.write(n-1, 6, 'FOLIO REFENCIA  EN  EL  CASO  DE NOTAS DE CREDITO  Y  DEBITO',  style1)
+        # worksheet.write(n-1, 7, 'DESCR_DTE',  style1)
         worksheet.write(n-1, 8, 'FECHA DOCUMENTO ODOO',  style1)
         worksheet.write(n-1, 9, 'VENDEDOR',  style1)
         worksheet.write(n-1, 10, 'TIPO  DE  DOCUMENTO',  style1)
         worksheet.write(n-1, 11, 'RUT CLIENTE',  style1)
-        worksheet.write(n-1, 12, 'ID CLIENTE SAP EN EL CASO DE QUE EXISTA',  style1)
-        worksheet.write(n-1, 13, 'ID CLIENTE ODOO',  style1)
+        # worksheet.write(n-1, 12, 'ID CLIENTE SAP EN EL CASO DE QUE EXISTA',  style1)
+        # worksheet.write(n-1, 13, 'ID CLIENTE ODOO',  style1)
         worksheet.write(n-1, 14, 'NOMBRE',  style1)
         worksheet.write(n-1, 15, 'GRUPO DE CLIENTE ',  style1)
         worksheet.write(n-1, 16, 'ESTADO',  style1)
         worksheet.write(n-1, 17, 'CODIGO MATERIAL',  style1)
         worksheet.write(n-1, 18, 'DECRIPCION CODIGO MATERIAL',  style1)
-        worksheet.write(n-1, 19, 'GRUPO DE MATERIAL  INVENTARIO',  style1)
-        worksheet.write(n-1, 20, 'GRUPO DE MATERIAL VENTA',  style1)
+        # worksheet.write(n-1, 19, 'GRUPO DE MATERIAL  INVENTARIO',  style1)
+        # worksheet.write(n-1, 20, 'GRUPO DE MATERIAL VENTA',  style1)
         worksheet.write(n-1, 21, 'TASA DE IMP ADICIONAL',  style1)
         worksheet.write(n-1, 22, 'CANTIDAD',  style1)
         worksheet.write(n-1, 23, 'UNIDAD DE MEDIDA',  style1)
@@ -152,7 +153,7 @@ class etd_account_excel_wizard_form(models.TransientModel):
         worksheet.write(n-1, 26, 'MONTO IABA',  style1)
         worksheet.write(n-1, 27, 'MONTO IVA',  style1)
         worksheet.write(n-1, 28, 'DESCUENTO',  style1)
-        worksheet.write(n-1, 29, 'FLETE',  style1)
+        # worksheet.write(n-1, 29, 'FLETE',  style1)
         worksheet.write(n-1, 30, 'TOTAL',  style1)
         worksheet.write(n-1, 31, 'CUENTA CONTABLE CLIENTE',  style1)
         worksheet.write(n-1, 32, 'DESCRIPCION CUENTA CONTABLE CLIENTE',  style1)
@@ -181,27 +182,27 @@ class etd_account_excel_wizard_form(models.TransientModel):
                 worksheet.write(n, 3, rec.name or '', style)
                 worksheet.write(n, 4, rec.payment_id.name or '', style)
                 worksheet.write(n, 5, rec.ref or '', style)
-                worksheet.write(n, 6, rec.ref or '', style)
-                worksheet.write(n, 7, rec.l10n_cl_claim_description or '', style)
+                # worksheet.write(n, 6, rec.ref or '', style)
+                # worksheet.write(n, 7, rec.l10n_cl_claim_description or '', style)
                 worksheet.write(n, 8, rec.date or '', formato_fecha)
                 worksheet.write(n, 9, rec.team_id.create_uid.name or '', style)
                 worksheet.write(n, 10, rec.type_name or '', style)
                 worksheet.write(n, 11, rec.partner_id_vat or '', style)
-                worksheet.write(n, 12, line.sync_reference or '', style)
-                worksheet.write(n, 13, rec.partner_id.id or '', style)
+                # worksheet.write(n, 12, line.sync_reference or '', style)
+                # worksheet.write(n, 13, rec.partner_id.id or '', style)
                 worksheet.write(n, 14, rec.partner_id.name or '', style)
                 worksheet.write(n, 15, rec.partner_id.name or '', style)
                 worksheet.write(n, 16, rec.state or '', style)
                 worksheet.write(n, 17, line.product_id.code or '', style)
                 worksheet.write(n, 18, line.product_id.name or '', style)
-                worksheet.write(n, 19, '', style)
-                worksheet.write(n, 20, '', style)
+                # worksheet.write(n, 19, '', style)
+                # worksheet.write(n, 20, '', style)
 
                 # for taxx in line.tax_ids:
                 #     print(taxx)
 
                 # worksheet.write(n, 21, line.tax_ids[1].amount or '', style)
-                worksheet.write(n, 21, '', style)
+
 
                 iaba = ''
                 iva = ''
@@ -213,6 +214,7 @@ class etd_account_excel_wizard_form(models.TransientModel):
                         iaba = line.tax_ids[1].amount
                     iva = line.tax_ids[0].amount
 
+                worksheet.write(n, 21, iaba, style)
                 worksheet.write(n, 22, line.quantity or '', style)
                 worksheet.write(n, 23, line.product_id.uom_name or '', style)
                 worksheet.write(n, 24, line.price_unit or '', style)
@@ -220,7 +222,7 @@ class etd_account_excel_wizard_form(models.TransientModel):
                 worksheet.write(n, 26, iaba, style)
                 worksheet.write(n, 27, iva, style)
                 worksheet.write(n, 28, line.discount or '', style)
-                worksheet.write(n, 29, line.price_total or '', style)
+                # worksheet.write(n, 29, line.price_total or '', style)
                 worksheet.write(n, 30, line.price_total or '', style)
                 worksheet.write(n, 31, rec.partner_id.property_account_receivable_id.code or '', style)
                 worksheet.write(n, 32, rec.partner_id.property_account_receivable_id.name or '', style)
@@ -229,22 +231,89 @@ class etd_account_excel_wizard_form(models.TransientModel):
                 worksheet.write(n, 35, rec.journal_id.default_account_id.name or '', style)
                 worksheet.write(n, 36, '', style)
 
-                # json_txt = json.loads(line.posted_payload)
+#                 json_txt = {
+#     "HEADER": {
+#         "ID_MENSAJE": "54bd684b-6e14-4604-bff2-ca9a81b70585",
+#         "MENSAJE": "Account Movements from Odoo",
+#         "FECHA": "20210830",
+#         "SOCIEDAD": "A050",
+#         "LEGADO": "ODOO-POS",
+#         "CODIGO_INTERFAZ": "RTR038_Odoo"
+#     },
+#     "DOCUMENT_POST": {
+#         "HEAD": {
+#             "CENTRO": "5051",
+#             "FOLIO": "N/C 017010",
+#             "CLDOC": "OV",
+#             "FEDOC": "20210830",
+#             "GLOSA": "Reversa de: FAC 082272, Prueba de NC",
+#             "MONTOT": 53550.0,
+#             "MONEDA": "CLP"
+#         },
+#         "ASSENT": [
+#             {
+#                 "ITEMNO": "1",
+#                 "ACCOUNT": "3000400000",
+#                 "RUTDNI": "76391794-0",
+#                 "CODE": "0001011877",
+#                 "MAYOR": "N",
+#                 "GLOSA": "[029558] TAPON ESPUMANTE",
+#                 "CECO": "",
+#                 "CEBE": "A50VD10203",
+#                 "MATERIAL": "029558",
+#                 "CANTIDAD": 45000.0,
+#                 "TOTAL": 45000.0,
+#                 "ALLOCNBR": "BIT01/0146",
+#                 "REF_KEY_1": "FAC 082272"
+#             },
+#             {
+#                 "ITEMNO": "2",
+#                 "ACCOUNT": "2102010000",
+#                 "RUTDNI": "76391794-0",
+#                 "CODE": "0001011877",
+#                 "MAYOR": "N",
+#                 "GLOSA": "IVA 19% Venta",
+#                 "CECO": "",
+#                 "CEBE": "",
+#                 "MATERIAL": "",
+#                 "CANTIDAD": 1.0,
+#                 "TOTAL": 8550.0,
+#                 "ALLOCNBR": "BIT01/0146",
+#                 "REF_KEY_1": "FAC 082272"
+#             },
+#             {
+#                 "ITEMNO": "3",
+#                 "ACCOUNT": "1103010004",
+#                 "RUTDNI": "76391794-0",
+#                 "CODE": "0001011877",
+#                 "MAYOR": "Y",
+#                 "GLOSA": "",
+#                 "CECO": "",
+#                 "CEBE": "",
+#                 "MATERIAL": "",
+#                 "CANTIDAD": 1.0,
+#                 "TOTAL": -53550.0,
+#                 "ALLOCNBR": "BIT01/0146",
+#                 "REF_KEY_1": "FAC 082272"
+#             }
+#         ]
+#     }
+# }
                 # _logger.info('line.posted_payload -> ' + assent['DOCUMENT_POST']['ASSENT'])
                 cebe = ''
-                # if line.posted_payload is not False:
-                #     assent = line.posted_payload
-                #     _logger.info('line.posted_payload -> ' + assent['DOCUMENT_POST']['ASSENT'])
-                #     for iter in assent['DOCUMENT_POST']['ASSENT']:
-                #         if iter == line.product_id.code:
-                #             _logger.info('CEBE' + iter['CEBE'])
-                #             cebe = iter['CEBE']
+                if line.posted_payload is not False:
+                    assent = line.posted_payload
+                    _logger.info('line.posted_payload -> ' + str(assent['DOCUMENT_POST']['ASSENT']))
+                    for iter in assent['DOCUMENT_POST']['ASSENT']:
+                        if iter == line.product_id.code:
+                            _logger.info('CEBE' + iter['CEBE'])
+                            cebe = iter['CEBE']
 
                 worksheet.write(n, 37, cebe or '', style)
                 worksheet.write(n, 38, rec.currency_id.name or '', style)
                 worksheet.write(n, 39, rec.l10n_cl_claim_description or '', style)
                 worksheet.write(n, 40, rec.journal_id.create_date or '', style)
-                worksheet.write(n, 41, rec.journal_id.id or '', style)
+                worksheet.write(n, 41, line.sync_reference or '', style)
                 worksheet.write(n, 42, rec.team_id.create_uid.name or '', style)
                 worksheet.write(n, 43, rec.team_id.create_uid.name or '', style)
                 n = n+1
