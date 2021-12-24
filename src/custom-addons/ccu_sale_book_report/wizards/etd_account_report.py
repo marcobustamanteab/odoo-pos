@@ -66,6 +66,7 @@ class etd_account_excel_wizard_form(models.TransientModel):
             ('date', '<=', self.date_to),
             ('state', 'not in', ['canceled', 'draft']),
             ('move_type', 'in', ['out_invoice', 'in_invoice', 'out_refund', 'in_refund']),
+            ('company_id.name', '=', self.env.company.name),
         ])
         # ('journal_id', '<=', sales_journal.id), is_sync
 
@@ -113,6 +114,7 @@ class etd_account_excel_wizard_form(models.TransientModel):
         worksheet.col(34).width = 3009
         worksheet.col(35).width = 3009
         worksheet.col(36).width = 3010
+        worksheet.col(37).width = 3010
 
         worksheet.merge(0, 0, 0, 20, style1)
 
@@ -121,45 +123,46 @@ class etd_account_excel_wizard_form(models.TransientModel):
         worksheet.write(n-1, 2, 'N° DOCUMENTO INTERNO',  style1)
         worksheet.write(n-1, 3, 'FOLIO LEGAL',  style1)
         worksheet.write(n-1, 4, 'CONDICION_DE_PAGO',  style1)
-        worksheet.write(n-1, 5, 'NUMERO DE PEDIDO DE VENTA',  style1)
+        worksheet.write(n - 1, 5, 'TRANSBANK ID', style1)
+        worksheet.write(n-1, 6, 'NUMERO DE PEDIDO DE VENTA',  style1)
         # worksheet.write(n-1, 6, 'FOLIO REFENCIA  EN  EL  CASO  DE NOTAS DE CREDITO  Y  DEBITO',  style1)
         # worksheet.write(n-1, 7, 'DESCR_DTE',  style1)
-        worksheet.write(n-1, 6, 'FECHA DOCUMENTO ODOO',  style1)
-        worksheet.write(n-1, 7, 'VENDEDOR',  style1)
-        worksheet.write(n-1, 8, 'TIPO  DE  DOCUMENTO',  style1)
-        worksheet.write(n-1, 9, 'RUT CLIENTE',  style1)
+        worksheet.write(n-1, 7, 'FECHA DOCUMENTO ODOO',  style1)
+        worksheet.write(n-1, 8, 'VENDEDOR',  style1)
+        worksheet.write(n-1, 9, 'TIPO  DE  DOCUMENTO',  style1)
+        worksheet.write(n-1, 10, 'RUT CLIENTE',  style1)
         # worksheet.write(n-1, 12, 'ID CLIENTE SAP EN EL CASO DE QUE EXISTA',  style1)
         # worksheet.write(n-1, 13, 'ID CLIENTE ODOO',  style1)
-        worksheet.write(n-1, 10, 'NOMBRE',  style1)
-        worksheet.write(n-1, 11, 'GRUPO DE CLIENTE ',  style1)
-        worksheet.write(n-1, 12, 'ESTADO',  style1)
-        worksheet.write(n-1, 13, 'CODIGO MATERIAL',  style1)
-        worksheet.write(n-1, 14, 'DECRIPCION CODIGO MATERIAL',  style1)
+        worksheet.write(n-1, 11, 'NOMBRE',  style1)
+        worksheet.write(n-1, 12, 'GRUPO DE CLIENTE ',  style1)
+        worksheet.write(n-1, 13, 'ESTADO',  style1)
+        worksheet.write(n-1, 14, 'CODIGO MATERIAL',  style1)
+        worksheet.write(n-1, 15, 'DECRIPCION CODIGO MATERIAL',  style1)
         # worksheet.write(n-1, 19, 'GRUPO DE MATERIAL  INVENTARIO',  style1)
         # worksheet.write(n-1, 20, 'GRUPO DE MATERIAL VENTA',  style1)
-        worksheet.write(n-1, 15, 'TASA DE IMP ADICIONAL',  style1)
-        worksheet.write(n-1, 16, 'CANTIDAD',  style1)
-        worksheet.write(n-1, 17, 'UNIDAD DE MEDIDA',  style1)
-        worksheet.write(n-1, 18, 'PRECIO  UNITARIO',  style1)
-        worksheet.write(n-1, 19, 'NETO',  style1)
-        worksheet.write(n-1, 20, 'MONTO IABA',  style1)
-        worksheet.write(n-1, 21, 'MONTO IVA',  style1)
-        worksheet.write(n-1, 22, 'DESCUENTO',  style1)
+        worksheet.write(n-1, 16, 'TASA DE IMP ADICIONAL',  style1)
+        worksheet.write(n-1, 17, 'CANTIDAD',  style1)
+        worksheet.write(n-1, 18, 'UNIDAD DE MEDIDA',  style1)
+        worksheet.write(n-1, 19, 'PRECIO  UNITARIO',  style1)
+        worksheet.write(n-1, 20, 'NETO',  style1)
+        worksheet.write(n-1, 21, 'MONTO IABA',  style1)
+        worksheet.write(n-1, 22, 'MONTO IVA',  style1)
+        worksheet.write(n-1, 23, 'DESCUENTO',  style1)
         # worksheet.write(n-1, 29, 'FLETE',  style1)
-        worksheet.write(n-1, 23, 'TOTAL',  style1)
-        worksheet.write(n-1, 24, 'CUENTA CONTABLE CLIENTE',  style1)
-        worksheet.write(n-1, 25, 'DESCRIPCION CUENTA CONTABLE CLIENTE',  style1)
-        worksheet.write(n-1, 26, 'SOCIEDAD ASOCIADA CTA CLIENTE',  style1)
-        worksheet.write(n-1, 27, 'CUENTA E INGRESO',  style1)
-        worksheet.write(n-1, 28, 'DESCRIPCION CUENTA CONTABLE INGRESO',  style1)
-        worksheet.write(n-1, 29, 'SOCIEDAD ASOCIADA INGRESO',  style1)
-        worksheet.write(n-1, 30, 'CEBE',  style1)
-        worksheet.write(n-1, 31, 'MONEDA',  style1)
-        worksheet.write(n-1, 32, 'NOTA  EN FACTURA',  style1)
-        worksheet.write(n-1, 33, 'FECHA DOCUMENT CONTABLE',  style1)
-        worksheet.write(n-1, 34, 'ASIENTO CONTABLE',  style1)
-        worksheet.write(n-1, 35, 'USUARIO IMPRIME DOCUMENTO',  style1)
-        worksheet.write(n-1, 36, 'DOCUMENTO REBAJA DE INVENTARIO',  style1)
+        worksheet.write(n-1, 24, 'TOTAL',  style1)
+        worksheet.write(n-1, 25, 'CUENTA CONTABLE CLIENTE',  style1)
+        worksheet.write(n-1, 26, 'DESCRIPCION CUENTA CONTABLE CLIENTE',  style1)
+        worksheet.write(n-1, 27, 'SOCIEDAD ASOCIADA CTA CLIENTE',  style1)
+        worksheet.write(n-1, 28, 'CUENTA E INGRESO',  style1)
+        worksheet.write(n-1, 29, 'DESCRIPCION CUENTA CONTABLE INGRESO',  style1)
+        worksheet.write(n-1, 30, 'SOCIEDAD ASOCIADA INGRESO',  style1)
+        worksheet.write(n-1, 31, 'CEBE',  style1)
+        worksheet.write(n-1, 32, 'MONEDA',  style1)
+        worksheet.write(n-1, 33, 'NOTA  EN FACTURA',  style1)
+        worksheet.write(n-1, 34, 'FECHA DOCUMENT CONTABLE',  style1)
+        worksheet.write(n-1, 35, 'ASIENTO CONTABLE',  style1)
+        worksheet.write(n-1, 36, 'USUARIO IMPRIME DOCUMENTO',  style1)
+        # worksheet.write(n-1, 37, 'DOCUMENTO REBAJA DE INVENTARIO',  style1)
 
 
         for rec in etd_document_obj:
@@ -172,21 +175,21 @@ class etd_account_excel_wizard_form(models.TransientModel):
                 worksheet.write(n, 1, rec.invoice_origin or '', style)
                 worksheet.write(n, 2, rec.invoice_origin or '', style)
                 worksheet.write(n, 3, rec.name or '', style)
-                worksheet.write(n, 4, rec.payment_id.name or '', style)
-                worksheet.write(n, 5, rec.ref or '', style)
+                worksheet.write(n, 4, rec.pos_order_ids.payment_ids.payment_method_id.name or '', style)
+                worksheet.write(n, 5, rec.pos_order_ids.payment_ids.transaction_id or '', style)
+                worksheet.write(n, 6, rec.ref or '', style)
                 # worksheet.write(n, 6, rec.ref or '', style)
                 # worksheet.write(n, 7, rec.l10n_cl_claim_description or '', style)
-                worksheet.write(n, 6, rec.date or '', formato_fecha)
-                worksheet.write(n, 7, rec.team_id.create_uid.name or '', style)
-                worksheet.write(n, 8, rec.type_name or '', style)
-                worksheet.write(n, 9, rec.partner_id_vat or '', style)
+                worksheet.write(n, 7, rec.date or '', formato_fecha)
+                worksheet.write(n, 8, rec.pos_order_ids.user_id.display_name or '', style)
+                worksheet.write(n, 9, rec.type_name or '', style)
+                worksheet.write(n, 10, rec.partner_id_vat or '', style)
                 # worksheet.write(n, 12, line.sync_reference or '', style)
                 # worksheet.write(n, 13, rec.partner_id.id or '', style)
-                worksheet.write(n, 10, rec.partner_id.name or '', style)
                 worksheet.write(n, 11, rec.partner_id.name or '', style)
+                worksheet.write(n, 12, rec.partner_id.name or '', style)
                 worksheet.write(n, 13, rec.state or '', style)
                 worksheet.write(n, 14, line.product_id.code or '', style)
-                worksheet.write(n, 15, line.product_id.name or '', style)
                 # worksheet.write(n, 19, '', style)
                 # worksheet.write(n, 20, '', style)
 
@@ -212,6 +215,7 @@ class etd_account_excel_wizard_form(models.TransientModel):
                     iaba_amount = round((total_imp * iaba) / total_imp_tasa, 0)
                 iva_amount = round((total_imp * iva) / total_imp_tasa, 0)
 
+                worksheet.write(n, 15, line.product_id.display_name, style)
                 worksheet.write(n, 16, iaba, style)
                 worksheet.write(n, 17, line.quantity or '', style)
                 worksheet.write(n, 18, line.product_id.uom_name or '', style)
@@ -224,28 +228,32 @@ class etd_account_excel_wizard_form(models.TransientModel):
                 worksheet.write(n, 24, line.price_total or '', style)
                 worksheet.write(n, 25, rec.partner_id.property_account_receivable_id.code or '', style)
                 worksheet.write(n, 26, rec.partner_id.property_account_receivable_id.name or '', style)
-                worksheet.write(n, 27, '', style)
-                worksheet.write(n, 28, rec.journal_id.default_account_id.code or '', style)
-                worksheet.write(n, 29, rec.journal_id.default_account_id.name or '', style)
-                worksheet.write(n, 30, '', style)
+                worksheet.write(n, 27, rec.partner_id.property_account_receivable_id.company_id.name or '', style)
 
                 cebe = ''
                 if line.posted_payload is not False:
                     assent = json.loads(line.posted_payload)
                     _logger.info(line.posted_payload)
                     _logger.info(type(line.posted_payload))
+                    header_temp = assent['HEADER']
                     assent_tmp = assent['DOCUMENT_POST']['ASSENT']
                     _logger.info('largo -> ' + str(len(assent_tmp)))
                     for iterf in assent_tmp:
                         _logger.info('CEBE' + iterf['CEBE'])
                         cebe = iterf['CEBE']
+                        account_val = iterf['ACCOUNT']
+                        account_desc_val = iterf['GLOSA']
+                    sociedad_val = header_temp['SOCIEDAD']
 
+                worksheet.write(n, 28, account_val or '', style)
+                worksheet.write(n, 29, account_desc_val or '', style)
+                worksheet.write(n, 30, sociedad_val or '', style)
                 worksheet.write(n, 31, cebe or '', style)
                 worksheet.write(n, 32, rec.currency_id.name or '', style)
                 worksheet.write(n, 33, rec.l10n_cl_claim_description or '', style)
-                worksheet.write(n, 34, rec.journal_id.create_date or '', style)
+                worksheet.write(n, 34, rec.date or '', formato_fecha)
                 worksheet.write(n, 35, line.sync_reference or '', style)
-                worksheet.write(n, 36, rec.team_id.create_uid.name or '', style)
+                worksheet.write(n, 36, rec.pos_order_ids.user_id.display_name or '', style)
                 n = n+1
 
         fp = io.BytesIO()
