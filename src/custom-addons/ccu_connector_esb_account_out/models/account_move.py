@@ -67,7 +67,7 @@ class AccountMove(models.Model):
             return
         if not self.sync_uuid:
             print(["UUID", uuid.uuid4()])
-            self.write({'sync_uuid': str(uuid.uuid4())})
+            sync_uuid = str(uuid.uuid4())
 
         backend = self.company_id.backend_esb_id
         if not backend.active:
@@ -214,13 +214,7 @@ class AccountMove(models.Model):
 
         # grabo payload y referencia UUID
         json_object = json.dumps(payload, indent=4)
-        # print(json_object)
-
-        # self.write({
-        #     'posted_payload': json_object,
-        #     'sync_uuid': sync_uuid}
-        # )
-        self.write({'posted_payload': json_object})
+       
 
         esb_api_endpoint = '/sap/contabilidad/asiento/crear'
 
@@ -230,7 +224,9 @@ class AccountMove(models.Model):
             dcto_sap = int(res['mt_response']['respuesta']['documento_sap'])
             if dcto_sap > 0:
                 self.write({
+                    'sync_uuid': sync_uuid,
                     'is_sync': True,
+                    'posted_payload': json_object,
                     'sync_reference': str(dcto_sap),
                     'response_payload': json.dumps(res, indent=4)}
                 )
@@ -253,14 +249,7 @@ class AccountMove(models.Model):
 
     def action_send_account_move_to_esb(self):
         self.send_account_move_to_ESB()
-
-    def update_sync(self, message='none'):
-        txt = str(self.id)
-        print('Response from ESB, JOB QUEUE for Account Move: ', txt)
-        self.sudo().write({
-            'is_sync': True,
-            'sync_reference': message}
-        )
+        
 
     def _set_client_sap_code(self, partner_id, sap_code):
         vals = {

@@ -30,7 +30,7 @@ class StockPicking(models.Model):
         _logger.info(["ACTION_DONE"])
         for rec in self:
             if not rec.sync_uuid:
-                rec.write({'sync_uuid': str(uuid.uuid4())})
+                sync_uuid = str(uuid.uuid4())
             _logger.info(["esb_send_stock_out"])
             rec.with_delay(channel='root.inventory').esb_send_stock_out()
 
@@ -48,7 +48,7 @@ class StockPicking(models.Model):
             return
 
         if not self.sync_uuid:
-            self.write({'sync_uuid': str(uuid.uuid4())})
+            sync_uuid = str(uuid.uuid4())    
 
         centro = self.location_id.location_id.ccu_code or self.location_dest_id.location_id.ccu_code
         cost_center_code = self.location_id.location_id.cost_center_code or self.location_dest_id.location_id.cost_center_code
@@ -120,9 +120,6 @@ class StockPicking(models.Model):
                 print(json_object)
                 _logger.info(["JSON_RESPONSE", json_object])
 
-                self.write({
-                    'posted_payload': json_object}
-                )
                 res = backend.api_esb_call("POST", esb_api_endpoint, payload)
 
                 _logger.info(["RES_FROM_SAP", json.dumps(res, indent=4)])
@@ -130,8 +127,10 @@ class StockPicking(models.Model):
                 dcto_sap = int(res['mt_response']['HEADER'].get('reference', 0))
                 if dcto_sap > 0:
                     self.write({
+                        'sync_uuid': sync_uuid,
                         'is_sync': True,
                         'sync_text': str(dcto_sap),
+                        'posted_payload': json_object,
                         'response_payload': json.dumps(res, indent=4)}
                     )
                 else:
