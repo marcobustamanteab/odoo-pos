@@ -147,21 +147,22 @@ class StockPicking(models.Model):
     def action_send_picking_to_ESB(self):
         self.send_picking_to_ESB()
 
-    def update_sync(self, status='NO OK', message='none'):
-        # picking = self.env['stock.picking'].browse(picking_put_request.stock_picking_id)
-        if 'NO OK' in status:
-            self.sudo().write({
-                'is_sync': False,
-                'sync_text': message}
-            )
-        else:
-            if 'OK' in status:
-                self.sudo().write({
-                    'is_sync': True,
-                    'sync_text': message}
-                )
-            else:
-                self.sudo().write({
-                    'is_sync': True,
-                    'sync_text': message}
-                )
+    # def update_sync(self, status='NO OK', message='none'):
+    #     # picking = self.env['stock.picking'].browse(picking_put_request.stock_picking_id)
+    #     if 'NO OK' in status:
+    #         self.sudo().write({
+    #             'is_sync': False,
+    #             'sync_text': message}
+    #         )
+    #     else: 
+            
+    #         if 'OK' in status:
+    #             self.sudo().write({
+    #                 'is_sync': True,
+    #                 'sync_text': message}
+    #             )
+    #         else:
+    #             self.sudo().write({
+    #                 'is_sync': True,
+    #                 'sync_text': message}
+    #             )
