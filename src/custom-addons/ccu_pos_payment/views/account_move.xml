@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+    <record id="inherit_view_move_line_tree" model="ir.ui.view">
+        <field name="name">inherit_view_move_line_tree</field>
+        <field name="model">account.move.line</field>
+        <field name="inherit_id" ref="account.view_move_line_tree"/>
+        <field name="arch" type="xml">
+          <xpath expr="//field[@name='ref']" position="after">
+                      <field name="vat" optional="show"/>
+                      <field name="cheque_owner_name" optional="show"/>
+                      <field name="check_date" optional="show"/>
+                      <field name="cheque_number" optional="show"/>
+  				</xpath>
+        </field>
+    </record>
+
+    <record id="inherit_view_move_line_tree_grouped" model="ir.ui.view">
+        <field name="name">inherit_view_move_line_tree_grouped</field>
+        <field name="model">account.move.line</field>
+        <field name="inherit_id" ref="account.view_move_line_tree_grouped"/>
+        <field name="arch" type="xml">
+          <xpath expr="//field[@name='ref']" position="after">
+                      <field name="vat" optional="show"/>
+                      <field name="cheque_owner_name" optional="show"/>
+                      <field name="check_date" optional="show"/>
+                      <field name="cheque_number" optional="show"/>
+  				</xpath>
+        </field>
+    </record>
+
+
+    <record id="inherit_view_move" model="ir.ui.view">
+        <field name="name">inherit_view_move</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+          <xpath expr="//field[@name='line_ids']/tree/field[@name='name']" position="after">
+                      <field name="vat" optional="show"/>
+                      <field name="cheque_owner_name" optional="show"/>
+                      <field name="check_date" optional="show"/>
+                      <field name="cheque_number" optional="show"/>
+  				</xpath>
+        </field>
+    </record>
+  </data>
+</odoo>
