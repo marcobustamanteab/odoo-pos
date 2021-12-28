@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<templates id="pos_cheque_information_template" inherit_id="point_of_sale.template" xml:space="preserve">
+
+	<t t-name="ChequeInformation" t-inherit="point_of_sale.PaymentScreenPaymentLines" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('payment-amount')]" position="before">
+            <t t-if="env.pos.config.cheque_information">
+        		<t t-if="line.payment_method.cheque_information">
+        			<div class="cheque-bank" t-on-click="trigger('cheque-bank', { cid: line.cid })">
+        				<i class='fa fa-bank' />
+        			</div>
+        		</t>
+        	</t>
+        </xpath>
+    </t>
+
+	<t t-name="ChequeInformationPopup" owl="1">
+		<div class="modal-dialog">
+			<div class="popup popup-confirm" style="height: 430px !important;">
+				<p class="title" style="background-color: rgb(110,200,155); color: #fff;">Información de Transferencia</p>
+				<div class="body" style="height: 275px !important;">
+					<div class='div-container'>
+						<table class='cheque-bank-list'>
+							<thead>
+								<tr>
+									<th style="width: 45%; "></th>
+									<th style="width: 45%;"></th>
+									<th style="width: 10%;"></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="vat">
+									<td>RUT</td>
+									<td class="" style="padding: 3px;">
+										<input id ="entered_vat" type="text" class="input-field" t-ref="input-vat" name="code"></input>
+									</td>
+								</tr>
+								<tr class="owner_name">
+									<td>Nombre</td>
+									<td class="" style="padding: 3px;">
+										<input id ="entered_owner_name" type="text" class="input-field" t-ref="input-name" name="code"></input>
+									</td>
+								</tr>
+								<tr class="check_date">
+									<td>Fecha</td>
+									<td class="entered_item_qty" style="    padding: 3px;">
+										<input id ="entered_back_account" type="date" t-ref="input-account" class="input-field" name="code"></input>
+									</td>
+								</tr>
+								<tr class="check_number">
+									<td>Referencia</td>
+									<td class="entered_item_qty" style="    padding: 3px;">
+										<input id ="entered_check_number" type="number" t-ref="input-number" class="input-field" name="code"></input>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="footer" style="background-color: rgb(110,200,155); color: #fff;">
+					<div class="button cancel" style="background-color: #0075AC; color: #fff;" t-on-click="cancel">
+						Cancel
+					</div>
+					<div class="button confirm" id="apply_order" style="background-color: #0075AC; color: #fff;" t-on-click="getValue">
+						Apply
+					</div>
+				</div>
+			</div>
+		</div>
+	</t>
+
+	<t t-name="OrderReceiptInherit" t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension" owl="1">
+		<xpath expr="//div[hasclass('receipt-change')]" position="after">
+			<br/>
+			<div>
+				Referencia No.
+				<span t-esc="env.pos.get_order().cheque_number" class="pos-receipt-right-align"/>
+			</div>
+		</xpath>
+	</t>
+
+</templates>
