@@ -3,7 +3,7 @@
 # noinspection PyStatementEffect
 {
     "name": "CCU Customization - Pos",
-    "version": "0.1.3",
+    "version": "0.1.2",
     "category": "customizations",
     "sequence": 1000,
     "license": "LGPL-3",

@@ -1,6 +1,7 @@
 FROM wso2qa4.ccu.cl:5000/pos-odoo-img:1.0.11
 
 # Set default user when running the container
+
 #USER root
 
 COPY config             /etc/odoo
