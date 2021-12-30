@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="assets_backend" name="ccu_pos_note assets" inherit_id="point_of_sale.assets">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/ccu_pos_note/static/src/js/OrderNoteButton.js"/>
+            <script type="text/javascript" src="/ccu_pos_note/static/src/js/ButtonOrderNote.js"/>
+            <script type="text/javascript" src="/ccu_pos_note/static/src/js/models.js"/>
+        </xpath>
+    </template>
+</odoo>
