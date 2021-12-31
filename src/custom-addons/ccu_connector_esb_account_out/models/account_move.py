@@ -388,10 +388,13 @@ class AccountMoveLine(models.Model):
     reference_key_1 = fields.Char(string="Referencia 1")
     fixed_text = fields.Many2one('account.move.line.fixed.text', string="Fixed Text")
 
-    @api.depends('move_id.is_sync','move_id.sync_uuid','move_id.posted_payload','move_id.sync_reference')
-    def _compute_is_sync(self):
-        for rec in self:
-            rec.is_sync = rec.move_id.is_sync
-            rec.sync_uuid = rec.move_id.sync_uuid
-            rec.posted_payload = rec.move_id.posted_payload
-            rec.sync_reference = rec.move_id.sync_reference
+
+class AccountMoveLine(models.Model):
+    _inherit = 'account.move.line'
+
+    is_sync = fields.Boolean(string='Is sync with external account system?', related='move_id.is_sync', store=True)
+    sync_uuid = fields.Char(string='Unique ID of sync', related='move_id.sync_uuid', store=True)
+    posted_payload = fields.Text('Posted Payload', related='move_id.posted_payload', store=True)
+    sync_reference = fields.Char(string='Sync with this text', related='move_id.sync_reference', store=True)
+    reference_key_1 = fields.Char(string="Referencia 1")
+    fixed_text = fields.Many2one('account.move.line.fixed.text', string="Fixed Text")
