@@ -13,12 +13,24 @@
             <div class="client-details-left">
                   <div class="client-detail">
                        <span class="label">Tipo </span>
-                       <select class='detail client-l10n_cl_sii_taxpayer_type needsclick' name='l10n_cl_sii_taxpayer_type' t-on-change="captureChange">
-                           <t t-foreach='env.pos.l10n_cl_sii_taxpayer_types' t-as='l10n_cl_sii_taxpayer_type'>
-                               <option t-att-value='l10n_cl_sii_taxpayer_type.code' t-att-selected="props.partner.l10n_cl_sii_taxpayer_type ? ((l10n_cl_sii_taxpayer_type.code === props.partner.l10n_cl_sii_taxpayer_type) ? true : undefined) : undefined">
+                       <select class='detail client-l10n_cl_sii_taxpayer_type needsclick' name='l10n_cl_sii_taxpayer_type'
+                                   t-on-change="captureChange">
+
+                           <t t-foreach='env.pos.l10n_cl_sii_taxpayer_types' t-as='l10n_cl_sii_taxpayer_type' t-key="l10n_cl_sii_taxpayer_type.code">
+                               <option t-if="props.partner.l10n_cl_sii_taxpayer_type == l10n_cl_sii_taxpayer_type.code"
+                                           t-att-value='l10n_cl_sii_taxpayer_type.code'
+                                           t-att-selected="props.partner.l10n_cl_sii_taxpayer_type ? ((l10n_cl_sii_taxpayer_type.code === props.partner.l10n_cl_sii_taxpayer_type) ? true : undefined) : undefined">
                                    <t t-esc='l10n_cl_sii_taxpayer_type.name'/>
                                </option>
                            </t>
+                           <t t-if="props.partner.l10n_cl_sii_taxpayer_type != '3'">
+                             <option value="3">Boleta
+                             </option>
+                           </t>
+                           <t t-if="props.partner.l10n_cl_sii_taxpayer_type != '1'">
+                             <option value="1">Factura
+                             </option>
+                          </t>
                        </select>
                    </div>
                    <div class="client-detail">
