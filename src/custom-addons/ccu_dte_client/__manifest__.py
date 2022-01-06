@@ -22,6 +22,7 @@
                 'account',
                 'ccu_base',
                 'ccu_services',
+                'ccu_l10n_cl_edi',
                 'account_accountant'],
 
     # always loaded

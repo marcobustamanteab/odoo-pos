@@ -8,9 +8,12 @@
             <xpath expr="//page[@name='ccu_customization']" position="inside">
                 <group name="group_dte_client" string="DTE Client">
                     <field name="dte_send_status"/>
+                    <field name="xerox_status"/>
+                    <field name="xerox_id"/>
                     <field name="dte_send_error"/>
-                    <field name="posted_before"/>
-                    <field name="move_type"/>
+                    <field name="sii_status"/>
+                    <!--                    <field name="posted_before"/>-->
+                    <!--                    <field name="move_type"/>-->
                 </group>
             </xpath>
             <xpath expr="//header" position="inside">
@@ -29,6 +32,9 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='payment_state']" position="after">
                 <field name="dte_send_status"/>
+                <field name="xerox_status"/>
+                <field name="xerox_id"/>
+                <field name="sii_status"/>
             </xpath>
         </field>
     </record>

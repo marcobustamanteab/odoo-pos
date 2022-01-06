@@ -16,12 +16,35 @@ class AccountMove(models.Model):
         [
             ('pending', 'Pending'),
             ('sent', 'Sent'),
-            ('accepted', 'Accepted'),
+            ('queue', 'In Queue'),
             ('error', 'Error'),
-            ('queue', 'In Queue')
-        ], string="DTE Status", default='pending', tracking=True
+            # ('accepted', 'Accepted'),
+        ], string="DTE Send Status", default='pending', tracking=True,
+        help="Send Status between Odoo DTE Client and Odoo DTE Service"
     )
     dte_send_error = fields.Char(string="Send Errors", tracking=True)
+    date_sign = fields.Datetime(
+        "Signature Date",
+        copy=False,
+        track_visibility='onchange',
+        help="""Empty if the document has not been signed. Filled in when the
+            document is signed or sent for signature. Used to avoid signing or
+            sending the same document twice."""
+    )
+    xerox_id = fields.Char("Xerox Id")
+    xerox_status = fields.Selection(
+        [
+            ('pending', 'Pending'),
+            ('queue', 'In Queue'),
+            ('error', 'Error'),
+            ('generated', 'File Generated'),
+            ('result', 'Result OK'),
+            ('validated', 'Validated'),
+            ('printed', 'Printed'),
+            ('sii', 'Internal Tax Services'),
+        ], string='Xerox Status', default='pending'
+    )
+    sii_status = fields.Char("ITS Status")
 
     def _post(self, soft=True):
         res = super(AccountMove, self)._post(soft)
@@ -63,12 +86,12 @@ class AccountMove(models.Model):
             journal_id = move.l10n_latam_document_type_id.doc_code_prefix or "XXX"
             dte_to_send = {
                 "CLIENT": {
-                    "client-vat-company": "%s%s" % (move.company_id.country_id.code,move.company_id.vat)
+                    "client-vat-company": "%s%s" % (move.company_id.country_id.code, move.company_id.vat)
                 },
                 "INVOICE": {
-                    "company_id": "%s%s" %(move.company_id.country_id.code,move.company_id.vat),
+                    "company_id": "%s%s" % (move.company_id.country_id.code, move.company_id.vat),
                     "date_invoice": "%s" % (move.invoice_date or fields.Date.context_today(move)),
-                    "date_due": "%s" %(move.invoice_date_due),
+                    "date_due": "%s" % (move.invoice_date_due),
                     "partner_id": "%s%s" % (move.partner_id.country_id.code, move.partner_id.vat),
                     "type": "out_invoice",
                     "name": move.name,
@@ -85,7 +108,7 @@ class AccountMove(models.Model):
                     "vat": "CL%s" % (move.partner_id.vat),
                     "street": move.partner_id.street,
                     "city": move.partner_id.city,
-                    "state_id": "%s%s" %(move.partner_id.state_id.country_id.code, move.partner_id.state_id.code),
+                    "state_id": "%s%s" % (move.partner_id.state_id.country_id.code, move.partner_id.state_id.code),
                     "activity_description": move.partner_id.l10n_cl_activity_description,
                     "mobile": move.partner_id.mobile,
                     "email": move.partner_id.l10n_cl_dte_email or move.partner_id.email or '',
@@ -105,9 +128,11 @@ class AccountMove(models.Model):
                 # ivals["display_type"] = "product"
                 # ivals["ref_etd"] = product_id_code or "000000"
                 ivals["discount"] = invoice_line.discount
-                _logger.info(["TAXES", invoice_line.tax_ids, ",".join([x.dte_service_code or 'ERR' for x in invoice_line.tax_ids])])
+                _logger.info(["TAXES", invoice_line.tax_ids,
+                              ",".join([x.dte_service_code or 'ERR' for x in invoice_line.tax_ids])])
                 if invoice_line.tax_ids:
-                    ivals["invoice_line_tax_ids"] = ",".join([x.dte_service_code or 'ERR' for x in invoice_line.tax_ids])
+                    ivals["invoice_line_tax_ids"] = ",".join(
+                        [x.dte_service_code or 'ERR' for x in invoice_line.tax_ids])
                 else:
                     ivals["invoice_line_tax_ids"] = "EX"
                 dte_to_send["DETAIL"].append(ivals)
@@ -119,7 +144,7 @@ class AccountMove(models.Model):
                 pvals["ref_etd"] = product_id_code or '000000'
                 pvals["description"] = invoice_line.product_id.description
                 dte_to_send["PRODUCT"].append(pvals)
-            if move.l10n_latam_document_type_id.internal_type in ('debit_note','credit_note') :
+            if move.l10n_latam_document_type_id.internal_type in ('debit_note', 'credit_note'):
                 for ref in move.l10n_cl_reference_ids:
                     rvals = {}
                     rvals["name"] = ref.origin_doc_number
@@ -129,7 +154,7 @@ class AccountMove(models.Model):
                     rvals["date"] = str(ref.date)
                     dte_to_send["REFERENCE"].append(rvals)
             # print(dte_to_send)
-            _logger.info("SENDING DTE to DTE Service: %s" %(dte_to_send))
+            _logger.info("SENDING DTE to DTE Service: %s" % (dte_to_send))
             payload = json.dumps(dte_to_send)
             http_pool = urllib3.PoolManager()
             header = {}
@@ -145,7 +170,7 @@ class AccountMove(models.Model):
                 move.dte_send_status = "error"
                 move.dte_send_error = errstr
                 response = None
-                msg = "Error sending document: %s" %(errstr)
+                msg = "Error sending document: %s" % (errstr)
                 _logger.error(msg)
                 if not config.pass_error:
                     raise UserError(msg)
@@ -160,7 +185,8 @@ class AccountMove(models.Model):
                 _logger.info(response.status_code)
                 response_json = json.loads(response.content.decode())
                 _logger.info([type(response_json), response_json])
-                result = json.loads(response_json.get("result", "{}"))
+                result = response_json.get("result", {})
+                print(["RESPONSE_RESULT", result, type(result)])
                 _logger.info([type(result), result])
                 error_code = result.get("ErrorCode", "")
                 error_description = result.get("ErrorDescription", "")
@@ -171,6 +197,8 @@ class AccountMove(models.Model):
                 if response and response.status_code != '200':
                     _logger.info(response.raise_for_status())
                     move.dte_send_status = "sent"
+                    if result.get('Object',{}).get('Invoice',{}).get('xerox_id','') != 'queue':
+                        move.xerox_id = result.get('Object').get('Invoice').get('xerox_id')
                     move.dte_send_error = ""
 
             # except BaseException as errstr:

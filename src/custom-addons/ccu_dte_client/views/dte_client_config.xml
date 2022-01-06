@@ -9,6 +9,7 @@
                 <field name="server_base_url"/>
                 <field name="enabled" widget="boolean_toggle"/>
                 <field name="pass_error" widget="boolean_toggle"/>
+                <field name="status_watch_service" widget="boolean_toggle"/>
             </tree>
         </field>
     </record>
@@ -36,6 +37,7 @@
                         <field name="server_base_url"/>
                         <field name="enabled" widget="boolean_toggle"/>
                         <field name="pass_error" widget="boolean_toggle"/>
+                        <field name="status_watch_service" widget="boolean_toggle"/>
                     </group>
                 </sheet>
             </form>
