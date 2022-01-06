@@ -180,14 +180,14 @@ class AccountMove(models.Model):
             # response = http_pool.request("GET", url, headers=header)
             # try:
             if True and response:
-                _logger.info(dir(response))
-                _logger.info(response.content)
-                _logger.info(response.status_code)
+                # _logger.info(dir(response))
+                # _logger.info(response.content)
+                # _logger.info(response.status_code)
                 response_json = json.loads(response.content.decode())
-                _logger.info([type(response_json), response_json])
+                # _logger.info([type(response_json), response_json])
                 result = response_json.get("result", {})
-                print(["RESPONSE_RESULT", result, type(result)])
-                _logger.info([type(result), result])
+                # print(["RESPONSE_RESULT", result, type(result)])
+                # _logger.info([type(result), result])
                 error_code = result.get("ErrorCode", "")
                 error_description = result.get("ErrorDescription", "")
                 if error_code:
