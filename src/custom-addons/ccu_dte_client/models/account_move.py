@@ -20,7 +20,7 @@ class AccountMove(models.Model):
             ('error', 'Error'),
             # ('accepted', 'Accepted'),
         ], string="DTE Send Status", default='pending', tracking=True,
-        help="Send Status between Odoo DTE Client and Odoo DTE Service"
+        help="Send Status between Odoo ETD Client and Odoo ETD Service"
     )
     dte_send_error = fields.Char(string="Send Errors", tracking=True)
     date_sign = fields.Datetime(
