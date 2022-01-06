@@ -23,10 +23,11 @@
         <field name="arch" type="xml">
             <xpath expr="//page[@name='ccu_customization']" position="inside">
                 <group name="group_dte_client" string="DTE Client">
+                    <field name="printer_code"/>
                     <field name="dte_send_status"/>
+                    <field name="dte_send_error"/>
                     <field name="xerox_status"/>
                     <field name="xerox_id"/>
-                    <field name="dte_send_error"/>
                     <field name="sii_status"/>
                     <!--                    <field name="posted_before"/>-->
                     <!--                    <field name="move_type"/>-->

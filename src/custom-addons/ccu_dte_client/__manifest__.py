@@ -29,6 +29,7 @@
     'data': [
         'entries/module_actions_act_window.xml',
         'entries/module_menu.xml',
+        'entries/module_ir_action_server.xml',
         'security/ir.model.access.csv',
         'views/dte_client_config.xml',
         'views/account_move.xml',

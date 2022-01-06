@@ -5,6 +5,7 @@ from odoo import fields, api, models
 from odoo.exceptions import UserError, ValidationError
 import urllib3
 import requests
+from ..helpers.api_helper import ApiHelper
 
 _logger = logging.getLogger(__name__)
 
@@ -19,10 +20,10 @@ class AccountMove(models.Model):
             ('queue', 'In Queue'),
             ('error', 'Error'),
             # ('accepted', 'Accepted'),
-        ], string="DTE Send Status", default='pending', tracking=True,
+        ], string="DTE Send Status", default='pending', tracking=True, copy=False,
         help="Send Status between Odoo ETD Client and Odoo ETD Service"
     )
-    dte_send_error = fields.Char(string="Send Errors", tracking=True)
+    dte_send_error = fields.Char(string="Send Errors", tracking=True, copy=False)
     date_sign = fields.Datetime(
         "Signature Date",
         copy=False,
@@ -31,7 +32,7 @@ class AccountMove(models.Model):
             document is signed or sent for signature. Used to avoid signing or
             sending the same document twice."""
     )
-    xerox_id = fields.Char("Xerox Id")
+    xerox_id = fields.Char("Xerox Id", copy=False)
     xerox_status = fields.Selection(
         [
             ('pending', 'Pending'),
@@ -42,9 +43,10 @@ class AccountMove(models.Model):
             ('validated', 'Validated'),
             ('printed', 'Printed'),
             ('sii', 'Internal Tax Services'),
-        ], string='Xerox Status', default='pending'
+        ], string='Xerox Status', default='pending', copy=False
     )
     sii_status = fields.Char("ITS Status")
+    printer_code = fields.Char("Printer Queue Code")
 
     def _post(self, soft=True):
         res = super(AccountMove, self)._post(soft)
@@ -165,7 +167,8 @@ class AccountMove(models.Model):
             # url = config.server_base_url.strip("/") + "/boleta.electronica.semilla"
             _logger.info(["URL", url])
             try:
-                response = requests.request("POST", url, headers=header, data=payload)
+                response = ApiHelper(move.company_id.id).post(url, headers=header, data=payload,
+                                                              oauth2_required=config.oauth2)
             except Exception as errstr:
                 move.dte_send_status = "error"
                 move.dte_send_error = errstr
@@ -191,16 +194,21 @@ class AccountMove(models.Model):
                 error_code = result.get("ErrorCode", "")
                 error_description = result.get("ErrorDescription", "")
                 if error_code:
-                    move.dte_send_status = "queue"
+                    move.write({
+                        'dte_send_status': 'error',
+                        'dte_send_error': error_description,
+                    })
                     if not config.pass_error:
                         raise UserError("DTE Service Error: %s - %s" % (error_code, error_description))
-                if response and response.status_code != '200':
+                else:
+                    # if response and response.status_code != '200':
                     _logger.info(response.raise_for_status())
-                    move.dte_send_status = "sent"
-                    if result.get('Object',{}).get('Invoice',{}).get('xerox_id','') != 'queue':
-                        move.xerox_id = result.get('Object').get('Invoice').get('xerox_id')
-                    move.dte_send_error = ""
-
+                    vals = {}
+                    vals["dte_send_status"] = 'sent'
+                    vals["dte_send_error"] = ''
+                    if result.get('Object', {}).get('Invoice', {}).get('xerox_id', '') != 'queue':
+                        vals["xerox_id"] = result.get('Object', {}).get('Invoice', {}).get('xerox_id', '')
+                    move.write(vals)
             # except BaseException as errstr:
             #     msg = "Error sending document: "
             #     msg += "\nURL:%s" % (url)
@@ -208,4 +216,24 @@ class AccountMove(models.Model):
             #     msg += "\nHEADER: %s " % (header.keys())
             #     msg += "\n%s " % (errstr)
             #     raise UserError(msg)
+        return True
+
+    def perform_send_dte_massive(self):
+        config = self.env['dte.client.config'].search([('company_id', '=', self.company_id.id)])
+        if not config:
+            _logger.info('DTE Client Configuration Not Found')
+            return
+        print(["ACTIVE_IDS", self.env.context.get('active_ids', [])])
+        invoices = self.env['account.move'].search(
+            [
+                ('id', 'in', (self.env.context.get('active_ids', []))),
+                ('state', '=', 'posted'),
+                ('dte_send_status', 'in', ('pending','error'))
+            ]
+        )
+        _logger.info("Invoice to Process: %s" % (len(invoices)))
+        if config:
+            if config.enabled:
+                for inv in invoices:
+                    inv.perform_send_dte()
         return True

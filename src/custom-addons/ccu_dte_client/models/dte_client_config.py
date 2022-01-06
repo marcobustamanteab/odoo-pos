@@ -17,11 +17,21 @@ class DTEClientConfig(models.Model):
     server_base_url = fields.Char("Base Server URL", required=True)
     pass_error = fields.Boolean("Pass Errors")
     enabled = fields.Boolean("Enabled")
+    
+    # Oauth2 (for API MANAGER usage)
+    oauth2 = fields.Boolean("Oauth2 Authorization Protocol")
+    oauth2_url = fields.Char("Oauth2 Authorization URL")
+    oauth2_user = fields.Char("Oauth2 Authorization User")
+    oauth2_pass = fields.Char("Oauth2 Authorization Password")
+    oauth2_basic_user = fields.Char("Basic Authorization User")
+    oauth2_basic_pass = fields.Char("Basic Authorization Password")
     status_watch_service = fields.Boolean('Status Watch Service')
+
+    _sql_constraints = [('unique_company','unique(company_id)','Only one Configuration per Company Allowed')]
 
     @api.onchange('company_id')
     def _onchange_cid_mode(self):
-        self.name = "%s - %s" % (self.company_id.name, "Client Config.")
+        self.name = "%s - %s" % (self.company_id.name, "DTE Client Configuration")
 
     @api.model
     def create(self, vals):
@@ -50,7 +60,7 @@ class DTEClientConfig(models.Model):
                 vals["interval_type"] = "minutes"
                 vals["numbercall"] = -1
                 vals["priority"] = 5
-                vals["doall"] = True
+                vals["doall"] = False
                 vals["code"] = "model.run_xerox_status_watch_scheduler(%s)" % (self.company_id.id)
                 ir_cron.sudo().create(vals)
 

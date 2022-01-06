@@ -16,6 +16,11 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: ccu_dte_client
+#: model:ir.model.fields.selection,name:ccu_dte_client.selection__account_move__dte_send_status__accepted
+msgid "Accepted"
+msgstr "Aceptado"
+
+#. module: ccu_dte_client
 #: model:ir.model,name:ccu_dte_client.model_account_move
 msgid "Account Move or Invoice"
 msgstr "Asiento o Factura"
@@ -24,6 +29,17 @@ msgstr "Asiento o Factura"
 #: model:ir.model.fields,field_description:ccu_dte_client.field_dte_client_config__server_base_url
 msgid "Base Server URL"
 msgstr "URL Base Servidor"
+
+#. module: ccu_dte_client
+#: model:ir.model.fields,field_description:ccu_dte_client.field_dte_client_config__oauth2_basic_pass
+msgid "Basic Authorization Password"
+msgstr "Contraseña Basic Auth"
+
+
+#. module: ccu_dte_client
+#: model:ir.model.fields,field_description:ccu_dte_client.field_dte_client_config__oauth2_basic_user
+msgid "Basic Authorization User"
+msgstr "Usuario Basic Auth"
 
 #. module: ccu_dte_client
 #: model_terms:ir.ui.view,arch_db:ccu_dte_client.view_dte_service_account_tax_form
@@ -75,6 +91,13 @@ msgstr "Estado Envío DTE"
 #: model:ir.model.fields,field_description:ccu_dte_client.field_account_tax__dte_service_code
 msgid "DTE Service Code"
 msgstr "Código Servicio DTE"
+
+#. module: ccu_dte_client
+#: model:ir.model.fields,field_description:ccu_dte_client.field_account_bank_statement_line__dte_send_status
+#: model:ir.model.fields,field_description:ccu_dte_client.field_account_move__dte_send_status
+#: model:ir.model.fields,field_description:ccu_dte_client.field_account_payment__dte_send_status
+msgid "DTE Status"
+msgstr "Estado DTE"
 
 #. module: ccu_dte_client
 #: model:ir.model.fields,field_description:ccu_dte_client.field_account_journal__display_name
@@ -165,6 +188,31 @@ msgid "Name"
 msgstr "Nombre"
 
 #. module: ccu_dte_client
+#: model:ir.model.fields,field_description:ccu_dte_client.field_dte_client_config__oauth2_pass
+msgid "Oauth2 Authorization Password"
+msgstr "Contraseña OAuth2"
+
+#. module: ccu_dte_client
+#: model:ir.model.fields,field_description:ccu_dte_client.field_dte_client_config__oauth2
+msgid "Oauth2 Authorization Protocol"
+msgstr "Utilizar OAuth2"
+
+#. module: ccu_dte_client
+#: model:ir.model.fields,field_description:ccu_dte_client.field_dte_client_config__oauth2_url
+msgid "Oauth2 Authorization URL"
+msgstr "URL OAuth2"
+
+#. module: ccu_dte_client
+#: model:ir.model.fields,field_description:ccu_dte_client.field_dte_client_config__oauth2_user
+msgid "Oauth2 Authorization User"
+msgstr "Usuario OAuth2"
+
+#. module: ccu_dte_client
+#: model:ir.model.constraint,message:ccu_dte_client.constraint_dte_client_config_unique_company
+msgid "Only one Configuration per Company Allowed"
+msgstr "Solo Se Permite una Configuración por Empresa"
+
+#. module: ccu_dte_client
 #: model:ir.model.fields,field_description:ccu_dte_client.field_dte_client_config__pass_error
 msgid "Pass Errors"
 msgstr "Ignorar Errores"
@@ -174,6 +222,13 @@ msgstr "Ignorar Errores"
 #: model:ir.model.fields.selection,name:ccu_dte_client.selection__account_move__xerox_status__pending
 msgid "Pending"
 msgstr "Pendiente"
+
+#. module: ccu_dte_client
+#: model:ir.model.fields,field_description:ccu_dte_client.field_account_bank_statement_line__printer_code
+#: model:ir.model.fields,field_description:ccu_dte_client.field_account_move__printer_code
+#: model:ir.model.fields,field_description:ccu_dte_client.field_account_payment__printer_code
+msgid "Printer Code"
+msgstr "Código Impresora"
 
 #. module: ccu_dte_client
 #: model:ir.model.fields.selection,name:ccu_dte_client.selection__account_move__xerox_status__printed

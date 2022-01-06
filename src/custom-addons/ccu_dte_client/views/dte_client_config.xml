@@ -10,6 +10,7 @@
                 <field name="enabled" widget="boolean_toggle"/>
                 <field name="pass_error" widget="boolean_toggle"/>
                 <field name="status_watch_service" widget="boolean_toggle"/>
+                <field name="oauth2" widget="boolean_toggle"/>
             </tree>
         </field>
     </record>
@@ -38,6 +39,12 @@
                         <field name="enabled" widget="boolean_toggle"/>
                         <field name="pass_error" widget="boolean_toggle"/>
                         <field name="status_watch_service" widget="boolean_toggle"/>
+                        <field name="oauth2" widget="boolean_toggle"/>
+                        <field name="oauth2_url" attrs="{'invisible': [('oauth2','!=', True)], 'required': [('oauth2','=', True)] }"/>
+                        <field name="oauth2_user" attrs="{'invisible': [('oauth2','!=', True)], 'required': [('oauth2','=', True)] }"/>
+                        <field name="oauth2_pass" attrs="{'invisible': [('oauth2','!=', True)], 'required': [('oauth2','=', True)] }"/>
+                        <field name="oauth2_basic_user" attrs="{'invisible': [('oauth2','!=', True)], 'required': [('oauth2','=', True)] }"/>
+                        <field name="oauth2_basic_pass" attrs="{'invisible': [('oauth2','!=', True)], 'required': [('oauth2','=', True)] }"/>
                     </group>
                 </sheet>
             </form>
