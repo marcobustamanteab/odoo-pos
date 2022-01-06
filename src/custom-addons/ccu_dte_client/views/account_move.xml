@@ -17,7 +17,7 @@
                 </group>
             </xpath>
             <xpath expr="//header" position="inside">
-                <button name="action_perform_send_dte" type="object" string="Perform Send"
+                <button name="action_perform_send_dte" type="object" string="Send DTE"
                         class="btn btn-primary"
                         attrs="{'invisible':[('dte_send_status','in',('sent','accepted'))]}"/>
             </xpath>
