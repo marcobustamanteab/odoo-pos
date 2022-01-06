@@ -13,7 +13,7 @@
             </xpath>
         </field>
     </record>
-    
+
     <record model="ir.ui.view" id="ccu_dte_client_account_move_form_view">
         <field name="name">CCU DTE Client Account Move</field>
         <field name="model">account.move</field>
