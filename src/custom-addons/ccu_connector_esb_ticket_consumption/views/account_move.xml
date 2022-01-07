@@ -1,0 +1,45 @@
+<odoo>
+    <record id="ccu_view_account_move_form_folio" model="ir.ui.view">
+        <field name="name">account.move form add sync field</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="ccu_base.account_move_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='ccu_customization']" position="inside">
+                <group name="group_esb_folio" string="SII Folio Consumption Synchronization Audit">
+                    <notebook>
+                        <page name="page_esb_general" string="Completeness and temporality">
+                            <group>
+                                <field name="ticket_is_sync"/>
+                                <field name="ticket_sync_uuid"/>
+                                <field name="ticket_sync_date"/>
+                            </group>
+                        </page>
+                        <page name="page_payload_response" string="Consistency">
+                            <group>
+                                <field name="ticket_posted_payload"/>
+                                <field name="ticket_response_payload"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="ccu_view_account_move_send_button_form_folio">
+        <field name="name">account.move send folio to ESB button</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <header>
+                <button name="action_esb_send_ticket_to_esb"
+                        type="object"
+                        string="Send Ticket Folio Consumption to Esb"
+                        confirm="Are you sure?"
+                        attrs="{'invisible': [('ticket_is_sync', '=', True)]}"
+                        class="oe_highlight"/>
+            </header>
+        </field>
+    </record>
+
+</odoo>

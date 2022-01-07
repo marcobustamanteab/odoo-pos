@@ -12,9 +12,10 @@
                                 <field name="is_sync"/>
                                 <field name="sync_uuid"/>
                                 <field name="sync_reference"/>
+                                <field name="sync_date"/>
                             </group>
                         </page>
-                        <page name="page_payload_response" string="Payload &amp; Response">
+                        <page name="page_payload_response" string="Consistency">
                             <group>
                                 <field name="posted_payload"/>
                                 <field name="response_payload"/>
@@ -61,7 +62,7 @@
                         type="object"
                         string="Send move to esb"
                         confirm="Are you sure?"
-                        attrs="{'invisible': False}"
+                        attrs="{'invisible': [('is_sync', '=', True)]}"
                         class="oe_highlight"/>
             </header>
         </field>
