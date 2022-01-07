@@ -30,7 +30,7 @@ class AccountMove(models.Model):
             if line.partner_id.id not in plist:
                 plist.append(line.partner_id.id)
         send_date = datetime.datetime.now().strftime("%Y%m%d")
-        branch_ccu_code = self.invoice_user_id.sale_team_id.branch_ccu_code
+        branch_ccu_code = self.pos_session_id.config_id.picking_type_id.default_location_src_id.location_id.ccu_code or self.invoice_user_id.sale_team_id.branch_ccu_code
 
         for pid in plist:
             partner = self.env['res.partner'].browse(pid)
@@ -79,7 +79,7 @@ class AccountMove(models.Model):
 
 
         payload_lines = []
-        branch_ccu_code = self.invoice_user_id.sale_team_id.branch_ccu_code
+        branch_ccu_code = self.pos_session_id.config_id.picking_type_id.default_location_src_id.location_id.ccu_code or self.invoice_user_id.sale_team_id.branch_ccu_code
         send_date = datetime.datetime.now().strftime("%Y%m%d")
         document_date = self.date.strftime("%Y%m%d")
 
