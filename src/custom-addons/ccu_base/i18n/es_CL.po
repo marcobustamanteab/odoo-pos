@@ -1,13 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* labarra_partner
+# 	* ccu_base
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 13.0-20200826\n"
+"Project-Id-Version: Odoo Server 14.0+e-20210308\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-16 16:57+0000\n"
-"PO-Revision-Date: 2020-09-16 16:57+0000\n"
+"POT-Creation-Date: 2022-01-07 13:30+0000\n"
+"PO-Revision-Date: 2022-01-07 13:30+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,353 +15,321 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#. module: labarra_partner
-#: model:ir.model.fields,field_description:labarra_partner.field_res_partner__age
-#: model:ir.model.fields,field_description:labarra_partner.field_res_users__age
-msgid "Age"
-msgstr "Edad"
+#. module: ccu_base
+#: model:ir.model.fields.selection,name:ccu_base.selection__res_partner__status__active
+msgid "Active"
+msgstr ""
 
-#. module: labarra_partner
-#: model:ir.model.fields.selection,name:labarra_partner.selection__res_partner__category__bartender
-#: model:product.pricelist,name:labarra_partner.pricelist_bartender
+#. module: ccu_base
+#: model:ir.model.fields,field_description:ccu_base.field_res_partner__age
+#: model:ir.model.fields,field_description:ccu_base.field_res_users__age
+msgid "Age"
+msgstr ""
+
+#. module: ccu_base
+#: model:ir.model.fields.selection,name:ccu_base.selection__res_partner__category__bartender
 msgid "Bartender"
 msgstr ""
 
-#. module: labarra_partner
-#: model:ir.model.fields.selection,name:labarra_partner.selection__res_partner__category__catador
-#: model:product.pricelist,name:labarra_partner.pricelist_catador
+#. module: ccu_base
+#: model_terms:ir.ui.view,arch_db:ccu_base.account_move_form_view
+#: model_terms:ir.ui.view,arch_db:ccu_base.view_account_analytic_account_form
+#: model_terms:ir.ui.view,arch_db:ccu_base.view_account_form
+#: model_terms:ir.ui.view,arch_db:ccu_base.view_account_journal_form
+#: model_terms:ir.ui.view,arch_db:ccu_base.view_partner_form_ccu
+#: model_terms:ir.ui.view,arch_db:ccu_base.view_picking_form
+msgid "CCU Customization"
+msgstr "Campos CCU"
+
+#. module: ccu_base
+#: model:ir.model.fields.selection,name:ccu_base.selection__res_partner__category__catador
 msgid "Catador"
 msgstr ""
 
-#. module: labarra_partner
-#: model:ir.model.fields,field_description:labarra_partner.field_res_partner__category
-#: model:ir.model.fields,field_description:labarra_partner.field_res_users__category
-#: model:ir.model.fields,help:labarra_partner.field_res_partner__category
-#: model:ir.model.fields,help:labarra_partner.field_res_users__category
+#. module: ccu_base
+#: model:ir.model.fields,field_description:ccu_base.field_res_partner__category
+#: model:ir.model.fields,field_description:ccu_base.field_res_users__category
+#: model:ir.model.fields,help:ccu_base.field_res_partner__category
+#: model:ir.model.fields,help:ccu_base.field_res_users__category
 msgid "Category"
 msgstr "Categoría"
 
-#. module: labarra_partner
-#: model_terms:ir.ui.view,arch_db:labarra_partner.view_partner_form_ccu_labarra
+#. module: ccu_base
+#: model_terms:ir.ui.view,arch_db:ccu_base.view_partner_form_ccu
 msgid "Centro de Distribución"
 msgstr ""
 
-#. module: labarra_partner
-#: model:ir.model.fields,field_description:labarra_partner.field_res_partner_distribution_center__city_name
-#: model:ir.model.fields,help:labarra_partner.field_res_partner_distribution_center__city_name
+#. module: ccu_base
+#: model:ir.model.fields,field_description:ccu_base.field_res_partner_distribution_center__city_name
+#: model:ir.model.fields,help:ccu_base.field_res_partner_distribution_center__city_name
 msgid "City Name"
-msgstr "Región"
+msgstr "Nombre Ciudad"
 
-#. module: labarra_partner
-#: model:ir.model.fields,field_description:labarra_partner.field_res_partner_distribution_center__commune_name
-#: model:ir.model.fields,help:labarra_partner.field_res_partner_distribution_center__commune_name
+#. module: ccu_base
+#: model:ir.model.fields,field_description:ccu_base.field_res_partner_distribution_center__commune_name
+#: model:ir.model.fields,help:ccu_base.field_res_partner_distribution_center__commune_name
 msgid "Commune Name"
-msgstr "Comuna"
+msgstr "Nombre Comuna"
 
-#. module: labarra_partner
-#: model:ir.model,name:labarra_partner.model_res_partner
+#. module: ccu_base
+#: model:ir.model,name:ccu_base.model_res_partner
 msgid "Contact"
 msgstr "Contacto"
 
-#. module: labarra_partner
-#: model:ir.model.fields,field_description:labarra_partner.field_res_partner_distribution_center__x_coordenates
-#: model:ir.model.fields,help:labarra_partner.field_res_partner_distribution_center__x_coordenates
+#. module: ccu_base
+#: model:ir.model.fields,field_description:ccu_base.field_res_partner_distribution_center__x_coordenates
+#: model:ir.model.fields,help:ccu_base.field_res_partner_distribution_center__x_coordenates
 msgid "Coordenates (X)"
-msgstr "Coordenadas (X)"
+msgstr ""
 
-#. module: labarra_partner
-#: model:ir.model.fields,field_description:labarra_partner.field_res_partner_distribution_center__y_coordenates
-#: model:ir.model.fields,help:labarra_partner.field_res_partner_distribution_center__y_coordenates
+#. module: ccu_base
+#: model:ir.model.fields,field_description:ccu_base.field_res_partner_distribution_center__y_coordenates
+#: model:ir.model.fields,help:ccu_base.field_res_partner_distribution_center__y_coordenates
 msgid "Coordenates (Y)"
-msgstr "Coordenadas (Y)"
+msgstr ""
 
-#. module: labarra_partner
-#: model:ir.model.fields.selection,name:labarra_partner.selection__res_partner__category__copero
-#: model:product.pricelist,name:labarra_partner.pricelist_copero
+#. module: ccu_base
+#: model:ir.model.fields.selection,name:ccu_base.selection__res_partner__category__copero
 msgid "Copero"
 msgstr ""
 
-#. module: labarra_partner
-#: model:ir.model.fields,field_description:labarra_partner.field_res_partner_distribution_center__create_uid
+#. module: ccu_base
+#: model:ir.model.fields,field_description:ccu_base.field_res_partner_distribution_center__create_uid
 msgid "Created by"
-msgstr "Creado Por"
+msgstr ""
 
-#. module: labarra_partner
-#: model:ir.model.fields,field_description:labarra_partner.field_res_partner_distribution_center__create_date
+#. module: ccu_base
+#: model:ir.model.fields,field_description:ccu_base.field_res_partner_distribution_center__create_date
 msgid "Created on"
-msgstr "Fecha de Creación"
+msgstr ""
 
-#. module: labarra_partner
-#: model:ir.model.fields,field_description:labarra_partner.field_res_partner__dob
-#: model:ir.model.fields,field_description:labarra_partner.field_res_users__dob
-#: model:ir.model.fields,help:labarra_partner.field_res_partner__dob
-#: model:ir.model.fields,help:labarra_partner.field_res_users__dob
+#. module: ccu_base
+#: model:ir.model.fields,field_description:ccu_base.field_res_partner__dob
+#: model:ir.model.fields,field_description:ccu_base.field_res_users__dob
+#: model:ir.model.fields,help:ccu_base.field_res_partner__dob
+#: model:ir.model.fields,help:ccu_base.field_res_users__dob
 msgid "Date of Birth"
 msgstr "Fecha de Nacimiento"
 
-#. module: labarra_partner
-#: model:ir.model.fields,field_description:labarra_partner.field_res_partner_distribution_center__display_name
+#. module: ccu_base
+#: model:ir.model.fields,field_description:ccu_base.field_res_partner__display_name
+#: model:ir.model.fields,field_description:ccu_base.field_res_partner_distribution_center__display_name
+#: model:ir.model.fields,field_description:ccu_base.field_res_users__display_name
 msgid "Display Name"
-msgstr "Nombre"
+msgstr "Nombre mostrado"
 
-#. module: labarra_partner
-#: model:ir.model.fields,field_description:labarra_partner.field_res_partner__distribution_center
-#: model:ir.model.fields,field_description:labarra_partner.field_res_users__distribution_center
+#. module: ccu_base
+#: model:ir.model.fields,field_description:ccu_base.field_res_partner__distribution_center
+#: model:ir.model.fields,field_description:ccu_base.field_res_users__distribution_center
 msgid "Distribution Center"
 msgstr "Centro de Distribución"
 
-#. module: labarra_partner
-#: code:addons/labarra_partner/models/res_partner.py:0
+#. module: ccu_base
+#: model:ir.model.fields,field_description:ccu_base.field_res_partner__status
+#: model:ir.model.fields,field_description:ccu_base.field_res_users__status
+msgid "Ecommerce status"
+msgstr "Estado Ecommerce"
+
+#. module: ccu_base
+#: code:addons/ccu_base/models/res_partner.py:0
 #, python-format
 msgid "El RUT debe tener máximo 12 caracteres."
 msgstr ""
 
-#. module: labarra_partner
-#: code:addons/labarra_partner/models/res_partner.py:0
-#: code:addons/labarra_partner/models/res_partner.py:0
+#. module: ccu_base
+#: code:addons/ccu_base/models/res_partner.py:0
+#: code:addons/ccu_base/models/res_partner.py:0
 #, python-format
 msgid "El RUT ingresado no es válido."
 msgstr ""
 
-#. module: labarra_partner
-#: code:addons/labarra_partner/models/res_partner.py:0
+#. module: ccu_base
+#: code:addons/ccu_base/models/res_partner.py:0
 #, python-format
 msgid "El correo electrónico ingresado no presenta un formato válido."
 msgstr ""
 
-#. module: labarra_partner
-#: model:ir.model.fields,field_description:labarra_partner.field_res_partner__email
-#: model:ir.model.fields,field_description:labarra_partner.field_res_users__email
+#. module: ccu_base
+#: model:ir.model.fields,field_description:ccu_base.field_res_partner__email
+#: model:ir.model.fields,field_description:ccu_base.field_res_users__email
 msgid "Email"
 msgstr "Correo electrónico"
 
-#. module: labarra_partner
-#: model_terms:ir.ui.view,arch_db:labarra_partner.portal_my_details_ccu_labarra
-msgid "Fecha de Nacimiento"
-msgstr ""
-
-#. module: labarra_partner
-#: model_terms:ir.ui.view,arch_db:labarra_partner.portal_my_details_ccu_labarra
-msgid "Femenino"
-msgstr ""
-
-#. module: labarra_partner
-#: model:ir.model.fields,field_description:labarra_partner.field_res_partner__gender
-#: model:ir.model.fields,field_description:labarra_partner.field_res_users__gender
-#: model:ir.model.fields,help:labarra_partner.field_res_partner__gender
-#: model:ir.model.fields,help:labarra_partner.field_res_users__gender
+#. module: ccu_base
+#: model:ir.model.fields,field_description:ccu_base.field_res_partner__gender
+#: model:ir.model.fields,help:ccu_base.field_res_partner__gender
 msgid "Gender"
 msgstr "Sexo"
 
-#. module: labarra_partner
-#: model:ir.model.fields,field_description:labarra_partner.field_res_partner_distribution_center__zone
-#: model:ir.model.fields,help:labarra_partner.field_res_partner_distribution_center__zone
+#. module: ccu_base
+#: model:ir.model.fields,field_description:ccu_base.field_res_partner_distribution_center__zone
+#: model:ir.model.fields,help:ccu_base.field_res_partner_distribution_center__zone
 msgid "Geographic Zone"
 msgstr "Zona Geográfica"
 
-#. module: labarra_partner
-#: model:ir.model.fields.selection,name:labarra_partner.selection__res_partner__gender__male
+#. module: ccu_base
+#: model:ir.model.fields.selection,name:ccu_base.selection__res_partner__gender__male
 msgid "Hombre"
 msgstr ""
 
-#. module: labarra_partner
-#: model:ir.model.fields,field_description:labarra_partner.field_res_partner_distribution_center__id
+#. module: ccu_base
+#: model:ir.model.fields,field_description:ccu_base.field_res_partner__id
+#: model:ir.model.fields,field_description:ccu_base.field_res_partner_distribution_center__id
+#: model:ir.model.fields,field_description:ccu_base.field_res_users__id
 msgid "ID"
-msgstr ""
+msgstr "ID (identificación)"
 
-#. module: labarra_partner
-#: model:ir.model.fields,field_description:labarra_partner.field_res_partner__vat
-#: model:ir.model.fields,field_description:labarra_partner.field_res_users__vat
+#. module: ccu_base
+#: model:ir.model.fields,field_description:ccu_base.field_res_partner__vat
+#: model:ir.model.fields,field_description:ccu_base.field_res_users__vat
 msgid "Identification Number"
-msgstr "RUT"
+msgstr "Número de Identificación"
 
-#. module: labarra_partner
-#: model:ir.model.fields,help:labarra_partner.field_res_partner__vat
-#: model:ir.model.fields,help:labarra_partner.field_res_users__vat
+#. module: ccu_base
+#: model:ir.model.fields,help:ccu_base.field_res_partner__vat
+#: model:ir.model.fields,help:ccu_base.field_res_users__vat
 msgid "Identification Number for selected type"
-msgstr "RUT para el tipo seleccionado"
+msgstr "Número de identificación para el tipo seleccionado"
 
-#. module: labarra_partner
-#: model:ir.model.fields,field_description:labarra_partner.field_res_partner__is_employee
-#: model:ir.model.fields,field_description:labarra_partner.field_res_partner_distribution_center__active
-#: model:ir.model.fields,field_description:labarra_partner.field_res_users__is_employee
+#. module: ccu_base
+#: model:ir.model.fields,field_description:ccu_base.field_res_partner__is_employee
+#: model:ir.model.fields,field_description:ccu_base.field_res_partner_distribution_center__active
+#: model:ir.model.fields,field_description:ccu_base.field_res_users__is_employee
 msgid "Is Employee"
-msgstr "Empleado CCU"
+msgstr "Es Empleado"
 
-#. module: labarra_partner
-#: code:addons/labarra_partner/models/res_partner.py:0
+#. module: ccu_base
+#: code:addons/ccu_base/models/res_partner.py:0
 #, python-format
 msgid "La edad requerida para el registro es entre 18 y 120 años."
 msgstr ""
 
-#. module: labarra_partner
-#: model:ir.model.fields,field_description:labarra_partner.field_res_partner_distribution_center____last_update
+#. module: ccu_base
+#: model:ir.model.fields,field_description:ccu_base.field_res_partner____last_update
+#: model:ir.model.fields,field_description:ccu_base.field_res_partner_distribution_center____last_update
+#: model:ir.model.fields,field_description:ccu_base.field_res_users____last_update
 msgid "Last Modified on"
-msgstr "Fecha Última Modificación"
+msgstr "Última modificación en"
 
-#. module: labarra_partner
-#: model:ir.model.fields,field_description:labarra_partner.field_res_partner_distribution_center__write_uid
+#. module: ccu_base
+#: model:ir.model.fields,field_description:ccu_base.field_res_partner_distribution_center__write_uid
 msgid "Last Updated by"
-msgstr "Actualizado Por"
-
-#. module: labarra_partner
-#: model:ir.model.fields,field_description:labarra_partner.field_res_partner_distribution_center__write_date
-msgid "Fecha Última Actualización"
 msgstr ""
 
-#. module: labarra_partner
-#: model:ir.model.fields,field_description:labarra_partner.field_res_partner__limit_purchase
-#: model:ir.model.fields,field_description:labarra_partner.field_res_users__limit_purchase
-msgid "Límite de Compras"
+#. module: ccu_base
+#: model:ir.model.fields,field_description:ccu_base.field_res_partner_distribution_center__write_date
+msgid "Last Updated on"
 msgstr ""
 
-#. module: labarra_partner
-#: model_terms:ir.ui.view,arch_db:labarra_partner.portal_my_details_ccu_labarra
-msgid "Masculino"
+#. module: ccu_base
+#: model:ir.model.fields,field_description:ccu_base.field_res_partner__limit_purchase
+#: model:ir.model.fields,field_description:ccu_base.field_res_users__limit_purchase
+msgid "Limit Purchase"
 msgstr ""
 
-#. module: labarra_partner
-#: model:ir.model.fields,field_description:labarra_partner.field_res_partner__mobile
-#: model:ir.model.fields,field_description:labarra_partner.field_res_users__mobile
+#. module: ccu_base
+#: model_terms:ir.ui.view,arch_db:ccu_base.view_partner_form_ccu
+msgid "Limits"
+msgstr "Límites"
+
+#. module: ccu_base
+#: model:ir.model.fields.selection,name:ccu_base.selection__res_partner__status__locked
+msgid "Locked"
+msgstr "Bloqueado"
+
+#. module: ccu_base
+#: model:ir.model.fields,field_description:ccu_base.field_res_partner__mobile
+#: model:ir.model.fields,field_description:ccu_base.field_res_users__mobile
 msgid "Mobile"
 msgstr "Móvil"
 
-#. module: labarra_partner
-#: model:ir.model.fields,field_description:labarra_partner.field_res_partner__monthly_purchase
-#: model:ir.model.fields,field_description:labarra_partner.field_res_users__monthly_purchase
+#. module: ccu_base
+#: model:ir.model.fields,field_description:ccu_base.field_res_partner__monthly_purchase
+#: model:ir.model.fields,field_description:ccu_base.field_res_users__monthly_purchase
 msgid "Monthly Purchase"
-msgstr "Comprado Este Mes"
+msgstr "Compra Mensual"
 
-#. module: labarra_partner
-#: model:ir.model.fields.selection,name:labarra_partner.selection__res_partner__gender__female
+#. module: ccu_base
+#: model:ir.model.fields.selection,name:ccu_base.selection__res_partner__gender__female
 msgid "Mujer"
 msgstr ""
 
-#. module: labarra_partner
-#: model:ir.model.fields,field_description:labarra_partner.field_res_partner__name
-#: model:ir.model.fields,field_description:labarra_partner.field_res_partner_distribution_center__name
-#: model:ir.model.fields,field_description:labarra_partner.field_res_users__name
-#: model:ir.model.fields,help:labarra_partner.field_res_partner_distribution_center__name
+#. module: ccu_base
+#: model:ir.model.fields,field_description:ccu_base.field_res_partner__name
+#: model:ir.model.fields,field_description:ccu_base.field_res_partner_distribution_center__name
+#: model:ir.model.fields,field_description:ccu_base.field_res_users__name
+#: model:ir.model.fields,help:ccu_base.field_res_partner_distribution_center__name
 msgid "Name"
 msgstr "Nombre"
 
-#. module: labarra_partner
-#: model:ir.model.fields.selection,name:labarra_partner.selection__res_partner__gender__other
-#: model_terms:ir.ui.view,arch_db:labarra_partner.portal_my_details_ccu_labarra
+#. module: ccu_base
+#: model:ir.model.fields.selection,name:ccu_base.selection__res_partner__gender__other
 msgid "Otro"
 msgstr ""
 
-#. module: labarra_partner
-#: model:ir.model,name:labarra_partner.model_res_partner_distribution_center
+#. module: ccu_base
+#: model:ir.model,name:ccu_base.model_res_partner_distribution_center
 msgid "Partner Distribution Center (For Employees)"
-msgstr "Centro de Distribución (Empleado CCU)"
+msgstr ""
 
-#. module: labarra_partner
-#: model:ir.actions.server,name:labarra_partner.partner_age_update_ir_actions_server
-#: model:ir.cron,cron_name:labarra_partner.partner_age_update
-#: model:ir.cron,name:labarra_partner.partner_age_update
-msgid "Partner: Age Update"
-msgstr "Partner: Actualización Edad"
+#. module: ccu_base
+#: model_terms:ir.ui.view,arch_db:ccu_base.view_partner_form_ccu
+msgid "Personal Data"
+msgstr "Datos Personales"
 
-#. module: labarra_partner
-#: model:ir.actions.server,name:labarra_partner.partner_category_update_ir_actions_server
-#: model:ir.cron,cron_name:labarra_partner.partner_category_update
-#: model:ir.cron,name:labarra_partner.partner_category_update
-msgid "Partner: Category Update"
-msgstr "Partner: Actualización Categoría"
-
-#. module: labarra_partner
-#: model:ir.actions.server,name:labarra_partner.partner_limit_purchase_update_ir_actions_server
-#: model:ir.cron,cron_name:labarra_partner.partner_limit_purchase_update
-#: model:ir.cron,name:labarra_partner.partner_limit_purchase_update
-msgid "Partner: Limit Purchase Update"
-msgstr "Partner: Actualización Límite Compra"
-
-#. module: labarra_partner
-#: model:ir.model.fields.selection,name:labarra_partner.selection__res_partner__gender__unspecified
-#: model_terms:ir.ui.view,arch_db:labarra_partner.portal_my_details_ccu_labarra
+#. module: ccu_base
+#: model:ir.model.fields.selection,name:ccu_base.selection__res_partner__gender__unspecified
 msgid "Prefiero no Decirlo"
 msgstr ""
 
-#. module: labarra_partner
-#: model:ir.model.fields,field_description:labarra_partner.field_res_partner__reached_limit
-#: model:ir.model.fields,field_description:labarra_partner.field_res_users__reached_limit
+#. module: ccu_base
+#: model:ir.model.fields,field_description:ccu_base.field_res_partner__reached_limit
+#: model:ir.model.fields,field_description:ccu_base.field_res_users__reached_limit
 msgid "Reached Limit"
-msgstr "Límite de Compras Alcanzado"
+msgstr "Límite Alcanzado"
 
-#. module: labarra_partner
-#: model:ir.model,name:labarra_partner.model_sale_order
-msgid "Sales Order"
-msgstr "Pedido de venta"
-
-#. module: labarra_partner
-#: model_terms:ir.ui.view,arch_db:labarra_partner.portal_my_details_ccu_labarra
-msgid "Sexo"
-msgstr ""
-
-#. module: labarra_partner
-#: model:ir.model.fields,field_description:labarra_partner.field_res_partner__street
-#: model:ir.model.fields,field_description:labarra_partner.field_res_partner_distribution_center__street
-#: model:ir.model.fields,field_description:labarra_partner.field_res_users__street
-#: model:ir.model.fields,help:labarra_partner.field_res_partner_distribution_center__street
+#. module: ccu_base
+#: model:ir.model.fields,field_description:ccu_base.field_res_partner__street
+#: model:ir.model.fields,field_description:ccu_base.field_res_partner_distribution_center__street
+#: model:ir.model.fields,field_description:ccu_base.field_res_users__street
+#: model:ir.model.fields,help:ccu_base.field_res_partner_distribution_center__street
 msgid "Street"
 msgstr "Calle"
 
-#. module: labarra_partner
-#: model:ir.model.fields,field_description:labarra_partner.field_res_partner__status
-#: model:ir.model.fields,field_description:labarra_partner.field_res_partner_distribution_center__status
-#: model:ir.model.fields,field_description:labarra_partner.field_res_users__status
-#: model:ir.model.fields,help:labarra_partner.field_res_partner_distribution_center__status
-msgid "Ecommerce status"
-msgstr "Estado de Ecommerce"
-
-#. module: labarra_partner
-#: model:ir.model.fields.selection,name:labarra_partner.selection__res_partner__status__unconfirmed
-#: model:ir.model.fields.selection,name:labarra_partner.selection__res_users__status__unconfirmed
-#: model_terms:ir.ui.view,arch_db:labarra_partner.portal_my_details_ccu_labarra
-msgid "Unconfirmed"
-msgstr "Sin Confirmar"
-
-#. module: labarra_partner
-#: model:ir.model.fields.selection,name:labarra_partner.selection__res_partner__status__active
-#: model:ir.model.fields.selection,name:labarra_partner.selection__res_users__status__active
-#: model_terms:ir.ui.view,arch_db:labarra_partner.portal_my_details_ccu_labarra
-msgid "Active"
-msgstr "Activo"
-
-#. module: labarra_partner
-#: model:ir.model.fields.selection,name:labarra_partner.selection__res_partner__status__bloqued
-#: model:ir.model.fields.selection,name:labarra_partner.selection__res_users__status__bloqued
-#: model_terms:ir.ui.view,arch_db:labarra_partner.portal_my_details_ccu_labarra
-msgid "Bloqued"
-msgstr "Bloqueado"
-
-#. module: labarra_partner
-#: model:ir.model.fields,field_description:labarra_partner.field_res_partner_distribution_center__street_number
-#: model:ir.model.fields,help:labarra_partner.field_res_partner_distribution_center__street_number
+#. module: ccu_base
+#: model:ir.model.fields,field_description:ccu_base.field_res_partner_distribution_center__street_number
+#: model:ir.model.fields,help:ccu_base.field_res_partner_distribution_center__street_number
 msgid "Street Number"
-msgstr "Número"
+msgstr ""
 
-#. module: labarra_partner
-#: model:ir.model.fields,field_description:labarra_partner.field_res_partner_distribution_center__type
-#: model:ir.model.fields,help:labarra_partner.field_res_partner_distribution_center__type
+#. module: ccu_base
+#: model:ir.model.fields,field_description:ccu_base.field_res_partner_distribution_center__type
+#: model:ir.model.fields,help:ccu_base.field_res_partner_distribution_center__type
 msgid "Type"
 msgstr "Tipo"
 
-#. module: labarra_partner
-#: model:ir.model.fields,field_description:labarra_partner.field_res_partner_distribution_center__type_description
-#: model:ir.model.fields,help:labarra_partner.field_res_partner_distribution_center__type_description
+#. module: ccu_base
+#: model:ir.model.fields,field_description:ccu_base.field_res_partner_distribution_center__type_description
+#: model:ir.model.fields,help:ccu_base.field_res_partner_distribution_center__type_description
 msgid "Type Description"
-msgstr "Descripción del Tipo"
+msgstr "Descripción Tipo"
 
-#. module: labarra_partner
-#: model:ir.model.fields.selection,name:labarra_partner.selection__res_partner__category__vip
-#: model:product.pricelist,name:labarra_partner.pricelist_vip
+#. module: ccu_base
+#: model:ir.model.fields.selection,name:ccu_base.selection__res_partner__status__unconfirmed
+msgid "Unconfirmed"
+msgstr "Sin Confirmar"
+
+#. module: ccu_base
+#: model:ir.model,name:ccu_base.model_res_users
+msgid "Users"
+msgstr "Usuarios"
+
+#. module: ccu_base
+#: model:ir.model.fields.selection,name:ccu_base.selection__res_partner__category__vip
 msgid "VIP"
 msgstr ""
 
-#. module: labarra_partner
-#: model:ir.model.fields.selection,name:labarra_partner.selection__res_partner__category__vip-premium
-#: model:product.pricelist,name:labarra_partner.pricelist_vip_premium
+#. module: ccu_base
+#: model:ir.model.fields.selection,name:ccu_base.selection__res_partner__category__vip-premium
 msgid "VIP - Premium"
 msgstr ""
