@@ -42,7 +42,7 @@ class AccountMove(models.Model):
     # @job
     def esb_send_ticket_to_esb(self):
         self.ensure_one()
-        if self.is_sync:
+        if self.ticket_is_sync:
             return
 
         backend = self.company_id.backend_esb_id
