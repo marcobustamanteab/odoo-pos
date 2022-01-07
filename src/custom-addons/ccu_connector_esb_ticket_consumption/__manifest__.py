@@ -6,13 +6,10 @@
     "summary": "Send Odoo accounting of ticket entries to the bus.",
     "depends": [
         "ccu_connector_esb_account_out",
-        "base",
-        "base_automation",
         "account",
         "queue_job",
         "connector",
         "base_rest",
-        "base_rest_datamodel",
         "component",
         "sales_team",
         "ccu_connector_esb",
