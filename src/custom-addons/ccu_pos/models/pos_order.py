@@ -24,6 +24,14 @@ class PosOrder(models.Model):
         vals['pos_order_id'] = self.id
         vals['pos_session_id'] = self.session_id.id
         vals['printer_code'] = self.session_id.config_id.printer_code or ''
+        if self.session_id:
+            address_partner = self.session_id.config_id.picking_type_id.warehouse_id.partner_id
+        else:
+            address_partner = self.company_id.partner_id
+        vals['departure_address'] = "%s - %s" % (address_partner.street, address_partner.street2 or '',)
+        vals['departure_city'] = address_partner.city
+        vals['departure_state'] = address_partner.state_id.name
+
         return vals
 
     def reset_cashier_prefix(self):

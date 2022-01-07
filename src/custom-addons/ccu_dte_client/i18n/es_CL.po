@@ -6,19 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0+e-20210308\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-05 16:14+0000\n"
-"PO-Revision-Date: 2022-01-05 16:14+0000\n"
+"POT-Creation-Date: 2022-01-07 14:07+0000\n"
+"PO-Revision-Date: 2022-01-07 14:07+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-
-#. module: ccu_dte_client
-#: model:ir.model.fields.selection,name:ccu_dte_client.selection__account_move__dte_send_status__accepted
-msgid "Accepted"
-msgstr "Aceptado"
 
 #. module: ccu_dte_client
 #: model:ir.model,name:ccu_dte_client.model_account_move
@@ -34,7 +29,6 @@ msgstr "URL Base Servidor"
 #: model:ir.model.fields,field_description:ccu_dte_client.field_dte_client_config__oauth2_basic_pass
 msgid "Basic Authorization Password"
 msgstr "Contraseña Basic Auth"
-
 
 #. module: ccu_dte_client
 #: model:ir.model.fields,field_description:ccu_dte_client.field_dte_client_config__oauth2_basic_user
@@ -91,13 +85,6 @@ msgstr "Estado Envío DTE"
 #: model:ir.model.fields,field_description:ccu_dte_client.field_account_tax__dte_service_code
 msgid "DTE Service Code"
 msgstr "Código Servicio DTE"
-
-#. module: ccu_dte_client
-#: model:ir.model.fields,field_description:ccu_dte_client.field_account_bank_statement_line__dte_send_status
-#: model:ir.model.fields,field_description:ccu_dte_client.field_account_move__dte_send_status
-#: model:ir.model.fields,field_description:ccu_dte_client.field_account_payment__dte_send_status
-msgid "DTE Status"
-msgstr "Estado DTE"
 
 #. module: ccu_dte_client
 #: model:ir.model.fields,field_description:ccu_dte_client.field_account_journal__display_name
@@ -224,21 +211,26 @@ msgid "Pending"
 msgstr "Pendiente"
 
 #. module: ccu_dte_client
-#: model:ir.model.fields,field_description:ccu_dte_client.field_account_bank_statement_line__printer_code
-#: model:ir.model.fields,field_description:ccu_dte_client.field_account_move__printer_code
-#: model:ir.model.fields,field_description:ccu_dte_client.field_account_payment__printer_code
-msgid "Printer Code"
-msgstr "Código Impresora"
-
-#. module: ccu_dte_client
 #: model:ir.model.fields.selection,name:ccu_dte_client.selection__account_move__xerox_status__printed
 msgid "Printed"
 msgstr "Impreso"
 
 #. module: ccu_dte_client
+#: model:ir.model.fields,field_description:ccu_dte_client.field_account_bank_statement_line__printer_code
+#: model:ir.model.fields,field_description:ccu_dte_client.field_account_move__printer_code
+#: model:ir.model.fields,field_description:ccu_dte_client.field_account_payment__printer_code
+msgid "Printer Queue Code"
+msgstr "Código Cola Impresión"
+
+#. module: ccu_dte_client
 #: model:ir.model.fields.selection,name:ccu_dte_client.selection__account_move__xerox_status__result
 msgid "Result OK"
 msgstr "Resultado OK"
+
+#. module: ccu_dte_client
+#: model:ir.actions.server,name:ccu_dte_client.send_dte_server_action
+msgid "Send DTE"
+msgstr "Enviar DTE"
 
 #. module: ccu_dte_client
 #: model_terms:ir.ui.view,arch_db:ccu_dte_client.ccu_dte_client_account_move_form_view

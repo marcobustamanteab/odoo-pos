@@ -5,10 +5,10 @@
         <field name="inherit_id" ref="ccu_base.account_move_form_view"/>
         <field name="arch" type="xml">
             <xpath expr="//page[@name='ccu_customization']" position="inside">
-                <group name="group_esb" string="SAP Synchronization Audit">
+                <group >
                     <notebook>
-                        <page name="page_esb_general" string="Completeness and temporality">
-                            <group>
+                        <page name="page_esb_general" string="General">
+                            <group name="group_esb" string="ESB Connector">
                                 <field name="is_sync"/>
                                 <field name="sync_uuid"/>
                                 <field name="sync_reference"/>
