@@ -20,6 +20,7 @@ class AccountMove(models.Model):
     posted_payload = fields.Text('Posted Payload', readonly=True, copy=False)
     sync_reference = fields.Char(string='Sync. Text', readonly=True, tracking=True, copy=False)
     response_payload = fields.Text('Response Payload', readonly=True, copy=False)
+    sync_date = fields.Datetime(string="Sync date", readonly=True, index=True, tracking=True)
 
     def prepare_partner_sap_codes(self, backend):
         plist = []
@@ -98,7 +99,7 @@ class AccountMove(models.Model):
             },
             "DOCUMENT_POST": {
                 "HEAD": {
-                    "CENTRO": self.invoice_user_id.sale_team_id.branch_ccu_code,
+                    "CENTRO": self.pos_session_id.config_id.picking_type_id.default_location_src_id.location_id.ccu_code or self.invoice_user_id.sale_team_id.branch_ccu_code,
                     "FOLIO": self.name,
                     "CLDOC": self.journal_id.ccu_code,
                     "FEDOC": document_date,
@@ -226,6 +227,7 @@ class AccountMove(models.Model):
                 self.write({
                     'sync_uuid': sync_uuid,
                     'is_sync': True,
+                    'sync_date': fields.datetime.now(),
                     'posted_payload': json_object,
                     'sync_reference': str(dcto_sap),
                     'response_payload': json.dumps(res, indent=4)}

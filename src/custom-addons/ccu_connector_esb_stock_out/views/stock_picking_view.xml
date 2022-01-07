@@ -13,6 +13,7 @@
                                 <field name="is_sync"/>
                                 <field name="sync_uuid"/>
                                 <field name="sync_text"/>
+                                <field name="sync_date"/>
                             </group>
                         </page>
                         <page name="page_payload_response" string="Payload &amp; Response">

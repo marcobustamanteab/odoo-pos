@@ -24,7 +24,7 @@ class StockPicking(models.Model):
     sync_text = fields.Text(string='Sync. Text', readonly=True, tracking=True,copy=False,)
     posted_payload = fields.Text('Posted Payload', readonly=True,copy=False,)
     response_payload = fields.Text('Response Payload', readonly=True,copy=False,)
-
+    sync_date = fields.Datetime(string="Sync date", readonly=True, index=True, tracking=True)
     def _action_done(self):
         res = super(StockPicking, self)._action_done()
         _logger.info(["ACTION_DONE"])
@@ -130,6 +130,7 @@ class StockPicking(models.Model):
                         'sync_uuid': sync_uuid,
                         'is_sync': True,
                         'sync_text': str(dcto_sap),
+                        'sync_date': fields.datetime.now(),
                         'posted_payload': json_object,
                         'response_payload': json.dumps(res, indent=4)}
                     )
