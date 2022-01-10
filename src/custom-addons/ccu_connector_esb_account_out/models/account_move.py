@@ -66,7 +66,9 @@ class AccountMove(models.Model):
         self.ensure_one()
         if self.is_sync:
             return
-        if not self.sync_uuid:
+
+        sync_uuid = self.sync_uuid
+        if not sync_uuid:
             print(["UUID", uuid.uuid4()])
             sync_uuid = str(uuid.uuid4())
 
@@ -88,9 +90,11 @@ class AccountMove(models.Model):
                 'User of the movement does not belong to a work team or the team does not have a CCU Center code'
             )
 
+        centro = self.pos_session_id.config_id.picking_type_id.default_location_src_id.location_id.ccu_code or self.invoice_user_id.sale_team_id.branch_ccu_code
+
         payload = {
             "HEADER": {
-                "ID_MENSAJE": self.sync_uuid,
+                "ID_MENSAJE": sync_uuid,
                 "MENSAJE": "Account Movements from Odoo",
                 "FECHA": send_date,
                 "SOCIEDAD": self.company_id.ccu_business_unit,
@@ -99,7 +103,7 @@ class AccountMove(models.Model):
             },
             "DOCUMENT_POST": {
                 "HEAD": {
-                    "CENTRO": self.pos_session_id.config_id.picking_type_id.default_location_src_id.location_id.ccu_code or self.invoice_user_id.sale_team_id.branch_ccu_code,
+                    "CENTRO": centro,
                     "FOLIO": self.name,
                     "CLDOC": self.journal_id.ccu_code,
                     "FEDOC": document_date,
@@ -189,20 +193,32 @@ class AccountMove(models.Model):
                     _logger.info(["INV_LIST", inv])
                     ref_key_1 = ",".join([x.name for x in inv])
                     ref_key_3 = ref_key_table.get(related.reference_doc_code, "")
+
+            # Datos de Transferencia Bancaria
+            #ref_dep_1 = str(dep.branch_id.distribution_center) + ' ' + dep.origin_journal_id.code + ' ' + ' O' + (
+            #        '%s' % (dep.name)) + ' ' + ('%s' % (dep.memo))
+            #ref_dep_2 = dep.bank_tracking_no or ' '
+
+            bnk_transfer_data_1 = False
+            bnk_transfer_data_2 = False
+            if line.account_id.send_bank_transfer_data:
+                bnk_transfer_data_1 = centro + ';' + line.check_date.strftime("%Y%m%d") + ';' + self.name + ';' + line.cheque_number + ';' + line.cheque_owner_name
+                bnk_transfer_data_2 = line.vat
+
             payload_lines.append({
                 "ITEMNO": str(i),
                 "ACCOUNT": line.account_id.ccu_code or '',
                 "RUTDNI": vat or '',
                 "CODE": sap_code or '',
                 "MAYOR": special_major,
-                "GLOSA": line.fixed_text.name or line.name or '',
+                "GLOSA": bnk_transfer_data_1 or line.fixed_text.name or line.name or '',
                 "CECO": cost_center,
                 "CEBE": profit_center,
                 "MATERIAL": line.product_id.default_code or '',
                 "CANTIDAD": line.quantity,
                 "TOTAL": line_amt,
                 "ALLOCNBR": alloc_nbr if not line.account_id.send_blank_allocation else '',
-                "REF_KEY_1": ref_key_1 or '',
+                "REF_KEY_1": bnk_transfer_data_2 or ref_key_1 or '',
                 "REF_KEY_2": ref_key_2 or '',
                 "REF_KEY_3": ref_key_3 or '',
             })
@@ -383,10 +399,6 @@ class AccountMove(models.Model):
 class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
 
-    is_sync = fields.Boolean(string='Is sync with external account system?', compute="_compute_is_sync", store=True)
-    sync_uuid = fields.Char(string='Unique ID of sync', compute="_compute_is_sync", store=True)
-    posted_payload = fields.Text('Posted Payload', compute="_compute_is_sync", store=True)
-    sync_reference = fields.Char(string='Sync with this text', compute="_compute_is_sync", store=True)
     reference_key_1 = fields.Char(string="Referencia 1")
     fixed_text = fields.Many2one('account.move.line.fixed.text', string="Fixed Text")
 
