@@ -90,8 +90,6 @@ class AccountMove(models.Model):
                 'User of the movement does not belong to a work team or the team does not have a CCU Center code'
             )
 
-        centro = self.pos_session_id.config_id.picking_type_id.default_location_src_id.location_id.ccu_code or self.invoice_user_id.sale_team_id.branch_ccu_code
-
         payload = {
             "HEADER": {
                 "ID_MENSAJE": sync_uuid,
@@ -103,7 +101,7 @@ class AccountMove(models.Model):
             },
             "DOCUMENT_POST": {
                 "HEAD": {
-                    "CENTRO": centro,
+                    "CENTRO": branch_ccu_code,
                     "FOLIO": self.name,
                     "CLDOC": self.journal_id.ccu_code,
                     "FEDOC": document_date,
@@ -202,7 +200,7 @@ class AccountMove(models.Model):
             bnk_transfer_data_1 = False
             bnk_transfer_data_2 = False
             if line.account_id.send_bank_transfer_data:
-                bnk_transfer_data_1 = centro + ';' + line.check_date.strftime("%Y%m%d") + ';' + self.name + ';' + line.cheque_number + ';' + line.cheque_owner_name
+                bnk_transfer_data_1 = branch_ccu_code + ';' + line.check_date.strftime("%Y%m%d") + ';' + self.name + ';' + line.cheque_number + ';' + line.cheque_owner_name
                 bnk_transfer_data_2 = line.vat
 
             payload_lines.append({
