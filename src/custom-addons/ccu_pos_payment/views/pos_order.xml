@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+  		<record id="inherit_pos_order_form" model="ir.ui.view">
+  			<field name="name">inherit_pos_order</field>
+  			<field name="model">pos.order</field>
+  			<field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+  			<field name="arch" type="xml">
+  				<xpath expr="//notebook/page[2]/field[@name='payment_ids']/tree/field[@name='amount']" position="after">
+            <field name='vat'/>
+  					<field name='cheque_owner_name'/>
+  					<field name='check_date'/>
+  					<field name='cheque_number'/>
+  				</xpath>
+  			</field>
+  		</record>
+    </data>
+</odoo>

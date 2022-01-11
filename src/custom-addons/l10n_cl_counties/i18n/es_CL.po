@@ -1,0 +1,160 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_cl_counties
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0+e-20201012\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-12-13 19:28+0000\n"
+"PO-Revision-Date: 2020-12-13 19:28+0000\n"
+"Last-Translator: Alexander Olivares <aolivares@konos.cl> \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_cl_counties
+#: model:ir.model.fields,field_description:l10n_cl_counties.field_res_country_state__child_ids
+msgid "Childs"
+msgstr "Hijos"
+
+#. module: l10n_cl_counties
+#: model:ir.model.fields,help:l10n_cl_counties.field_res_country_state__child_ids
+msgid "Childs states"
+msgstr "Estados hijos"
+
+#. module: l10n_cl_counties
+#: model:ir.model,name:l10n_cl_counties.model_res_city
+msgid "City"
+msgstr "Ciudad"
+
+#. module: l10n_cl_counties
+#: model:ir.model.fields,help:l10n_cl_counties.field_res_city__code
+msgid "City code"
+msgstr "Código de ciudad"
+
+#. module: l10n_cl_counties
+#: model:ir.model.fields,field_description:l10n_cl_counties.field_res_company__city_id
+msgid "City of Address"
+msgstr "Dirección"
+
+#. module: l10n_cl_counties
+#: model:ir.model.fields,help:l10n_cl_counties.field_res_city__type
+msgid "City type"
+msgstr "Tipo de ciudad"
+
+#. module: l10n_cl_counties
+#: model:ir.model.fields,field_description:l10n_cl_counties.field_res_city__code
+msgid "Code"
+msgstr "Código"
+
+#. module: l10n_cl_counties
+#: model_terms:ir.ui.view,arch_db:l10n_cl_counties.view_company_form
+#: model_terms:ir.ui.view,arch_db:l10n_cl_counties.view_partner_form
+msgid "Commune"
+msgstr "Comuna"
+
+#. module: l10n_cl_counties
+#: model:ir.model,name:l10n_cl_counties.model_res_company
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: l10n_cl_counties
+#: model:ir.model.fields,field_description:l10n_cl_counties.field_res_country_state__complete_name
+msgid "Complete Name"
+msgstr "Nombre completo"
+
+#. module: l10n_cl_counties
+#: model:ir.model.fields,help:l10n_cl_counties.field_res_country_state__complete_name
+msgid "Complete name for the state"
+msgstr "Nombre completo del estado"
+
+#. module: l10n_cl_counties
+#: model:ir.model.fields,help:l10n_cl_counties.field_res_company__city_id
+msgid ""
+"Computed field depending on the city of the related partner to the company"
+msgstr "Campo calculado según la ciudad del contacto relacionado con la empresa"
+
+#. module: l10n_cl_counties
+#: model:ir.model,name:l10n_cl_counties.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: l10n_cl_counties
+#: model:ir.model.fields,field_description:l10n_cl_counties.field_res_city__display_name
+#: model:ir.model.fields,field_description:l10n_cl_counties.field_res_company__display_name
+#: model:ir.model.fields,field_description:l10n_cl_counties.field_res_country_state__display_name
+#: model:ir.model.fields,field_description:l10n_cl_counties.field_res_partner__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: l10n_cl_counties
+#: model:ir.model.fields,field_description:l10n_cl_counties.field_res_city__id
+#: model:ir.model.fields,field_description:l10n_cl_counties.field_res_company__id
+#: model:ir.model.fields,field_description:l10n_cl_counties.field_res_country_state__id
+#: model:ir.model.fields,field_description:l10n_cl_counties.field_res_partner__id
+msgid "ID"
+msgstr "ID (identificación)"
+
+#. module: l10n_cl_counties
+#: model:ir.model.fields,field_description:l10n_cl_counties.field_res_city____last_update
+#: model:ir.model.fields,field_description:l10n_cl_counties.field_res_company____last_update
+#: model:ir.model.fields,field_description:l10n_cl_counties.field_res_country_state____last_update
+#: model:ir.model.fields,field_description:l10n_cl_counties.field_res_partner____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: l10n_cl_counties
+#: model:ir.model.fields.selection,name:l10n_cl_counties.selection__res_city__type__normal
+#: model:ir.model.fields.selection,name:l10n_cl_counties.selection__res_country_state__type__normal
+msgid "Normal"
+msgstr "Normal"
+
+#. module: l10n_cl_counties
+#: model:ir.model.fields,field_description:l10n_cl_counties.field_res_country_state__parent_id
+msgid "Parent"
+msgstr "Padre"
+
+#. module: l10n_cl_counties
+#: model:ir.model.fields,help:l10n_cl_counties.field_res_country_state__parent_id
+msgid "Parent state"
+msgstr "Estado padre"
+
+#. module: l10n_cl_counties
+#: model:ir.model.fields,field_description:l10n_cl_counties.field_res_city__l10n_cl_sii_regional_office
+msgid "Regional Office"
+msgstr "Oficina Regional"
+
+#. module: l10n_cl_counties
+#: model:ir.model.fields,help:l10n_cl_counties.field_res_city__l10n_cl_sii_regional_office
+msgid "SII Regional Office associated to this city"
+msgstr "Oficina Regional del SII asociada a esta ciudad"
+
+#. module: l10n_cl_counties
+#: model:ir.model.fields,field_description:l10n_cl_counties.field_res_country_state__code
+msgid "State Code"
+msgstr "Código de Provincia"
+
+#. module: l10n_cl_counties
+#: model:ir.model.fields,help:l10n_cl_counties.field_res_country_state__code
+msgid "State code"
+msgstr "Código del estado"
+
+#. module: l10n_cl_counties
+#: model:ir.model.fields,help:l10n_cl_counties.field_res_country_state__type
+msgid "State type"
+msgstr "Tipo de estado"
+
+#. module: l10n_cl_counties
+#: model:ir.model.fields,field_description:l10n_cl_counties.field_res_city__type
+#: model:ir.model.fields,field_description:l10n_cl_counties.field_res_country_state__type
+msgid "Type"
+msgstr "Tipo"
+
+#. module: l10n_cl_counties
+#: model:ir.model.fields.selection,name:l10n_cl_counties.selection__res_city__type__view
+#: model:ir.model.fields.selection,name:l10n_cl_counties.selection__res_country_state__type__view
+msgid "View"
+msgstr "Vista"

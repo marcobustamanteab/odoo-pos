@@ -3,7 +3,7 @@
 # noinspection PyStatementEffect
 {
     "name": "CCU Customization - Pos",
-    "version": "0.1",
+    "version": "0.1.2",
     "category": "customizations",
     "sequence": 1000,
     "license": "LGPL-3",
@@ -15,6 +15,7 @@
         "ccu_base",
         "l10n_cl",
         "l10n_cl_edi",
+        "l10n_cl_counties",
     ],
     'data': [
         # "security/ir.model.access.csv",

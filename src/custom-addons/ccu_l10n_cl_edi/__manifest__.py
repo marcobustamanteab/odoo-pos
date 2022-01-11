@@ -31,7 +31,7 @@
         'report/account_move_invoice.xml',
         'entries/module_actions_report.xml',
         'security/ir.model.access.csv',
-        'views/account_move.xml',
+        # 'views/account_move.xml',
         'views/fiscal_dte_log.xml',
         'views/l10n_cl_dte_caf.xml',
         'views/res_company_view.xml',

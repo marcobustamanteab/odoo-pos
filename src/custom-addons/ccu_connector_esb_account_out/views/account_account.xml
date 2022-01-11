@@ -10,6 +10,7 @@
                     <field name="ccu_code"/>
                     <group name="group_alloc_and_text" string="Account">
                         <field name="send_blank_allocation"/>
+                        <field name="send_bank_transfer_data"/>
                     </group>
                     <group name="group_client" string="Client">
                         <field name="send_client_sap"/>

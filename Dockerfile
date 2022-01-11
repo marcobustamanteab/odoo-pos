@@ -1,6 +1,7 @@
-FROM registry.ccu.cl/pos-odoo-img:1.0.11
+FROM registry.ccu.cl/pos-odoo-img:2.1.0
 
 # Set default user when running the container
+
 #USER root
 
 COPY config             /etc/odoo
