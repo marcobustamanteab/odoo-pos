@@ -20,6 +20,7 @@ class AccountMove(models.Model):
     posted_payload = fields.Text('Posted Payload', readonly=True, copy=False)
     sync_reference = fields.Char(string='Sync. Text', readonly=True, tracking=True, copy=False)
     response_payload = fields.Text('Response Payload', readonly=True, copy=False)
+    sync_date = fields.Datetime(string="Sync date", readonly=True, index=True, tracking=True)
 
     def prepare_partner_sap_codes(self, backend):
         plist = []
@@ -29,7 +30,7 @@ class AccountMove(models.Model):
             if line.partner_id.id not in plist:
                 plist.append(line.partner_id.id)
         send_date = datetime.datetime.now().strftime("%Y%m%d")
-        branch_ccu_code = self.invoice_user_id.sale_team_id.branch_ccu_code
+        branch_ccu_code = self.pos_session_id.config_id.picking_type_id.default_location_src_id.location_id.ccu_code or self.invoice_user_id.sale_team_id.branch_ccu_code
 
         for pid in plist:
             partner = self.env['res.partner'].browse(pid)
@@ -66,6 +67,11 @@ class AccountMove(models.Model):
         if self.is_sync:
             return
 
+        sync_uuid = self.sync_uuid
+        if not sync_uuid:
+            print(["UUID", uuid.uuid4()])
+            sync_uuid = str(uuid.uuid4())
+
         backend = self.company_id.backend_esb_id
         if not backend.active:
             _logger.info("ESB Synchornization Service DISABLED")
@@ -75,7 +81,7 @@ class AccountMove(models.Model):
 
 
         payload_lines = []
-        branch_ccu_code = self.invoice_user_id.sale_team_id.branch_ccu_code
+        branch_ccu_code = self.pos_session_id.config_id.picking_type_id.default_location_src_id.location_id.ccu_code or self.invoice_user_id.sale_team_id.branch_ccu_code
         send_date = datetime.datetime.now().strftime("%Y%m%d")
         document_date = self.date.strftime("%Y%m%d")
 
@@ -86,7 +92,7 @@ class AccountMove(models.Model):
 
         payload = {
             "HEADER": {
-                "ID_MENSAJE": self.sync_uuid,
+                "ID_MENSAJE": sync_uuid,
                 "MENSAJE": "Account Movements from Odoo",
                 "FECHA": send_date,
                 "SOCIEDAD": self.company_id.ccu_business_unit,
@@ -95,7 +101,7 @@ class AccountMove(models.Model):
             },
             "DOCUMENT_POST": {
                 "HEAD": {
-                    "CENTRO": self.invoice_user_id.sale_team_id.branch_ccu_code,
+                    "CENTRO": branch_ccu_code,
                     "FOLIO": self.name,
                     "CLDOC": self.journal_id.ccu_code,
                     "FEDOC": document_date,
@@ -185,20 +191,32 @@ class AccountMove(models.Model):
                     _logger.info(["INV_LIST", inv])
                     ref_key_1 = ",".join([x.name for x in inv])
                     ref_key_3 = ref_key_table.get(related.reference_doc_code, "")
+
+            # Datos de Transferencia Bancaria
+            #ref_dep_1 = str(dep.branch_id.distribution_center) + ' ' + dep.origin_journal_id.code + ' ' + ' O' + (
+            #        '%s' % (dep.name)) + ' ' + ('%s' % (dep.memo))
+            #ref_dep_2 = dep.bank_tracking_no or ' '
+
+            bnk_transfer_data_1 = False
+            bnk_transfer_data_2 = False
+            if line.account_id.send_bank_transfer_data:
+                bnk_transfer_data_1 = branch_ccu_code + ';' + line.check_date.strftime("%Y%m%d") + ';' + self.name + ';' + line.cheque_number + ';' + line.cheque_owner_name
+                bnk_transfer_data_2 = line.vat
+
             payload_lines.append({
                 "ITEMNO": str(i),
                 "ACCOUNT": line.account_id.ccu_code or '',
                 "RUTDNI": vat or '',
                 "CODE": sap_code or '',
                 "MAYOR": special_major,
-                "GLOSA": line.fixed_text.name or line.name or '',
+                "GLOSA": bnk_transfer_data_1 or line.fixed_text.name or line.name or '',
                 "CECO": cost_center,
                 "CEBE": profit_center,
                 "MATERIAL": line.product_id.default_code or '',
                 "CANTIDAD": line.quantity,
                 "TOTAL": line_amt,
                 "ALLOCNBR": alloc_nbr if not line.account_id.send_blank_allocation else '',
-                "REF_KEY_1": ref_key_1 or '',
+                "REF_KEY_1": bnk_transfer_data_2 or ref_key_1 or '',
                 "REF_KEY_2": ref_key_2 or '',
                 "REF_KEY_3": ref_key_3 or '',
             })
@@ -211,12 +229,7 @@ class AccountMove(models.Model):
 
         # grabo payload y referencia UUID
         json_object = json.dumps(payload, indent=4)
-        # print(json_object)
-
-        # self.write({
-        #     'posted_payload': json_object,
-        #     'sync_uuid': sync_uuid}
-        # )
+       
 
         esb_api_endpoint = '/sap/contabilidad/asiento/crear'
 
@@ -226,8 +239,10 @@ class AccountMove(models.Model):
             dcto_sap = int(res['mt_response']['respuesta']['documento_sap'])
             if dcto_sap > 0:
                 self.write({
-                    'sync_uuid': str(uuid.uuid4()),
+                    'sync_uuid': sync_uuid,
                     'is_sync': True,
+                    'sync_date': fields.datetime.now(),
+                    'posted_payload': json_object,
                     'sync_reference': str(dcto_sap),
                     'posted_payload': json_object,
                     'response_payload': json.dumps(res, indent=4)}
@@ -251,14 +266,7 @@ class AccountMove(models.Model):
 
     def action_send_account_move_to_esb(self):
         self.send_account_move_to_ESB()
-
-    # def update_sync(self, message='none'):
-    #     txt = str(self.id)
-    #     print('Response from ESB, JOB QUEUE for Account Move: ', txt)
-    #     self.sudo().write({
-    #         'is_sync': True,
-    #         'sync_reference': message}
-    #     )
+        
 
     def _set_client_sap_code(self, partner_id, sap_code):
         vals = {
@@ -392,3 +400,4 @@ class AccountMoveLine(models.Model):
 
     reference_key_1 = fields.Char(string="Referencia 1")
     fixed_text = fields.Many2one('account.move.line.fixed.text', string="Fixed Text")
+

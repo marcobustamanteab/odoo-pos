@@ -1,4 +1,20 @@
 <odoo>
+
+    <record model="ir.ui.view" id="view_invoice_tree">
+        <field name="name">CCU DTE Client Account Move</field>
+        <field name="model">account.move</field>
+        <field name="priority">17</field>
+        <field name="inherit_id" ref="account.view_invoice_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='payment_state']" position="after">
+                <field name="dte_send_status"/>
+                <field name="xerox_status"/>
+                <field name="sii_status"/>
+            </xpath>
+        </field>
+    </record>
+
+
     <record model="ir.ui.view" id="ccu_dte_client_account_move_form_view">
         <field name="name">CCU DTE Client Account Move</field>
         <field name="model">account.move</field>
@@ -7,29 +23,22 @@
         <field name="arch" type="xml">
             <xpath expr="//page[@name='ccu_customization']" position="inside">
                 <group name="group_dte_client" string="DTE Client">
+                    <field name="printer_code"/>
                     <field name="dte_send_status"/>
                     <field name="dte_send_error"/>
-                    <field name="posted_before"/>
-                    <field name="move_type"/>
+                    <field name="xerox_status"/>
+                    <field name="xerox_id"/>
+                    <field name="sii_status"/>
+                    <!--                    <field name="posted_before"/>-->
+                    <!--                    <field name="move_type"/>-->
                 </group>
             </xpath>
             <xpath expr="//header" position="inside">
-                <button name="action_perform_send_dte" type="object" string="Perform Send"
+                <button name="action_perform_send_dte" type="object" string="Send ETD"
                         class="btn btn-primary"
                         attrs="{'invisible':[('dte_send_status','in',('sent','accepted'))]}"/>
             </xpath>
         </field>
     </record>
 
-    <record model="ir.ui.view" id="ccu_dte_client_view_out_invoice_tree">
-        <field name="name">CCU DTE Client Account Move</field>
-        <field name="model">account.move</field>
-        <field name="priority">17</field>
-        <field name="inherit_id" ref="account.view_out_invoice_tree"/>
-        <field name="arch" type="xml">
-            <xpath expr="//field[@name='payment_state']" position="after">
-                <field name="dte_send_status"/>
-            </xpath>
-        </field>
-    </record>
 </odoo>

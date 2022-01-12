@@ -1,4 +1,6 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-ccu_sale_book_report.access_wizard_export_etd_document_detail,"Interfaz General Contabilidad System",ccu_sale_book_report.model_wizard_export_etd_document_detail,account.group_account_user,1,1,1,0
-ccu_sale_book_report.access_etd_document_excel,"Interfaz General Contabilidad System",ccu_sale_book_report.model_etd_document_excel,account.group_account_user,1,1,1,0
+ccu_sale_book_report.access_wizard_export_etd_document_detail_system,"Interfaz General Contabilidad System",ccu_sale_book_report.model_wizard_export_etd_document_detail,base.group_system,1,1,1,0
+ccu_sale_book_report.access_wizard_export_etd_document_detail_user,"Interfaz General Contabilidad System",ccu_sale_book_report.model_wizard_export_etd_document_detail,base.group_user,1,1,1,0
+ccu_sale_book_report.access_etd_document_excel_system,"Interfaz General Contabilidad System",ccu_sale_book_report.model_etd_document_excel,base.group_system,1,1,1,0
+ccu_sale_book_report.access_etd_document_excel_user,"Interfaz General Contabilidad System",ccu_sale_book_report.model_etd_document_excel,base.group_user,1,1,1,0
 

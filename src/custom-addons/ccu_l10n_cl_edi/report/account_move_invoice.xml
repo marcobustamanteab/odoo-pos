@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <data >
+    <data noupdate="1">
         <template id="ccu_l10n_cl_edi.report_account_move_invoice_page">
             <!--        <div class="header">-->
             <!--            <div>-->

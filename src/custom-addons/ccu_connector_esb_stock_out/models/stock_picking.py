@@ -24,11 +24,14 @@ class StockPicking(models.Model):
     sync_text = fields.Text(string='Sync. Text', readonly=True, tracking=True,copy=False,)
     posted_payload = fields.Text('Posted Payload', readonly=True,copy=False,)
     response_payload = fields.Text('Response Payload', readonly=True,copy=False,)
-
+    sync_date = fields.Datetime(string="Sync date", readonly=True, index=True, tracking=True)
     def _action_done(self):
         res = super(StockPicking, self)._action_done()
         _logger.info(["ACTION_DONE"])
         for rec in self:
+            if not rec.sync_uuid:
+                sync_uuid = str(uuid.uuid4())
+            _logger.info(["esb_send_stock_out"])
             rec.with_delay(channel='root.inventory').esb_send_stock_out()
 
         return res
@@ -43,6 +46,10 @@ class StockPicking(models.Model):
         if not backend.active:
             _logger.warning("ESB Synchronizatino Service DISABLED")
             return
+
+        sync_uuid = False
+        if not self.sync_uuid:
+            sync_uuid = str(uuid.uuid4())    
 
         centro = self.location_id.location_id.ccu_code or self.location_dest_id.location_id.ccu_code
         cost_center_code = self.location_id.location_id.cost_center_code or self.location_dest_id.location_id.cost_center_code
@@ -121,11 +128,12 @@ class StockPicking(models.Model):
                 dcto_sap = int(res['mt_response']['HEADER'].get('reference', 0))
                 if dcto_sap > 0:
                     self.write({
+                        'sync_uuid': sync_uuid,
                         'is_sync': True,
-                        'sync_uuid': str(uuid.uuid4()),
+                        'sync_text': str(dcto_sap),
+                        'sync_date': fields.datetime.now(),
                         'posted_payload': json_object,
-                        'response_payload': json.dumps(res, indent=4),
-                        'sync_text': str(dcto_sap)}
+                        'response_payload': json.dumps(res, indent=4)}
                     )
                 else:
                     json_object = json.dumps(payload, indent=4)
@@ -148,7 +156,8 @@ class StockPicking(models.Model):
     #             'is_sync': False,
     #             'sync_text': message}
     #         )
-    #     else:
+    #     else: 
+            
     #         if 'OK' in status:
     #             self.sudo().write({
     #                 'is_sync': True,

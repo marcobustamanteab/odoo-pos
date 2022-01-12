@@ -5,16 +5,17 @@
         <field name="inherit_id" ref="ccu_base.account_move_form_view"/>
         <field name="arch" type="xml">
             <xpath expr="//page[@name='ccu_customization']" position="inside">
-                <group name="group_esb" string="ESB Connector">
+                <group >
                     <notebook>
                         <page name="page_esb_general" string="General">
-                            <group>
+                            <group name="group_esb" string="ESB Connector">
                                 <field name="is_sync"/>
                                 <field name="sync_uuid"/>
                                 <field name="sync_reference"/>
+                                <field name="sync_date"/>
                             </group>
                         </page>
-                        <page name="page_payload_response" string="Payload &amp; Response">
+                        <page name="page_payload_response" string="Consistency">
                             <group>
                                 <field name="posted_payload"/>
                                 <field name="response_payload"/>
@@ -61,7 +62,7 @@
                         type="object"
                         string="Send move to esb"
                         confirm="Are you sure?"
-                        attrs="{'invisible': False}"
+                        attrs="{'invisible': [('is_sync', '=', True)]}"
                         class="oe_highlight"/>
             </header>
         </field>

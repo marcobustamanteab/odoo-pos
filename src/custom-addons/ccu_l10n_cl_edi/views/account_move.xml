@@ -1,4 +1,5 @@
 <odoo>
+    <!-- THIS FILE IS OMITTED DUE TO THE DTE_CLIENT CHANGES -->
     <record model="ir.ui.view" id="view_out_invoice_l10n_cl_edi_custom_tree">
         <field name="name">account.move.l10n_cl_edi.custom.form</field>
         <field name="model">account.move</field>

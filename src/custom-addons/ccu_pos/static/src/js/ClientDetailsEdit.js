@@ -2,13 +2,32 @@ odoo.define('ccu_pos.ClientDetailsEdit', function (require) {
     "use strict";
 
     var models = require('point_of_sale.models');
-
+    var PosModelSuper = models.PosModel;
     const { _t } = require('web.core');
     const { useListener } = require('web.custom_hooks');
     const ClientDetailsEdit = require('point_of_sale.ClientDetailsEdit');
     const Registries = require('point_of_sale.Registries');
 
-    models.load_fields('res.partner',['is_company','l10n_cl_activity_description','gender','dob','age','category','l10n_cl_sii_taxpayer_type','l10n_cl_dte_email']);
+    models.load_fields('res.partner',['is_company','city_id','l10n_cl_activity_description','gender','dob','age','category','l10n_cl_sii_taxpayer_type','l10n_cl_dte_email']);
+    models.load_models([
+        {
+            model: 'res.city',
+            fields: [],
+            loaded: function (self, cities) {
+                self.cities = cities;
+            }
+        },
+    ]);
+
+    models.PosModel = models.PosModel.extend({
+            initialize: function(session, attributes) {
+                var res = PosModelSuper.prototype.initialize.apply(this, arguments);
+                this.l10n_cl_sii_taxpayer_types = [{'code': '3', 'name': _t('Boleta')}, {'code': '1', 'name': _t('Factura')} ];
+                return res;
+            },
+
+
+        });
 
     const ClientDetailsEditValidate = ClientDetailsEdit =>
         class extends ClientDetailsEdit {
@@ -25,12 +44,6 @@ odoo.define('ccu_pos.ClientDetailsEdit', function (require) {
                 this.props.parameters = this.config();
                 if(this.props.partner.l10n_cl_sii_taxpayer_type != '' && this.props.partner.l10n_cl_sii_taxpayer_type){
                     this.props.partner.l10n_cl_sii_taxpayer_type = parseInt(this.props.partner.l10n_cl_sii_taxpayer_type);
-                }
-                let objLength = Object.keys(this.props.partner).length;
-                if(objLength === 2 && this.props.partner.country_id[0] === 46 && this.props.partner.state_id[0] === 1183){
-                    console.log('validacion cliente nuevo ');
-                    this.props.partner.country_id = false;
-                    this.props.partner.state_id = false;
                 }
             }
             mounted() {
@@ -101,6 +114,7 @@ odoo.define('ccu_pos.ClientDetailsEdit', function (require) {
             }
 
             saveCustomerPos(event) {
+                var l10n_cl_dte_email = false
                 let processedChanges = {};
                 for (let [key, value] of Object.entries(this.changes)) {
                     if (this.intFields.includes(key)) {

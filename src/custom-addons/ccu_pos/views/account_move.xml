@@ -1,5 +1,5 @@
 <odoo>
-    <record model="ir.ui.view" id="ccu_pos_view_move_tree">
+    <!--record model="ir.ui.view" id="ccu_pos_view_move_tree">
         <field name="name">CCU Account Move</field>
         <field name="model">account.move</field>
         <field name="priority">17</field>
@@ -9,7 +9,7 @@
                 <field name="pos_sequence_prefix"/>
             </xpath>
         </field>
-    </record>
+    </record-->
 
     <record model="ir.ui.view" id="view_move_form">
         <field name="name">CCU Account Move</field>
@@ -19,18 +19,32 @@
         <field name="arch" type="xml">
             <xpath expr="//page[@name='ccu_customization']" position="inside">
                 <group name="group_pos" string="POS">
-                    <field name="printer_code"/>
-                    <field name="pos_order_id"/>
-                    <field name="pos_session_id"/>
-                    <field name="pos_order_ids"/>
+                    <group>
+                        <field name="printer_code"/>
+                        <field name="pos_order_id"/>
+                        <field name="pos_session_id"/>
+                    </group>
+                    <group>
+                        <field name="pos_order_ids">
+                            <tree>
+                                <field name="name"/>
+                                <field name="session_id"/>
+                                <field name="date_order"/>
+                                <field name="amount_total"/>
+                                <field name="state"/>
+                            </tree>
+                        </field>
+                    </group>
+                </group>
+                <group name="departure_address" string="Departure Address">
+                    <field name="departure_address"/>
+                    <field name="departure_city"/>
+                    <field name="departure_state"/>
                 </group>
             </xpath>
             <xpath expr="//field[@name='line_ids']/tree/field[@name='name']" position="after">
                 <field name="pos_order_id"/>
             </xpath>
-<!--            <xpath expr="//header" position="inside">-->
-<!--                <button name="reset_cashier_prefix" type="object" invisible="0" string="Reset Prefix" class="btn btn-primary"/>-->
-<!--            </xpath>-->
         </field>
     </record>
 
