@@ -22,8 +22,8 @@
 						<table class='cheque-bank-list'>
 							<thead>
 								<tr>
-									<th style="width: 45%; "></th>
-									<th style="width: 45%;"></th>
+									<th style="width: 35%; "></th>
+									<th style="width: 55%;"></th>
 									<th style="width: 10%;"></th>
 								</tr>
 							</thead>
