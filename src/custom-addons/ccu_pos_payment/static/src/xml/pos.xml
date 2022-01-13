@@ -71,10 +71,12 @@
 	<t t-name="OrderReceiptInherit" t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension" owl="1">
 		<xpath expr="//div[hasclass('receipt-change')]" position="after">
 			<br/>
+			<t t-if="env.pos.get_order().cheque_number != false ">
 			<div>
-				Referencia No.
+				Referencia No
 				<span t-esc="env.pos.get_order().cheque_number" class="pos-receipt-right-align"/>
 			</div>
+		</t>
 		</xpath>
 	</t>
 
