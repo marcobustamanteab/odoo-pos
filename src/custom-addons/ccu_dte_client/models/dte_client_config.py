@@ -4,6 +4,7 @@ import requests
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 import logging
+from ..helpers.api_helper import ApiHelper
 
 _logger = logging.getLogger(__name__)
 
@@ -102,7 +103,8 @@ class DTEClientConfig(models.Model):
         payload = json.dumps(dte_to_send)
 
         try:
-            response = requests.request("GET", url, headers=header, data=payload)
+            # response = requests.request("GET", url, headers=header, data=payload)
+            response = ApiHelper(config.company_id.id).get(url, headers=header, data=payload,oauth2_required=config.oauth2)
         except Exception as errstr:
             response = None
             msg = "Error Consulting Invoice Status: %s" % (errstr)
@@ -156,7 +158,9 @@ class DTEClientConfig(models.Model):
         payload = json.dumps(dte_to_send)
 
         try:
-            response = requests.request("GET", url, headers=header, data=payload)
+            # response = requests.request("GET", url, headers=header, data=payload)
+            response = ApiHelper(config.company_id.id).get(url, headers=header, data=payload,oauth2_required=config.oauth2)
+
         except Exception as errstr:
             response = None
             msg = "Error Consulting Invoice Status: %s" % (errstr)

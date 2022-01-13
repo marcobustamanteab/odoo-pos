@@ -3,7 +3,9 @@ import requests
 from requests.auth import HTTPBasicAuth
 from odoo import http
 
+
 class ApiHelper(object):
+
     def __init__(self, company_id):
         self.config = http.request.env["dte.client.config"].search(
             [
@@ -23,9 +25,9 @@ class ApiHelper(object):
         }
 
         data = {
-        'grant_type': 'password',
-        'username': oauth2_user,
-        'password': oauth2_pass
+            'grant_type': 'password',
+            'username': oauth2_user,
+            'password': oauth2_pass
         }
 
         response = requests.post(oauth2_token_url, auth=HTTPBasicAuth(basic_auth_user, basic_auth_pass), headers=headers, data=data, verify=False)

@@ -16,6 +16,11 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: ccu_dte_client
+#: model:ir.model.fields.selection,name:ccu_dte_client.selection__account_move__dte_send_status__accepted
+msgid "Accepted"
+msgstr "Aceptado"
+
+#. module: ccu_dte_client
 #: model:ir.model,name:ccu_dte_client.model_account_move
 msgid "Account Move or Invoice"
 msgstr "Asiento o Factura"
@@ -85,6 +90,13 @@ msgstr "Estado Envío DTE"
 #: model:ir.model.fields,field_description:ccu_dte_client.field_account_tax__dte_service_code
 msgid "DTE Service Code"
 msgstr "Código Servicio DTE"
+
+#. module: ccu_dte_client
+#: model:ir.model.fields,field_description:ccu_dte_client.field_account_bank_statement_line__dte_send_status
+#: model:ir.model.fields,field_description:ccu_dte_client.field_account_move__dte_send_status
+#: model:ir.model.fields,field_description:ccu_dte_client.field_account_payment__dte_send_status
+msgid "DTE Status"
+msgstr "Estado DTE"
 
 #. module: ccu_dte_client
 #: model:ir.model.fields,field_description:ccu_dte_client.field_account_journal__display_name
