@@ -3,7 +3,7 @@
 # noinspection PyStatementEffect
 {
     "name": "CCU Customization - Pos",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "category": "customizations",
     "sequence": 1000,
     "license": "LGPL-3",
@@ -39,9 +39,9 @@
         'static/src/xml/ClientLineValidate.xml',
         'static/src/xml/ClientListScreenValidate.xml',
         'static/src/xml/ClientDetailsEditValidate.xml',
-        'static/src/xml/OrderReceiptTransbank.xml',
-        'static/src/xml/PaymentLinesValidator.xml',
-        'static/src/xml/PaymentScreenStatusTransbank.xml',
+        #'static/src/xml/OrderReceiptTransbank.xml',
+        #'static/src/xml/PaymentLinesValidator.xml',
+        #'static/src/xml/PaymentScreenStatusTransbank.xml',
         'static/src/xml/PaymentScreenValidator.xml',
         'static/src/xml/ProductScreenValidate.xml',
     ],
