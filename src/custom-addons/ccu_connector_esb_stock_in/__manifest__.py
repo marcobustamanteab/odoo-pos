@@ -18,6 +18,8 @@
     "data": [
         "data/stock_location_cron.xml",
         "views/stock_location_view.xml",
+        "views/wizard_stock_inventory_import_view.xml",
+        "security/ir.model.access.csv"
     ],
     "development_status": "Beta",
     "maintainers": ["dclaver"],
