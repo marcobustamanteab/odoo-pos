@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="PaymentTermsInput" owl="1">
+        <div>
+            <input t-if="props.item.needs_authorization_code" type="text" t-model="props.item.auth_code" class="popup-input list-line-input"
+               placeholder="Ingrese código de Autorización" t-on-keyup="onKeyup" /> 
+        </div>
+    </t>
+</templates>

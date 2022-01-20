@@ -35,36 +35,7 @@ odoo.define('ccu_pos.PaymentScreenValidator', function (require) {
                     await this._finalizeValidation();
                 }
             }
-        // async validateOrder(isForceValidate) {
-        //     if(this.env.pos.config.cash_rounding) {
-        //         if(!this.env.pos.get_order().check_paymentlines_rounding()) {
-        //             this.showPopup('ErrorPopup', {
-        //                 title: this.env._t('Rounding error in payment lines'),
-        //                 body: this.env._t("The amount of your payment lines must be rounded to validate the transaction."),
-        //             });
-        //             return;
-        //         }
-        //     }
-        //     if (await this._isOrderValid(isForceValidate)) {
-        //         // remove pending payments before finalizing the validation
-        //         for (let line of this.paymentLines) {
-        //             if (!line.is_done()) this.currentOrder.remove_paymentline(line);
-        //         }
-        //         await this._finalizeValidation();
-        //     }
-        // }
             async _isOrderValidTransbank(isForceValidate) {
-
-                var tbk = this.currentOrder;
-                for(let line of this.paymentLines){
-                    if(line.name === 'Transbank' && line.transaction_id === ''){
-                        this.showPopup('ErrorPopup', {
-                            title: 'Transbank',
-                            body: 'Debe ingresar un ID de Transbank para continuar la transacción',
-                        });
-                        return false;
-                    }
-                }
 
                 if (this.currentOrder.get_orderlines().length === 0) {
                     this.showPopup('ErrorPopup', {

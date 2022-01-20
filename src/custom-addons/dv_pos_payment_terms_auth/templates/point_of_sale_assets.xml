@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets" inherit_id="point_of_sale.assets">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/dv_pos_payment_terms_auth/static/src/js/models.js"></script>
+            <script type="text/javascript" src="/dv_pos_payment_terms_auth/static/src/js/Popups/PaymentTermsInput.js"></script>
+            <script type="text/javascript" src="/dv_pos_payment_terms_auth/static/src/js/Popups/PaymentTermsPopup.js"></script>
+            <script type="text/javascript" src="/dv_pos_payment_terms_auth/static/src/js/Screens/PaymentScreen/PaymentMethodButton.js"></script>
+            <link rel="stylesheet" href="/dv_pos_payment_terms_auth/static/src/css/pos.css" />
+        </xpath>
+    </template>
+</odoo>
