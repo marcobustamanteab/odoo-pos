@@ -25,6 +25,8 @@ class StockPicking(models.Model):
     posted_payload = fields.Text('Posted Payload', readonly=True,copy=False,)
     response_payload = fields.Text('Response Payload', readonly=True,copy=False,)
     sync_date = fields.Datetime(string="Sync date", readonly=True, index=True, tracking=True)
+
+
     def _action_done(self):
         res = super(StockPicking, self)._action_done()
         _logger.info(["ACTION_DONE"])

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="OrderReceipt" t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension" owl="1">
+        <xpath expr="//t[@t-esc='line.name']" position="after">
+            <t t-if="line.payment_authorization_code">
+                <span> ID#</span>
+                <t t-esc="line.payment_authorization_code"></t>
+            </t>
+        </xpath>
+    </t>
+</templates>

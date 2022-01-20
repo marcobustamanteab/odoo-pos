@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from itertools import groupby
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 import logging
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError, ValidationError
@@ -102,7 +102,7 @@ class PosOrderInherit(models.Model):
 
 	vat = fields.Char(string="Rut")
 	cheque_owner_name = fields.Char(string="Nombre del Cliente")
-	check_date = fields.Date(string="Fecha")
+	check_date = fields.Date(string="Fecha", default=lambda self: str(datetime.now()))
 	cheque_number = fields.Char(string="Referencia")
 
 class AccountJournal(models.Model):

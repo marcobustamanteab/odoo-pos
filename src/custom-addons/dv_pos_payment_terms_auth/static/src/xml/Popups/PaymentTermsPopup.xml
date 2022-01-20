@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="PaymentTermsPopup" owl="1">
+        <div role="dialog" class="modal-dialog">
+            <div class="popup popup-text">
+                <header class="title">
+                    <t t-esc="props.title" />
+                </header>
+                <main class="list-lines" t-on-remove-item="removeItem"
+                      t-on-create-new-item="createNewItem">
+                    <t t-foreach="state.array" t-as="item" t-key="item._id">
+                        <PaymentTermsInput item="item" />
+                    </t>
+                    <div class="packlot-select">
+                        <t t-if="props.payment_terms and props.array[0].use_payment_terms">
+                            <select class="packlot-line-select" t-on-change="selectionToInput">
+                                <option disabled="" selected="" value="">Seleccione término de pagos</option>
+                                <t t-foreach="props.payment_terms" t-as="term" t-key="term.id">
+                                    <option t-att-value="term.name">
+                                        <t t-esc="term.name"/>
+                                    </option>
+                                </t>
+                            </select>
+                        </t>
+                    </div>
+                </main>
+                <footer class="footer">
+                    <div class="button confirm" t-on-click="confirm">
+                        Ok
+                    </div>
+                    <div class="button cancel" t-on-click="cancel">
+                        Cancel
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </t>
+</templates>

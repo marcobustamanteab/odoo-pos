@@ -1,0 +1,75 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* dv_pos_payment_terms_auth
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0+e-20211201\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-01-13 21:26+0000\n"
+"PO-Revision-Date: 2022-01-13 18:27-0300\n"
+"Last-Translator: Nelson Ramírez  <nramirez@konos.cl>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: es_CL\n"
+"X-Generator: Poedit 3.0\n"
+
+#. module: dv_pos_payment_terms_auth
+#: model:ir.model.fields,field_description:dv_pos_payment_terms_auth.field_pos_payment__payment_authorization_code
+msgid "Authorization code"
+msgstr "Código de autorización"
+
+#. module: dv_pos_payment_terms_auth
+#: model:ir.model.fields,field_description:dv_pos_payment_terms_auth.field_pos_payment_method__needs_authorization_code
+msgid "Authorization code required"
+msgstr "Código de autorización requerido"
+
+#. module: dv_pos_payment_terms_auth
+#: model:ir.model.fields,field_description:dv_pos_payment_terms_auth.field_pos_order__display_name
+#: model:ir.model.fields,field_description:dv_pos_payment_terms_auth.field_pos_payment__display_name
+#: model:ir.model.fields,field_description:dv_pos_payment_terms_auth.field_pos_payment_method__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: dv_pos_payment_terms_auth
+#: model:ir.model.fields,field_description:dv_pos_payment_terms_auth.field_pos_order__id
+#: model:ir.model.fields,field_description:dv_pos_payment_terms_auth.field_pos_payment__id
+#: model:ir.model.fields,field_description:dv_pos_payment_terms_auth.field_pos_payment_method__id
+msgid "ID"
+msgstr "ID (identificación)"
+
+#. module: dv_pos_payment_terms_auth
+#: model:ir.model.fields,field_description:dv_pos_payment_terms_auth.field_pos_order____last_update
+#: model:ir.model.fields,field_description:dv_pos_payment_terms_auth.field_pos_payment____last_update
+#: model:ir.model.fields,field_description:dv_pos_payment_terms_auth.field_pos_payment_method____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: dv_pos_payment_terms_auth
+#: model:ir.model.fields,field_description:dv_pos_payment_terms_auth.field_pos_payment__payment_terms
+#: model:ir.model.fields,field_description:dv_pos_payment_terms_auth.field_pos_payment_method__payment_term_ids
+msgid "Payment terms"
+msgstr "Plazos de pago"
+
+#. module: dv_pos_payment_terms_auth
+#: model:ir.model,name:dv_pos_payment_terms_auth.model_pos_order
+msgid "Point of Sale Order"
+msgstr "Orden de Punto de Venta"
+
+#. module: dv_pos_payment_terms_auth
+#: model:ir.model,name:dv_pos_payment_terms_auth.model_pos_payment
+msgid "Point of Sale Payment"
+msgstr "Punto de venta. Pago"
+
+#. module: dv_pos_payment_terms_auth
+#: model:ir.model,name:dv_pos_payment_terms_auth.model_pos_payment_method
+msgid "Point of Sale Payment Methods"
+msgstr "Métodos de pago en el punto de venta"
+
+#. module: dv_pos_payment_terms_auth
+#: model:ir.model.fields,field_description:dv_pos_payment_terms_auth.field_pos_payment_method__use_payment_terms
+msgid "Use payment terms"
+msgstr "Plazo Pago"
