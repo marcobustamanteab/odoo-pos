@@ -85,6 +85,7 @@ class AccountMove(models.Model):
             # journal_dict['56'] = "N/D"
             # journal_dict['61'] = "N/C"
             # journal_id = journal_dict.get(move.l10n_latam_document_type_id.code, "XXX")
+            partner = move.partner_shipping_id or move.partner_id
             journal_id = move.l10n_latam_document_type_id.doc_code_prefix or "XXX"
             dte_to_send = {
                 "CLIENT": {
@@ -99,6 +100,16 @@ class AccountMove(models.Model):
                     "name": move.name,
                     "number": move.name,
                     "narration": move.narration,
+                    "departure_address": move.departure_address,
+                    "departure_city": move.departure_city,
+                    "departure_state": move.departure_state,
+                    "vehicle_name": '',
+                    "transport_name": '',
+                    "transport_vat": '',
+                    "transport_ref": '',
+                    "delivery_address": " ".join([partner.street, partner.street2]),
+                    "delivery_city": partner.city_id.name,
+                    "delivery_state": partner.city,
                     "class_id": move.l10n_latam_document_type_id.code,
                     "journal_id": journal_id,
                     "printer_code": move.printer_code,
@@ -189,7 +200,6 @@ class AccountMove(models.Model):
                 response_json = json.loads(response.content.decode())
                 # _logger.info([type(response_json), response_json])
                 result = response_json.get("result", {})
-                # print(["RESPONSE_RESULT", result, type(result)])
                 # _logger.info([type(result), result])
                 error_code = result.get("ErrorCode", "")
                 error_description = result.get("ErrorDescription", "")
