@@ -107,7 +107,7 @@ class AccountMove(models.Model):
                     "transport_name": '',
                     "transport_vat": '',
                     "transport_ref": '',
-                    "delivery_address": " ".join([partner.street, partner.street2]),
+                    "delivery_address": " ".join([partner.street or '', partner.street2 or '']),
                     "delivery_city": partner.city_id.name,
                     "delivery_state": partner.city,
                     "class_id": move.l10n_latam_document_type_id.code,
