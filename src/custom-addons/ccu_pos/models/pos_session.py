@@ -217,7 +217,8 @@ class PosSession(models.Model):
             receivable_account_id = receivable_account_id_partner_id_order_id[0]
             receivable_line = MoveLine.create(vals)
             if (not receivable_line.reconciled):
-                invoice_receivable_lines[receivable_account_id] = receivable_line
+                # print(["SAVED invoice_receivable_lines", receivable_account_id, receivable_line.debit,receivable_line.credit ])
+                invoice_receivable_lines[receivable_account_id_partner_id_order_id] = receivable_line
 
         data.update({'invoice_receivable_lines': invoice_receivable_lines})
         return data
@@ -289,3 +290,67 @@ class PosSession(models.Model):
             'journal_id': statement.journal_id.id,
             'counterpart_account_id': payment.payment_method_id.receivable_account_id.id,
         }
+
+    def _reconcile_account_move_lines(self, data):
+        # reconcile cash receivable lines
+        split_cash_statement_lines = data.get('split_cash_statement_lines')
+        combine_cash_statement_lines = data.get('combine_cash_statement_lines')
+        split_cash_receivable_lines = data.get('split_cash_receivable_lines')
+        combine_cash_receivable_lines = data.get('combine_cash_receivable_lines')
+        order_account_move_receivable_lines = data.get('order_account_move_receivable_lines')
+        invoice_receivable_lines = data.get('invoice_receivable_lines')
+        stock_output_lines = data.get('stock_output_lines')
+
+        for statement in self.statement_ids:
+            if not self.config_id.cash_control:
+                statement.write({'balance_end_real': statement.balance_end})
+            statement.button_post()
+            all_lines = (
+                  split_cash_statement_lines[statement].mapped('move_id.line_ids').filtered(lambda aml: aml.account_id.internal_type == 'receivable')
+                | combine_cash_statement_lines[statement].mapped('move_id.line_ids').filtered(lambda aml: aml.account_id.internal_type == 'receivable')
+                | split_cash_receivable_lines[statement]
+                | combine_cash_receivable_lines[statement]
+            )
+            accounts = all_lines.mapped('account_id')
+            lines_by_account = [all_lines.filtered(lambda l: l.account_id == account) for account in accounts]
+            for lines in lines_by_account:
+                lines.reconcile()
+            # We try to validate the statement after the reconciliation is done
+            # because validating the statement requires each statement line to be
+            # reconciled.
+            # Furthermore, if the validation failed, which is caused by unreconciled
+            # cash difference statement line, we just ignore that. Leaving the statement
+            # not yet validated. Manual reconciliation and validation should be made
+            # by the user in the accounting app.
+            try:
+                statement.button_validate()
+            except UserError:
+                pass
+
+        # print(["invoice_receivable_lines", invoice_receivable_lines.keys()])
+
+        # reconcile invoice receivable lines
+        for account_id in order_account_move_receivable_lines:
+            # print(["RECONCILE ORDER  ", account_id, order_account_move_receivable_lines[account_id]])
+            # print(["RECONCILE INVOICE", invoice_receivable_lines.get(account_id, self.env['account.move.line']) ])
+            to_reconcile = ( order_account_move_receivable_lines[account_id] )
+            # print(["TO RECONCILE", to_reconcile])
+            for irl_account_id, irl_partner_id, irl_order_id in invoice_receivable_lines.keys():
+                # print(["TO RECONCILE", irl_account_id, irl_partner_id, irl_order_id])
+                if irl_account_id == account_id:
+                    to_reconcile = (to_reconcile | invoice_receivable_lines.get((irl_account_id, irl_partner_id, irl_order_id)))
+            # ( order_account_move_receivable_lines[account_id]
+            # | invoice_receivable_lines.get(account_id, self.env['account.move.line'])
+            # ).reconcile()
+            to_reconcile.reconcile()
+
+        # reconcile stock output lines
+        pickings = self.picking_ids.filtered(lambda p: not p.pos_order_id)
+        pickings |= self.order_ids.filtered(lambda o: not o.is_invoiced).mapped('picking_ids')
+        stock_moves = self.env['stock.move'].search([('picking_id', 'in', pickings.ids)])
+        stock_account_move_lines = self.env['account.move'].search([('stock_move_id', 'in', stock_moves.ids)]).mapped('line_ids')
+        for account_id in stock_output_lines:
+            ( stock_output_lines[account_id]
+            | stock_account_move_lines.filtered(lambda aml: aml.account_id == account_id)
+            ).filtered(lambda aml: not aml.reconciled).reconcile()
+        return data
