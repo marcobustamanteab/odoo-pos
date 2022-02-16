@@ -89,8 +89,8 @@ class StockPicking(models.Model):
                         "ref_doc_no": self.name,
                         "username": backend.user,
                         "header_txt": self.origin,
-                        "doc_date": doc_date,
-                        "pstng_date": fecha_AAAAMMDD,  # es fecha contable
+                        "doc_date": self.scheduled_date.strftime("%Y%m%d") or fecha_AAAAMMDD,
+                        "pstng_date": doc_date or fecha_AAAAMMDD,
                     },
                     "detalle": payload_lines
                 }
