@@ -2,8 +2,6 @@
 # Copyright (C) 2020 Serpent Consulting Services Pvt. Ltd.
 # Copyright (C) 2021 Konos
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html)
-import datetime
-
 from odoo import api, fields, models
 import logging, time
 from datetime import datetime, timedelta
@@ -66,6 +64,9 @@ class StockPicking(models.Model):
             # Document Data from pos_order
             # year, month, day, hour, min = map(int, time.strftime("%Y %m %d %H %M").split())
             fecha_AAAAMMDD = datetime.datetime.now().strftime("%Y%m%d")
+            fecha_AAAAMMDD = datetime.datetime.now().strftime("%Y%m%d")
+
+
             id_documento = self.pos_order_id.account_move.name or ''
 
             if self.pos_order_id.account_move.date:
