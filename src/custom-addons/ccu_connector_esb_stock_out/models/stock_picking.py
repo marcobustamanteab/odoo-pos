@@ -7,6 +7,7 @@ import datetime
 from odoo import api, fields, models
 import logging, time
 from pytz import timezone
+from datetime import datetime, timedelta
 from odoo.exceptions import ValidationError
 import uuid
 import logging
@@ -72,9 +73,12 @@ class StockPicking(models.Model):
             if self.pos_order_id.account_move.date:
                 # year, month, day, hour, min = map(int, self.pos_order_id.account_move.date.strftime(
                 #     "%Y %m %d %H %M").split())
-                doc_date = self.date_done(tz).strftime("%Y%m%d")
+
+                pstng_date = self.date_done - timedelta(hours=4)
             else:
-                doc_date = ''
+                pstng_date = ''
+
+            doc_date = self.scheduled_date - timedelta(hours=4)
 
             payload = {
                 "HEADER": {
@@ -91,8 +95,8 @@ class StockPicking(models.Model):
                         "ref_doc_no": self.name,
                         "username": backend.user,
                         "header_txt": self.origin,
-                        "doc_date": self.scheduled_date(tz).strftime("%Y%m%d") or fecha_AAAAMMDD,
-                        "pstng_date": doc_date or fecha_AAAAMMDD,
+                        "doc_date": doc_date.strftime("%Y%m%d") or fecha_AAAAMMDD,
+                        "pstng_date": pstng_date.strftime("%Y%m%d") or fecha_AAAAMMDD,
                     },
                     "detalle": payload_lines
                 }

@@ -5,7 +5,6 @@ import logging
 import json
 from odoo import api, fields, models, _
 from odoo.exceptions import RedirectWarning, UserError, ValidationError, AccessError
-from pytz import timezone
 from odoo.tools.misc import formatLang, format_date, get_lang
 
 _logger = logging.getLogger(__name__)
@@ -23,16 +22,14 @@ class AccountMove(models.Model):
     response_payload = fields.Text('Response Payload', readonly=True, copy=False)
     sync_date = fields.Datetime(string="Sync date", readonly=True, index=True, tracking=True)
 
-
     def prepare_partner_sap_codes(self, backend):
-        tz = timezone(self.env.context.get('tz')) if self.env.context.get('tz') else timezone('America/Santiago')
         plist = []
         for line in self.line_ids:
             if not line.account_id.send_client_sap:
                 continue
             if line.partner_id.id not in plist:
                 plist.append(line.partner_id.id)
-        send_date = datetime.datetime.now(tz).strftime("%Y%m%d")
+        send_date = datetime.datetime.now().strftime("%Y%m%d")
         branch_ccu_code = self.pos_session_id.config_id.picking_type_id.default_location_src_id.location_id.ccu_code or self.invoice_user_id.sale_team_id.branch_ccu_code
 
         for pid in plist:
@@ -70,7 +67,6 @@ class AccountMove(models.Model):
         if self.is_sync:
             return
 
-        tz = timezone(self.env.context.get('tz')) if self.env.context.get('tz') else timezone('America/Santiago')
         sync_uuid = self.sync_uuid
         if not sync_uuid:
             print(["UUID", uuid.uuid4()])
@@ -86,7 +82,7 @@ class AccountMove(models.Model):
 
         payload_lines = []
         branch_ccu_code = self.pos_session_id.config_id.picking_type_id.default_location_src_id.location_id.ccu_code or self.invoice_user_id.sale_team_id.branch_ccu_code
-        send_date = datetime.datetime.now(tz).strftime("%Y%m%d")
+        send_date = datetime.datetime.now().strftime("%Y%m%d")
         document_date = self.date.strftime("%Y%m%d")
 
         if not branch_ccu_code:
