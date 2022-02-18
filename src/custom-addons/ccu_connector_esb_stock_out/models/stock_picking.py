@@ -6,6 +6,7 @@ import datetime
 
 from odoo import api, fields, models
 import logging, time
+from pytz import timezone
 from odoo.exceptions import ValidationError
 import uuid
 import logging
@@ -64,13 +65,14 @@ class StockPicking(models.Model):
         else:
             # Document Data from pos_order
             # year, month, day, hour, min = map(int, time.strftime("%Y %m %d %H %M").split())
-            fecha_AAAAMMDD = datetime.datetime.now().strftime("%Y%m%d")
+            tz = timezone(self.env.context.get('tz')) if self.env.context.get('tz') else timezone('America/Santiago')
+            fecha_AAAAMMDD = datetime.datetime.now(tz).strftime("%Y%m%d")
             id_documento = self.pos_order_id.account_move.name or ''
 
             if self.pos_order_id.account_move.date:
                 # year, month, day, hour, min = map(int, self.pos_order_id.account_move.date.strftime(
                 #     "%Y %m %d %H %M").split())
-                doc_date = self.date_done.strftime("%Y%m%d")
+                doc_date = self.date_done(tz).strftime("%Y%m%d")
             else:
                 doc_date = ''
 
@@ -89,7 +91,7 @@ class StockPicking(models.Model):
                         "ref_doc_no": self.name,
                         "username": backend.user,
                         "header_txt": self.origin,
-                        "doc_date": self.scheduled_date.strftime("%Y%m%d") or fecha_AAAAMMDD,
+                        "doc_date": self.scheduled_date(tz).strftime("%Y%m%d") or fecha_AAAAMMDD,
                         "pstng_date": doc_date or fecha_AAAAMMDD,
                     },
                     "detalle": payload_lines
