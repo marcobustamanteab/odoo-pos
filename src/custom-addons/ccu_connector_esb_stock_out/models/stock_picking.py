@@ -61,7 +61,7 @@ class StockPicking(models.Model):
         else:
             # Document Data from pos_order
             year, month, day, hour, min = map(int, time.strftime("%Y %m %d %H %M").split())
-            fecha_AAAAMMDD = str((year*10000+month*100+day*10))
+            fecha_AAAAMMDD = str((year*10000+month*100+day))
 
             id_documento = self.pos_order_id.account_move.name or ''
 
