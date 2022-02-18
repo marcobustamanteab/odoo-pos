@@ -6,7 +6,6 @@ import datetime
 
 from odoo import api, fields, models
 import logging, time
-from pytz import timezone
 from datetime import datetime, timedelta
 from odoo.exceptions import ValidationError
 import uuid
@@ -66,8 +65,7 @@ class StockPicking(models.Model):
         else:
             # Document Data from pos_order
             # year, month, day, hour, min = map(int, time.strftime("%Y %m %d %H %M").split())
-            tz = timezone(self.env.context.get('tz')) if self.env.context.get('tz') else timezone('America/Santiago')
-            fecha_AAAAMMDD = datetime.datetime.now(tz).strftime("%Y%m%d")
+            fecha_AAAAMMDD = datetime.datetime.now().strftime("%Y%m%d")
             id_documento = self.pos_order_id.account_move.name or ''
 
             if self.pos_order_id.account_move.date:
