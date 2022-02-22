@@ -15,9 +15,9 @@ class StockPicking(models.Model):
     _inherit = "stock.picking"
 
     # Campos para recibir confirmación de sincronización
-    sync_uuid = fields.Char(string='Sync. UUID', index=True, tracking=True,copy=False,
+    sync_uuid = fields.Char(string='Sync. UUID', readonly=True, index=True, tracking=True,copy=False,
                             default=lambda self: str(uuid.uuid4()))
-    is_sync = fields.Boolean(string='Synchronize', default=False, tracking=True,copy=False,)
+    is_sync = fields.Boolean(string='Synchronize', readonly=True, default=False, tracking=True,copy=False,)
     sync_text = fields.Text(string='Sync. Text', readonly=True, tracking=True,copy=False,)
     posted_payload = fields.Text('Posted Payload', readonly=True,copy=False,)
     response_payload = fields.Text('Response Payload', readonly=True,copy=False,)
