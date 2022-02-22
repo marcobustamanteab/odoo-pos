@@ -28,8 +28,6 @@ class StockPicking(models.Model):
         res = super(StockPicking, self)._action_done()
         _logger.info(["ACTION_DONE"])
         for rec in self:
-            if not rec.sync_uuid:
-                sync_uuid = str(uuid.uuid4())
             _logger.info(["esb_send_stock_out"])
             rec.with_delay(channel='root.inventory').esb_send_stock_out()
 
@@ -45,8 +43,8 @@ class StockPicking(models.Model):
         if not backend.active:
             _logger.warning("ESB Synchronizatino Service DISABLED")
             return
-
-        if not self.sync_uuid:
+        sync_uuid = self.sync_uuid
+        if not sync_uuid:
             sync_uuid = str(uuid.uuid4())    
 
         centro = self.location_id.location_id.ccu_code or self.location_dest_id.location_id.ccu_code
@@ -138,10 +136,22 @@ class StockPicking(models.Model):
                         'response_payload': json.dumps(res, indent=4)}
                     )
                 else:
-                    json_object = json.dumps(payload, indent=4)
-                    json_object_response = json.dumps(res, indent=4)
-                    msg = "SAP response with error\n input data:\n" + json_object + "\nOUTPUT:\n" + json_object_response
-                    raise ValidationError(msg)
+                    mensaje = res['mt_response']['HEADER'].get('text', '')
+                    if 'Documento ya existe' in mensaje:
+                        docid = mensaje.split(' ')[-1]
+                        self.write({
+                        'sync_uuid': sync_uuid,
+                        'is_sync': True,
+                        'sync_text': docid,
+                        'sync_date': fields.datetime.now(),
+                        'posted_payload': json_object,
+                        'response_payload': json.dumps(res, indent=4)}
+                    )
+                    else:
+                        json_object = json.dumps(payload, indent=4)
+                        json_object_response = json.dumps(res, indent=4)
+                        msg = "SAP response with error\n input data:\n" + json_object + "\nOUTPUT:\n" + json_object_response
+                        raise ValidationError(msg)
 
     @api.model
     def send_picking_to_ESB(self):
