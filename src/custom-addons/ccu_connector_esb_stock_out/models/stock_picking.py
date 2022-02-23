@@ -1,8 +1,5 @@
-# Copyright (C) 2020 Open Source Integrators
-# Copyright (C) 2020 Serpent Consulting Services Pvt. Ltd.
-# Copyright (C) 2021 Konos
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html)
-import datetime
+from datetime import datetime, timedelta
 
 from odoo import api, fields, models
 import logging, time
@@ -18,9 +15,9 @@ class StockPicking(models.Model):
     _inherit = "stock.picking"
 
     # Campos para recibir confirmación de sincronización
-    sync_uuid = fields.Char(string='Sync. UUID', index=True, tracking=True,copy=False,
+    sync_uuid = fields.Char(string='Sync. UUID', readonly=True, index=True, tracking=True,copy=False,
                             default=lambda self: str(uuid.uuid4()))
-    is_sync = fields.Boolean(string='Synchronize', default=False, tracking=True,copy=False,)
+    is_sync = fields.Boolean(string='Synchronize', readonly=True, default=False, tracking=True,copy=False,)
     sync_text = fields.Text(string='Sync. Text', readonly=True, tracking=True,copy=False,)
     posted_payload = fields.Text('Posted Payload', readonly=True,copy=False,)
     response_payload = fields.Text('Response Payload', readonly=True,copy=False,)
@@ -31,8 +28,6 @@ class StockPicking(models.Model):
         res = super(StockPicking, self)._action_done()
         _logger.info(["ACTION_DONE"])
         for rec in self:
-            if not rec.sync_uuid:
-                sync_uuid = str(uuid.uuid4())
             _logger.info(["esb_send_stock_out"])
             rec.with_delay(channel='root.inventory').esb_send_stock_out()
 
@@ -48,9 +43,8 @@ class StockPicking(models.Model):
         if not backend.active:
             _logger.warning("ESB Synchronizatino Service DISABLED")
             return
-
-        sync_uuid = False
-        if not self.sync_uuid:
+        sync_uuid = self.sync_uuid
+        if not sync_uuid:
             sync_uuid = str(uuid.uuid4())    
 
         centro = self.location_id.location_id.ccu_code or self.location_dest_id.location_id.ccu_code
@@ -64,16 +58,20 @@ class StockPicking(models.Model):
             raise ValidationError(msg)
         else:
             # Document Data from pos_order
-            # year, month, day, hour, min = map(int, time.strftime("%Y %m %d %H %M").split())
-            fecha_AAAAMMDD = datetime.datetime.now().strftime("%Y%m%d")
+            year, month, day, hour, min = map(int, time.strftime("%Y %m %d %H %M").split())
+            fecha_AAAAMMDD = str((year*10000+month*100+day))
+
             id_documento = self.pos_order_id.account_move.name or ''
 
             if self.pos_order_id.account_move.date:
                 # year, month, day, hour, min = map(int, self.pos_order_id.account_move.date.strftime(
                 #     "%Y %m %d %H %M").split())
-                doc_date = self.date_done.strftime("%Y%m%d")
+
+                pstng_date = self.date_done - timedelta(hours=4)
             else:
-                doc_date = ''
+                pstng_date = ''
+
+            doc_date = self.scheduled_date - timedelta(hours=4)
 
             payload = {
                 "HEADER": {
@@ -90,8 +88,8 @@ class StockPicking(models.Model):
                         "ref_doc_no": self.name,
                         "username": backend.user,
                         "header_txt": self.origin,
-                        "doc_date": doc_date,
-                        "pstng_date": fecha_AAAAMMDD,  # es fecha contable
+                        "doc_date": doc_date.strftime("%Y%m%d") or fecha_AAAAMMDD,
+                        "pstng_date": pstng_date.strftime("%Y%m%d") or fecha_AAAAMMDD,
                     },
                     "detalle": payload_lines
                 }
@@ -138,10 +136,22 @@ class StockPicking(models.Model):
                         'response_payload': json.dumps(res, indent=4)}
                     )
                 else:
-                    json_object = json.dumps(payload, indent=4)
-                    json_object_response = json.dumps(res, indent=4)
-                    msg = "SAP response with error\n input data:\n" + json_object + "\nOUTPUT:\n" + json_object_response
-                    raise ValidationError(msg)
+                    mensaje = res['mt_response']['HEADER'].get('text', '')
+                    if 'Documento ya existe' in mensaje:
+                        docid = mensaje.split(' ')[-1]
+                        self.write({
+                        'sync_uuid': sync_uuid,
+                        'is_sync': True,
+                        'sync_text': docid,
+                        'sync_date': fields.datetime.now(),
+                        'posted_payload': json_object,
+                        'response_payload': json.dumps(res, indent=4)}
+                    )
+                    else:
+                        json_object = json.dumps(payload, indent=4)
+                        json_object_response = json.dumps(res, indent=4)
+                        msg = "SAP response with error\n input data:\n" + json_object + "\nOUTPUT:\n" + json_object_response
+                        raise ValidationError(msg)
 
     @api.model
     def send_picking_to_ESB(self):
