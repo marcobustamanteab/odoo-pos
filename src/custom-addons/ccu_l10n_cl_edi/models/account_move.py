@@ -2,7 +2,7 @@ import base64
 from html import unescape
 
 from lxml import etree
-from odoo import models, api, _
+from odoo import models, api, _, fields
 from odoo.exceptions import UserError
 import logging
 
@@ -11,6 +11,10 @@ _logger = logging.getLogger(__name__)
 
 class AccountMove(models.Model):
     _inherit = 'account.move'
+
+    departure_address = fields.Char("Departure Address")
+    departure_city = fields.Char("Departure City")
+    departure_state = fields.Char("Departure State")
 
     @api.onchange('partner_id')
     def _onchange_partner_id(self):

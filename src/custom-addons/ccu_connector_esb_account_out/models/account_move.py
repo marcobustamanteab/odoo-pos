@@ -244,6 +244,7 @@ class AccountMove(models.Model):
                     'sync_date': fields.datetime.now(),
                     'posted_payload': json_object,
                     'sync_reference': str(dcto_sap),
+                    'posted_payload': json_object,
                     'response_payload': json.dumps(res, indent=4)}
                 )
             else:
