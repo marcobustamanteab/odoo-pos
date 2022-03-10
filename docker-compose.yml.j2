@@ -2,7 +2,7 @@ version: '3'
 services:
   {{ odoo.service_name }}:
   {%- if env == 'DEV' or env == 'QA' or env == 'PROD' %}  
-    image: wso2qa4.ccu.cl:5000/odoo:ccu_pos-$SHA
+    image: registry.ccu.cl/odoo:ccu_pos-$SHA
   {%- else %}
     build: .
   {%- endif %}    
