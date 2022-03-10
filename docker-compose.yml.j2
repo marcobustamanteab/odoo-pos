@@ -45,7 +45,7 @@ services:
       - "traefik.http.routers.{{ nginx.service_name }}.entrypoints=websecure"
       - "traefik.http.routers.{{ nginx.service_name }}.service={{ nginx.service_name }}"
       - "traefik.http.services.{{ nginx.service_name }}.loadbalancer.server.port=80"    
-      - "traefik.http.routers.{{ nginx.service_name }}.rule=Host(`pos.ccu.cl`)"
+      - "traefik.http.routers.{{ nginx.service_name }}.rule=Host(`{{ nginx.domain_name }}`)"
       - "traefik.docker.network=proxy"      
       # - "traefik.http.middlewares.odooHeader.headers.customrequestheaders.X-Forwarded-Host=pos.ccu.cl"
       # - "traefik.http.routers.{{ nginx.service_name }}.middlewares=odooHeader@docker"                  
