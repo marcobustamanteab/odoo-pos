@@ -13,12 +13,12 @@
 - docker-compose 
 - Jinja 2 Cli
 
-# Librerías Adicionales para modulos externos y desarrollos
+# PASO 1: Librerías Adicionales para modulos externos y desarrollos
 
 apt-get -y install python3-simplejson python3-cachetools python3-xmltodict python3-openssl 
 pip3 install setuptools_rust signxml pdf417gen
 
-# Instalación de Docker
+# PASO 2: Instalación de Docker
 
 Referencia: https://docs.docker.com/engine/install/ubuntu/
 
@@ -52,7 +52,7 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io
 docker --version
 ```
 
-- Instalación de docker-compose
+- PASO 3: Instalación de docker-compose
 
 Referencia: https://docs.docker.com/compose/install/
 
@@ -66,7 +66,7 @@ sudo chmod +x /usr/local/bin/docker-compose
 docker-compose --version
 ```
 
-# INSTALACIÓN DE ODOO
+# PASO 4: INSTALACIÓN DE ODOO
 
 - Como sudo
 
@@ -95,4 +95,3 @@ nano env.json
 ```
 ./run.sh
 ```
-
