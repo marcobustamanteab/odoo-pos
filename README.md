@@ -1,7 +1,7 @@
 # Características del SOftware
 
 - Versión: Odoo 14 versión docker
-- Lenguajes: Python 3.6
+- Lenguaje: Python 3.6
 - BD: Postgres 10
 - Arquitectura de Desarrollo: Framework Odoo ORM 
 
