@@ -10,7 +10,7 @@ Se hace cargo de los procesos de:
 Se implementa el estándar worldclass de P.O.S de Odoo y se adapata para que se integre con CCU y sus procesos.
 
 
-#Checklist de Recepción de Sistemas
+# Propiedades del Sistemas (checklist de recepción IDS)
 
 | Requisito   |      Respuesta      |  Info adicional |
 |-------------|---------------------|----------------:|
