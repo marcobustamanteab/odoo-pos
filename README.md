@@ -1,11 +1,12 @@
 # Odoo POS CCU S.A.
 
-Odoo POS es un sistema implementado con Odoo 14 Enterprise.
+Odoo POS es un sistema Multi-empresa, implementado con Odoo 14 Enterprise.
 Se hace cargo de los procesos de:
 * Ventas POS
 * Contabilidad
 * Inventario
-* Clientes 
+* Clientes
+* Facturación
 
 Se implementa el estándar worldclass de P.O.S de Odoo y se adapata para que se integre con CCU y sus procesos.
 
