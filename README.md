@@ -10,7 +10,8 @@ Se hace cargo de los procesos de:
 
 Se implementa el estándar worldclass de P.O.S de Odoo y se adapata para que se integre con CCU y sus procesos.
 
-
+## Documentación
+* Checklist IDS: [Checklis Recepción de Sistemas](http://gitlab.ccu.cl/odoo-pos/odoo-pos/wikis/checklist-ids)
 
 
 # Instalación
