@@ -1,4 +1,4 @@
-<odoo noupdate="0">
+<odoo noupdate="1">
     <record id="channel_account" model="queue.job.channel">
         <field name="name">account</field>
         <field name="parent_id" ref="queue_job.channel_root" />
