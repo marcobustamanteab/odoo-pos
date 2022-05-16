@@ -2,7 +2,7 @@ version: '3'
 services:
   {{ odoo.service_name }}:
   {%- if env == 'DEV' or env == 'QA' or env == 'PROD' %}  
-    image: wso2qa4.ccu.cl:5000/odoo:ccu_pos-$SHA
+    image: registry.ccu.cl/odoo:ccu_pos-$SHA
   {%- else %}
     build: .
   {%- endif %}    
@@ -15,6 +15,7 @@ services:
       {%- endif %}
     networks:
       - odoo-pos
+      - proxy
     entrypoint: ['/entrypoint.sh', 'odoo']
     volumes:
       - ../filestore:{{ odoo.data_dir }}
@@ -32,6 +33,7 @@ services:
     image: nginx:latest
     networks:
       - odoo-pos
+      - proxy
     ports:
       - 80:80
       - 443:443
@@ -39,8 +41,17 @@ services:
       - ./nginx/nginx-config/nginx_template.conf:{{ nginx.path_config }}
       - ./nginx/ssl/private.key:{{ nginx.path_ssl_certificate_key }}
       - ./nginx/ssl/public.cer:{{ nginx.path_ssl_certificate }}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.nginx.entrypoints=websecure"
+      - "traefik.http.routers.nginx.service=nginx"
+      - "traefik.http.services.nginx.loadbalancer.server.port=80"
+      - "traefik.http.routers.nginx.rule=Host(`{{ nginx.domain_name }}`)"
+      - "traefik.docker.network=proxy"      
   {%- endif %}    
 
 networks:
   odoo-pos:
       external: true
+  proxy:
+    external: true      
