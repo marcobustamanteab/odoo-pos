@@ -1,17 +1,24 @@
+# Características del SOftware
+
+- Versión: Odoo 14 versión docker
+- Lenguaje: Python 3.6
+- BD: Postgres 10
+- Arquitectura de Desarrollo: Framework Odoo ORM 
+
+
 # Requisitos previos
 
-
+- Postgres 10
 - docker
-- docker-compose
-- Jinja 2
-- 
+- docker-compose 
+- Jinja 2 Cli
 
-# Librerías Adicionales para modulos externos y desarrollos
+# PASO 1: Librerías Adicionales para modulos externos y desarrollos
 
 apt-get -y install python3-simplejson python3-cachetools python3-xmltodict python3-openssl 
 pip3 install setuptools_rust signxml pdf417gen
 
-# Instalación de Docker
+# PASO 2: Instalación de Docker
 
 Referencia: https://docs.docker.com/engine/install/ubuntu/
 
@@ -45,7 +52,7 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io
 docker --version
 ```
 
-- Instalación de docker-compose
+- PASO 3: Instalación de docker-compose
 
 Referencia: https://docs.docker.com/compose/install/
 
@@ -59,7 +66,7 @@ sudo chmod +x /usr/local/bin/docker-compose
 docker-compose --version
 ```
 
-# ODOO + NGINX
+# PASO 4: INSTALACIÓN DE ODOO
 
 - Como sudo
 
@@ -73,25 +80,18 @@ sudo su
 mkdir /opt/odoo
 ```
 
-- NGINX Config
-
-```bash
-cd /opt/odoo/odoo-pos/nginx/nginx-config
-j2 nginx_template.conf.j2 ../../env.json > nginx_template.conf
+- clonar el repositorio
+```
+git clone http://gitlab.ccu.cl/odoo-pos/odoo-pos.git
 ```
 
-- ODOO Config
-
-```bash
-cd /opt/odoo/odoo-pos/config
-j2 odoo.conf.j2 ../env.json > odoo.conf
+- ajustar env.json según necesidad, si se requiere. 
+- Variable "env" asignar "PROD", "QA" o "DEV" para ambientes de ejecución en servidor y "LOCAL" para ambiente local
+```
+nano env.json
 ```
 
-- ODOO docker-compose
-
-```bash
-cd /opt/odoo/odoo-pos
-j2 docker-compose.yml.j2 env.json > docker-compose.yml
-
-docker-compose up -d --build
+- inicie la aplicación
+```
+./run.sh
 ```
