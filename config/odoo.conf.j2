@@ -3,11 +3,15 @@ admin_passwd = {{ odoo.admin_password }}
 addons_path = {{ odoo.addons_path }}
 db_host = {{ database.container_name }}
 db_maxconn = {{ odoo.db_maxconn }}
-#db_name = {{ database.POSTGRES_DB }}
 db_port = {{ database.POSTGRES_DB_PORT }} 
 db_user = {{ database.POSTGRES_USER }}
 db_password = {{ database.POSTGRES_PASSWORD }}
-#dbfilter = ^DEV$
+
+{%- if env == 'PROD' %}
+db_name = {{ database.POSTGRES_DB }}
+dbfilter = ^{{ database.POSTGRES_DB }}$
+{%- endif %} 
+
 log_level = info
 log_handler = odoo.addons.queue_job:DEBUG, odoo.addons.ccu_connector_esb_ticket_consumption:DEBUG, odoo.addons.connector:DEBUG, requests.exceptions:DEBUG
 logfile = {{ odoo.logs_path }}
