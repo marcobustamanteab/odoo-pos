@@ -2,14 +2,14 @@ version: '3'
 services:
   {{ odoo.service_name }}:
   {%- if env == 'DEV' or env == 'QA' or env == 'PROD' %}  
-    image: wso2qa4.ccu.cl:5000/odoo:ccu_pos-$SHA
+    image: {{ registry }}/odoo:ccu_pos-$SHA
   {%- else %}
     build: .
   {%- endif %}    
     container_name: {{ odoo.container_name }}
     user: root
     ports:
-      - 8069:8069
+      - {{ odoo.port }}:8069
       {%- if debug %}
       - 8888:3001
       {%- endif %}
@@ -23,7 +23,7 @@ services:
     {%- if env != 'DEV' and env != 'QA' and env != 'PROD' %}
       - ./config:/etc/odoo
       - ./src/custom-addons:/mnt/extra-addons/custom-addons
-    {%- endif %}              
+    {%- endif %}
 
   {%- if env == 'DEV' or env == 'QA' or env == 'PROD' %}     
   {{ nginx.service_name }}:     
@@ -32,15 +32,24 @@ services:
     image: nginx:latest
     networks:
       - odoo-pos
+      - proxy
     ports:
-      - 80:80
-      - 443:443
+      - {{ nginx.port }}:80
     volumes:
       - ./nginx/nginx-config/nginx_template.conf:{{ nginx.path_config }}
       - ./nginx/ssl/private.key:{{ nginx.path_ssl_certificate_key }}
       - ./nginx/ssl/public.cer:{{ nginx.path_ssl_certificate }}
-  {%- endif %}    
+  {%- endif %}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.{{ nginx.service_name }}.entrypoints=websecure"
+      - "traefik.http.routers.{{ nginx.service_name }}.service={{ nginx.service_name }}"
+      - "traefik.http.services.{{ nginx.service_name }}.loadbalancer.server.port=80"    
+      - "traefik.http.routers.{{ nginx.service_name }}.rule=Host(`{{ nginx.domain_name }}`)"
+      - "traefik.docker.network=proxy"                       
 
 networks:
   odoo-pos:
-      external: true
+    external: true   
+  proxy:
+    external: true      
