@@ -1,6 +1,6 @@
 <odoo>
     <report id="cuadratura_asientos_report"
-            string="Reporte Interfaz General"
+            string="Reporte de Asientos Contables por periodo"
             model="accounting.extra.reports"
             report_type="qweb-html"
             name="accounting_extra_reports.cuadratura_asientos_template"
@@ -14,9 +14,6 @@
                  <div style="border-bottom: 2px solid black">
 
                      <div class="col-md-3">
-                       <!--<img t-if="o.empresa.logo" t-att-src="'data:image/png;base64,%s' % o.empresa.logo.decode('ascii')" class="pull-left" style="width:200px"/>-->
-                       <!-- <field name="o.company_id.logo" widget="image" class="oe_avatar"/> -->
-                       <!-- <img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' %o.company_id.logo" style="max-width: 200px; max-height: 150px;"/> -->
                      </div>
                      <div>
                          <h4 class="text-center">Informe Integridad Contable Odoo - SAP</h4>
@@ -42,8 +39,8 @@
                           <th style="text-align:left;" ><strong>UEN</strong></th>
                           <th style="text-align:left;" ><strong>CUENTA</strong></th>
                           <th style="text-align:left;width:30%;" ><strong>NOMBRE</strong></th>
-                          <th style="text-align:left;" ><strong>ODOO</strong></th>
-                          <th style="text-align:left;" ><strong>RECEPCIONADO POR SAP</strong></th>
+                          <th style="text-align:left;" ><strong>TOTAL ODOO</strong></th>
+                          <th style="text-align:left;" ><strong>TOTAL ENVIADO</strong></th>
                           <th style="text-align:left;" ><strong>DIFF</strong></th>
                           <th style="text-align:left;" ><strong>TRN PND</strong></th>
                       </tr>
@@ -70,13 +67,7 @@
                 <br/>
                 <table style="width: 100%">
                     <tr>
-                        <td colspan="2" style="border-top: 1px solid black; text-align: center;"><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]> Analista Contable <![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]></td>
-                        <td><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]></td>
-                        <td><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]></td>
-                        <td><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]></td>
-                        <td><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]></td>
-                        <td><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]></td>
-                        <td colspan="2" style="border-top: 1px solid black; text-align: center;"><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]> Jefe de Contabilidad <![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]></td>
+                        <td>IMPORTANTE: ESTE REPORTE NO ES VÁLIDO COMO CIERRE CONTABLE NI EVIDENCIA SOX</td>
                     </tr>
                 </table>
             </t>
