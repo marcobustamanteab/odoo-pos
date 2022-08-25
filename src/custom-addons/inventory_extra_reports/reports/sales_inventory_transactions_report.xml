@@ -1,11 +1,10 @@
 <odoo>
     <report id="cuadratura_inventario_report"
-            string="Reporte de Movimientos de Inventario por Ventas (Costos)"
+            string="Reporte de Movimientos de Inventario"
             model="inventory.extra.reports"
             report_type="qweb-html"
             name="inventory_extra_reports.cuadratura_inventario_template"
             file="inventory_extra_reports.cuadratura_inventario_template"/>
-
 
     <template id="cuadratura_inventario_template">
          <t t-call="web.html_container">
@@ -13,12 +12,9 @@
                <div class="col-md-12">
                  <div style="border-bottom: 2px solid black">
                      <div class="col-md-3">
-                       <!--<img t-if="o.empresa.logo" t-att-src="'data:image/png;base64,%s' % o.empresa.logo.decode('ascii')" class="pull-left" style="width:200px"/>-->
-                       <!-- <field name="o.company_id.logo" widget="image" class="oe_avatar"/> -->
-                       <!-- <img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' %o.company_id.logo" style="max-width: 200px; max-height: 150px;"/> -->
                      </div>
                      <div>
-                         <h4 class="text-center">Informe Cuadratura Inventario Odoo - SAP</h4>
+                         <h4 class="text-center">Informe de Movimientos Inventario por periodo</h4>
                          <h5 class="text-center"><span t-esc="form['company'][1]"/></h5>
                          <div class="text-right">
                              <h7 class="text-xs-right">Fecha desde:<span t-esc="form['fecha_beg']"/></h7>
@@ -41,8 +37,8 @@
                           <th style="text-align:left;" ><strong>PRODUCTO</strong></th>
                           <th style="text-align:left;" ><strong>NOMBRE</strong></th>
                           <th style="text-align:left;" ><strong>TIPO MOV. SAP</strong></th>
-                          <th style="text-align:left;" ><strong>ODOO</strong></th>
-                          <th style="text-align:left;" ><strong>RECEPCIONADO POR SAP</strong></th>
+                          <th style="text-align:left;" ><strong># TOTAL ODOO</strong></th>
+                          <th style="text-align:left;" ><strong># TOTAL ENVIADO</strong></th>
                           <th style="text-align:left;" ><strong>DIFF</strong></th>
                       </tr>
                   </thead>
@@ -61,21 +57,10 @@
                       </t>
                   </tbody>
                 </table>
-                                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
+                                
                 <table style="width: 100%">
                     <tr>
-                        <td colspan="2" style="border-top: 1px solid black; text-align: center;"><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]> Analista Contable <![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]></td>
-                        <td><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]></td>
-                        <td><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]></td>
-                        <td><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]></td>
-                        <td><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]></td>
-                        <td><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;]]></td>
-                        <td colspan="2" style="border-top: 1px solid black; text-align: center;"><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]> Jefe de Contabilidad <![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]]></td>
+                        <td>IMPORTANTE: ESTE REPORTE NO ES VÁLIDO COMO CIERRE DE INVENTARIO NI COMO EVIDENCIA SOX</td>
                     </tr>
                 </table>
             </t>

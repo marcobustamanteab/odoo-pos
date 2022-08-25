@@ -1,0 +1,43 @@
+{
+  "env": "PROD",
+  "debug": false,
+  "mode": "default",
+  "registry": "registry.ccu.cl",
+  "odoo": {
+    "port": 8070,
+    "service_name": "pos_web",
+    "container_name": "pos_web",
+    "admin_password": "Dacs240308.",
+    "logs_path": "/var/log/odoo/odoo.log",
+    "db_maxconn": "5",
+    "max_cron_threads": "2",
+    "worker": "13",
+    "addons_path": "/mnt/enterprise, /mnt/extra-addons/custom-addons, /mnt/OCA/connector, /mnt/OCA/rest-framework, /mnt/OCA/queue, /mnt/OCA/point-of-sales, /mnt/OCA/server-tools",
+    "modules": "",
+    "data_dir": "/var/lib/odoo",
+    "proxy_mode": "True"
+  },
+  "database": {
+    "service_name": "db",
+    "container_name": "postgres11-pos.ccu.cl",
+    "POSTGRES_DB_PORT": "5432",
+    "POSTGRES_DB": "prod",
+    "POSTGRES_PASSWORD": "Odoo2021!",
+    "POSTGRES_USER": "odoo",
+    "PGDATA": "/var/lib/postgresql/data/pgdata",
+    "POSTGRES_EXTRA_OPTS": "'--schema=public --blobs'"
+  },
+  "nginx": {
+    "port": 8081,
+    "service_name": "pos_nginx",
+    "container_name": "pos_nginx",
+    "domain_name": "pos.ccu.cl",
+    "path_config": "/etc/nginx/conf.d/default.conf",
+    "path_ssl_certificate": "/etc/nginx/ssl/crt/ccu.cl.cer",
+    "path_ssl_certificate_key": "/etc/nginx/ssl/key/ccu.cl.key",
+    "path_access_log": "/var/log/nginx/odoo.access.log",
+    "path_error_log": "/var/log/nginx/odoo.error.log",
+    "client_max_body_size": "40M",
+    "large_client_header_buffers": "16 5120k"
+  }
+}

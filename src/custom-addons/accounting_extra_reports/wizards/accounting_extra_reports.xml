@@ -50,7 +50,7 @@
     </record>
 
     <menuitem id="wizard_accounting_extra_report_menu"
-              name="Reporte Interfaz General"
+              name="Reporte de Asientos Contables"
               parent="l10n_cl.account_reports_cl_statements_menu"
               action="cuadratura_asientos_wizard"
               sequence="40"

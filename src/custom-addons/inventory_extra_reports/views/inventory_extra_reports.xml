@@ -50,7 +50,7 @@
     </record>
 
     <menuitem id="cuadratura_inventario_report_menu"
-              name="Reporte Cuadratura Inventario PS"
+              name="Reporte de Movimientos de Inventario"
               parent="l10n_cl.account_reports_cl_statements_menu"
               action="cuadratura_inventario_wizard"
               sequence="50"/>

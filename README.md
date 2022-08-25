@@ -70,7 +70,7 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io
 docker --version
 ```
 
-- PASO 3: Instalación de docker-compose
+- Instalación de docker-compose
 
 Referencia: https://docs.docker.com/compose/install/
 
@@ -98,18 +98,25 @@ sudo su
 mkdir /opt/odoo
 ```
 
-- clonar el repositorio
-```
-git clone http://gitlab.ccu.cl/odoo-pos/odoo-pos.git
+- NGINX Config
+
+```bash
+cd /opt/odoo/odoo-pos/nginx/nginx-config
+j2 nginx_template.conf.j2 ../../env.json > nginx_template.conf
 ```
 
-- ajustar env.json según necesidad, si se requiere. 
-- Variable "env" asignar "PROD", "QA" o "DEV" para ambientes de ejecución en servidor y "LOCAL" para ambiente local
-```
-nano env.json
+- ODOO Config
+
+```bash
+cd /opt/odoo/odoo-pos/config
+j2 odoo.conf.j2 ../env.json > odoo.conf
 ```
 
-- inicie la aplicación
-```
-./run.sh
+- ODOO docker-compose
+
+```bash
+cd /opt/odoo/odoo-pos
+j2 docker-compose.yml.j2 env.json > docker-compose.yml
+
+docker-compose up -d --build
 ```
