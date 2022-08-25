@@ -76,6 +76,11 @@ class AccountMove(models.Model):
                 msg = "DTE Client Configuration Missing: Company (%s)" % (move.company_id.name)
                 _logger.warning(msg)
                 raise UserError(msg)
+            if not move.partner_id.city_id and move.l10n_latam_document_type_id.code not in ['39']:
+                msg = "Partner city fields is incomplete (partner: %s)" % (move.partner_id.name)
+                _logger.warning(msg)
+                raise UserError(msg)
+
             if not config.enabled:
                 _logger.info("DTE Synchronization Disabled")
                 return
