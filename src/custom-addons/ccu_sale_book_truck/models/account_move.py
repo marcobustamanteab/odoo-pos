@@ -351,13 +351,13 @@ class AccountMove(models.Model):
         _logger.info(url)
         if method == 'PUT':
             _logger.info('PUT')
-            respuesta = requests.put(url,headers=headers,data=data)
+            respuesta = requests.put(url,headers=headers,data=json.dumps(data))
         if method == 'POST':
             _logger.info('PUT')
-            respuesta = requests.put(url,headers=headers,data=data)
+            respuesta = requests.put(url,headers=headers,data=json.dumps(data))
         if method == 'DEL':
             _logger.info('PUT')
-            respuesta = requests.delete(url,headers=headers,data=data)     
+            respuesta = requests.delete(url,headers=headers,data=json.dumps(data))     
         _logger.info(respuesta)                   
         return respuesta
 
