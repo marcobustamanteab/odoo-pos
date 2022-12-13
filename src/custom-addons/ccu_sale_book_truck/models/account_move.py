@@ -190,7 +190,7 @@ class AccountMove(models.Model):
             'Content-Type': 'application/json',
         }
         r = self._api_client(data, 'POST', headers, url)
-        raise ValueError(type(r))
+        # raise ValueError(type(r))
         _logger.info(type(r))
         # respuesta = r.json()
         # respuesta = {
@@ -208,8 +208,8 @@ class AccountMove(models.Model):
         #         }
         #     }
         # }
-        _logger.info(respuesta)        
-        return respuesta
+        _logger.info(r)        
+        return r
 
 
     def _lvdet_sync_registry_data(self, impuestos, iva):
