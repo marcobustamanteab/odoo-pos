@@ -1,0 +1,110 @@
+<odoo>
+
+    <record model="ir.ui.view" id="view_account_move_form_lvdet">
+        <field name="name">account.move Libro de Ventas CCU</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="ccu_base.account_move_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='ccu_customization']" position="inside">
+                <group >
+                    <notebook>
+                        <page name="page_lvdet_general" string="Datos General">
+                            <group name="lvdet_general" string="LVDET Connector">
+                                <field name="lvdet_sync"/>
+                                <field name="lvdet_sync_date"/>
+                                <field name="lvdet_sync_confirmado"/>
+                                <field name="lvdet_sync_confirmado_date"/>
+                            </group>
+                        </page>
+                        <page name="page_lvdet_response" string="Consistency">
+                            <group>
+                                <field name="lvdet_payload"/>
+                                <field name="lvdet_message"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="view_account_move_tree_lvdet">
+        <field name="name">Libro de Ventas CCU - Periodos</field>
+        <field name="model">account.move</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <!-- <field name="date"/> -->
+                <!-- <field name="partner_id"/> -->
+                <field name="lvdet_sync"/>
+                <field name="lvdet_sync_date"/>
+                <field name="lvdet_sync_confirmado"/>
+                <field name="lvdet_sync_confirmado_date"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="action_account_move_tree_lvdet" model="ir.actions.act_window">
+        <field name="name">LibroVenta Periodos</field>
+        <field name="res_model">account.move</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_account_move_tree_lvdet"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_empty_folder">
+                There is no unpaid order from the website yet
+            </p><p>
+                Process the order once the payment is received.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_lvdet_period"
+      name="Libro de Venta - Periodos"
+      action="action_account_move_tree_lvdet"
+      sequence="30"
+      parent="ccu_connector_esb_account_out.sync_audit_menu"/>
+
+
+      <record model="ir.ui.view" id="ccu_view_account_move_send_lvdet_form">
+        <field name="name">account.move to Libro de Ventas</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <header>
+                <button name="lvdet_sync_registry"
+                        type="object"
+                        string="Send move to LibroVenta"
+                        confirm="Are you sure?"
+                        class="oe_highlight"/>
+                <!-- <button name="lvdet_sync_registry"
+                        type="object"
+                        string="Send move to LibroVenta"
+                        confirm="Are you sure?"
+                        attrs="{'invisible': [('lvdet_sync_confirmado', '=', True)]}"
+                        class="oe_highlight"/> -->
+            </header>
+        </field>
+    </record>
+
+      <!-- <record id="action_intcomex_config" model="ir.actions.act_window">
+        <field name="name">Intcomex Configuration</field>
+        <field name="res_model">intcomex.configuration</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_empty_folder">
+                There is no unpaid order from the website yet
+            </p><p>
+                Process the order once the payment is received.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_lvdet_registry"
+      name="Libro de Venta - Registros"
+      action="action_intcomex_config"
+      sequence="52"
+      parent="account.menu_finance_entries"/> -->
+
+</odoo>

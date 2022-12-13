@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+ccu_sale_book_truck.access_salebook_header_system,"SaleBook Header System",ccu_sale_book_truck.model_salebook_header,base.group_system,1,1,1,1
+ccu_sale_book_truck.access_salebook_header_user,"SaleBook Header User",ccu_sale_book_truck.model_salebook_header,base.group_user,1,1,1,0
+ccu_sale_book_truck.access_salebook_origin_system,"SaleBook Origin System",ccu_sale_book_truck.model_salebook_origin,base.group_system,1,1,1,1
+ccu_sale_book_truck.access_salebook_origin_user,"SaleBook Origin User",ccu_sale_book_truck.model_salebook_origin,base.group_user,1,1,1,0

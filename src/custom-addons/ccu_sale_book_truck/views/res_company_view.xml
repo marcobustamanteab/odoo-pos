@@ -1,0 +1,16 @@
+<odoo>
+
+    <record model="ir.ui.view" id="view_account_move_form_lvdet">
+        <field name="name">Compania Libro de Ventas CCU</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='esb_default_analytic_id']" position="after">
+                <field name="lvta_razon_social_comercial"/>
+                <field name="lvta_tipo_operacion"/>
+                <field name="lvta_tipo_origen"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="ClientDetailsEdit" t-inherit="point_of_sale.ClientDetailsEdit" t-inherit-mode="extension" owl="1">
+        <xpath expr="//input[@name='name']" position="replace">
+            <input class="detail client-name" name="name" t-att-value="props.partner.name"
+                   placeholder="Name" t-on-change="captureChange2" />
+        </xpath>
+    </t>
+
+   <t t-name="ClientDetailsEdit" t-inherit="point_of_sale.ClientDetailsEdit" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('client-details-left')]" position="replace">
+            <div class="client-details-left">
+                  <div class="client-detail">
+                       <span class="label">Tipo </span>
+                       <select class='detail client-l10n_cl_sii_taxpayer_type needsclick' name='l10n_cl_sii_taxpayer_type'
+                                   t-on-change="captureChange">
+
+                           <t t-foreach='env.pos.l10n_cl_sii_taxpayer_types' t-as='l10n_cl_sii_taxpayer_type' t-key="l10n_cl_sii_taxpayer_type.code">
+                               <option t-if="props.partner.l10n_cl_sii_taxpayer_type == l10n_cl_sii_taxpayer_type.code"
+                                           t-att-value='l10n_cl_sii_taxpayer_type.code'
+                                           t-att-selected="props.partner.l10n_cl_sii_taxpayer_type ? ((l10n_cl_sii_taxpayer_type.code === props.partner.l10n_cl_sii_taxpayer_type) ? true : undefined) : undefined">
+                                   <t t-esc='l10n_cl_sii_taxpayer_type.name'/>
+                               </option>
+                           </t>
+                           <t t-if="props.partner.l10n_cl_sii_taxpayer_type != '3'">
+                             <option value="3">Boleta
+                             </option>
+                           </t>
+                           <t t-if="props.partner.l10n_cl_sii_taxpayer_type != '1'">
+                             <option value="1">Factura
+                             </option>
+                          </t>
+                       </select>
+                   </div>
+                   <div class="client-detail">
+                       <span class="label">RUT</span>
+                       <input class="detail vat" name="vat" t-on-change="captureChange"
+                              t-att-value="props.partner.vat || ''" />
+                   </div>
+                    <div class="client-detail">
+                        <span class="label">Calle</span>
+                        <input class="detail client-address-street" name="street"
+                               t-on-change="captureChange" t-att-value="props.partner.street || ''"
+                               placeholder="Street" />
+                    </div>
+                    <div class="client-detail">
+                        <span class="label">Comuna</span>
+                        <select class="detail client-address-states needsclick" name="city_id"
+                                    t-on-change="captureChange">
+                            <option value="">Ninguna</option>
+                            <t t-foreach="env.pos.cities" t-as="city" t-key="city.id">
+                                <option t-if="props.partner.country_id[0] == city.country_id[0]"
+                                            t-att-value="city.id"
+                                            t-att-selected="props.partner.city_id ? ((city.id === props.partner.city_id[0]) ? true : undefined) : undefined">
+                                    <t t-esc="city.name" />
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+                    <div class="client-detail">
+                        <span class="label">Giro </span>
+                        <input class="detail client-address-street" name="l10n_cl_activity_description"
+                                                       t-on-change="captureChange" t-att-value="props.partner.l10n_cl_activity_description || ''"
+                                                       placeholder="Giro" />
+                    </div>
+            </div>
+        </xpath>
+    </t>
+
+   <t t-name="ClientDetailsEdit" t-inherit="point_of_sale.ClientDetailsEdit" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('client-details-right')]" position="replace">
+            <div class="client-details-right">
+                    <div class="client-detail">
+                        <span class="label">Email</span>
+                        <input class="detail client-email" name="email" type="email"
+                               t-on-change="captureChange"
+                               t-att-value="props.partner.email || ''" />
+                    </div>
+                    <div class="client-detail">
+                        <span class="label">DTE</span>
+                        <input class="detail client-email" name="l10n_cl_dte_email" type="email"
+                               t-on-change="captureChange"
+                               t-att-value="props.partner.l10n_cl_dte_email || ''"
+                               placeholder="Correo DTE"/>
+                    </div>
+                    <div class="client-detail">
+                        <span class="label">Teléfono</span>
+                        <input class="detail client-phone" name="phone" type="tel"
+                               t-on-change="captureChange"
+                               t-att-value="props.partner.phone || ''" maxlength="9"/>
+                    </div>
+                    <div class="client-detail">
+                        <span class="label">Celular</span>
+                        <input class="detail client-phone" name="mobile" type="tel"
+                               t-on-change="captureChange"
+                               t-att-value="props.partner.mobile || ''" maxlength="9"/>
+                    </div>
+                    <div class="client-detail">
+                        <span class="label">Nacimiento</span>
+                        <input type="date" name="dob" t-on-change="captureChange" t-att-value="props.partner.dob || '2000-01-01'"/>
+                    </div>
+            </div>
+        </xpath>
+    </t>
+
+</templates>
