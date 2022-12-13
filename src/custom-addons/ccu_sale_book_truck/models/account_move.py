@@ -354,7 +354,7 @@ class AccountMove(models.Model):
             respuesta = requests.put(url,headers=headers,json=data)
         if method == 'POST':
             _logger.info('POST')
-            respuesta = requests.put(url,headers=headers,json=data)
+            respuesta = requests.post(url,headers=headers,json=data)
         if method == 'DEL':
             _logger.info('DEL')
             respuesta = requests.delete(url,headers=headers,json=data)     
