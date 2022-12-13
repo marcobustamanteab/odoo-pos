@@ -141,12 +141,7 @@ class AccountMove(models.Model):
             'Content-Type': 'application/json',
         }
         r = self._api_client('PUT', headers, data, url)
-        _logger.info(type(r))
         resp = r.json()
-        # resp = {
-        #     "respuesta": "Creacion Exitosa de Registros",
-        #     "detalle": "Los registros fueron creacion exitosamente"
-        # }
         _logger.info(resp)        
         return resp
 
@@ -158,30 +153,9 @@ class AccountMove(models.Model):
             'Content-Type': 'application/json',
         }
         r = self._api_client('POST', headers, data, url)
-        # raise ValueError(r)
-        # respuesta = r.json()
-        # respuesta = {
-        #     "cabeceras": {
-        #         "cabecera": {
-        #             "razon_social_comercial": 7,
-        #             "fecha_envio_sii": "2021-12-30T01:00:00.000-03:00",
-        #             "codigo_de_estado": "AB",
-        #             "origen_5": "S",
-        #             "origen_6": "S",
-        #             "flag_carga_vyd": "S",
-        #             "origen_7": "S",
-        #             "origen_8": "S",
-        #             "periodo_mes": 12,
-        #             "flag_carga_odoo": "N",
-        #             "periodo_anio": 2022,
-        #             "flag_carga_peoplesoft": "S",
-        #             "flag_carga_truck": "S",
-        #             "tipo_operacion": "Venta"
-        #         }
-        #     }
-        # }
-        _logger.info(r)        
-        # return respuesta
+        respuesta = r.json()
+        _logger.info(respuesta)        
+        return respuesta
 
     def _get_lvdet_monthly_origin_api(self, mes, anio):
         data = self._get_lvdet_monthly_origin_api_data(mes, anio)
@@ -191,26 +165,9 @@ class AccountMove(models.Model):
             'Content-Type': 'application/json',
         }
         r = self._api_client('POST', headers, data, url)
-        # raise ValueError(type(r))
-        _logger.info(type(r))
-        # respuesta = r.json()
-        # respuesta = {
-        #     "origenes": {
-        #         "origen": {
-        #             "razon_social_comercial": 7,
-        #             "tipo_origen": "ODO",
-        #             "estado_origen": "GEN",
-        #             "ruta_archivo": "nnnnnnn                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         ",
-        #             "periodo_mes": 12,
-        #             "tipo_proceso": "A",
-        #             "periodo_anio": 2022,
-        #             "origen_fecha": "2021-12-30T01:00:00.000-03:00",
-        #             "tipo_operacion": "Venta"
-        #         }
-        #     }
-        # }
-        _logger.info(r)        
-        return r
+        respuesta = r.json()
+        _logger.info(respuesta)        
+        return respuesta
 
 
     def _lvdet_sync_registry_data(self, impuestos, iva):
