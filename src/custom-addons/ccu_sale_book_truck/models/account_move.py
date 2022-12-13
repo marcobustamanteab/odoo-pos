@@ -153,7 +153,7 @@ class AccountMove(models.Model):
     def _get_lvdet_monthly_header_api(self, mes, anio):
         data = self._get_lvdet_monthly_header_api_data(mes, anio)
         backend = self.company_id.backend_esb_id
-        url = backend.host + ':' + str(backend.port) + 'api/libroventas/cabecera/obtener'
+        url = backend.host + ':' + str(backend.port) + '/api/libroventas/cabecera/obtener'
         headers = {
             'Content-Type': 'application/json',
         }
@@ -186,7 +186,7 @@ class AccountMove(models.Model):
     def _get_lvdet_monthly_origin_api(self, mes, anio):
         data = self._get_lvdet_monthly_origin_api_data(mes, anio)
         backend = self.company_id.backend_esb_id
-        url = backend.host + ':' + str(backend.port) + 'api/libroventas/origen/obtener'
+        url = backend.host + ':' + str(backend.port) + '/api/libroventas/origen/obtener'
         headers = {
             'Content-Type': 'application/json',
         }
