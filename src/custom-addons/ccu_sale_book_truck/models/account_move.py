@@ -220,7 +220,7 @@ class AccountMove(models.Model):
                     'periodo_mes': self.date.month,
                     'tipo_operacion': str(self._truck_operation),
                     'tipo_origen': str(self._truck_origen),
-                    'tipo_de_documento': self.l10n_latam_document_type_id_code,
+                    'tipo_de_documento': self.l10n_latam_document_type_id_code,'antes de cliente'
                     'numero_de_documento': self.l10n_latam_document_number,
                     'numero_interno': self.id,
                     'centro_distribución': 0,
@@ -388,6 +388,8 @@ class AccountMove(models.Model):
 
     def _api_client(self, method, headers, data, url):
         respuesta = ''
+        _logger.info('antes de cliente')
+        _logger.info(data)
         if method == 'PUT':
             _logger.info('PUT')
             respuesta = requests.put(url,headers=headers,data=data)
@@ -396,7 +398,8 @@ class AccountMove(models.Model):
             respuesta = requests.put(url,headers=headers,data=data)
         if method == 'DEL':
             _logger.info('PUT')
-            respuesta = requests.delete(url,headers=headers,data=data)                        
+            respuesta = requests.delete(url,headers=headers,data=data)     
+        _logger.info(respuesta)                   
         return respuesta
 
     def action_pos(self, values):
