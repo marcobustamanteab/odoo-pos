@@ -180,7 +180,7 @@ class AccountMove(models.Model):
         #     }
         # }
         _logger.info(respuesta)        
-        return respuesta
+        # return respuesta
 
     def _get_lvdet_monthly_origin_api(self, mes, anio):
         data = self._get_lvdet_monthly_origin_api_data(mes, anio)
@@ -190,8 +190,9 @@ class AccountMove(models.Model):
             'Content-Type': 'application/json',
         }
         r = self._api_client(data, 'POST', headers, url)
+        raise ValueError(type(r))
         _logger.info(type(r))
-        respuesta = r.json()
+        # respuesta = r.json()
         # respuesta = {
         #     "origenes": {
         #         "origen": {
