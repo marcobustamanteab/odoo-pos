@@ -131,7 +131,8 @@ class AccountMove(models.Model):
             'tipo_proceso': 'A'
         }
 
-    #### Client Api Operation
+    #### Client Api Operation  
+    #### (self, method, headers, data, url):
 
     def _create_lvdet_registry_api(self, data):
         backend = self.company_id.backend_esb_id
@@ -139,7 +140,7 @@ class AccountMove(models.Model):
         headers = {
             'Content-Type': 'application/json',
         }
-        r = self._api_client(data, 'PUT', headers, url)
+        r = self._api_client('PUT', headers, data, url)
         _logger.info(type(r))
         resp = r.json()
         # resp = {
@@ -156,7 +157,7 @@ class AccountMove(models.Model):
         headers = {
             'Content-Type': 'application/json',
         }
-        r = self._api_client(data, 'POST', headers, url)
+        r = self._api_client('POST', headers, data, url)
         # raise ValueError(r)
         # respuesta = r.json()
         # respuesta = {
@@ -189,7 +190,7 @@ class AccountMove(models.Model):
         headers = {
             'Content-Type': 'application/json',
         }
-        r = self._api_client(data, 'POST', headers, url)
+        r = self._api_client('POST', headers, data, url)
         # raise ValueError(type(r))
         _logger.info(type(r))
         # respuesta = r.json()
