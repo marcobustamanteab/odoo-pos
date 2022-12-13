@@ -390,8 +390,8 @@ class AccountMove(models.Model):
     def _api_client(self, method, headers, data, url):
         respuesta = ''
         _logger.info('antes de cliente')
-        _logger.info('data -> ' + data)
-        _logger.info('url -> ' + url)
+        _logger.info(data)
+        _logger.info(url)
         if method == 'PUT':
             _logger.info('PUT')
             respuesta = requests.put(url,headers=headers,data=data)
