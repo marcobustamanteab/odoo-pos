@@ -157,7 +157,7 @@ class AccountMove(models.Model):
             'Content-Type': 'application/json',
         }
         r = self._api_client(data, 'POST', headers, url)
-        raise ValueError(r)
+        # raise ValueError(r)
         # respuesta = r.json()
         # respuesta = {
         #     "cabeceras": {
@@ -179,7 +179,7 @@ class AccountMove(models.Model):
         #         }
         #     }
         # }
-        _logger.info(respuesta)        
+        _logger.info(r)        
         # return respuesta
 
     def _get_lvdet_monthly_origin_api(self, mes, anio):
