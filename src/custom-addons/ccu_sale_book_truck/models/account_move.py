@@ -157,7 +157,7 @@ class AccountMove(models.Model):
             'Content-Type': 'application/json',
         }
         r = self._api_client(data, 'POST', headers, url)
-        _logger.info(type(r))
+        raise ValueError(type(r))
         # respuesta = r.json()
         # respuesta = {
         #     "cabeceras": {
