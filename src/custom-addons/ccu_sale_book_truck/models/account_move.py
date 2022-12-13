@@ -389,10 +389,13 @@ class AccountMove(models.Model):
     def _api_client(self, method, headers, data, url):
         respuesta = ''
         if method is 'PUT':
+            _logger.info('PUT')
             respuesta = requests.put(url,headers=headers,data=data)
         if method is 'POST':
+            _logger.info('PUT')
             respuesta = requests.put(url,headers=headers,data=data)
         if method is 'DEL':
+            _logger.info('PUT')
             respuesta = requests.delete(url,headers=headers,data=data)                        
         return respuesta
 
