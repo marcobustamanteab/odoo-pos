@@ -1,4 +1,4 @@
-<odoo>
+<odoo noupdate="0">
 
     <record model="ir.ui.view" id="view_salebook_header_form_lvdet">
         <field name="name">Libro de Ventas CCU - Periodos</field>
