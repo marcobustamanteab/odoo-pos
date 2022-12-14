@@ -4,21 +4,29 @@
         <field name="name">Libro de Ventas CCU - Periodos</field>
         <field name="model">salebook.header</field>
         <field name="arch" type="xml">
-            <form>
-                <field name="razon_social_comercial"/>
-                <field name="periodo_anio"/>
-                <field name="periodo_mes"/>
-                <field name="tipo_operacion"/>
-                <field name="flag_carga_truck"/>
-                <field name="flag_carga_peoplesoft"/>
-                <field name="flag_carga_vyd"/>
-                <field name="codigo_de_estado"/>
-                <field name="fecha_envio_sii"/>
-                <field name="flag_carga_odoo"/>
-                <field name="origen_5"/>
-                <field name="origen_6"/>
-                <field name="origen_7"/>
-                <field name="origen_8"/>
+            <form string="Libro de Ventas CCU - Periodos">
+                <sheet>
+                    <group>
+                        <group>            
+                            <field name="razon_social_comercial"/>
+                            <field name="periodo_anio"/>
+                            <field name="periodo_mes"/>
+                            <field name="tipo_operacion"/>
+                        </group>
+                        <group>                            
+                            <field name="flag_carga_truck"/>
+                            <field name="flag_carga_peoplesoft"/>
+                            <field name="flag_carga_vyd"/>
+                            <field name="codigo_de_estado"/>
+                            <field name="fecha_envio_sii"/>
+                            <field name="flag_carga_odoo"/>
+                            <field name="origen_5"/>
+                            <field name="origen_6"/>
+                            <field name="origen_7"/>
+                            <field name="origen_8"/>
+                        </group>
+                    </group>
+                </sheet>                           
             </form>
         </field>
     </record>
@@ -28,7 +36,7 @@
         <field name="name">Libro de Ventas CCU - Periodos</field>
         <field name="model">salebook.header</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree string="Libro de Ventas CCU - Periodos">
                 <field name="razon_social_comercial"/>
                 <field name="periodo_anio"/>
                 <field name="periodo_mes"/>

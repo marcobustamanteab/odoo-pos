@@ -4,16 +4,24 @@
         <field name="name">Libro de Ventas CCU - Origenes</field>
         <field name="model">salebook.origin</field>
         <field name="arch" type="xml">
-            <form>
-                <field name="razon_social_comercial"/>
-                <field name="periodo_anio"/>
-                <field name="periodo_mes"/>
-                <field name="tipo_operacion"/>
-                <field name="tipo_origen"/>
-                <field name="origen_fecha"/>
-                <field name="estado_origen"/>
-                <field name="ruta_archivo"/>
-                <field name="tipo_proceso"/>
+            <form string="Libro de Ventas CCU - Origenes">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="razon_social_comercial"/>
+                            <field name="periodo_anio"/>
+                            <field name="periodo_mes"/>
+                            <field name="tipo_operacion"/>
+                            <field name="tipo_origen"/>
+                        </group>
+                        <group>                            
+                            <field name="origen_fecha"/>
+                            <field name="estado_origen"/>
+                            <field name="ruta_archivo"/>
+                            <field name="tipo_proceso"/>
+                        </group>
+                    </group>
+                </sheet>                            
             </form>
         </field>
     </record>
@@ -23,7 +31,7 @@
         <field name="name">Libro de Ventas CCU - Origenes</field>
         <field name="model">salebook.origin</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree string="Libro de Ventas CCU - Origenes">
                 <field name="razon_social_comercial"/>
                 <field name="periodo_anio"/>
                 <field name="periodo_mes"/>
