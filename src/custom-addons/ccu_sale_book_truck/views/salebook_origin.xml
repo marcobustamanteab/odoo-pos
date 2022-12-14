@@ -3,7 +3,6 @@
     <record model="ir.ui.view" id="view_salebook_origin_form_lvdet">
         <field name="name">Libro de Ventas CCU - Origenes</field>
         <field name="model">salebook.origin</field>
-        <field name="view_mode">form</field>
         <field name="arch" type="xml">
             <form>
                 <field name="razon_social_comercial"/>
@@ -23,7 +22,6 @@
     <record model="ir.ui.view" id="view_salebook_origin_tree_lvdet">
         <field name="name">Libro de Ventas CCU - Origenes</field>
         <field name="model">salebook.origin</field>
-        <field name="view_mode">tree</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="razon_social_comercial"/>
