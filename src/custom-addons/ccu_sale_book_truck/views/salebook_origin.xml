@@ -39,12 +39,6 @@
         </field>
     </record>
 
-    <menuitem id="menu_lvdet_origin"
-      name="Libro de Venta - Origenes"
-      action="action_salebook_origin"
-      sequence="40"
-      parent="ccu_connector_esb_account_out.sync_audit_menu"/>
-
       <record id="action_salebook_origin" model="ir.actions.act_window">
         <field name="name">Libro de Ventas - Origenes</field>
         <field name="res_model">salebook.origin</field>
@@ -57,5 +51,11 @@
             </p>
         </field>
     </record>
+
+    <menuitem id="menu_lvdet_origin"
+      name="Libro de Venta - Origenes"
+      action="action_salebook_origin"
+      sequence="40"
+      parent="ccu_connector_esb_account_out.sync_audit_menu"/>
 
 </odoo>

@@ -47,13 +47,7 @@
         </field>
     </record>
 
-    <menuitem id="menu_lvdet_period"
-      name="Libro de Venta - Periodos"
-      action="action_salebook_header"
-      sequence="30"
-      parent="ccu_connector_esb_account_out.sync_audit_menu"/>
-
-      <record id="action_salebook_header" model="ir.actions.act_window">
+    <record id="action_salebook_header" model="ir.actions.act_window">
         <field name="name">Libro de Ventas - Periodos</field>
         <field name="res_model">salebook.header</field>
         <field name="view_mode">tree,form</field>
@@ -65,5 +59,11 @@
             </p>
         </field>
     </record>
+
+    <menuitem id="menu_lvdet_period"
+      name="Libro de Venta - Periodos"
+      action="action_salebook_header"
+      sequence="30"
+      parent="ccu_connector_esb_account_out.sync_audit_menu"/>
 
 </odoo>
