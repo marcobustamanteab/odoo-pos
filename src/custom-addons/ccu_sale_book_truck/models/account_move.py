@@ -89,7 +89,7 @@ class AccountMove(models.Model):
 
     def _get_lvdet_monthly_registry_api_data(self, mes, anio, tipo_doc, num_doc):
         return {
-            'razon_social_comercial': self.company_id.lvta_razon_social_comercial,
+            'razon_social_comercial': self.company_id.truck_UEN_code,
             'periodo_anio': anio,
             'periodo_mes': mes,
             'tipo_operacion': self.company_id.lvta_tipo_operacion,
@@ -100,7 +100,7 @@ class AccountMove(models.Model):
 
     def _create_lvdet_monthly_header_api_data(self, mes, anio):
         return {
-            'razon_social_comercial': self.company_id.lvta_razon_social_comercial,
+            'razon_social_comercial': self.company_id.truck_UEN_code,
             'periodo_anio': anio,
             'periodo_mes': mes,
             'tipo_operacion': self.company_id.lvta_tipo_operacion,
@@ -120,7 +120,7 @@ class AccountMove(models.Model):
 
     def _create_lvdet_monthly_origin_api_data(self, mes, anio):
         return {
-            'razon_social_comercial': self.company_id.lvta_razon_social_comercial,
+            'razon_social_comercial': self.company_id.truck_UEN_code,
             'periodo_anio': anio,
             'periodo_mes': mes,
             'tipo_operacion': self.company_id.lvta_tipo_operacion,
@@ -173,7 +173,7 @@ class AccountMove(models.Model):
     def _lvdet_sync_registry_data(self, impuestos, iva):
         return {
                 'registro': {
-                    'razon_social_comercial': self.partner_id.id,
+                    'razon_social_comercial': self.company_id.truck_UEN_code,
                     'periodo_anio': self.date.year,
                     'periodo_mes': self.date.month,
                     'tipo_operacion': str(self._truck_operation),
