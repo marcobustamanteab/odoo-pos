@@ -246,7 +246,7 @@ class AccountMove(models.Model):
     def _create_lvdet_monthly_header_local(self):
         self.env['salebook.header'].write(
             {
-                'razon_social_comercial': self.company_id.lvta_razon_social_comercial,
+                'razon_social_comercial': self.company_id.truck_UEN_code,
                 'periodo_anio': self.date.year,
                 'periodo_mes': self.date.month,
                 'tipo_operacion': self.company_id.lvta_tipo_operacion,
@@ -268,7 +268,7 @@ class AccountMove(models.Model):
     def _create_lvdet_monthly_origin_local(self):
         self.env['salebook.origin'].write(
             {
-                'razon_social_comercial': self.company_id.lvta_razon_social_comercial,
+                'razon_social_comercial': self.company_id.truck_UEN_code,
                 'periodo_anio': self.date.year,
                 'periodo_mes': self.date.month,
                 'tipo_operacion': self.company_id.lvta_tipo_operacion,
@@ -310,7 +310,7 @@ class AccountMove(models.Model):
         
         cabecera = self.env['salebook.header'].search(
             [
-                ('razon_social_comercial', '=', self.company_id.lvta_razon_social_comercial),
+                ('razon_social_comercial', '=', self.company_id.truck_UEN_code),
                 ('periodo_anio', '=', self.date.year),
                 ('periodo_mes', '=', self.date.month),
                 ('tipo_operacion', '=', self.company_id.lvta_tipo_operacion)
@@ -319,7 +319,7 @@ class AccountMove(models.Model):
 
         origen = self.env['salebook.origin'].search(
             [
-                ('razon_social_comercial', '=', self.company_id.lvta_razon_social_comercial),
+                ('razon_social_comercial', '=', self.company_id.truck_UEN_code),
                 ('periodo_anio', '=', self.date.year),
                 ('periodo_mes', '=', self.date.month),
                 ('tipo_operacion', '=', self.company_id.lvta_tipo_operacion),
