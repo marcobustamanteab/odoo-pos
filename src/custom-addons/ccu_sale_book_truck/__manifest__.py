@@ -20,6 +20,8 @@
     'data': [
         'views/account_move.xml',
         'views/res_company_view.xml',
+        'views/salebook_header.xml',
+        'views/salebook_origin.xml',
         'security/ir.model.access.csv',
     ],
     'installable': True,
