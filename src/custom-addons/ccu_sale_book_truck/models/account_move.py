@@ -143,7 +143,7 @@ class AccountMove(models.Model):
         headers = {
             'Content-Type': 'application/json',
         }
-        r = self._api_client('POST', headers, data, url)
+        r = self._api_client('PUT', headers, data, url)
         resp = r.json()
         _logger.info(resp)        
         return resp
