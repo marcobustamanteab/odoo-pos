@@ -18,8 +18,9 @@
                         </page>
                         <page name="page_lvdet_response" string="Consistency">
                             <group>
-                                <field name="lvdet_payload"/>
                                 <field name="lvdet_message"/>
+                                <field name="lvdet_payload_request"/>
+                                <field name="lvdet_payload_response"/>
                             </group>
                         </page>
                     </notebook>

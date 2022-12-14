@@ -27,9 +27,12 @@ class AccountMove(models.Model):
     lvdet_sync_confirmado = fields.Boolean(
         string='Confirmación de cierre de periodo'
     )
-    lvdet_payload = fields.Binary(
-        string='Datos Transferidos'
+    lvdet_payload_request = fields.Text(
+        string='Datos Enviados'
     )
+    lvdet_payload_response = fields.Text(
+        string='Datos Recibidos'
+    )    
     lvdet_message = fields.Char(
         string='Mensajes y comentarios'
     )
@@ -278,9 +281,10 @@ class AccountMove(models.Model):
         )        
         return 
 
-    def _create_lvdet_registry_local(self, message, payload):
+    def _create_lvdet_registry_local(self, message, payload_request, payload_response):
         self.lvdet_message = message
-        # self.lvdet_payload = base64.b64encode(payload)
+        self.lvdet_payload_request = payload_request
+        self.lvdet_payload_response = payload_response
         self.lvdet_sync_date = date.today().strftime(self._truck_date_format)
         self.lvdet_sync = True
 
@@ -339,7 +343,7 @@ class AccountMove(models.Model):
         respuesta = self._create_lvdet_registry_api(data_final)
 
         if respuesta:
-            self._create_lvdet_registry_local(respuesta['respuesta'], data_final)
+            self._create_lvdet_registry_local(respuesta['respuesta'], data_final, respuesta)
 
     def _api_client_create_lvdet(self):
         return True
