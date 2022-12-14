@@ -5,25 +5,21 @@
         <field name="model">account.move</field>
         <field name="inherit_id" ref="ccu_base.account_move_form_view"/>
         <field name="arch" type="xml">
-            <xpath expr="//page[@name='ccu_customization']" position="inside">
-                <group>
-                    <notebook>
-                        <page name="page_lvdet_general" string="Datos General">
-                            <group name="lvdet_general" string="LVDET Connector">
-                                <field name="lvdet_sync"/>
-                                <field name="lvdet_sync_date"/>
-                                <field name="lvdet_sync_confirmado"/>
-                                <field name="lvdet_sync_confirmado_date"/>
-                            </group>
-                        </page>
-                        <page name="page_lvdet_response" string="Consistency">
-                            <group>
-                                <field name="lvdet_payload"/>
-                                <field name="lvdet_message"/>
-                            </group>
-                        </page>
-                    </notebook>
-                </group>
+            <xpath expr="//page[@name='ccu_customization']/group/notebook" position="inside">
+                <page name="page_lvdet_general" string="Datos General">
+                    <group name="lvdet_general" string="LVDET Connector">
+                        <field name="lvdet_sync"/>
+                        <field name="lvdet_sync_date"/>
+                        <field name="lvdet_sync_confirmado"/>
+                        <field name="lvdet_sync_confirmado_date"/>
+                    </group>
+                </page>
+                <page name="page_lvdet_response" string="Consistency">
+                    <group>
+                        <field name="lvdet_payload"/>
+                        <field name="lvdet_message"/>
+                    </group>
+                </page>
             </xpath>
         </field>
     </record>
