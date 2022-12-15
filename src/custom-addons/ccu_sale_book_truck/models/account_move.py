@@ -189,7 +189,7 @@ class AccountMove(models.Model):
                     'documento_anulado': '.',
                     'codigo_operación': 0,
                     'tipo_impuesto': 0,
-                    'tasa_impuesto': iva.tax_line_id.amount,
+                    'tasa_impuesto': int(iva.tax_line_id.amount),
                     'indicador_servicio': 0,
                     'indicador_sin_costo': 0,
                     'fecha_documento': self.date.strftime(self._truck_date_format),
@@ -297,7 +297,7 @@ class AccountMove(models.Model):
                     'tipo_de_documento': self.l10n_latam_document_type_id_code,
                     'numero_de_documento': self.l10n_latam_document_number,
                     'codigo_de_impuesto': rec.tax_line_id.l10n_cl_sii_code,
-                    'tasa_del_impuesto': rec.tax_line_id.amount,
+                    'tasa_del_impuesto': int(rec.tax_line_id.amount),
                     'monto_del_impuesto': rec.price_total,
                     'numero_interno': rec.id
                 }
