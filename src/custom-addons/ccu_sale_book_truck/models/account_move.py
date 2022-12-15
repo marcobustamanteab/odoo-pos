@@ -340,8 +340,8 @@ class AccountMove(models.Model):
 
         respuesta = self._create_lvdet_registry_api(data_final)
 
-        if respuesta:
-            self._create_lvdet_registry_local(respuesta['respuesta'], data_final, respuesta)
+        # if respuesta:
+        self._create_lvdet_registry_local(respuesta['respuesta'], data_final, respuesta)
 
     def _api_client_create_lvdet(self):
         return True
