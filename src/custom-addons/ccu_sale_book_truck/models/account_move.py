@@ -200,8 +200,8 @@ class AccountMove(models.Model):
                     'tipo_documento_referencia': 0,
                     'folio_documento_referencia': 0,
                     'monto_exento': 0,
-                    'monto_neto': self.amount_untaxed,
-                    'monto_iva': iva.l10n_latam_price_subtotal,
+                    'monto_neto': int(self.amount_untaxed),
+                    'monto_iva': int(iva.l10n_latam_price_subtotal),
                     'monto_activo_fijo': 0,
                     'iva_uso_comun': 0,
                     'iva_fuera_de_plazo': 0,
@@ -211,7 +211,7 @@ class AccountMove(models.Model):
                     'iva_retenido_parcial': 0,
                     'cre_dec': 0,
                     'deposito_de_envase': 0,
-                    'monto_total': self.amount_total_signed,
+                    'monto_total': int(self.amount_total_signed),
                     'iva_no_etenido': 0,
                     'total_monto_no_facturado': 0,
                     'total_monto_per': 0,
@@ -298,7 +298,7 @@ class AccountMove(models.Model):
                     'numero_de_documento': self.l10n_latam_document_number,
                     'codigo_de_impuesto': rec.tax_line_id.l10n_cl_sii_code,
                     'tasa_del_impuesto': int(rec.tax_line_id.amount),
-                    'monto_del_impuesto': rec.price_total,
+                    'monto_del_impuesto': int(rec.price_total),
                     'numero_interno': rec.id
                 }
 
