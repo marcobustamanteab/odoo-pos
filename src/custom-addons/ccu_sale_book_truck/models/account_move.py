@@ -289,7 +289,7 @@ class AccountMove(models.Model):
 
     def _create_lvdet_tax(self, rec):
         return {
-                    'razon_social_comercial': self.partner_id.id,
+                    'razon_social_comercial': self.company_id.truck_UEN_code,
                     'periodo_anio': self.date.year,
                     'periodo_mes': self.date.month,
                     'tipo_operacion': str(self.company_id.lvta_tipo_operacion),
