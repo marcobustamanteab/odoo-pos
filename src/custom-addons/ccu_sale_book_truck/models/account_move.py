@@ -364,9 +364,13 @@ class AccountMove(models.Model):
         _logger.info(respuesta)                   
         return respuesta
 
-    def action_pos(self, values):
-        self.lvdet_sync_registry()
-        return super(AccountMove, self).write(values)
+    # def action_pos(self, values):
+    #     self.lvdet_sync_registry()
+    #     return super(AccountMove, self).write(values)
 
 
-
+    def _post(self, soft=True):
+        res = super(AccountMove, self)._post(soft)
+        for rec in self:
+            rec.with_delay(channel='root.account').lvdet_sync_registry()
+        return res
