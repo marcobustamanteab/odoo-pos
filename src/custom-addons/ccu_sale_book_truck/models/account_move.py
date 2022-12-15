@@ -325,11 +325,11 @@ class AccountMove(models.Model):
             ]
         )
 
-        if cabecera.id is False and origen.id is False:
-            cabecera_api = self._get_lvdet_monthly_header_api(self.date.month, self.date.year)
-            origen_api = self._get_lvdet_monthly_origin_api(self.date.month, self.date.year)
-            self._create_lvdet_monthly_header_local()
-            self._create_lvdet_monthly_origin_local()
+        # if cabecera.id is False and origen.id is False:
+        cabecera_api = self._get_lvdet_monthly_header_api(self.date.month, self.date.year)
+        origen_api = self._get_lvdet_monthly_origin_api(self.date.month, self.date.year)
+            # self._create_lvdet_monthly_header_local()
+            # self._create_lvdet_monthly_origin_local()
 
         for rec in self.l10n_latam_tax_ids:
             if rec.tax_line_id.description == 'IVA':
