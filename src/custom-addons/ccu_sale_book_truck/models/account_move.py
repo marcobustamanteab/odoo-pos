@@ -11,8 +11,6 @@ class AccountMove(models.Model):
     _inherit = ['account.move']
 
 
-    _truck_operation = 'Venta'
-    _truck_origen = 'ODOO'
     _truck_date_format = '%Y-%m-%dT%H:%M:%S.%fZ'
 
     lvdet_sync_date = fields.Date(
@@ -179,9 +177,9 @@ class AccountMove(models.Model):
                     'razon_social_comercial': self.company_id.truck_UEN_code,
                     'periodo_anio': self.date.year,
                     'periodo_mes': self.date.month,
-                    'tipo_operacion': str(self._truck_operation),
-                    'tipo_origen': str(self._truck_origen),
-                    'tipo_de_documento': self.l10n_latam_document_type_id_code,'antes de cliente'
+                    'tipo_operacion': str(self.company_id.lvta_tipo_operacion),
+                    'tipo_origen': str(self.company_id.lvta_tipo_origen),
+                    'tipo_de_documento': self.l10n_latam_document_type_id_code,
                     'numero_de_documento': self.l10n_latam_document_number,
                     'numero_interno': self.id,
                     'centro_distribución': 0,
@@ -294,8 +292,8 @@ class AccountMove(models.Model):
                     'razon_social_comercial': self.partner_id.id,
                     'periodo_anio': self.date.year,
                     'periodo_mes': self.date.month,
-                    'tipo_operacion': str(self._truck_operation),
-                    'tipo_origen': str(self._truck_origen),
+                    'tipo_operacion': str(self.company_id.lvta_tipo_operacion),
+                    'tipo_origen': str(self.company_id.lvta_tipo_origen),
                     'tipo_de_documento': self.l10n_latam_document_type_id_code,
                     'numero_de_documento': self.l10n_latam_document_number,
                     'codigo_de_impuesto': rec.tax_line_id.l10n_cl_sii_code,
