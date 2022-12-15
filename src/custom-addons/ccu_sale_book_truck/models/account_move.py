@@ -196,7 +196,7 @@ class AccountMove(models.Model):
                     'codigo_sucursal': 0,
                     'rut_documento': self.partner_id_vat.split('-')[0],
                     'dv': self.partner_id_vat.split('-')[1],
-                    'razon_social': self.invoice_partner_display_name,
+                    'razon_social': self.invoice_partner_display_name[:49],
                     'tipo_documento_referencia': 0,
                     'folio_documento_referencia': 0,
                     'monto_exento': 0,
