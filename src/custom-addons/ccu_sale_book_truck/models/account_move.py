@@ -339,8 +339,9 @@ class AccountMove(models.Model):
         data_final = self._lvdet_sync_registry_data(impuestos, iva)
 
         respuesta = self._create_lvdet_registry_api(data_final)
+        _logger.info('respuesta registro')
+        _logger.info(respuesta)
 
-        # if respuesta:
         self._create_lvdet_registry_local(respuesta['respuesta'], data_final, respuesta)
 
     def _api_client_create_lvdet(self):
