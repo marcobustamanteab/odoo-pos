@@ -334,7 +334,7 @@ class AccountMove(models.Model):
             # self._create_lvdet_monthly_header_local()
             # self._create_lvdet_monthly_origin_local()
 
-        if cabecera['cabeceras'][cabecera] is not 'AB':
+        if cabecera['cabeceras']['cabecera'] is not 'AB':
             msg = "LibroVenta cerrado, no se pueden modificar los datos"
             raise RetryableJobError(msg) 
 
