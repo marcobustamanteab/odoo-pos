@@ -140,7 +140,7 @@ class AccountMove(models.Model):
 
     def _create_lvdet_registry_api(self, data):
         backend = self.company_id.backend_esb_id
-        url = backend.host + ':' + str(backend.port) + '/api/libroventas/libro/crear'
+        url = '/api/libroventas/libro/crear'
         res = backend.api_esb_call('PUT', url, data)
         if not res:
             msg = "LibroVenta Synchornization Service Connection Error"
@@ -152,7 +152,7 @@ class AccountMove(models.Model):
     def _get_lvdet_monthly_header_api(self, mes, anio):
         data = self._get_lvdet_monthly_header_api_data(mes, anio)
         backend = self.company_id.backend_esb_id
-        url = backend.host + ':' + str(backend.port) + '/api/libroventas/cabecera/obtener'
+        url = '/api/libroventas/cabecera/obtener'
         res = backend.api_esb_call("POST", url, data)
         if not res:
             msg = "LibroVenta Synchornization Service Connection Error"
@@ -164,7 +164,7 @@ class AccountMove(models.Model):
     def _get_lvdet_monthly_origin_api(self, mes, anio):
         data = self._get_lvdet_monthly_origin_api_data(mes, anio)
         backend = self.company_id.backend_esb_id
-        url = backend.host + ':' + str(backend.port) + '/api/libroventas/origen/obtener'
+        url = '/api/libroventas/origen/obtener'
         res = backend.api_esb_call("POST", url, data)
         if not res:
             msg = "LibroVenta Synchornization Service Connection Error"
