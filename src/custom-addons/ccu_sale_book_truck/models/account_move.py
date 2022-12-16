@@ -4,6 +4,9 @@ import requests
 import logging
 import json
 from odoo import api, fields, models, _
+from odoo.exceptions import RedirectWarning, UserError, ValidationError, AccessError
+from odoo.tools.misc import formatLang, format_date, get_lang
+from odoo.addons.queue_job.exception import RetryableJobError
 
 _logger = logging.getLogger(__name__)
 
@@ -138,37 +141,37 @@ class AccountMove(models.Model):
     def _create_lvdet_registry_api(self, data):
         backend = self.company_id.backend_esb_id
         url = backend.host + ':' + str(backend.port) + '/api/libroventas/libro/crear'
-        headers = {
-            'Content-Type': 'application/json',
-        }
-        r = self._api_client('PUT', headers, data, url)
-        resp = r.json()
-        _logger.info(resp)        
-        return resp
+        res = backend.api_esb_call('PUT', url, data)
+        if not res:
+            msg = "LibroVenta Synchornization Service Connection Error"
+            raise RetryableJobError(msg)
+        res = json.dumps(res, indent=4)
+        _logger.info(res)        
+        return res
 
     def _get_lvdet_monthly_header_api(self, mes, anio):
         data = self._get_lvdet_monthly_header_api_data(mes, anio)
         backend = self.company_id.backend_esb_id
         url = backend.host + ':' + str(backend.port) + '/api/libroventas/cabecera/obtener'
-        headers = {
-            'Content-Type': 'application/json',
-        }
-        r = self._api_client('POST', headers, data, url)
-        respuesta = r.json()
-        _logger.info(respuesta)        
-        return respuesta
+        res = backend.api_esb_call("POST", url, data)
+        if not res:
+            msg = "LibroVenta Synchornization Service Connection Error"
+            raise RetryableJobError(msg)
+        res = json.dumps(res, indent=4)
+        _logger.info(res)        
+        return res
 
     def _get_lvdet_monthly_origin_api(self, mes, anio):
         data = self._get_lvdet_monthly_origin_api_data(mes, anio)
         backend = self.company_id.backend_esb_id
         url = backend.host + ':' + str(backend.port) + '/api/libroventas/origen/obtener'
-        headers = {
-            'Content-Type': 'application/json',
-        }
-        r = self._api_client('POST', headers, data, url)
-        respuesta = r.json()
-        _logger.info(respuesta)        
-        return respuesta
+        res = backend.api_esb_call("POST", url, data)
+        if not res:
+            msg = "LibroVenta Synchornization Service Connection Error"
+            raise RetryableJobError(msg)
+        res = json.dumps(res, indent=4)
+        _logger.info(res)        
+        return res
 
 
     def _lvdet_sync_registry_data(self, impuestos, iva):
@@ -181,7 +184,7 @@ class AccountMove(models.Model):
                     'tipo_origen': str(self.company_id.lvta_tipo_origen),
                     'tipo_de_documento': self.l10n_latam_document_type_id_code,
                     'numero_de_documento': self.l10n_latam_document_number,
-                    'numero_interno': self.id,
+                    'numero_interno': self.l10n_latam_document_number,
                     'centro_distribución': 0,
                     'mes_documento': self.date.month,
                     'dia_documento': self.date.day,
@@ -189,7 +192,7 @@ class AccountMove(models.Model):
                     'documento_anulado': '.',
                     'codigo_operación': 0,
                     'tipo_impuesto': 0,
-                    'tasa_impuesto': int(iva.tax_line_id.amount),
+                    'tasa_impuesto': iva.tax_line_id.amount,
                     'indicador_servicio': 0,
                     'indicador_sin_costo': 0,
                     'fecha_documento': self.date.strftime(self._truck_date_format),
@@ -281,8 +284,8 @@ class AccountMove(models.Model):
 
     def _create_lvdet_registry_local(self, message, payload_request, payload_response):
         self.lvdet_message = message
-        self.lvdet_payload_request = payload_request
-        self.lvdet_payload_response = payload_response
+        self.lvdet_payload_request = json.dumps(payload_request, indent=4)
+        self.lvdet_payload_response = json.dumps(payload_response, indent=4)
         self.lvdet_sync_date = date.today().strftime(self._truck_date_format)
         self.lvdet_sync = True
 
@@ -297,9 +300,9 @@ class AccountMove(models.Model):
                     'tipo_de_documento': self.l10n_latam_document_type_id_code,
                     'numero_de_documento': self.l10n_latam_document_number,
                     'codigo_de_impuesto': rec.tax_line_id.l10n_cl_sii_code,
-                    'tasa_del_impuesto': int(rec.tax_line_id.amount),
+                    'tasa_del_impuesto': rec.tax_line_id.amount,
                     'monto_del_impuesto': int(rec.price_total),
-                    'numero_interno': rec.id
+                    'numero_interno': self.l10n_latam_document_number
                 }
 
     def _create_lvdet_registry(self):
@@ -331,8 +334,16 @@ class AccountMove(models.Model):
             # self._create_lvdet_monthly_header_local()
             # self._create_lvdet_monthly_origin_local()
 
+        if cabecera['cabeceras'][cabecera] is not 'AB':
+            msg = "LibroVenta cerrado, no se pueden modificar los datos"
+            raise RetryableJobError(msg) 
+
+        if cabecera['origenes']['origen'] is not 'A':
+            msg = "LibroVenta esta configurado para carga manual, no automatica"
+            raise RetryableJobError(msg)   
+
         for rec in self.l10n_latam_tax_ids:
-            if rec.tax_line_id.description == 'IVA':
+            if rec.tax_line_id.description != 'IVA':
                 iva = rec
             impuestos.append(self._create_lvdet_tax(rec))
 
@@ -364,10 +375,10 @@ class AccountMove(models.Model):
         _logger.info(respuesta)                   
         return respuesta
 
-    # def action_pos(self, values):
-    #     self.lvdet_sync_registry()
-    #     return super(AccountMove, self).write(values)
-
+        # res = backend.api_esb_call("POST", esb_api_endpoint, payload)
+        # if not res:
+        #     msg = "ESB Synchornization Service Connection Error"
+        #     raise RetryableJobError(msg)
 
     def _post(self, soft=True):
         res = super(AccountMove, self)._post(soft)
