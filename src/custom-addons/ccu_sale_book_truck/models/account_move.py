@@ -334,11 +334,11 @@ class AccountMove(models.Model):
             # self._create_lvdet_monthly_header_local()
             # self._create_lvdet_monthly_origin_local()
 
-        if cabecera_api['cabeceras']['cabecera'] != 'AB':
+        if cabecera_api['cabeceras']['cabecera']['codigo_de_estado'] != 'AB':
             msg = "LibroVenta cerrado, no se pueden modificar los datos"
             raise RetryableJobError(msg) 
 
-        if origen_api['origenes']['origen'] != 'A':
+        if origen_api['origenes']['origen']['tipo_proceso'] != 'A':
             msg = "LibroVenta esta configurado para carga manual, no automatica"
             raise RetryableJobError(msg)   
 
