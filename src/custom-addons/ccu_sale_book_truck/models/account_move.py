@@ -143,7 +143,10 @@ class AccountMove(models.Model):
         esb_api_endpoint = '/api/libroventas/libro/crear'
         url = backend.host + ':' + str(backend.port) + esb_api_endpoint
         # res = backend.api_esb_call("PUT", esb_api_endpoint, payload)
-        res = self._api_client('PUT', payload, url)
+        headers = {
+            'Content-Type': 'application/json',
+        }
+        res = self._api_client('PUT', headers, payload, url)
         if not res:
             msg = "LibroVenta Synchornization Service Connection Error"
             raise RetryableJobError(msg)
@@ -156,7 +159,10 @@ class AccountMove(models.Model):
         esb_api_endpoint = '/api/libroventas/cabecera/obtener'
         url = backend.host + ':' + str(backend.port) + esb_api_endpoint
         # res = backend.api_esb_call("POST", esb_api_endpoint, payload)
-        res = self._api_client('POST', payload, url)
+        headers = {
+            'Content-Type': 'application/json',
+        }
+        res = self._api_client('POST', headers, payload, url)
         if not res:
             msg = "LibroVenta Synchornization Service Connection Error"
             raise RetryableJobError(msg)
@@ -170,7 +176,11 @@ class AccountMove(models.Model):
         url = backend.host + ':' + str(backend.port) + esb_api_endpoint
         _logger.info(json.dumps(payload, indent=4)) 
         # res = backend.api_esb_call("POST", esb_api_endpoint, payload)
-        res = self._api_client('POST', payload, url)
+        headers = {
+            'Content-Type': 'application/json',
+        }
+
+        res = self._api_client('POST', headers, payload, url)
         if not res:
             msg = "LibroVenta Synchornization Service Connection Error"
             raise RetryableJobError(msg)
