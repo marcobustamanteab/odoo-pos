@@ -206,7 +206,7 @@ class AccountMove(models.Model):
                     'documento_anulado': '.',
                     'codigo_operación': 0,
                     'tipo_impuesto': 0,
-                    'tasa_impuesto': iva.tax_line_id.amount,
+                    'tasa_impuesto': int(iva.tax_line_id.amount),
                     'indicador_servicio': 0,
                     'indicador_sin_costo': 0,
                     'fecha_documento': self.date.strftime(self._truck_date_format),
