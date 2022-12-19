@@ -255,8 +255,8 @@ class AccountMove(models.Model):
                     'uuid': 'mm'
                 }
             }
-        if impuestos is not None:
-            registro.append({'impuestos': impuestos})
+        # if impuestos is not None:
+        #     registro.append({'impuestos': impuestos})
         return registro
 
 
