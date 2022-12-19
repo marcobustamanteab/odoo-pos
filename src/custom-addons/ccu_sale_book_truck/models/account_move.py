@@ -150,7 +150,7 @@ class AccountMove(models.Model):
         if not res:
             msg = "LibroVenta Synchornization Service Connection Error"
             raise RetryableJobError(msg)
-        _logger.info(json.dumps(resindent=4))        
+        _logger.info(json.dumps(res, resindent=4))        
         return res
 
     def _get_lvdet_monthly_header_api(self, mes, anio):
