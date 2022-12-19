@@ -189,7 +189,7 @@ class AccountMove(models.Model):
 
 
     def _lvdet_sync_registry_data(self, impuestos, iva):
-        registro = {}
+        registro = ''
         if impuestos is None:
             registro = {
                 'registro': {
