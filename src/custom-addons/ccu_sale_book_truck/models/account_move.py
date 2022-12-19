@@ -189,7 +189,7 @@ class AccountMove(models.Model):
 
 
     def _lvdet_sync_registry_data(self, impuestos, iva):
-        return {
+        registro = {
                 'registro': {
                     'razon_social_comercial': self.company_id.truck_UEN_code,
                     'periodo_anio': self.date.year,
@@ -253,9 +253,11 @@ class AccountMove(models.Model):
                     'numero_asiento': self.id,
                     'pendiente': 0,
                     'uuid': 'mm'
-                },
-                'impuestos': impuestos
+                }
             }
+        if impuestos is not None:
+            registro.append({'impuestos': impuestos})
+        return registro
 
 
     def _create_lvdet_monthly_header_local(self):
