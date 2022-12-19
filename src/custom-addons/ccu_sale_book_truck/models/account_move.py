@@ -189,7 +189,9 @@ class AccountMove(models.Model):
 
 
     def _lvdet_sync_registry_data(self, impuestos, iva):
-        registro = {
+        registro = {}
+        if impuestos is None:
+            registro = {
                 'registro': {
                     'razon_social_comercial': self.company_id.truck_UEN_code,
                     'periodo_anio': self.date.year,
@@ -255,8 +257,74 @@ class AccountMove(models.Model):
                     'uuid': 'mm'
                 }
             }
-        # if impuestos is not None:
-        #     registro.append({'impuestos': impuestos})
+        else:
+            registro = {
+                'registro': {
+                    'razon_social_comercial': self.company_id.truck_UEN_code,
+                    'periodo_anio': self.date.year,
+                    'periodo_mes': self.date.month,
+                    'tipo_operacion': str(self.company_id.lvta_tipo_operacion),
+                    'tipo_origen': str(self.company_id.lvta_tipo_origen),
+                    'tipo_de_documento': self.l10n_latam_document_type_id_code,
+                    'numero_de_documento': self.l10n_latam_document_number,
+                    'numero_interno': self.l10n_latam_document_number,
+                    'centro_distribución': 0,
+                    'mes_documento': self.date.month,
+                    'dia_documento': self.date.day,
+                    'fecha': date.today().strftime(self._truck_date_format),
+                    'documento_anulado': '.',
+                    'codigo_operación': 0,
+                    'tipo_impuesto': 0,
+                    'tasa_impuesto': int(iva.tax_line_id.amount),
+                    'indicador_servicio': 0,
+                    'indicador_sin_costo': 0,
+                    'fecha_documento': self.date.strftime(self._truck_date_format),
+                    'codigo_sucursal': 0,
+                    'rut_documento': self.partner_id_vat.split('-')[0],
+                    'dv': self.partner_id_vat.split('-')[1],
+                    'razon_social': self.invoice_partner_display_name[:49],
+                    'tipo_documento_referencia': 0,
+                    'folio_documento_referencia': 0,
+                    'monto_exento': 0,
+                    'monto_neto': int(self.amount_untaxed),
+                    'monto_iva': int(iva.l10n_latam_price_subtotal),
+                    'monto_activo_fijo': 0,
+                    'iva_uso_comun': 0,
+                    'iva_fuera_de_plazo': 0,
+                    'total_ley18211': 0,
+                    'monto_sin_credito': 0,
+                    'iva_retenido_total': 0,
+                    'iva_retenido_parcial': 0,
+                    'cre_dec': 0,
+                    'deposito_de_envase': 0,
+                    'monto_total': int(self.amount_total_signed),
+                    'iva_no_etenido': 0,
+                    'total_monto_no_facturado': 0,
+                    'total_monto_per': 0,
+                    'venta_pasaje_nacional': 0,
+                    'venta_pasaje_internacional': 0,
+                    'puros': 0,
+                    'cigarrillos': 0,
+                    'elaborados': 0,
+                    'impuesto_vehiculos': 0,
+                    'uen_propietaria': 7,
+                    'total_flete': 0,
+                    'fecha_vencimiento': self.date.strftime(self._truck_date_format),
+                    'total_descuento': 0,
+                    'id_cliente': 0,
+                    'monto_iva_propio': 0,
+                    'monto_iva_tercero': 0,
+                    'planilla': 0,
+                    'id_oficina': 0,
+                    'id_territorio': 0,
+                    'cod_mov': 0,
+                    'flag_factura_del_giro': 'S',
+                    'numero_asiento': self.id,
+                    'pendiente': 0,
+                    'uuid': 'mm'
+                },
+                'impuestos': impuestos
+            }
         return registro
 
 
