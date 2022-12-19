@@ -305,7 +305,9 @@ class AccountMove(models.Model):
 
 
     def _create_lvdet_tax(self, rec):
-        return {
+        respuesta = {}
+        if rec.tax_line_id.description != 'IVA':
+            respuesta = {
                     'razon_social_comercial': self.company_id.truck_UEN_code,
                     'periodo_anio': self.date.year,
                     'periodo_mes': self.date.month,
@@ -318,6 +320,7 @@ class AccountMove(models.Model):
                     'monto_del_impuesto': int(rec.price_total),
                     'numero_interno': self.l10n_latam_document_number
                 }
+        return respuesta
 
     def _create_lvdet_registry(self):
         impuestos = []
@@ -357,7 +360,7 @@ class AccountMove(models.Model):
             raise RetryableJobError(msg)   
 
         for rec in self.l10n_latam_tax_ids:
-            if rec.tax_line_id.description != 'IVA':
+            if rec.tax_line_id.description == 'IVA':
                 iva = rec
             impuestos.append(self._create_lvdet_tax(rec))
 
