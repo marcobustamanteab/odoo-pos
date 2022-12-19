@@ -141,7 +141,9 @@ class AccountMove(models.Model):
     def _create_lvdet_registry_api(self, payload):
         backend = self.company_id.backend_esb_id
         esb_api_endpoint = '/api/libroventas/libro/crear'
-        res = backend.api_esb_call("PUT", esb_api_endpoint, payload)
+        url = backend.host + ':' + str(backend.port) + esb_api_endpoint
+        # res = backend.api_esb_call("PUT", esb_api_endpoint, payload)
+        res = self._api_client('PUT', payload, url)
         if not res:
             msg = "LibroVenta Synchornization Service Connection Error"
             raise RetryableJobError(msg)
@@ -152,7 +154,9 @@ class AccountMove(models.Model):
         payload = self._get_lvdet_monthly_header_api_data(mes, anio)
         backend = self.company_id.backend_esb_id
         esb_api_endpoint = '/api/libroventas/cabecera/obtener'
-        res = backend.api_esb_call("POST", esb_api_endpoint, payload)
+        url = backend.host + ':' + str(backend.port) + esb_api_endpoint
+        # res = backend.api_esb_call("POST", esb_api_endpoint, payload)
+        res = self._api_client('POST', payload, url)
         if not res:
             msg = "LibroVenta Synchornization Service Connection Error"
             raise RetryableJobError(msg)
@@ -163,8 +167,10 @@ class AccountMove(models.Model):
         payload = self._get_lvdet_monthly_origin_api_data(mes, anio)
         backend = self.company_id.backend_esb_id
         esb_api_endpoint = '/api/libroventas/origen/obtener'
+        url = backend.host + ':' + str(backend.port) + esb_api_endpoint
         _logger.info(json.dumps(payload, indent=4)) 
-        res = backend.api_esb_call("POST", esb_api_endpoint, payload)
+        # res = backend.api_esb_call("POST", esb_api_endpoint, payload)
+        res = self._api_client('POST', payload, url)
         if not res:
             msg = "LibroVenta Synchornization Service Connection Error"
             raise RetryableJobError(msg)
