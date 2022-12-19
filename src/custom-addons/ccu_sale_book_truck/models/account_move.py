@@ -387,7 +387,7 @@ class AccountMove(models.Model):
             _logger.info('DEL')
             respuesta = requests.delete(url,headers=headers,json=data)     
         _logger.info(respuesta)                   
-        return respuesta
+        return respuesta.json()
 
         # res = backend.api_esb_call("POST", esb_api_endpoint, payload)
         # if not res:
