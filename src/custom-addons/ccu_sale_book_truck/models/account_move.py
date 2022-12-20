@@ -257,7 +257,7 @@ class AccountMove(models.Model):
         _logger.info('largo impuestos -> %s' % (len(impuestos)))
         if len(impuestos) > 0:
             registro = {
-                'registro': registro,
+                'registro': header,
                 'impuestos': impuestos
                 }
         else:
