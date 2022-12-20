@@ -257,7 +257,7 @@ class AccountMove(models.Model):
         _logger.info('largo impuestos -> %s' % (len(impuestos)))
         if len(impuestos) > 0:
             registro = {
-                'registro': header,
+                'registro': header                                                                                                                                                                                                                                                                                            ,
                 'impuestos': impuestos
                 }
         else:
@@ -322,12 +322,12 @@ class AccountMove(models.Model):
                     'periodo_mes': self.date.month,
                     'tipo_operacion': str(self.company_id.lvta_tipo_operacion),
                     'tipo_origen': str(self.company_id.lvta_tipo_origen),
-                    'tipo_de_documento': self.l10n_latam_document_type_id_code,
-                    'numero_de_documento': self.l10n_latam_document_number,
+                    'tipo_de_documento': int(self.l10n_latam_document_type_id_code),
+                    'numero_de_documento': int(self.l10n_latam_document_number),
                     'codigo_de_impuesto': rec.tax_line_id.l10n_cl_sii_code,
                     'tasa_del_impuesto': rec.tax_line_id.amount,
                     'monto_del_impuesto': int(rec.price_total),
-                    'numero_interno': self.l10n_latam_document_number
+                    'numero_interno': int(self.l10n_latam_document_number)
                 }
         return respuesta
 
