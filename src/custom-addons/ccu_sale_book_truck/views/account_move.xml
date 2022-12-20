@@ -35,7 +35,7 @@
         <field name="inherit_id" ref="account.view_move_form"/>
         <field name="arch" type="xml">
             <header>
-                <button name="lvdet_sync_registry"
+                <button name="button_lvdet_sync_registry"
                         type="object"
                         string="Send move to LibroVenta"
                         confirm="Are you sure?"

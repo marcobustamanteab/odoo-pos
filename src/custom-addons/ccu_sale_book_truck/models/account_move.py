@@ -38,6 +38,9 @@ class AccountMove(models.Model):
         string='Mensajes y comentarios'
     )
 
+    def button_lvdet_sync_registry(self):
+        self.with_delay(channel='root.account')._create_lvdet_registry()        
+
     def lvdet_sync_registry(self):
         registry = self._create_lvdet_registry()
         return ''
