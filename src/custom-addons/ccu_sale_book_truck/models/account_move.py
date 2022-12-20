@@ -260,7 +260,7 @@ class AccountMove(models.Model):
         _logger.info(json.dumps(impuestos, indent=4))
         if len(impuestos) > 0:
             registro = {
-                'registro': header,                                                                                                                                                                                                                                                                                            ,
+                'registro': header                                                                                                                                                                                                                                                                                            ,
                 'impuestos': impuestos
                 }
         else:
