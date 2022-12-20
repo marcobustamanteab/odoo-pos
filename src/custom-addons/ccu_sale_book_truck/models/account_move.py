@@ -258,7 +258,7 @@ class AccountMove(models.Model):
         if len(impuestos) > 0:
             registro = {
                 'registro': header                                                                                                                                                                                                                                                                                            ,
-                'impuestos': impuestos
+                'impuestos': impuestos.pop(0)
                 }
         else:
             registro = {
