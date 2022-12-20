@@ -255,6 +255,9 @@ class AccountMove(models.Model):
                     'uuid': 'mm'
                 }
         _logger.info('largo impuestos -> %s' % (len(impuestos)))
+        impuestos.pop(0)
+        _logger.info('recorte largo impuestos -> %s' % (len(impuestos)))
+        _logger.info(json.dumps(impuestos, indent=4))
         if len(impuestos) > 0:
             registro = {
                 'registro': header                                                                                                                                                                                                                                                                                            ,
