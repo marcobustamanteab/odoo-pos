@@ -42,7 +42,7 @@
                         class="oe_highlight"/>
                 <button name="delete_registry"
                         type="object"
-                        string="Send move to LibroVenta"
+                        string="Delete move ins LibroVenta"
                         confirm="Are you sure?"
                         class="oe_highlight"/>
                  <!-- <button name="lvdet_sync_registry"
