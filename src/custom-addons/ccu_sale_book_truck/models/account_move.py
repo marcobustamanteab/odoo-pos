@@ -482,7 +482,13 @@ class AccountMove(models.Model):
         self.with_delay(channel='root.account')._delete_registry_process()
 
     def _delete_registry_process(self):
-        respuesta = self._del_lvdet_monthly_registry_api(self.date.year, self.date.month, self.company_id.lvta_tipo_operacion, self.company_id.lvta_tipo_origen)
+        _logger.info('Inicio eliminacion registro')
+        respuesta = self._del_lvdet_monthly_registry_api(
+            self.date.year,
+            self.date.month,
+            self.l10n_latam_document_type_id_code,
+            self.l10n_latam_document_number,
+        )
         _logger.info('respuesta registro')
         _logger.info(respuesta)
         if respuesta['respuesta'] == 'Eliminacion Exitosa de Registros':
