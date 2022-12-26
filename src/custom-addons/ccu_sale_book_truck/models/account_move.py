@@ -138,6 +138,18 @@ class AccountMove(models.Model):
             'tipo_proceso': 'A'
         }
 
+    def _del_lvdet_monthly_registry_api_data(self, mes, anio, tipo_doc, num_doc):
+        return {
+            'razon_social_comercial': self.company_id.truck_UEN_code,
+            'periodo_anio': anio,
+            'periodo_mes': mes,
+            'tipo_operacion': self.company_id.lvta_tipo_operacion,
+            'tipo_origen': self.company_id.lvta_tipo_origen,
+            'tipo_de_documento': tipo_doc,
+            'numero_de_documento': num_doc
+        }
+
+
     #### Client Api Operation  
     #### (self, method, headers, data, url):
 
@@ -184,6 +196,25 @@ class AccountMove(models.Model):
         }
 
         res = self._api_client('POST', headers, payload, url)
+        if not res:
+            msg = "LibroVenta Synchornization Service Connection Error"
+            raise RetryableJobError(msg)
+        _logger.info(json.dumps(res, indent=4))        
+        return res
+
+
+    def _del_lvdet_monthly_registry_api(self, mes, anio, tipo_doc, num_doc):
+        payload = self._del_lvdet_monthly_registry_api_data(mes, anio, tipo_doc, num_doc)
+        backend = self.company_id.backend_esb_id
+        esb_api_endpoint = '/api/libroventas/libro/eliminar'
+        url = backend.host + ':' + str(backend.port) + esb_api_endpoint
+        _logger.info(json.dumps(payload, indent=4)) 
+        # res = backend.api_esb_call("POST", esb_api_endpoint, payload)
+        headers = {
+            'Content-Type': 'application/json',
+        }
+
+        res = self._api_client('DEL', headers, payload, url)
         if not res:
             msg = "LibroVenta Synchornization Service Connection Error"
             raise RetryableJobError(msg)
@@ -311,6 +342,23 @@ class AccountMove(models.Model):
         )        
         return 
 
+
+    def _delete_lvdet_monthly_registry_local(self):
+        self.env['salebook.origin'].write(
+            {
+                'razon_social_comercial': self.company_id.truck_UEN_code,
+                'periodo_anio': self.date.year,
+                'periodo_mes': self.date.month,
+                'tipo_operacion': self.company_id.lvta_tipo_operacion,
+                'tipo_operacion': self.company_id.lvta_tipo_origen,
+                'origen_fecha': date.today().strftime(self._truck_date_format),
+                'estado_origen': 'GEN',
+                'ruta_archivo': '',
+                'tipo_proceso': 'A'
+            }           
+        )        
+        return 
+
     def _create_lvdet_registry_local(self, message, payload_request, payload_response):
         self.lvdet_message = message
         self.lvdet_payload_request = json.dumps(payload_request, indent=4)
@@ -419,3 +467,10 @@ class AccountMove(models.Model):
         for rec in self:
             rec.with_delay(channel='root.account').lvdet_sync_registry()
         return res
+
+    def delete_registry(self):
+        self._delete_registry_queue()
+
+
+    def _delete_registry_queue(self):
+        self.with_delay(channel='root.account').lvdet_sync_registry()

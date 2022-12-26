@@ -40,12 +40,16 @@
                         string="Send move to LibroVenta"
                         confirm="Are you sure?"
                         class="oe_highlight"/>
-                <!-- <button name="lvdet_sync_registry"
+                <button name="delete_registry"
                         type="object"
                         string="Send move to LibroVenta"
                         confirm="Are you sure?"
-                        attrs="{'invisible': [('lvdet_sync_confirmado', '=', True)]}"
-                        class="oe_highlight"/> -->
+                        class="oe_highlight"/>
+                 <!-- <button name="lvdet_sync_registry"
+                        type="object"
+                        string="Send move to LibroVenta"
+                        confirm="Are you sure?"
+                        class="oe_highlight"/>                        -->
             </header>
         </field>
     </record>
