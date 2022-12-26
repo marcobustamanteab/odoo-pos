@@ -366,6 +366,12 @@ class AccountMove(models.Model):
         self.lvdet_sync_date = date.today().strftime(self._truck_date_format)
         self.lvdet_sync = True
 
+    def _delete_lvdet_registry_local(self):
+        self.lvdet_message = ''
+        self.lvdet_payload_request = ''
+        self.lvdet_payload_response = ''
+        self.lvdet_sync_date = ''
+        self.lvdet_sync = False
 
     def _create_lvdet_tax(self, rec):
         respuesta = {}
@@ -473,4 +479,14 @@ class AccountMove(models.Model):
 
 
     def _delete_registry_queue(self):
-        self.with_delay(channel='root.account').lvdet_sync_registry()
+        self.with_delay(channel='root.account')._delete_registry_process()
+
+    def _delete_registry_process(self):
+        respuesta = self._del_lvdet_monthly_registry_api(self.date.year, self.date.month, self.company_id.lvta_tipo_operacion, self.company_id.lvta_tipo_origen)
+        _logger.info('respuesta registro')
+        _logger.info(respuesta)
+        if respuesta['respuesta'] == 'Eliminacion Exitosa de Registros':
+            self._delete_lvdet_registry_local()
+        else:
+            msg = "Error en api LibroVenta %s - detalle -> %s" % (respuesta['respuesta'], json.dumps(respuesta, indent=4))
+            raise RetryableJobError(msg)
