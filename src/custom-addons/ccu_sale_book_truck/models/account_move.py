@@ -138,7 +138,7 @@ class AccountMove(models.Model):
             'tipo_proceso': 'A'
         }
 
-    def _del_lvdet_monthly_registry_api_data(self, mes, anio, tipo_doc, num_doc):
+    def _get_lvdet_monthly_registry_api_data(self, mes, anio, tipo_doc, num_doc):
         return {
             'razon_social_comercial': self.company_id.truck_UEN_code,
             'periodo_anio': anio,
@@ -213,7 +213,6 @@ class AccountMove(models.Model):
         headers = {
             'Content-Type': 'application/json',
         }
-
         res = self._api_client('DEL', headers, payload, url)
         if not res:
             msg = "LibroVenta Synchornization Service Connection Error"
@@ -221,6 +220,22 @@ class AccountMove(models.Model):
         _logger.info(json.dumps(res, indent=4))        
         return res
 
+    def _get_lvdet_monthly_registry_api(self, mes, anio, tipo_doc, num_doc):
+        payload = self._get_lvdet_monthly_registry_api_data(mes, anio, tipo_doc, num_doc)
+        backend = self.company_id.backend_esb_id
+        esb_api_endpoint = '/api/libroventas/libro/obtener'
+        url = backend.host + ':' + str(backend.port) + esb_api_endpoint
+        _logger.info(json.dumps(payload, indent=4)) 
+        # res = backend.api_esb_call("POST", esb_api_endpoint, payload)
+        headers = {
+            'Content-Type': 'application/json',
+        }
+        res = self._api_client('POST', headers, payload, url)
+        if not res:
+            msg = "LibroVenta Synchornization Service Connection Error"
+            raise RetryableJobError(msg)
+        _logger.info(json.dumps(res, indent=4))        
+        return res
 
     def _lvdet_sync_registry_data(self, impuestos, iva):
         registro = None
@@ -414,34 +429,43 @@ class AccountMove(models.Model):
             ]
         )
 
-        # if cabecera.id is False and origen.id is False:
-        cabecera_api = self._get_lvdet_monthly_header_api(self.date.month, self.date.year)
-        origen_api = self._get_lvdet_monthly_origin_api(self.date.month, self.date.year)
-            # self._create_lvdet_monthly_header_local()
-            # self._create_lvdet_monthly_origin_local()
+        registro = self._get_lvdet_monthly_registry_api(
+            self.date.month, 
+            self.date.year, 
+            self.l10n_latam_document_type_id_code, 
+            self.l10n_latam_document_number)
 
-        if cabecera_api['cabeceras']['cabecera']['codigo_de_estado'] != 'AB':
-            msg = "LibroVenta cerrado, no se pueden modificar los datos"
-            raise RetryableJobError(msg) 
+        if registro['causa'] != 'No se hab grabado registros aun':
+            cabecera_api = self._get_lvdet_monthly_header_api(self.date.month, self.date.year)
+            origen_api = self._get_lvdet_monthly_origin_api(self.date.month, self.date.year)
+            if not cabecera:
+                self._create_lvdet_monthly_header_local()
+            if not origen:
+                self._create_lvdet_monthly_origin_local()
+            if cabecera_api['cabeceras']['cabecera']['codigo_de_estado'] != 'AB':
+                msg = "LibroVenta cerrado, no se pueden modificar los datos"
+                raise RetryableJobError(msg) 
+            if origen_api['origenes']['origen']['tipo_proceso'] != 'A':
+                msg = "LibroVenta esta configurado para carga manual, no automatica"
+                raise RetryableJobError(msg)   
 
-        if origen_api['origenes']['origen']['tipo_proceso'] != 'A':
-            msg = "LibroVenta esta configurado para carga manual, no automatica"
-            raise RetryableJobError(msg)   
+            for rec in self.l10n_latam_tax_ids:
+                if rec.tax_line_id.description == 'IVA':
+                    iva = rec
+                impuestos.append(self._create_lvdet_tax(rec))
 
-        for rec in self.l10n_latam_tax_ids:
-            if rec.tax_line_id.description == 'IVA':
-                iva = rec
-            impuestos.append(self._create_lvdet_tax(rec))
-
-        data_final = self._lvdet_sync_registry_data(impuestos, iva)
-        respuesta = self._create_lvdet_registry_api(data_final)
-        _logger.info('respuesta registro')
-        _logger.info(respuesta)
-        if respuesta['respuesta'] == 'Creacion Exitosa de Registros':
-            self._create_lvdet_registry_local(respuesta['respuesta'], data_final, respuesta)
+            data_final = self._lvdet_sync_registry_data(impuestos, iva)
+            respuesta = self._create_lvdet_registry_api(data_final)
+            _logger.info('respuesta registro')
+            _logger.info(respuesta)
+            if respuesta['respuesta'] == 'Creacion Exitosa de Registros':
+                self._create_lvdet_registry_local(respuesta['respuesta'], data_final, respuesta)
+            else:
+                msg = "Error en api LibroVenta %s - detalle -> %s" % (respuesta['respuesta'], json.dumps(respuesta, indent=4))
+                raise RetryableJobError(msg)             
         else:
-            msg = "Error en api LibroVenta %s - detalle -> %s" % (respuesta['respuesta'], json.dumps(respuesta, indent=4))
-            raise RetryableJobError(msg)             
+            self._create_lvdet_registry_local('Respuesta confirmada por consulta', registro, 'Data confirmada por consulta directa')
+
 
     def _api_client_create_lvdet(self):
         return True
@@ -479,6 +503,7 @@ class AccountMove(models.Model):
 
 
     def _delete_registry_queue(self):
+        _logger.info('Encolado eliminacion registro')
         self.with_delay(channel='root.account')._delete_registry_process()
 
     def _delete_registry_process(self):
