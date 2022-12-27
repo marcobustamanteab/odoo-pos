@@ -138,7 +138,7 @@ class AccountMove(models.Model):
             'tipo_proceso': 'A'
         }
 
-    def _get_lvdet_monthly_registry_api_data(self, mes, anio, tipo_doc, num_doc):
+    def _del_lvdet_monthly_registry_api_data(mes, anio, tipo_doc, num_doc):
         return {
             'razon_social_comercial': self.company_id.truck_UEN_code,
             'periodo_anio': anio,
@@ -437,7 +437,7 @@ class AccountMove(models.Model):
         _logger.info('verificando registro previo')
         _logger.info(json.dumps(registro, indent=4))
 
-        if registro['causa'] is not None and registro['causa'] != 'No se hab grabado registros aun':
+        if registro['causa'] != 'No se hab grabado registros aun':
             cabecera_api = self._get_lvdet_monthly_header_api(self.date.month, self.date.year)
             origen_api = self._get_lvdet_monthly_origin_api(self.date.month, self.date.year)
             if not cabecera:
