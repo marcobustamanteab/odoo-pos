@@ -434,8 +434,9 @@ class AccountMove(models.Model):
             self.date.year, 
             self.l10n_latam_document_type_id_code, 
             self.l10n_latam_document_number)
+        _logger.info(json.dumps(registro, indent=4))
 
-        if registro['causa'] != 'No se hab grabado registros aun':
+        if registro['causa'] is not None and registro['causa'] != 'No se hab grabado registros aun':
             cabecera_api = self._get_lvdet_monthly_header_api(self.date.month, self.date.year)
             origen_api = self._get_lvdet_monthly_origin_api(self.date.month, self.date.year)
             if not cabecera:
