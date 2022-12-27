@@ -138,7 +138,7 @@ class AccountMove(models.Model):
             'tipo_proceso': 'A'
         }
 
-    def _del_lvdet_monthly_registry_api_data(mes, anio, tipo_doc, num_doc):
+    def _del_lvdet_monthly_registry_api_data(self, mes, anio, tipo_doc, num_doc):
         return {
             'razon_social_comercial': self.company_id.truck_UEN_code,
             'periodo_anio': anio,
@@ -516,7 +516,7 @@ class AccountMove(models.Model):
             self.date.year,
             self.date.month,
             self.l10n_latam_document_type_id_code,
-            self.l10n_latam_document_number,
+            self.l10n_latam_document_number
         )
         _logger.info('respuesta registro')
         _logger.info(respuesta)
