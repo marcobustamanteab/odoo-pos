@@ -437,7 +437,7 @@ class AccountMove(models.Model):
         _logger.info('verificando registro previo')
         _logger.info(json.dumps(registro, indent=4))
 
-        if registro['causa'] != 'No se hab grabado registros aun':
+        if registro['causa'] == 'No se hab grabado registros aun':
             cabecera_api = self._get_lvdet_monthly_header_api(self.date.month, self.date.year)
             origen_api = self._get_lvdet_monthly_origin_api(self.date.month, self.date.year)
             if not cabecera:
