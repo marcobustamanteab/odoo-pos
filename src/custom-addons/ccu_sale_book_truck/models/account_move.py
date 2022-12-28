@@ -362,8 +362,8 @@ class AccountMove(models.Model):
         self.env['salebook.origin'].write(
             {
                 'razon_social_comercial': self.company_id.truck_UEN_code,
-                'periodo_anio': self.date.year,
-                'periodo_mes': self.date.month,
+                'periodo_anio': self.date.month,
+                'periodo_mes': self.date.year,
                 'tipo_operacion': self.company_id.lvta_tipo_operacion,
                 'tipo_operacion': self.company_id.lvta_tipo_origen,
                 'origen_fecha': date.today().strftime(self._truck_date_format),
@@ -513,8 +513,8 @@ class AccountMove(models.Model):
     def _delete_registry_process(self):
         _logger.info('Inicio eliminacion registro')
         respuesta = self._del_lvdet_monthly_registry_api(
-            self.date.year,
             self.date.month,
+            self.date.year,
             self.l10n_latam_document_type_id_code,
             self.l10n_latam_document_number
         )
