@@ -315,7 +315,7 @@ class AccountMove(models.Model):
                 }
         else:
             registro = {
-                'registro': registro
+                'registro': header
                 }                
         return registro
 
