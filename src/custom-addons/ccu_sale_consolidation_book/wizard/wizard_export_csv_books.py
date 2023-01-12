@@ -1,4 +1,3 @@
-
 import io
 import csv
 import base64
@@ -89,7 +88,7 @@ class WizardExportCsv(models.TransientModel):
                 ('invoice_date', '>=', self.date_from),
                 ('invoice_date', '<=', self.date_to),
                 ('move_type', 'in', ['out_invoice', 'out_refund']),
-                ('state', 'not in', ['canceled', 'draft'])
+                ('state', 'not in', ['cancel', 'draft'])
             ]
         )
         for invoice in invoice_recs:

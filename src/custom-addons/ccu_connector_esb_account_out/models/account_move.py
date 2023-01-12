@@ -123,9 +123,15 @@ class AccountMove(models.Model):
             cost_center = line.account_id.default_cost_center_code if (
                     line.account_id.send_default_cost_center and line.account_id.default_cost_center_code) else cost_center
 
-            # Jerarquía de Centro de Beneficios, primero el PARTNER luego la CUENTA
-            profit_center = self.invoice_user_id.sale_team_id.profit_center_code if (
-                    line.account_id.send_profit_center and self.invoice_user_id.sale_team_id.profit_center_code) else ''
+            # Si el producto es consumible o almacenable
+            if line.product_id.type in ['consu', 'product']:
+                team_profit_center_code = self.invoice_user_id.sale_team_id.profit_center_code
+            # Si el producto es un servicio
+            else:
+                team_profit_center_code = self.invoice_user_id.sale_team_id.profit_center_code_services
+
+            # Jerarquía de Centro de Beneficios, primero el TEAM luego la CUENTA
+            profit_center = team_profit_center_code if (line.account_id.send_profit_center and team_profit_center_code) else ''
             profit_center = line.account_id.default_profit_center_code if (
                     line.account_id.send_default_profit_center and line.account_id.default_profit_center_code) else profit_center
 
@@ -233,7 +239,6 @@ class AccountMove(models.Model):
 
         esb_api_endpoint = '/sap/contabilidad/asiento/crear'
         
-
 
         res = backend.api_esb_call("POST", esb_api_endpoint, payload)
         # print(json.dumps(res, indent=4))

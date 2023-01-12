@@ -1,17 +1,42 @@
-# Requisitos previos
+# Odoo POS CCU S.A.
+
+Odoo POS es un sistema Multi-empresa, implementado con Odoo 14 Enterprise.
+Se hace cargo de los procesos de:
+* Ventas POS
+* Contabilidad
+* Inventario
+* Clientes
+* Facturación
+
+Se implementa el estándar worldclass de P.O.S de Odoo y se adapata para que se integre con CCU y sus procesos.
+
+## Documentación
+* Checklist IDS: [Checklis Recepción de Sistemas](http://gitlab.ccu.cl/odoo-pos/odoo-pos/wikis/checklist-ids)
 
 
+# Instalación
+
+## Características del SOftware
+
+- Versión: Odoo 14 versión docker
+- Lenguaje: Python 3.6
+- BD: Postgres 10
+- Arquitectura de Desarrollo: Framework Odoo ORM 
+
+
+## Requisitos previos
+
+- Postgres 10
 - docker
-- docker-compose
-- Jinja 2
-- 
+- docker-compose 
+- Jinja 2 Cli
 
-# Librerías Adicionales para modulos externos y desarrollos
+## PASO 1: Librerías Adicionales para modulos externos y desarrollos
 
 apt-get -y install python3-simplejson python3-cachetools python3-xmltodict python3-openssl 
 pip3 install setuptools_rust signxml pdf417gen
 
-# Instalación de Docker
+## PASO 2: Instalación de Docker
 
 Referencia: https://docs.docker.com/engine/install/ubuntu/
 
@@ -59,7 +84,7 @@ sudo chmod +x /usr/local/bin/docker-compose
 docker-compose --version
 ```
 
-# ODOO + NGINX
+## PASO 4: INSTALACIÓN DE ODOO
 
 - Como sudo
 
