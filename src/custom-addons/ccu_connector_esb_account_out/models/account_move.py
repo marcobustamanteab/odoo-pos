@@ -240,7 +240,6 @@ class AccountMove(models.Model):
         esb_api_endpoint = '/sap/contabilidad/asiento/crear'
         
 
-        print(_logger.info(payload))
         res = backend.api_esb_call("POST", esb_api_endpoint, payload)
         # print(json.dumps(res, indent=4))
         try:
