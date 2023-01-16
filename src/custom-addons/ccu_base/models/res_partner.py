@@ -44,6 +44,7 @@ class ResPartner(models.Model):
     vat = fields.Char(required=True)
 
     # New Fields
+    over_limit_purchase = fields.Boolean('Over-limit purchase authorization')
     gender = fields.Selection([
         (PartnerGender.MALE, 'Hombre'),
         (PartnerGender.FEMALE, 'Mujer'),

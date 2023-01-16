@@ -23,6 +23,7 @@
         # 'data/product_pricelist.xml',
         # 'data/user_confirmation_email.xml',
         'views/res_partner.xml',
+        'views/res_partner_category.xml',
         'views/account_move.xml',
         'views/account_journal.xml',
         'views/account_account.xml',

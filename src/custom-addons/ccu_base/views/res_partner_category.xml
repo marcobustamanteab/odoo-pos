@@ -1,0 +1,32 @@
+<odoo>
+    <data>
+        <record id="view_partner_category_tree_ccu" model="ir.ui.view">
+            <field name="name">Add CCU fields on partner category</field>
+            <field name="model">res.partner.category</field>
+            <field name="inherit_id" ref="base.view_partner_category_list"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='display_name']" position="after">
+                    <field name="daily_limit"/>
+                    <field name="weekly_limit"/>
+                    <field name="purchase_calendar"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_partner_category_form_ccu" model="ir.ui.view">
+            <field name="name">Add CCU fields on partner category</field>
+            <field name="model">res.partner.category</field>
+            <field name="inherit_id" ref="base.view_partner_category_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group" position="after">
+                    <group col="4">
+                        <field name="daily_limit"/>
+                        <field name="daily_exception_limit"/>
+                        <field name="weekly_limit"/>
+                        <field name="purchase_calendar"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
