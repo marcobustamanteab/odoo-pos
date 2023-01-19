@@ -15,7 +15,7 @@ services:
       {%- endif %}
     networks:
       - odoo-pos
-    entrypoint: ['/entrypoint.sh', 'odoo']
+    entrypoint: ['/entrypoint.sh', 'odoo', '-u', 'ccu_base']
     volumes:
       - ../filestore:{{ odoo.data_dir }}
       - ./logs:/var/log/odoo
