@@ -1,9 +1,0 @@
-# Translation of Odoo Server.
-# This file contains the translation of the following modules:
-# 	* ccu_pos
-#
-#. module: ccu_pos
-#: code:addons/ccu_pos/static/src/js/PaymentScreenValidator:32
-#, python-format
-msgid "Quantity validation error"
-msgstr "Error de validación de cantidades"

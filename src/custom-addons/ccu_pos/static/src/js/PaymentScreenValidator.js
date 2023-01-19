@@ -29,7 +29,7 @@ odoo.define('ccu_pos.PaymentScreenValidator', function (require) {
 
                 if (validate_category_quantities) {
                     this.showPopup('ErrorPopup', {
-                        title: this.env._t('Quantity validation error'),
+                        title: this.env._t('Error en la validación de cantidades'),
                         body: this.env._t(validate_category_quantities),
                     });
                     return false;
