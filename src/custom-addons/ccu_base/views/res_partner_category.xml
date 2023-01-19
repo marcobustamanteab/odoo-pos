@@ -24,6 +24,7 @@
                         <field name="daily_exception_limit"/>
                         <field name="weekly_limit"/>
                         <field name="purchase_calendar"/>
+                        <field name="company_id" groups="base.group_multi_company"/>
                     </group>
                 </xpath>
             </field>

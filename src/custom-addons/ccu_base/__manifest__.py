@@ -19,7 +19,9 @@
     'data': [
         # 'data/res_users.xml',
         'security/ir.model.access.csv',
+        'security/security.xml',
         'data/distribution_center.xml',
+        'data/ir_cron.xml',
         # 'data/product_pricelist.xml',
         # 'data/user_confirmation_email.xml',
         'views/res_partner.xml',

@@ -1,7 +1,7 @@
 # Copyright (C) 2020 CCU
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 import re
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from dateutil.relativedelta import relativedelta
 
@@ -292,3 +292,55 @@ class ResPartner(models.Model):
         """Updates category field for all non-employee partners (once a month)"""
         for partner in self.env['res.partner'].search([('is_employee', '=', False)]):
             partner.update_category()
+
+    @api.model
+    def validate_category_quantities(self, partner, products):
+        res_partner = self.search([('id', '=', partner['id'])])
+        today = datetime.today()
+        weekday = datetime.now().weekday()
+        monday = datetime.now() - timedelta(days=datetime.now().weekday())
+        message = False
+        if not res_partner.category_id:
+            pass
+        elif not res_partner.category_id.purchase_calendar or len(res_partner.category_id.purchase_calendar) != 7:
+            message = 'No purchase calendar defined or incorrectly defined'
+        elif res_partner.category_id.purchase_calendar[weekday] not in ['S', 's']:
+            message = 'The customer cannot buy today.'
+        elif res_partner.over_limit_purchase and not self.check_quantities(today, res_partner, products, res_partner.category_id.daily_exception_limit):
+            message = 'Over daily exception limit.'
+        elif not res_partner.over_limit_purchase and not self.check_quantities(today, res_partner, products, res_partner.category_id.daily_limit):
+            message = 'Over daily limit.'
+        elif not self.check_quantities(monday, res_partner, products, res_partner.category_id.weekly_limit):
+            message = 'Over weekly limit.'
+        return message
+
+    def check_quantities(self, date_from, partner, products, limit):
+        new_order_quantity = sum([product[0] for product in products])
+        account_moves = self.env['account.move'].search([('move_type', '=', 'out_invoice'),
+                                                         ('date', '>=', date_from),
+                                                         ('partner_id', '=', partner.id)])
+        total_quantity = 0
+        for line in account_moves.invoice_line_ids:
+            total_quantity += line.quantity
+        if (new_order_quantity + total_quantity) > limit:
+            return False
+        return True
+
+    @api.model
+    def create(self, vals):
+        category_id = vals.get('category_id')
+        if category_id and len(category_id[0][-1]) > 1:
+            raise ValidationError("You cannot create a contact with more than 1 category.")
+        res = super().create(vals)
+        return res
+
+    def write(self, vals):
+        if vals.get('category_id') and len(vals.get('category_id')[0][-1]) > 1:
+            raise ValidationError("You cannot assign more than 1 category to a contact.")
+        res = super().write(vals)
+        return res
+
+    @api.model
+    def update_over_limit_purchase(self):
+        for rec in self.search([('over_limit_purchase', '=', True)]):
+            rec.over_limit_purchase = False
