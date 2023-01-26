@@ -294,7 +294,7 @@ class ResPartner(models.Model):
             partner.update_category()
 
     @api.model
-    def validate_category_quantities(self, partner, products):
+    def validate_category_quantities(self, partner, products, subtract=0, buffer=0, product_tmpl_id=False):
         res_partner = self.search([('id', '=', partner['id'])])
         today = datetime.today()
         weekday = datetime.now().weekday()
@@ -306,16 +306,19 @@ class ResPartner(models.Model):
             message = _('No purchase calendar defined or incorrectly defined')
         elif res_partner.category_id.purchase_calendar[weekday] not in ['S', 's']:
             message = _('The customer cannot buy today.')
-        elif res_partner.over_limit_purchase and not self.check_quantities(today, res_partner, products, res_partner.category_id.daily_exception_limit):
+        elif res_partner.over_limit_purchase and not self.check_quantities(today, res_partner, products, res_partner.category_id.daily_exception_limit - subtract, buffer, product_tmpl_id):
             message = _('Over daily exception limit.')
-        elif not res_partner.over_limit_purchase and not self.check_quantities(today, res_partner, products, res_partner.category_id.daily_limit):
+        elif not res_partner.over_limit_purchase and not self.check_quantities(today, res_partner, products, res_partner.category_id.daily_limit - subtract, buffer, product_tmpl_id):
             message = _('Over daily limit.')
-        elif not self.check_quantities(monday, res_partner, products, res_partner.category_id.weekly_limit):
+        elif not self.check_quantities(monday, res_partner, products, res_partner.category_id.weekly_limit - subtract, buffer, product_tmpl_id):
             message = _('Over weekly limit.')
         return message
 
-    def check_quantities(self, date_from, partner, products, limit):
-        new_order_quantity = sum([product[0] for product in products])
+    def check_quantities(self, date_from, partner, products, limit, buffer, product_tmpl_id):
+        if type(buffer) == int or buffer.isdigit():
+            new_order_quantity = sum([product[0] if product[1] != product_tmpl_id else int(buffer) for product in products])
+        else:
+            new_order_quantity = sum([product[0] for product in products])
         account_moves = self.env['account.move'].search([('move_type', '=', 'out_invoice'),
                                                          ('date', '>=', date_from),
                                                          ('partner_id', '=', partner.id)])
