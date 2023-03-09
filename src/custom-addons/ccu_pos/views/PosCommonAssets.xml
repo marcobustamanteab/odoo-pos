@@ -6,6 +6,7 @@
             <script type="text/javascript" src="/ccu_pos/static/src/js/ClientLineValidate.js"></script>
             <script type="text/javascript" src="/ccu_pos/static/src/js/ClientDetailsEdit.js"></script>
             <script type="text/javascript" src="/ccu_pos/static/src/js/ClientListScreenValidate.js"></script>
+            <script type="text/javascript" src="/ccu_pos/static/src/js/ProductScreen.js"></script>
 <!--            <script type="text/javascript" src="/ccu_pos/static/src/js/PaymentLinesValidator.js"></script>-->
 <!--            <script type="text/javascript" src="/ccu_pos/static/src/js/OrderReceiptTransbank.js"></script>-->
 <!--            <script type="text/javascript" src="/ccu_pos/static/src/js/PaymentScreenStatusTransbank.js"></script>-->
