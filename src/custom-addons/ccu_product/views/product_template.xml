@@ -14,6 +14,7 @@
                         <field name="alcohol_grade"/>
                         <field name="alternative_barcode"/>
                         <field name="product_used"/>
+                        <field name="principal_company"/>
                     </group>
                 </page>
             </xpath>

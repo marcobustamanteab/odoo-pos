@@ -20,3 +20,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:labarra_product.field_product_template__min_stock
 msgid "Stock Mínimo"
 msgstr "Stock Mínimo"
+
+#. module: ccu_product
+#: model:ir.model.fields,field_description:ccu_product.field_product_template__principal_company
+msgid "Principal company"
+msgstr "Empresa mandante"
