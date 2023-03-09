@@ -1,0 +1,7 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* ccu_pos
+#. module: ccu_pos
+#: model:ir.model.fields,field_description:ccu_pos.field_product_template__principal_company
+msgid "Principal company"
+msgstr "Empresa mandante"

@@ -13,7 +13,6 @@ class ProductTemplate(models.Model):
     alcohol_grade = fields.Float("Alcohol Grade")
     alternative_barcode = fields.Char("Alternative Barcode")
     product_used = fields.Boolean("Product Used", compute="_compute_product_used")
-    principal_company = fields.Many2one('res.company', string="Principal company")
 
     def _compute_product_used(self):
         for rec in self:
