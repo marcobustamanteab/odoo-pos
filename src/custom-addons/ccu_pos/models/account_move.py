@@ -6,8 +6,6 @@ class AccountMove(models.Model):
     _description = 'Account Move or Invoice'
     _inherit = ['account.move']
 
-    principal_company = fields.Many2one('res.company', string="Principal company")
-
     def _default_sequence_prefix(self):
         if len(self.pos_order_ids) > 0:
             pos_order = self.pos_order_ids[0]
@@ -20,7 +18,6 @@ class AccountMove(models.Model):
                 return prefix.strip('/') if prefix else 'XXXX2'
         return "XXXX3"
 
-    # pos_sequence_prefix = fields.Char("Cashier Prefix", compute='_compute_pos_sequence_prefix', store=True)
     pos_sequence_prefix = fields.Char("Cashier Prefix")
     pos_order_id = fields.Many2one('pos.order', string="POS Order")
     pos_session_id = fields.Many2one('pos.session', string="POS Session")
@@ -29,8 +26,17 @@ class AccountMove(models.Model):
     departure_address = fields.Char("Departure Address")
     departure_city = fields.Char("Departure City")
     departure_state = fields.Char("Departure State")
+    principal_company = fields.Many2one('res.company', string="Principal company", compute='_compute_principal_company')
 
-    @api.onchange('company_id','pos_session_id','partner_id')
+    @api.depends('principal_company', 'invoice_line_ids')
+    def _compute_principal_company(self):
+        for rec in self:
+            if rec.invoice_line_ids:
+                rec.principal_company = rec.invoice_line_ids[0].principal_company
+            else:
+                rec.principal_company = False
+
+    @api.onchange('company_id', 'pos_session_id', 'partner_id')
     def _onchange_departure_fields(self):
         for rec in self:
             if rec.pos_session_id:
@@ -43,10 +49,10 @@ class AccountMove(models.Model):
 
     def reset_cashier_prefix(self):
         moves = self.env['account.move'].search([])
-        # moves._compute_pos_sequence_prefix()
 
 
 class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
 
     pos_order_id = fields.Many2one('pos.order', string="POS Order")
+    principal_company = fields.Many2one('res.company', string="Principal company")
