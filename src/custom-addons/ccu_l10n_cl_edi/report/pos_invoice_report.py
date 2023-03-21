@@ -6,9 +6,9 @@ class ReportPOSInvoice(models.AbstractModel):
 
     def get_docids(self, docids):
         pos_orders = self.env['pos.order'].browse(docids)
-        invoice_to_print = []
+        moves = []
         for order in pos_orders:
-            if order.account_move:
-                invoice_to_print.append(order.account_move[0].id)
-        return invoice_to_print
+            for move in order.account_moves:
+                moves.append(move.id)
+        return moves
 
