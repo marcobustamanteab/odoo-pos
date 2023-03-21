@@ -127,8 +127,11 @@ class AccountMove(models.Model):
             if line.product_id.type in ['consu', 'product']:
                 team_profit_center_code = self.invoice_user_id.sale_team_id.profit_center_code
             # Si el producto es un servicio
-            else:
+            elif line.product_id.type == 'service':
                 team_profit_center_code = self.invoice_user_id.sale_team_id.profit_center_code_services
+            # si no está definido
+            else:
+                team_profit_center_code = self.invoice_user_id.sale_team_id.profit_center_code
 
             # Jerarquía de Centro de Beneficios, primero el TEAM luego la CUENTA
             profit_center = team_profit_center_code if (line.account_id.send_profit_center and team_profit_center_code) else ''
