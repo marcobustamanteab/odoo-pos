@@ -1,0 +1,67 @@
+<odoo>
+
+    <record model="ir.ui.view" id="view_salebook_origin_form_lvdet">
+        <field name="name">Libro de Ventas CCU - Origenes</field>
+        <field name="model">salebook.origin</field>
+        <field name="arch" type="xml">
+            <form string="Libro de Ventas CCU - Origenes">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="razon_social_comercial"/>
+                            <field name="periodo_anio"/>
+                            <field name="periodo_mes"/>
+                            <field name="tipo_operacion"/>
+                            <field name="tipo_origen"/>
+                        </group>
+                        <group>                            
+                            <field name="origen_fecha"/>
+                            <field name="estado_origen"/>
+                            <field name="ruta_archivo"/>
+                            <field name="tipo_proceso"/>
+                        </group>
+                    </group>
+                </sheet>                            
+            </form>
+        </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="view_salebook_origin_tree_lvdet">
+        <field name="name">Libro de Ventas CCU - Origenes</field>
+        <field name="model">salebook.origin</field>
+        <field name="arch" type="xml">
+            <tree string="Libro de Ventas CCU - Origenes">
+                <field name="razon_social_comercial"/>
+                <field name="periodo_anio"/>
+                <field name="periodo_mes"/>
+                <field name="tipo_operacion"/>
+                <field name="tipo_origen"/>
+                <field name="origen_fecha"/>
+                <field name="estado_origen"/>
+                <field name="ruta_archivo"/>
+                <field name="tipo_proceso"/>
+            </tree>
+        </field>
+    </record>
+
+      <record id="action_salebook_origin" model="ir.actions.act_window">
+        <field name="name">Libro de Ventas - Origenes</field>
+        <field name="res_model">salebook.origin</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_empty_folder">
+                There is no unpaid order from the website yet
+            </p><p>
+                Process the order once the payment is received.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_lvdet_origin"
+      name="Libro de Venta - Origenes"
+      action="action_salebook_origin"
+      sequence="40"
+      parent="ccu_connector_esb_account_out.sync_audit_menu"/>
+
+</odoo>

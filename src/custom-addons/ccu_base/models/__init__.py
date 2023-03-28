@@ -3,3 +3,4 @@
 from . import res_users
 from . import res_partner
 from . import res_partner_distribution_center
+from . import res_partner_category

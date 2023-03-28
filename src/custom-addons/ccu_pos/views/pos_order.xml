@@ -21,6 +21,14 @@
                 <button name="reset_cashier_prefix" type="object" invisible="0" string="Reset Prefix"
                         class="btn btn-primary"/>
             </xpath>
+            <xpath expr="//button[@name='action_view_invoice']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//div[@class='oe_button_box']" position="inside">
+                <button name="action_account_moves" type="object" class="oe_stat_button" icon="fa-pencil-square-o" attrs="{'invisible':[('account_moves_count', '=', 0)]}">
+                    <field name="account_moves_count" widget="statinfo" string="Invoices"/>
+                </button>
+            </xpath>
         </field>
     </record>
 

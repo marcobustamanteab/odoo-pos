@@ -1,0 +1,77 @@
+<odoo noupdate="0">
+
+    <record model="ir.ui.view" id="view_salebook_header_form_lvdet">
+        <field name="name">Libro de Ventas CCU - Periodos</field>
+        <field name="model">salebook.header</field>
+        <field name="arch" type="xml">
+            <form string="Libro de Ventas CCU - Periodos">
+                <sheet>
+                    <group>
+                        <group>            
+                            <field name="razon_social_comercial"/>
+                            <field name="periodo_anio"/>
+                            <field name="periodo_mes"/>
+                            <field name="tipo_operacion"/>
+                        </group>
+                        <group>                            
+                            <field name="flag_carga_truck"/>
+                            <field name="flag_carga_peoplesoft"/>
+                            <field name="flag_carga_vyd"/>
+                            <field name="codigo_de_estado"/>
+                            <field name="fecha_envio_sii"/>
+                            <field name="flag_carga_odoo"/>
+                            <field name="origen_5"/>
+                            <field name="origen_6"/>
+                            <field name="origen_7"/>
+                            <field name="origen_8"/>
+                        </group>
+                    </group>
+                </sheet>                           
+            </form>
+        </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="view_salebook_header_tree_lvdet">
+        <field name="name">Libro de Ventas CCU - Periodos</field>
+        <field name="model">salebook.header</field>
+        <field name="arch" type="xml">
+            <tree string="Libro de Ventas CCU - Periodos">
+                <field name="razon_social_comercial"/>
+                <field name="periodo_anio"/>
+                <field name="periodo_mes"/>
+                <field name="tipo_operacion"/>
+                <field name="flag_carga_truck"/>
+                <field name="flag_carga_peoplesoft"/>
+                <field name="flag_carga_vyd"/>
+                <field name="codigo_de_estado"/>
+                <field name="fecha_envio_sii"/>
+                <field name="flag_carga_odoo"/>
+                <field name="origen_5"/>
+                <field name="origen_6"/>
+                <field name="origen_7"/>
+                <field name="origen_8"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_salebook_header" model="ir.actions.act_window">
+        <field name="name">Libro de Ventas - Periodos</field>
+        <field name="res_model">salebook.header</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_empty_folder">
+                There is no unpaid order from the website yet
+            </p><p>
+                Process the order once the payment is received.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_lvdet_period"
+      name="Libro de Venta - Periodos"
+      action="action_salebook_header"
+      sequence="30"
+      parent="ccu_connector_esb_account_out.sync_audit_menu"/>
+
+</odoo>
