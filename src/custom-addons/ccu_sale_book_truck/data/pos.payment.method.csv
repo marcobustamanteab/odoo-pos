@@ -1,2 +1,0 @@
-id,name,receivable_account_id,is_cash_count,cash_journal_id,split_transactions,company_id,use_payment_terminal,active,create_uid,create_date,write_uid,write_date
-3,Transbank,35,true,,false,1,,true,1,2021-05-07 14:20:24.672709,1,2021-05-10 21:35:19.434182

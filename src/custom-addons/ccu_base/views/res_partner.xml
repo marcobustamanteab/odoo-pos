@@ -24,7 +24,6 @@
                                 <field name='monthly_purchase'
                                        attrs="{'invisible': [('category','=','vip-premium')] }"/>
                                 <field name='reached_limit' attrs="{'invisible': [('category','=','vip-premium')] }"/>
-                                <field name="over_limit_purchase"/>
                             </group>
                         </group>
                     </page>

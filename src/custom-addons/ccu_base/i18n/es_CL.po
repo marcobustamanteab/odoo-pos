@@ -27,36 +27,6 @@ msgid "Age"
 msgstr ""
 
 #. module: ccu_base
-#: model:ir.model.fields,field_description:ccu_base.field_res_partner__over_limit_purchase
-msgid "Over-limit purchase authorization"
-msgstr "Autorización de sobre-compra"
-
-#. module: ccu_base
-#: model:ir.model.fields,field_description:ccu_base.field_res_partner_category__daily_limit
-msgid "Daily limit"
-msgstr "Límite diario"
-
-#. module: ccu_base
-#: model:ir.model.fields,field_description:ccu_base.field_res_partner_category__weekly_limit
-msgid "Weekly limit"
-msgstr "Límite semanal"
-
-#. module: ccu_base
-#: model:ir.model.fields,field_description:ccu_base.field_res_partner_category__daily_exception_limit
-msgid "Daily exception limit"
-msgstr "Límite de sobre-compra"
-
-#. module: ccu_base
-#: model:ir.model.fields,field_description:ccu_base.field_res_partner_category__purchase_calendar
-msgid "Purchase calendar"
-msgstr "Calendario de compra"
-
-#. module: ccu_base
-#: model:ir.model.fields,field_description:ccu_base.field_res_partner_category__company_id
-msgid "Company"
-msgstr "Compañía"
-
-#. module: ccu_base
 #: model:ir.model.fields.selection,name:ccu_base.selection__res_partner__category__bartender
 msgid "Bartender"
 msgstr ""
@@ -363,33 +333,3 @@ msgstr ""
 #: model:ir.model.fields.selection,name:ccu_base.selection__res_partner__category__vip-premium
 msgid "VIP - Premium"
 msgstr ""
-
-#. module: ccu_base
-#: code:addons/ccu_base/models/res_partner.py:0
-#, python-format
-msgid "No purchase calendar defined or incorrectly defined"
-msgstr "No se ha definido correctamente un calendario de compras."
-
-#. module: ccu_base
-#: code:addons/ccu_base/models/res_partner.py:0
-#, python-format
-msgid "The customer cannot buy today."
-msgstr "El cliente no puede comprar hoy."
-
-#. module: ccu_base
-#: code:addons/ccu_base/models/res_partner.py:0
-#, python-format
-msgid "Over daily exception limit."
-msgstr "Se ha superado el límite de sobre-compra."
-
-#. module: ccu_base
-#: code:addons/ccu_base/models/res_partner.py:0
-#, python-format
-msgid "Over daily limit."
-msgstr "Se ha superado el límite diario de compra."
-
-#. module: ccu_base
-#: code:addons/ccu_base/models/res_partner.py:0
-#, python-format
-msgid "Over weekly limit."
-msgstr "Se ha superado el límite semanal de compra."
