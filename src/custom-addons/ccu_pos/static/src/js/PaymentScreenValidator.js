@@ -4,7 +4,6 @@ odoo.define('ccu_pos.PaymentScreenValidator', function (require) {
     const { useListener } = require('web.custom_hooks');
     const PaymentScreen = require('point_of_sale.PaymentScreen');
     const Registries = require('point_of_sale.Registries');
-    const ProductScreen = require('ccu_pos.CCUProductScreen');
 
     const PaymentScreenValidator = PaymentScreen =>
         class extends PaymentScreen {
@@ -17,10 +16,6 @@ odoo.define('ccu_pos.PaymentScreenValidator', function (require) {
                 return this.env.pos.attributes.selectedOrder.paymentlines.models[0].name;
             }
             async validateOrderTransbank(isForceValidate) {
-                if (!await this.validateOrderQuantities()){
-                    return false
-                }
-
                 if(this.env.pos.config.cash_rounding) {
                     if(!this.env.pos.get_order().check_paymentlines_rounding()) {
                         this.showPopup('ErrorPopup', {
@@ -136,28 +131,6 @@ odoo.define('ccu_pos.PaymentScreenValidator', function (require) {
                 }
 
                 return true;
-            }
-            async validateOrderQuantities() {
-                // Order quantities validation
-                const order_lines = this.env.pos.get_order().get_orderlines()
-                const products = order_lines.map(({quantity, product}) => [quantity, product.product_tmpl_id])
-                const validate_category_quantities = await this.rpc({
-                    model: 'res.partner',
-                    method: 'validate_category_quantities',
-                    args: [this.currentOrder.get_client(), products],
-                    kwargs: {},
-                })
-
-                if (validate_category_quantities) {
-                    this.showPopup('ErrorPopup', {
-                        title: this.env._t('Error en la validación de cantidades'),
-                        body: this.env._t(validate_category_quantities),
-                    });
-                    return false;
-                }
-                else {
-                    return true;
-                }
             }
         }
 

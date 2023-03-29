@@ -1,7 +1,6 @@
 from odoo import models
 from odoo.exceptions import UserError
 
-
 class SequenceMixin(models.AbstractModel):
     """Mechanism used to have an editable sequence number.
     Be careful of how you use this regarding the prefixes. More info in the

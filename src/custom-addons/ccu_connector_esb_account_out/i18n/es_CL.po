@@ -200,14 +200,8 @@ msgstr "Datos Publicados"
 #. module: ccu_connector_esb_account_out
 #: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_crm_team__profit_center_code
 #: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_res_company__profit_center_code
-msgid "Profit center code for products"
-msgstr "Código centro de beneficio para productos"
-
-#. module: ccu_connector_esb_account_out
-#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_crm_team__profit_center_code_services
-#: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_res_company__profit_center_code_services
-msgid "Profit center code for services"
-msgstr "Código centro de beneficio para servicios"
+msgid "Profit Center Code"
+msgstr "Código Centro de Beneficio"
 
 #. module: ccu_connector_esb_account_out
 #: model:ir.model.fields,field_description:ccu_connector_esb_account_out.field_account_bank_statement_line__response_payload
