@@ -82,6 +82,7 @@ class PosOrder(models.Model):
                 message = _("This invoice has been created from the point of sale session: <a href=# data-oe-model=pos.order data-oe-id=%d>%s</a>") % (order.id, order.name)
                 new_move.message_post(body=message)
                 new_move.sudo().with_company(order.company_id)._post()
+                new_move.payment_state = 'paid'
                 # we call _compute_remain to recalculate the last caf used to then correctly assign the invoice name
                 caf = self.env['l10n_cl.dte.caf'].search([('l10n_latam_document_type_id', '=', new_move.l10n_latam_document_type_id.id)])
                 caf._compute_remain()
