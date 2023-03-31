@@ -12,6 +12,11 @@ class PosOrder(models.Model):
     account_moves = fields.One2many('account.move', 'pos_order_id', string="Account moves")
     account_moves_count = fields.Integer('Number of account moves', compute= '_compute_account_moves_count')
 
+    @api.depends('account_move')
+    def _compute_is_invoiced(self):
+        for order in self:
+            order.is_invoiced = bool(order.account_moves)
+
     def _compute_account_moves_count(self):
         for rec in self:
             account_moves_count = self.env['account.move'].search_count([('pos_order_id', '=', rec.id)])
