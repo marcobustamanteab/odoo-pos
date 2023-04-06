@@ -15,13 +15,9 @@
         "account",
     ],
     'data': [
-        # 'data/res_users.xml',
-        # 'security/ir.model.access.csv',
-        # 'data/distribution_center.xml',
-        # 'data/product_pricelist.xml',
-        # 'data/user_confirmation_email.xml',
-        'views/account_move.xml',
-        'wizards/account_move_reversal_view.xml',
+        'wizard/account_move_reversal_view.xml',
+        'wizard/account_move_invoice_reference_view.xml',
+        'views/account_move.xml'
     ],
     "application": True,
 }
