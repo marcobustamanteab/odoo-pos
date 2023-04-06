@@ -12,4 +12,16 @@
             </xpath>
         </field>
     </record>
+
+    <record model="ir.ui.view" id="ccu_account_account_move_invoice_reference">
+        <field name="name">CCU Account Move Invoice Reference</field>
+        <field name="model">account.move</field>
+        <field name="priority">17</field>
+        <field name="inherit_id" ref="l10n_cl_edi.view_invoice_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='cross_reference_docs']" position="inside">
+                <button name="%(ccu_account.account_move_invoice_reference_action)d" string="Add invoice reference" type="action" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+            </xpath>
+        </field>
+    </record>
 </odoo>
