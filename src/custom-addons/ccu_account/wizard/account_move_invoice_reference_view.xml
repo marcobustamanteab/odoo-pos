@@ -5,27 +5,16 @@
         <field name="arch" type="xml">
             <form string="Invoice Reference">
                 <group class="oe_title">
+                    <field name="move_id" readonly="1"/>
                     <field name="origin_doc_number"/>
                     <field name="l10n_cl_reference_doc_type_selection"/>
                     <field name="reason"/>
-                    <field name="move_id"/>
                     <field name="date"/>
                 </group>
                 <footer>
                     <button name="add_invoice_reference" string="Add invoice reference" type="object" class="btn-primary"/>
                 </footer>
             </form>
-        </field>
-    </record>
-
-    <record id="account_move_invoice_reference_action" model="ir.actions.act_window">
-        <field name="name">Account Move Invoice Reference</field>
-        <field name="res_model">account.move.invoice.reference</field>
-        <field name="view_mode">tree,form</field>
-        <field name="help" type="html">
-          <p class="o_view_nocontent_smiling_face">
-            Add an invoice reference to the account move
-          </p>
         </field>
     </record>
 </odoo>

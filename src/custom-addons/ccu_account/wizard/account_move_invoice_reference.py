@@ -79,13 +79,11 @@ class AccountMoveInvoiceReference(models.TransientModel):
     date = fields.Date(string='Document Date', required=True)
 
     def add_invoice_reference(self):
-        if not self.move_id.state == 'draft':
-            raise ValidationError('The account move must be in draft state to add a reference.')
         vals = {
             'origin_doc_number': self.origin_doc_number,
             'l10n_cl_reference_doc_type_selection': self.l10n_cl_reference_doc_type_selection,
             'reason': self.reason,
-            'move_id': self.move_id,
+            'move_id': self.move_id.id,
             'date': self.date
         }
         self.env['l10n_cl.account.invoice.reference'].create(vals)

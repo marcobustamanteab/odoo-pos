@@ -13,8 +13,10 @@
     "depends": [
         "ccu_base",
         "account",
+        "l10n_cl_edi",
     ],
     'data': [
+        'security/ir.model.access.csv',
         'wizard/account_move_reversal_view.xml',
         'wizard/account_move_invoice_reference_view.xml',
         'views/account_move.xml'

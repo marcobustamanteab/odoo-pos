@@ -10,3 +10,15 @@ class AccountMove(models.Model):
             ('stock_return','Stock Return'),
         ]
     )
+
+    def add_invoice_reference(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Add invoice reference',
+            'view_mode': 'form',
+            'target': 'new',
+            'res_model': 'account.move.invoice.reference',
+            'context': {'default_move_id': self.id}
+        }
+
