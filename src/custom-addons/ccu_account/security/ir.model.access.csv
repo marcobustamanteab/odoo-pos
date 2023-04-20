@@ -1,2 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_account_move_invoice_reference,access.account.move.invoice.reference,model_account_move_invoice_reference,base.group_user,1,1,1,1
+access_account_move_invoice_reference_delete,access.account.move.invoice.reference_delete,model_account_move_invoice_reference_delete,base.group_user,1,1,1,1

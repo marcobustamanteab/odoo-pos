@@ -22,3 +22,13 @@ class AccountMove(models.Model):
             'context': {'default_move_id': self.id}
         }
 
+    def del_invoice(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Delete invoice reference',
+            'view_mode': 'form',
+            'target': 'new',
+            'res_model': 'account.move.invoice.reference.delete',
+            'context': {'default_move_id': self.id}
+        }

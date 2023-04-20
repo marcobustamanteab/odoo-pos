@@ -1,6 +1,7 @@
 from odoo import models, fields
 from odoo.exceptions import ValidationError
-
+import logging
+_logger = logging.getLogger(__name__)
 
 class AccountMoveInvoiceReference(models.TransientModel):
     """
@@ -87,3 +88,16 @@ class AccountMoveInvoiceReference(models.TransientModel):
             'date': self.date
         }
         self.env['l10n_cl.account.invoice.reference'].create(vals)
+
+
+class AccountMoveInvoiceReferenceDelete(models.TransientModel):
+    _name = 'account.move.invoice.reference.delete'
+    _description = 'Account Move Invoice Reference Delete'
+
+    move_id = fields.Many2one('l10n_cl.account.invoice.reference', ondelete='cascade', string='Origin Document Number', domain="[('reference_doc_code', '=', False)]")
+
+    #TODO delete invoice reference method
+    def delete_invoice_reference(self):
+        for rec in self:
+            rec.move_id.unlink()
+        return True

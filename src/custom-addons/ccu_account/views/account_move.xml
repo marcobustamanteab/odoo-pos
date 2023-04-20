@@ -21,6 +21,8 @@
         <field name="arch" type="xml">
             <xpath expr="//page[@name='cross_reference_docs']" position="inside">
                 <button name="add_invoice_reference" string="Add invoice reference" type="object" class="oe_highlight"/>
+                &#x2063;
+                <button name="del_invoice" string="Borrar" type="object" class="oe_highlight"/>
             </xpath>
         </field>
     </record>
