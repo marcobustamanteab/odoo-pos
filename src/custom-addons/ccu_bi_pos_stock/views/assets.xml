@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<!-- Add custom js for hide out of stock products -->	    
+		<template id="assets_for_ccu_bi_pos_stock" inherit_id="bi_pos_stock.assets_for_bi_pos_stock">
+			<xpath expr="." position="inside">
+				<script type="text/javascript" src="/ccu_bi_pos_stock/static/src/js/db.js"></script>
+				<script type="text/javascript" src="/ccu_bi_pos_stock/static/src/js/ProductsWidget.js"></script>
+			</xpath>
+		</template>
+		
+	</data>
+</odoo>
