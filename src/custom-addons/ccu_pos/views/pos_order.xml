@@ -21,13 +21,9 @@
                 <button name="reset_cashier_prefix" type="object" invisible="0" string="Reset Prefix"
                         class="btn btn-primary"/>
             </xpath>
-<<<<<<< Updated upstream
-=======
             <xpath expr="//button[@name='action_view_invoice']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
-
->>>>>>> Stashed changes
         </field>
     </record>
 
