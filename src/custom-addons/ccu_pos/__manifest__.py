@@ -27,7 +27,6 @@
         'views/account_move.xml',
         'views/account_bank_statement.xml',
         'views/stock_picking.xml',
-        'views/product_template.xml',
         "wizards/account_move_reversal.xml",
         "wizards/account_move_debit_note_view.xml",
         'views/pos_payment_method.xml',

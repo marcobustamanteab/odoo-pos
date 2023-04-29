@@ -26,15 +26,6 @@ class AccountMove(models.Model):
     departure_address = fields.Char("Departure Address")
     departure_city = fields.Char("Departure City")
     departure_state = fields.Char("Departure State")
-    principal_company = fields.Many2one('res.company', string="Principal company", compute='_compute_principal_company')
-
-    @api.depends('principal_company', 'invoice_line_ids')
-    def _compute_principal_company(self):
-        for rec in self:
-            if rec.invoice_line_ids:
-                rec.principal_company = rec.invoice_line_ids[0].principal_company
-            else:
-                rec.principal_company = False
 
     @api.onchange('company_id', 'pos_session_id', 'partner_id')
     def _onchange_departure_fields(self):

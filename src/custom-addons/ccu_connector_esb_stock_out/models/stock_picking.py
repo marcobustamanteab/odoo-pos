@@ -63,7 +63,7 @@ class StockPicking(models.Model):
 
             id_documento = self.pos_order_id.account_move.name or ''
 
-            if self.pos_order_id.account_moves[0].date:
+            if self.pos_order_id.account_move.date:
                 # year, month, day, hour, min = map(int, self.pos_order_id.account_move.date.strftime(
                 #     "%Y %m %d %H %M").split())
 
