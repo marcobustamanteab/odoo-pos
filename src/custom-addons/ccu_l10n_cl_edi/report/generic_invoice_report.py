@@ -2,6 +2,7 @@ from lxml import etree
 from odoo import models
 import re
 
+
 class GenericInvoiceReport(models.AbstractModel):
     _name = 'report.ccu_l10n_cl_edi.generic_invoice_report'
 
@@ -18,14 +19,11 @@ class GenericInvoiceReport(models.AbstractModel):
 
     def _get_report_values(self, docids, data=None):
         docids = self.get_docids(docids)
-
         report_obj = self.env['ir.actions.report']
-        report = report_obj._get_report_from_name('ccu_l10n_cl_edi.account_invoice_report')
-        doc = []
-        record = self.env['account.move'].browse(docids)
-        doc.append(record)
+        report = report_obj._get_report_from_name('ccu_pos_consignment.account_invoice_report')
+        records = self.env['account.move'].browse(docids)
         doc_extra = {}
-        for rec in record:
+        for rec in records:
             printing_config = self.env['fiscal.dte.printing.config'].search(
                 [('company_id', '=', rec.company_id.id)])
             doc_extra[rec.id] = {}
@@ -39,12 +37,12 @@ class GenericInvoiceReport(models.AbstractModel):
                 doc_extra[rec.id]['is_voucher_document'] = "0"
                 for ref_rec in rec.l10n_cl_reference_ids:
                     found = False
-                    # print(ref_rec, ref_rec, ref_rec.l10n_cl_reference_doc_type_selection)
                     if ref_rec.l10n_cl_reference_doc_type_selection == '39' and not found:
                         doc_extra[rec.id]['is_voucher_document'] = "1"
                         found = True
                     if ref_rec.l10n_cl_reference_doc_type_selection == '61' and not found:
-                        origin_doc = rec.env['account.move'].search([]).filtered(lambda inv: inv.l10n_latam_document_number == ref_rec.origin_doc_number)
+                        origin_doc = rec.env['account.move'].search([]).filtered(
+                            lambda inv: inv.l10n_latam_document_number == ref_rec.origin_doc_number)
                         for ref_orig_rec in origin_doc:
                             if ref_orig_rec and ref_orig_rec.l10n_latam_document_type_id.code == '39' and not found:
                                 doc_extra[rec.id]['is_voucher_document'] = "1"
@@ -73,8 +71,7 @@ class GenericInvoiceReport(models.AbstractModel):
                 doc_extra[rec.id]['subtotal_values'].append(rec.amount_total)
                 doc_extra[rec.id]['subtotal_values'].append(0)
                 doc_extra[rec.id]['vat_total'] = 0
-
-            ted = record._l10n_cl_get_dte_barcode_xml()
+            ted = rec._l10n_cl_get_dte_barcode_xml()
             ted_groups = re.search("(?P<ted>.*)\<TmstFirma>.*</TmstFirma>", ted.get('ted', ''), flags=re.DOTALL)
             ted_xml = etree.XML(ted_groups.group('ted'))
             ted_string_list = etree.tostring(ted_xml, encoding='utf-8').decode().split("\n")
@@ -95,12 +92,10 @@ class GenericInvoiceReport(models.AbstractModel):
                 doc_extra[rec.id]['pos_order'] = ''
                 doc_extra[rec.id]['stock_picking'] = ''
 
-        # print(["EXTRA", doc_extra])
-
         docargs = {
             'doc_ids': docids,
             'doc_model': report.model,
-            'docs': doc,
+            'docs': records,
             'docs_extra': doc_extra
         }
         return docargs

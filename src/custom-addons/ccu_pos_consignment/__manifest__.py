@@ -14,11 +14,12 @@
         "ccu_pos",
         "ccu_l10n_cl_edi",
         "ccu_connector_esb_stock_out",
+        "account"
     ],
     'data': [
         'views/product_template.xml',
         'views/account_move.xml',
-        'views/pos_order.xml',
+        'views/pos_order.xml'
     ],
     'installable': True,
     'application': False,
