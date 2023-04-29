@@ -8,4 +8,3 @@ from . import account_move
 from . import account_bank_statement
 from . import pos_payment_method
 from . import pos_config
-from . import product_template

@@ -18,11 +18,14 @@ class GenericInvoiceReport(models.AbstractModel):
 
     def _get_report_values(self, docids, data=None):
         docids = self.get_docids(docids)
+
         report_obj = self.env['ir.actions.report']
         report = report_obj._get_report_from_name('ccu_l10n_cl_edi.account_invoice_report')
-        records = self.env['account.move'].browse(docids)
+        doc = []
+        record = self.env['account.move'].browse(docids)
+        doc.append(record)
         doc_extra = {}
-        for rec in records:
+        for rec in record:
             printing_config = self.env['fiscal.dte.printing.config'].search(
                 [('company_id', '=', rec.company_id.id)])
             doc_extra[rec.id] = {}
@@ -70,7 +73,8 @@ class GenericInvoiceReport(models.AbstractModel):
                 doc_extra[rec.id]['subtotal_values'].append(rec.amount_total)
                 doc_extra[rec.id]['subtotal_values'].append(0)
                 doc_extra[rec.id]['vat_total'] = 0
-            ted = rec._l10n_cl_get_dte_barcode_xml()
+
+            ted = record._l10n_cl_get_dte_barcode_xml()
             ted_groups = re.search("(?P<ted>.*)\<TmstFirma>.*</TmstFirma>", ted.get('ted', ''), flags=re.DOTALL)
             ted_xml = etree.XML(ted_groups.group('ted'))
             ted_string_list = etree.tostring(ted_xml, encoding='utf-8').decode().split("\n")
@@ -92,10 +96,11 @@ class GenericInvoiceReport(models.AbstractModel):
                 doc_extra[rec.id]['stock_picking'] = ''
 
         # print(["EXTRA", doc_extra])
+
         docargs = {
             'doc_ids': docids,
             'doc_model': report.model,
-            'docs': records,
+            'docs': doc,
             'docs_extra': doc_extra
         }
         return docargs
