@@ -1,0 +1,135 @@
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html)
+from datetime import timedelta
+
+from odoo import fields, models
+import time
+from odoo.exceptions import ValidationError
+import uuid
+import logging
+import json
+
+_logger = logging.getLogger(__name__)
+
+
+class StockPicking(models.Model):
+    _inherit = "stock.picking"
+
+    def esb_send_stock_out(self):
+        self.ensure_one()
+        if self.is_sync:
+            return
+        payload_lines = []
+        esb_api_endpoint = "/sap/inventario/movimiento/crear"
+        backend = self.company_id.backend_esb_id
+        if not backend.active:
+            _logger.warning("ESB Synchronizatino Service DISABLED")
+            return
+        sync_uuid = self.sync_uuid
+        if not sync_uuid:
+            sync_uuid = str(uuid.uuid4())
+
+        centro = self.location_id.location_id.ccu_code or self.location_dest_id.location_id.ccu_code
+        cost_center_code = self.location_id.location_id.cost_center_code or self.location_dest_id.location_id.cost_center_code
+
+        almacen = self.location_id.ccu_code or self.location_dest_id.ccu_code
+
+        # Solo si el almacen de entrada y salida poseen código CCU
+        if not almacen:
+            msg = 'Location without ccu code: ' + self.location_id.name
+            raise ValidationError(msg)
+        else:
+            # Document Data from pos_order
+            year, month, day, hour, min = map(int, time.strftime("%Y %m %d %H %M").split())
+            fecha_AAAAMMDD = str((year*10000+month*100+day))
+
+            id_documento = self.pos_order_id.account_move.name or ''
+
+            if self.pos_order_id.account_moves[0].date:
+                # year, month, day, hour, min = map(int, self.pos_order_id.account_move.date.strftime(
+                #     "%Y %m %d %H %M").split())
+
+                pstng_date = self.date_done - timedelta(hours=4)
+            else:
+                pstng_date = ''
+
+            doc_date = self.scheduled_date - timedelta(hours=4)
+
+            payload = {
+                "HEADER": {
+                    "ID_MENSAJE": self.sync_uuid,
+                    "MENSAJE": "Inventory Movements from Odoo",
+                    "FECHA": fecha_AAAAMMDD,
+                    "SOCIEDAD": self.company_id.ccu_business_unit,
+                    "LEGADO": "ODOO-POS",
+                    "CODIGO_INTERFAZ": "ITD058_ODOO"
+                },
+                "t_movimiento": {
+                    "cabecera": {
+                        "id_documento": self.name,
+                        "ref_doc_no": self.name,
+                        "username": backend.user,
+                        "header_txt": self.origin,
+                        "doc_date": doc_date.strftime("%Y%m%d") or fecha_AAAAMMDD,
+                        "pstng_date": pstng_date.strftime("%Y%m%d") or fecha_AAAAMMDD,
+                    },
+                    "detalle": payload_lines
+                }
+            }
+            # code_deptm = warehouse_id.analytic_account_id.code or self.company_id.esb_default_analytic_id.code
+
+            i = 0
+            for line in self.move_line_ids:
+                i = i + 1
+                if line.product_id.default_code and line.product_id.type == 'product':
+                    payload_lines.append({
+                        "pos_num": str(i),
+                        "hkont": {},
+                        "costcenter": cost_center_code or "",
+                        "text": {},
+                        "plant": centro,
+                        "material": line.product_id.default_code,
+                        "stge_loc": almacen,  # Almacen SAP/ubicación Odoo
+                        "move_stloc": "0",
+                        "batch": "NONE",
+                        "ALLOCNBR": self.pos_order_id.name or self.name or '',
+                        "entry_qnt": line.qty_done,
+                        "item_text": "RF:" + line.picking_id.origin, # No eliminar prefijo, SAP busca sociedad gl en primeros 5 caracteres
+                        "move_type": line.move_id.picking_type_id.ccu_code_usage
+                    })
+
+            if len(payload_lines) >= 1:
+                json_object = json.dumps(payload, indent=4)
+                print(json_object)
+                _logger.info(["JSON_RESPONSE", json_object])
+
+                res = backend.api_esb_call("POST", esb_api_endpoint, payload)
+
+                _logger.info(["RES_FROM_SAP", json.dumps(res, indent=4)])
+
+                dcto_sap = int(res['mt_response']['HEADER'].get('reference', 0))
+                if dcto_sap > 0:
+                    self.write({
+                        'sync_uuid': sync_uuid,
+                        'is_sync': True,
+                        'sync_text': str(dcto_sap),
+                        'sync_date': fields.datetime.now(),
+                        'posted_payload': json_object,
+                        'response_payload': json.dumps(res, indent=4)}
+                    )
+                else:
+                    mensaje = res['mt_response']['HEADER'].get('text', '')
+                    if 'Documento ya existe' in mensaje:
+                        docid = mensaje.split(' ')[-1]
+                        self.write({
+                        'sync_uuid': sync_uuid,
+                        'is_sync': True,
+                        'sync_text': docid,
+                        'sync_date': fields.datetime.now(),
+                        'posted_payload': json_object,
+                        'response_payload': json.dumps(res, indent=4)}
+                    )
+                    else:
+                        json_object = json.dumps(payload, indent=4)
+                        json_object_response = json.dumps(res, indent=4)
+                        msg = "SAP response with error\n input data:\n" + json_object + "\nOUTPUT:\n" + json_object_response
+                        raise ValidationError(msg)

@@ -1,0 +1,18 @@
+<odoo>
+    <record id="view_pos_pos_form" model="ir.ui.view">
+        <field name="name">CCU POS Order Form</field>
+        <field name="model">pos.order</field>
+        <field name="priority">17</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_view_invoice']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//div[@class='oe_button_box']" position="inside">
+                <button name="action_account_moves" type="object" class="oe_stat_button" icon="fa-pencil-square-o" attrs="{'invisible':[('account_moves_count', '=', 0)]}">
+                    <field name="account_moves_count" widget="statinfo" string="Invoices"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+</odoo>

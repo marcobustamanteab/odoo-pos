@@ -1,0 +1,13 @@
+<odoo>
+    <record model="ir.ui.view" id="ccu_pos_view_move_form">
+        <field name="name">CCU Account Move</field>
+        <field name="model">account.move</field>
+        <field name="priority">17</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='payment_reference']" position="after">
+                <field name="principal_company"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
