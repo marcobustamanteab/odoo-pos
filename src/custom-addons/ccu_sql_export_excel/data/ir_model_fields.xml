@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="ir_model_fields_company_id" model="ir.model.fields">
+            <field name="name">x_company_id</field>
+            <field name="field_description">Company</field>
+            <field name="ttype">many2one</field>
+            <field name="model_id" ref="sql_export.model_sql_file_wizard" />
+            <field name="model">sql.file.wizard</field>
+            <field name="required">0</field>
+            <field name="state">manual</field>
+            <field name="relation">res.company</field>
+        </record>
+        <record id="ir_model_fields_date_from" model="ir.model.fields">
+            <field name="name">x_date_from</field>
+            <field name="field_description">Date from</field>
+            <field name="ttype">date</field>
+            <field name="model_id" ref="sql_export.model_sql_file_wizard" />
+            <field name="model">sql.file.wizard</field>
+            <field name="required">0</field>
+            <field name="state">manual</field>
+        </record>
+        <record id="ir_model_fields_date_to" model="ir.model.fields">
+            <field name="name">x_date_to</field>
+            <field name="field_description">Date to</field>
+            <field name="ttype">date</field>
+            <field name="model_id" ref="sql_export.model_sql_file_wizard" />
+            <field name="model">sql.file.wizard</field>
+            <field name="required">0</field>
+            <field name="state">manual</field>
+        </record>
+    </data>
+</odoo>

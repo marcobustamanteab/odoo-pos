@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="sql_export_consignment_sales_summary" model="sql.export">
+            <field name="name">Resumen de ventas por consignación</field>
+            <field name="file_format">excel</field>
+            <field name="header">1</field>
+            <field name="encoding">utf-8</field>
+            <field name="field_ids" eval="[(6, 0, [ref('ir_model_fields_company_id'), ref('ir_model_fields_date_from'), ref('ir_model_fields_date_to')])]"/>
+            <field name="query">
+                SELECT name, date
+                FROM account_move_line
+                WHERE
+                account_move_line.company_id = %(x_company_id)s AND
+                account_move_line.date &#62;= %(x_date_from)s AND
+                account_move_line.date &#60;= %(x_date_to)s
+            </field>
+        </record>
+        <record id="sql_export_consignment_sales_details" model="sql.export">
+            <field name="name">Detalle de ventas por consignación</field>
+            <field name="file_format">excel</field>
+            <field name="header">1</field>
+            <field name="encoding">utf-8</field>
+            <field name="field_ids" eval="[(6, 0, [ref('ir_model_fields_company_id'), ref('ir_model_fields_date_from'), ref('ir_model_fields_date_to')])]"/>
+            <field name="query">
+                SELECT name, date
+                FROM account_move_line
+                WHERE
+                account_move_line.company_id = %(x_company_id)s AND
+                account_move_line.date &#62;= %(x_date_from)s AND
+                account_move_line.date &#60;= %(x_date_to)s</field>
+        </record>
+    </data>
+</odoo>
