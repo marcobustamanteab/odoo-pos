@@ -6,7 +6,8 @@ class AccountMove(models.Model):
     _description = 'Account Move or Invoice'
     _inherit = ['account.move']
 
-    principal_company = fields.Many2one('res.company', string="Principal company", compute='_compute_principal_company')
+    principal_company = fields.Many2one('res.company', string="Principal company", compute='_compute_principal_company',
+                                        store=True)
 
     @api.depends('principal_company', 'invoice_line_ids')
     def _compute_principal_company(self):
