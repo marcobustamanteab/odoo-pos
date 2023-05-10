@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
-        <record id="ir_model_fields_company_id" model="ir.model.fields">
-            <field name="name">x_company_id</field>
-            <field name="field_description">Company</field>
-            <field name="ttype">many2one</field>
+        <record id="ir_model_fields_bus_unit_id" model="ir.model.fields">
+            <field name="name">x_bus_unit_id</field>
+            <field name="field_description">Unidad de negocio</field>
+            <field name="ttype">char</field>
             <field name="model_id" ref="sql_export.model_sql_file_wizard" />
             <field name="model">sql.file.wizard</field>
             <field name="required">0</field>
             <field name="state">manual</field>
-            <field name="relation">res.company</field>
         </record>
         <record id="ir_model_fields_period" model="ir.model.fields">
-            <field name="name">x_monthly_period</field>
-            <field name="field_description">Period</field>
+            <field name="name">x_period</field>
+            <field name="field_description">Periodo (YYYY-MM)</field>
             <field name="ttype">char</field>
             <field name="model_id" ref="sql_export.model_sql_file_wizard" />
             <field name="model">sql.file.wizard</field>
