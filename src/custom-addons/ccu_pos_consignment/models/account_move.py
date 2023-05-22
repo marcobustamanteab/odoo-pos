@@ -8,14 +8,7 @@ class AccountMove(models.Model):
 
     principal_company = fields.Many2one('res.company', string="Principal company", compute='_compute_principal_company',
                                         store=True)
-
-    @api.depends('principal_company', 'invoice_line_ids')
-    def _compute_principal_company(self):
-        for rec in self:
-            if rec.invoice_line_ids:
-                rec.principal_company = rec.invoice_line_ids[0].principal_company
-            else:
-                rec.principal_company = False
+    is_liquidated = fields.Boolean(string="Is Liquidated?")
 
 
 class AccountMoveLine(models.Model):

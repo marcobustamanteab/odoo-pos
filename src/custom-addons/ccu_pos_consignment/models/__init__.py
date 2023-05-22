@@ -5,3 +5,4 @@ from . import product_template
 from . import stock_picking
 from . import pos_order
 from . import pos_session
+from . import account_liquidated

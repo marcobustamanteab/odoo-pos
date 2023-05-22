@@ -19,7 +19,8 @@
     'data': [
         'views/product_template.xml',
         'views/account_move.xml',
-        'views/pos_order.xml'
+        'views/pos_order.xml',
+        'views/account_liquidated.xml'
     ],
     'installable': True,
     'application': False,

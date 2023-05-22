@@ -1,0 +1,27 @@
+<odoo>
+    <record model="ir.ui.view" id="view_account_liquidated">
+        <field name="name">view.account.liquidated</field>
+        <field name="model">account.move</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_account_liquidated_tree" model="ir.actions.act_window">
+        <field name="name">Facturas de Liquidación</field>
+        <field name="res_model">account.move</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_account_liquidated"/>
+    </record>
+
+    <menuitem
+        id="account_liquidated_menu"
+        name = "Factura de Liquidación"
+        parent="account.menu_finance_entries_actions"
+        action="action_account_liquidated_tree"
+        sequence="20"
+        groups="account.group_account_manager"/>
+</odoo>
